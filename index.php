@@ -40,7 +40,7 @@ if($_SERVER["REQUEST_METHOD"] != "POST") { //check for correct method
 } else if($header_injection){
   $showform = true;
 
-} else if($_POST["adddress"] != "") { // check honeypot
+} else if($_POST["address"] != "") { // check honeypot
   $error = "<p>There seems to be an issue with your form submission.</p>";
   $showform = true;
   
@@ -48,8 +48,8 @@ if($_SERVER["REQUEST_METHOD"] != "POST") { //check for correct method
   $error = "<p>Please enter an Email Address</p>";
   $showform = true;
   
-} else { // sanatize & clean email
-  $email = trim($_POST["email"]); //whitespace removal
+} else { // sanitize & clean email
+  $email = trim($_POST["email"]); //white space removal
   $clean_email = filter_var($email, FILTER_SANITIZE_EMAIL);
   
   if($clean_email != $email){ // check clean email == email
@@ -72,10 +72,10 @@ if($_SERVER["REQUEST_METHOD"] != "POST") { //check for correct method
       if($stmt->num_rows == 1) { //already in the database
         $error = "<p>Thanks, but you're already on the mailing list!</p>";
         $showform = true;
-        $stmt->close(); //close the querry
+        $stmt->close(); //close the query
       }
       
-      $stmt->close(); //close the querry
+      $stmt->close(); //close the query
       
     } else { //SQL connection error
       $error = "<p>Sorry, we're having some issues right now, please try again later.</p>";
@@ -112,7 +112,7 @@ if($_SERVER["REQUEST_METHOD"] != "POST") { //check for correct method
 }
 
 // display the thank you message, check to see if email should be sent, send email
-// TODO: pull email out to a seperate fnx.
+// TODO: pull email out to a separate fnx.
 if($newuser){ 
   if(isset($_POST['thanks'])){
     // at this point, if they have messed with the form, they're just gonna get the
@@ -128,7 +128,7 @@ if($newuser){
     
     if(!$showform){
       // this will be replaced with a responsive message
-      $message = "Thank you for signing-up to receive emails reguarding our path towards opening! Expect to see exciting new details soon!";
+      $message = "Thank you for signing-up to receive emails regarding our path towards opening! Expect to see exciting new details soon!";
       $name = "Finger Lakes On Tap";
       $email = "donotreply@FingerLakesOnTap.com";
       
@@ -156,7 +156,7 @@ echo <<<EOT
 
       <div class="col-xs-12 text-center lakesightFont">
         <h3>Thank You!</h3>
-        <h4>Look for additional information about the upcomming opening of Finger Lakes on Tap in your inbox in the near future!</h4>
+        <h4>Look for additional information about the upcoming opening of Finger Lakes on Tap in your inbox in the near future!</h4>
       </div>
 EOT;
   }
