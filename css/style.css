@@ -1,20 +1,25 @@
 /* style.css */
-
 @font-face {
 	font-family: 'Lakesight';
-	src: url('Lakesight.eot?') format('eot'), 
-	     url('Lakesight.woff') format('woff'), 
-	     url('Lakesight.ttf')  format('truetype');
+	src: url('../fonts/Lakesight.eot?') format('eot'), 
+	     url('../fonts/Lakesight.woff') format('woff'), 
+	     url('../fonts/Lakesight.ttf')  format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
+body{
+  background-image: url("../images/general/Beer-background.png");
+  background-repeat: no-repeat;
+}
+
 .logo {
-  max-width: 55%;
+  max-width: 60%;
 }
 
 .lakesightFont{
   font-family: "Lakesight", cursive, serif !important;
+  color: black;
 }
 
 input{
