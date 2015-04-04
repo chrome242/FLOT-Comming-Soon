@@ -1,0 +1,26 @@
+/* style.css */
+
+@font-face {
+	font-family: 'Lakesight';
+	src: url('Lakesight.eot?') format('eot'), 
+	     url('Lakesight.woff') format('woff'), 
+	     url('Lakesight.ttf')  format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.logo {
+  max-width: 55%;
+}
+
+.lakesightFont{
+  font-family: "Lakesight", cursive, serif !important;
+}
+
+input{
+  margin-left: 10px;
+}
+
+.hp{
+  display: none;
+}
