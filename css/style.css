@@ -29,3 +29,16 @@ input{
 .hp{
   display: none;
 }
+
+
+@media screen and (max-width: 1200px){
+  .logo{
+    max-width: 70%;
+  }
+}
+
+@media screen and (max-width: 991px){
+  .logo{
+    max-width: 100%;
+  }
+}

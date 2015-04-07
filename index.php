@@ -17,7 +17,7 @@ echo <<<EOT
         <h1>Coming Soon</h1>
       </div>
       <div class="col-xs-12">
-        <img src="images/general/Finger-Lakes-on-Tap-Logo-2.png" alt="Finger Lakes on Tap Logo" class="img-responsive center-block logo">
+        <img src="images/general/Finger-Lakes-on-Tap-Logo-lg.png" alt="Finger Lakes on Tap Logo" class="img-responsive center-block logo">
       </div>
 EOT;
 
