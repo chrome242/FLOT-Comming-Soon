@@ -17,6 +17,19 @@ body{
   max-width: 60%;
 }
 
+#footer{
+  padding-left: 15px;
+  font-size: 0.75em;
+  text-align:center;
+  color: #ccc;
+  clear:both;
+}
+
+.social-icon{
+  width: 5%;
+}
+
+
 .lakesightFont{
   font-family: "Lakesight", cursive, serif !important;
   color: black;
@@ -34,6 +47,7 @@ input[type=email]{
 	max-width: 50%;
 	border-radius: 50px;
 	border-style: none;
+  font-family: cursive, serif;
 }
 
 input[type=submit]{
@@ -50,5 +64,8 @@ input[type=submit]{
 @media screen and (max-width: 991px){
   .logo{
     max-width: 100%;
+  }
+  .social-icon{
+  width: 20%;
   }
 }

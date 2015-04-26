@@ -174,7 +174,7 @@ echo <<<EOT
           <h3>Sign Up for Updates on Our Opening:</h3>
           $error
           <label for="email">Email:</label>
-          <input type="email" name="email" id="email"><br>
+          <input type="email" name="email" id="email" size="18"><br>
           <input type="checkbox" name="thanks" id="thanks" value="true" checked>Send Me a Thank You/Verification Email<br>
           <input type="checkbox" name="mailinglist" id="mailinglist" value="true"> Join the Mailing List<br>
           <input type="text" name="address" id="address" class="hp" placeholder="Don't fill me out, I'm a honeypot">
@@ -183,10 +183,12 @@ echo <<<EOT
       </div>
 EOT;
 }
-
-
 echo <<<EOT
-
+      <div id="footer">
+        <a href="https://www.facebook.com/FingerLakesOnTap" target="_blank">
+          <img src="images/general/facebook-wrap.png" alt = "Facebook Page" title="Check Us Out on Facebook!" class="social-icon">
+        </a>
+      </div>
     </div>
   </body>
 </html>
