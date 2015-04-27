@@ -1,10 +1,12 @@
 <?php
 include("../include/config.php");
-include("../include/scaffolding/back/menubar.php");
+include(SCAFFOLDING."back/menubar.php");
 
 $root = ADMIN;
 $section = "/";
+
 include(SCAFFOLDING."head.php");
+
 // test case.... move to a suite of these
 $permissions = array("inventory" => "1",
                      "drinks" =>  "1",
