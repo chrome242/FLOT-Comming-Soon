@@ -9,7 +9,7 @@
     <meta name="author" content="William LaMorie, wjl10@cornell.edu">
     <link rel="icon" href="/<?php echo IMAGES; ?>general/favicon.ico">
 
-    <title>Finger Lakes On Tap!</title>
+    <title><?php if(isset($title)){echo $title;} else{echo"Finger Lakes On Tap!";}?></title>
 
     <!-- JQuery-->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>

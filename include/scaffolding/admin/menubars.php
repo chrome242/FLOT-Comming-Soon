@@ -1,5 +1,12 @@
 <?php
-// ************************ Backend Menu Bar & Title ************************//
+// ************************ Backend Menu Bars & Title ***********************//
+/* Contains 3 functions that display diffrent menu bars:
+ * menubar() -displays the main menu bar for the admin section.
+ * sectionbar() -displays data-target submenu bars
+ * sortbar() -displays the sort menu bar for the beers.
+
+
+
 /* menubar()
  *
  * Has narrow assumptions of $permissions and $section
