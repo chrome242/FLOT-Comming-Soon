@@ -50,7 +50,7 @@ function menubar($permissions, $section, $root){
   foreach($buttons as $url => $html){
     $list_item = "";
     if($url == $section) {
-      echo"PANTS";
+
       $list_item.='
           <li class="active">';
     } else{

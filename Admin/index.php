@@ -3,7 +3,7 @@ include("../include/config.php");
 include(SCAFFOLDING."back/menubar.php");
 
 $root = ADMIN;
-$section = "/";
+$section = ADMIN;
 
 include(SCAFFOLDING."head.php");
 
