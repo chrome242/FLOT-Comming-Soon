@@ -1,7 +1,8 @@
 <?php
 include("../include/config.php");
-include(SCAFFOLDING."back/menubar.php");
+include(SCAFFOLDING_ADMIN."menubars.php");
 
+$title = "Beer Inventory";
 $root = ADMIN;
 $section = ADMIN;
 
@@ -11,7 +12,7 @@ include(SCAFFOLDING."head.php");
 $permissions = array("inventory" => "1",
                      "drinks" =>  "1",
                      "extras" => "1",
-                     "food" => 0,
+                     "food" => 1,
                      "add_user" => "1",
                      "edit_user" => 1);
 
