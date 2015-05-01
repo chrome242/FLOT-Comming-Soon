@@ -18,7 +18,7 @@
  * @param string $section: the section that should be selected on the nav bar
  * @param string $root: the home section (eg /Admin/)
  *
- * @return str: the HTML for the menu:
+ * @return str: the HTML for the menu.
  */
 function menubar($permissions, $section, $root){
   // This function doesn't need both user permission items, will check if
@@ -93,18 +93,20 @@ function menubar($permissions, $section, $root){
  * @param array str $options: an array of: button id => text
  * @param str $default: the default option on the menubar
  *
- * @return str: the CSS for the menu
+ * @return str: the HTML for the menu.
  */
 
 function sortbar($options, $default) {
   
   // open the div
   $output = '
+  
       <div class="btn-group sort-bar"><!-- Sort Bar -->';
   
+  // add the options
   foreach($options as $htmlid => $text){
     $htmlclass = "btn-default";
-    if($htmlid == $default){$htmlclass = "btn-primary";}
+    if($htmlid == $default){$htmlclass = "btn-primary";} //set primary button
     $output .= '
         <a class="btn ' . $htmlclass . '" id ="' . $htmlid . '">' . $text .'</a>';
   }
@@ -112,5 +114,39 @@ function sortbar($options, $default) {
   // close the div
   $output .= '
       </div><!-- /Sort Bar -->';
+  return $output;
+}
+
+
+/* sectionbar()
+ *
+ * Returns a Subsection nav that has aria controls for hiding and showing the
+ * various subsections of the page. Will need to have matching hooks in sections
+ * to do anything.
+ *
+ * @param array array $options an array of: button id =>[text, starts expanded]
+ *
+ * @return str: the HTML for the menu.
+ */
+function sectionbar($options){
+  // open the div
+  $output = '
+  
+      <div class="container"> <!-- Subsection Nav -->
+        <div class="row">';
+  foreach($options as $ariacontrols => $details){
+    $expanded = "false";
+    if($details[1] == true){ $expanded = "true";} // set expanded if true
+    $text = $details[0];
+    $output .='
+          <button class="btn btn-primary top-button" type="button" data-toggle="collapse" data-target="#' .$ariacontrols. '" aria-expanded="'.$expanded.'" aria-controls="'.$ariacontrols.'">
+            '. $text .'
+          </button>';
+  }
+  
+  // close the div
+  $output .= '
+        </div>
+      </div><!-- /Subsection Nav -->';
   return $output;
 }

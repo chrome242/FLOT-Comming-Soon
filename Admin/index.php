@@ -20,7 +20,11 @@ $options = array("inhouse" => "In House",
                  "kicked" => "Kicked",
                  "all" => "All");
 
+$ariatest = array("userGroups" => ["User Group Buttons", false],
+                  "userProfiles" => ["User Management", false]);
+                 
 echo menubar($permissions, $section, $root);
 echo sortbar($options, "all");
+echo sectionbar($ariatest);
 
 include(SCAFFOLDING_ADMIN."footer.php");
