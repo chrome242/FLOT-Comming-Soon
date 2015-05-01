@@ -15,7 +15,12 @@ $permissions = array("inventory" => "1",
                      "food" => 1,
                      "add_user" => "1",
                      "edit_user" => 1);
-
+$options = array("inhouse" => "In House",
+                 "ondeck" => "On Deck",
+                 "kicked" => "Kicked",
+                 "all" => "All");
 
 echo menubar($permissions, $section, $root);
+echo sortbar($options, "all");
 
+include(SCAFFOLDING_ADMIN."footer.php");

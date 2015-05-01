@@ -11,3 +11,4 @@ include(SCAFFOLDING."head.php");
 
 echo menubar($permissions, $section, $root);
 
+include(SCAFFOLDING_ADMIN."footer.php");

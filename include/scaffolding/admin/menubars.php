@@ -1,8 +1,8 @@
 <?php
-// ************************ Backend Menu Bars & Title ***********************//
-/* Contains 3 functions that display diffrent menu bars:
+// ************************ Back-end Menu Bars & Title ***********************//
+/* Contains 3 functions that display different menu bars:
  * menubar() -displays the main menu bar for the admin section.
- * sectionbar() -displays data-target submenu bars
+ * sectionbar() -displays data-target sub-menu bars
  * sortbar() -displays the sort menu bar for the beers.
 
 
@@ -18,7 +18,7 @@
  * @param string $section: the section that should be selected on the nav bar
  * @param string $root: the home section (eg /Admin/)
  *
- * @return str: the html for the menu:
+ * @return str: the HTML for the menu:
  */
 function menubar($permissions, $section, $root){
   // This function doesn't need both user permission items, will check if
@@ -81,4 +81,36 @@ function menubar($permissions, $section, $root){
       </div><!-- /Nav -->';
   return $output;
   
+}
+
+
+
+/* sortbar()
+ *
+ * Returns a same page subsection nav bar for sorting by a selection.
+ * Won't do much with out some javascript to handel hiding and showing things.
+ *
+ * @param array str $options: an array of: button id => text
+ * @param str $default: the default option on the menubar
+ *
+ * @return str: the CSS for the menu
+ */
+
+function sortbar($options, $default) {
+  
+  // open the div
+  $output = '
+      <div class="btn-group sort-bar"><!-- Sort Bar -->';
+  
+  foreach($options as $htmlid => $text){
+    $htmlclass = "btn-default";
+    if($htmlid == $default){$htmlclass = "btn-primary";}
+    $output .= '
+        <a class="btn ' . $htmlclass . '" id ="' . $htmlid . '">' . $text .'</a>';
+  }
+  
+  // close the div
+  $output .= '
+      </div><!-- /Sort Bar -->';
+  return $output;
 }
