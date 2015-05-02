@@ -28,6 +28,7 @@ echo menubar($permissions, $section, $root);
 echo sortbar($options, "all");
 echo sectionbar($ariatest);
 echo openTable("apple", "pie");
+echo tableHeader(array("One", "Two", "Three"));
 echo closeTable(updateButton("apple"));
 
 

@@ -33,6 +33,28 @@ function openTable($form, $table){
   return $output;
 }
 
+/* tableHeader()
+ *
+ * Returns a string for the table header on the table
+ *
+ * @param str $names the names of each form field
+ *
+ * @return str $output the HTML for the table header
+ */
+function tableHeader($names){
+  $output ='
+            <thead>
+              <tr>';
+  foreach($names as $key => $name){
+    $output .= '
+                <th>' .$name .'</th>';
+  }
+  $output .='
+              </tr>';
+  
+  return $output;
+}
+
 /* updateButton()
  *
  * Returns a string for the update button on the form.
@@ -41,8 +63,6 @@ function openTable($form, $table){
  *
  * @return str $output the HTML for the update button
  */
-
- 
 function updateButton($form){
   // See http://bavotasan.com/2009/processing-multiple-forms-on-one-page-with-php/
   $form .= "-update"; // for use in processing.
