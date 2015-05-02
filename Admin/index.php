@@ -1,6 +1,7 @@
 <?php
 include("../include/config.php");
 include(SCAFFOLDING_ADMIN."menubars.php");
+include(SCAFFOLDING_ADMIN."list_table.php");
 
 $title = "Beer Inventory";
 $root = ADMIN;
@@ -26,5 +27,9 @@ $ariatest = array("userGroups" => ["User Group Buttons", false],
 echo menubar($permissions, $section, $root);
 echo sortbar($options, "all");
 echo sectionbar($ariatest);
+echo openTable("apple", "pie");
+echo closeTable();
+
+
 
 include(SCAFFOLDING_ADMIN."footer.php");

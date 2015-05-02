@@ -4,6 +4,7 @@
  * menubar() -displays the main menu bar for the admin section.
  * sectionbar() -displays data-target sub-menu bars
  * sortbar() -displays the sort menu bar for the beers.
+ */
 
 
 
