@@ -1,7 +1,7 @@
 <?php
 include("../include/config.php");
 include(SCAFFOLDING_ADMIN."menubars.php");
-include(SCAFFOLDING_ADMIN."list_table.php");
+include(SCAFFOLDING_ADMIN."table/table.php");
 
 $title = "Beer Inventory";
 $root = ADMIN;
@@ -31,6 +31,8 @@ echo openTable("apple", "pie");
 echo tableHeader(array("One", "Two", "Three"));
 echo closeTable(updateButton("apple"));
 
-
+$test = new Cell("AwsomeCell", "Some Content");
+$test->setClass("Yummy Foods");
+echo $test;
 
 include(SCAFFOLDING_ADMIN."footer.php");
