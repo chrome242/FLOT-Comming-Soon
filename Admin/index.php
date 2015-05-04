@@ -41,4 +41,5 @@ echo $test2;
 $test3 = new Radio("Another[Test][Cell]", "1", true);
 echo $test3;
 
+
 include(SCAFFOLDING_ADMIN."footer.php");
