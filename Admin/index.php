@@ -34,5 +34,9 @@ echo closeTable(updateButton("apple"));
 $test = new Cell("AwsomeCell", "Some Content");
 $test->setClass("Yummy Foods");
 echo $test;
+$test2 = new Checkbox("AnotherCell", true);
+$test2->disabled();
+$test2->hideDetails();
+echo $test2;
 
 include(SCAFFOLDING_ADMIN."footer.php");
