@@ -38,5 +38,7 @@ $test2 = new Checkbox("AnotherCell", true);
 $test2->disabled();
 $test2->hideDetails();
 echo $test2;
+$test3 = new Radio("Another[Test][Cell]", "1", true);
+echo $test3;
 
 include(SCAFFOLDING_ADMIN."footer.php");

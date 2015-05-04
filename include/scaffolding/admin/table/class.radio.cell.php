@@ -1,51 +1,58 @@
 <?php
 
 /**
- * Checkbox Cell
+ * Radio Cell
  *
  * Extends cell.
- * The checkbox cell is an extension of cell that allows the cell to contain a checkbox element.
- * all checkboxes are required to have a name and a state (checked or unchecked)
- * support included for disabled checkboxes as well. 
+ * The radio cell is an extension of cell that allows the cell to contain a radio element.
+ * all checkboxes are required to have a name and a value.
+ * methods are used to set to checked and disabled.
+ * 
  * 
  */
-class Checkbox extends Cell {
+class Radio extends Cell {
   
   // for entry types by default the details are shown.
   protected $_showDetails = true;
   protected $_state;
   protected $_disabled = false;
+  protected $_value;
   
   /**
-   * Sets the $_name and $_id to the same thing on construction.
-   *
    *  This extension changes the default behavior of the Cell class by moving
    *  the name and id to the inner input of the cell, and not the cell itself.
+   *  Futhermore, the id field in this extension will add the value field to
+   *  the end of the name (eg name="beer[1][status]", id="beer[1][status][1]").
    *
    *  The HTML class will still apply to the td.
    *
-   *  This extension produces a checkbox class input with a checked status of
-   *  state. Can futher call methods to make it disbaled.
+   *  This extension produces a radio class input with a default state of
+   *  unselected. Optional param sets the field to checked. (Due to the
+   *  asumption that most radials will be unchecked.)
+   *  Can futher call methods to make it disbaled
    *  
-   * @param str $name: the name & id of the Cell
-   * @param bool $state: if true, the cell is checked.
+   * @param str $name: the name
+   * @param int $value: the enum state the cell represents.
    */
-  public function __construct($name, $state){
-    $this->_id = $name;
+  public function __construct($name, $value, $state=false){
+    $this->_id = $name . '[' . $value . ']';
     $this->_name = $name;
+    $this->_value = $value;
     $this->_state = $state;
     $this->_content = $this->makeInput();
   }
   
-    /**
+  /**
    * Deals with producing the input field of the cell.
    */
   private function makeInput(){
     if(!$this->_showDetails){
-      $content = '<input type="checkbox"';
+      $content = '<input type="radio"';
     } else {
-      $content = '<input type="checkbox" id="'.$this->_id.'" name="'.$this->_name.'"';
+      $content = '<input type="radio" id="'.$this->_id.'" name="'.$this->_name.'"';
     }
+    
+    $content .= ' value="' . $this->_value . '"';
     
     if($this->_state){ $content .= " checked";} 
     if($this->_disabled) {$content .= " disabled";}
