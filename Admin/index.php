@@ -41,5 +41,12 @@ echo $test2;
 $test3 = new Radio("Another[Test][Cell]", "1", true);
 echo $test3;
 
+$cells = array("Thing" => "Thing 1",
+               "Another Thing" => "Thing 2");
+$format = array("Thing" => "plain",
+                "Another Thing" => "plain");
+
+$test4 = new Row("beer[1]", $cells, $format);
+$test4->test();
 
 include(SCAFFOLDING_ADMIN."footer.php");

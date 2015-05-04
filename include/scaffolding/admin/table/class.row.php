@@ -27,8 +27,6 @@ class Row {
   
   // class attribs
   protected $_name; // the name of the rows.
-  protected $_cells; //an array of cells
-  protected $_format; //an array of how to deal with the cells
   // the below is stored by cell id (not name) for reasons that will become clear.
   protected $_output_cells; //an array of cells prior to string construction.
   protected $_output; //the output string
@@ -44,12 +42,10 @@ class Row {
    */
   public function __construct($name, $cells, $format){
     $this->_name = $name;
-    $this->_cells = $cells;
-    $this->_format = $format;
+    $this->makeCells($cells, $format);
   }
   
   /**
-   * 
    * takes the $cells and the $format arrays and
    * sorts them out and sends them to the correct handler
    * function to be parsed into cells and added to the
@@ -63,12 +59,36 @@ class Row {
   private function makeCells($cells, $format){
     $output = array();
     foreach($cells as $name => $value){
-      if($format[$name] == 'plain'){array_push($output, $this->makePlain($name, $value));}
+      $cell_name = $this->_name . '['. $name . ']';
+      echo $cell_name .'<br>';
+      if($format[$name] == 'plain'){ array_push($output, $this->makePlain($cell_name, $value));}
     }
+    $this->_output_cells = $output;
   }
   
+  /**
+   * A handler function to make a text cell from input.
+   *
+   * This function is public because alternately to the intended use someone
+   * could just make a table on the fly with it, cell by cell.
+   *
+   * @param str $name the name of the cell
+   * @param str $value the text of the cell
+   * @return obj a cell of type plain
+   */
+  public function makePlain($name, $value){
+    return new Cell($name, $value);
+  }
+  
+  /**
+   * test function
+   *
+   * @return the toString for all objects in the output_cells array
+   */
   public function test(){
-    var_dump($this->_output_cells);
+    foreach($this->_output_cells  as $a_cell){
+      echo $a_cell;
+    }
   }
   
 }
