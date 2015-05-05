@@ -68,7 +68,21 @@ class Row {
       if($format[$name] == 'checkbox'){ $output[$cell_name] = $this->makeCheckbox($cell_name, $value);}
       
       //radio cell madness
-      
+      if(strpos($format[$name], 'radio,') !== false){
+        $pieces = explode(",", $format[$name]);
+        $cell_number = intval(trim($pieces[1]));
+        $cell_value =0;
+        while ($cell_value < $cell_number){
+          // $value above == the value where state== true
+          $radio_cell_name = $cell_name . '[' . $cell_value . ']';
+          if($cell_value == $value) {
+            $output[$radio_cell_name] = $this->makeRadio($cell_name, $cell_value, true);
+          } else {
+            $output[$radio_cell_name] = $this->makeRadio($cell_name, $cell_value, false);
+          }
+          $cell_value ++;
+        }
+      }
     }
     $this->_cells = $output;
   }
@@ -97,8 +111,23 @@ class Row {
    * @param bool $state the state of the cell
    * @return obj a cell of type plain
    */
-  public function makeCheckbox($name, $value){
+  public function makeCheckbox($name, $state){
     return new Checkbox($name, $value);
+  }
+  
+  /**
+   * A handler function to make a radio cell from input
+   *
+   * This function is public because alternately to the intended use someone
+   * could just make a table on the fly with it, cell by cell.
+   *
+   * @param str $name the name of the cell
+   * @param int $value
+   * @param bool $state the state of the cell
+   * @return obj a cell of type plain
+   */
+  public function makeRadio($name, $value, $state){
+    return new Radio($name, $value, $state);
   }
   
   /**

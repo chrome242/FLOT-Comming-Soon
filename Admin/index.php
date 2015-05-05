@@ -43,13 +43,16 @@ echo $test3;
 
 $cells = array("Thing" => "Thing 1",
                "Another Thing" => "Thing 2",
-               "Checkmeout" => False);
+               "Checkmeout" => False,
+               "RadioGaGa" => 3);
 $format = array("Thing" => "plain",
                 "Another Thing" => "plain",
-                "Checkmeout" => "checkbox");
+                "Checkmeout" => "checkbox",
+                "RadioGaGa" => "radio, 6");
 
 $test4 = new Row("beer[1]", $cells, $format);
 $test4->method("Thing", "setId", "works", true);
 $test4->test();
+
 
 include(SCAFFOLDING_ADMIN."footer.php");
