@@ -9,11 +9,16 @@
  * Takes an array of format name => value in order
  * Takes an array of format name => type to establish type
  *
+ * Private cells: private cells are used for some row internal purpose,
+ * and kempt in the $_privateCells array
+ *
  * Ways to make cells:
- * drop -not placed in the table
- * plain -a basic cell
- * checkbox -a checkbox
- * radio, # -a radio set of # cells
+ * drop - not placed in the table
+ * private - placed in the interal cell array as basic text
+ * plain - a basic cell
+ * checkbox - a checkbox
+ * radio, # - a radio set of # cells
+ * timestamp, x - a timestamp where x = show or private
  *
  * cells can be accessed via calling methods defined below, rather than
  * the methods on the cell class, as I would like to have the cell objects
@@ -27,8 +32,9 @@ class Row {
   
   // class attribs
   protected $_name; // the name of the rows.
-  // the below is stored by cell id (not name) for reasons that will become clear.
+  // the below is stored by cell id (not name) due to radio buttons
   protected $_cells; //an array of cells prior to string construction.
+  protected $_privateCells; //cells for internal use, such as timestamp math
   protected $_output; //the output string
   
   /**
@@ -138,6 +144,9 @@ class Row {
    * straight though. this can also be overriden. WARNING: The array in the cell list
    * is indexed by the name at time of inseption. It will still have to be accessed with
    * that name unless changed elsehwere.
+   *
+   * This method is for public cells. All hidden cells should be accessed with task
+   * specific getters and setters.
    *
    * This method will not let you change the name of radio cells (but will allow ID change)
    *
