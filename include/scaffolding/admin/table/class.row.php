@@ -44,6 +44,8 @@ class Row {
   protected $_output; //the output string
   
   /**
+   * Constructior
+   *
    * constructs a basic row from the $array and $types vars.
    * If the array length does not equal the length of the split
    * string from vars, it will raise an error.
@@ -109,6 +111,10 @@ class Row {
           $cell_value ++;
         }
       }
+      
+      // droped cells
+      if($format[$name] == 'drop'){ continue; }
+      
     }
     $this->_cells = $output;
     $this->_privateCells = $hidden;
