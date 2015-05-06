@@ -30,11 +30,17 @@
  */
 class Row {
   
-  // class attribs
-  protected $_name; // the name of the rows.
+  // class attribs for the row
+  protected $_name; // the name of the row.
+  protected $_class = null;
+  protected $_id = null;
+  
+  // class attribs for member cell storage
   // the below is stored by cell id (not name) due to radio buttons
   protected $_cells; //an array of cells prior to string construction.
   protected $_privateCells; //cells for internal use, such as timestamp math
+  
+  // class attribs for output
   protected $_output; //the output string
   
   /**
@@ -70,8 +76,11 @@ class Row {
       // text cell
       if($format[$name] == 'plain'){ $output[$cell_name] = $this->makePlain($cell_name, $value);}
       
+      // private (text) cell private
+      if($format[$name] == 'plain'){ $output[$cell_name] = $this->makePlain($cell_name, $value);}
+      
       //checkbox cell
-      if($format[$name] == 'checkbox'){ $output[$cell_name] = $this->makeCheckbox($cell_name, $value);}
+      if($format[$name] == 'checkbox'){ $hidden[$cell_name] = $this->makeCheckbox($cell_name, $value);}
       
       //timestamp cell
       if(stripos($format[$name], 'time,') !== false){
