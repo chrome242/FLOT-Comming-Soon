@@ -60,6 +60,25 @@ class Row {
   }
   
   /**
+   * setter for the row id
+   *
+   * @param str $id: the id for the HTLM output
+   */
+  public function setId($id){
+    $this->_id = $id;
+  }
+  
+   /**
+   * setter for the row class
+   *
+   * @param str $class: the class for the HTLM output
+   */
+  public function setClass($class){
+    $this->_class = $class;
+  }
+  
+  
+  /**
    * takes the $cells and the $format arrays and
    * sorts them out and sends them to the correct handler
    * function to be parsed into cells and added to the
