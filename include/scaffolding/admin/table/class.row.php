@@ -18,7 +18,7 @@
  * plain - a basic cell
  * checkbox - a checkbox
  * radio, # - a radio set of # cells
- * timestamp, x - a timestamp where x = show or private
+ * time, x - a timestamp where x = show or private
  *
  * cells can be accessed via calling methods defined below, rather than
  * the methods on the cell class, as I would like to have the cell objects
@@ -64,14 +64,25 @@ class Row {
    */
   private function makeCells($cells, $format){
     $output = array();
+    $hidden = array();
     foreach($cells as $name => $value){
       $cell_name = $this->_name . '['. $name . ']'; // should work for non-radios
-      
       // text cell
       if($format[$name] == 'plain'){ $output[$cell_name] = $this->makePlain($cell_name, $value);}
       
       //checkbox cell
       if($format[$name] == 'checkbox'){ $output[$cell_name] = $this->makeCheckbox($cell_name, $value);}
+      
+      //timestamp cell
+      if(stripos($format[$name], 'time,') !== false){
+        $pieces = explode(",", $format[$name]);
+        $where_to = trim($pieces[1]);
+        if($where_to == "show") {
+          $output[$cell_name] = $this->makeTimestamp($cell_name, $value, true);
+        }else{
+          $hidden[$cell_name] = $this->makeTimestamp($cell_name, $value, false);
+        }
+      }
       
       //radio cell madness
       if(strpos($format[$name], 'radio,') !== false){
@@ -91,6 +102,7 @@ class Row {
       }
     }
     $this->_cells = $output;
+    $this->_privateCells = $hidden;
   }
   
   /**
@@ -135,6 +147,22 @@ class Row {
   public function makeRadio($name, $value, $state){
     return new Radio($name, $value, $state);
   }
+  
+  /**
+   * A handler function to make a time stamp cell
+   *
+   * This function is public because alternately to the intended use someone
+   * could just make a table on the fly with it, cell by cell.
+   *
+   * @param str $name the name of the cell
+   * @param int $value the timestamp
+   * @param bool $show if the timestamp should be shown or not.
+   * @return obj a cell of type timestamp
+   */
+  public function makeTimestamp($name, $value, $show){
+    return new Timestamp($name, $value, $show);
+  }
+  
   
   /**
    * A function to allow cell methods to be passed to an individual cell in the

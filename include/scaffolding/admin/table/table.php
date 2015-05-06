@@ -4,3 +4,4 @@ include_once("class.row.php");
 include_once("class.cell.php");
 include_once("class.checkbox.cell.php");
 include_once("class.radio.cell.php");
+include_once("class.timestamp.cell.php");

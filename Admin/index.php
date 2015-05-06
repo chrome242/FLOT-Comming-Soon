@@ -31,28 +31,32 @@ echo openTable("apple", "pie");
 echo tableHeader(array("One", "Two", "Three"));
 echo closeTable(updateButton("apple"));
 
-$test = new Cell("AwsomeCell", "Some Content");
-$test->setClass("Yummy Foods");
-echo $test;
-$test2 = new Checkbox("AnotherCell", true);
-$test2->disabled();
-$test2->hideDetails();
-echo $test2;
-$test3 = new Radio("Another[Test][Cell]", "1", true);
-echo $test3;
+//$test = new Cell("AwsomeCell", "Some Content");
+//$test->setClass("Yummy Foods");
+//echo $test;
+//$test2 = new Checkbox("AnotherCell", true);
+//$test2->disabled();
+//$test2->hideDetails();
+//echo $test2;
+//$test3 = new Radio("Another[Test][Cell]", "1", true);
+//echo $test3;
 
 $cells = array("Thing" => "Thing 1",
                "Another Thing" => "Thing 2",
                "Checkmeout" => False,
-               "RadioGaGa" => 3);
+               "RadioGaGa" => 3,
+               "TimeandSpace" => time());
 $format = array("Thing" => "plain",
                 "Another Thing" => "plain",
                 "Checkmeout" => "checkbox",
-                "RadioGaGa" => "radio, 6");
+                "RadioGaGa" => "radio, 6",
+                "TimeandSpace" => "time, show");
 
 $test4 = new Row("beer[1]", $cells, $format);
 $test4->method("Thing", "setId", "works", true);
 $test4->test();
 
+//$test5 = new Timestamp("TimeyWimey", time(), false);
+//echo $test5;
 
 include(SCAFFOLDING_ADMIN."footer.php");
