@@ -1,6 +1,8 @@
 <?php
 // move cell includes here?
 
+// todo: replace $cell_name = $this->_name . '['. $name . ']'; with a function as I do it a lot
+
 /**
  * Row
  *
@@ -10,11 +12,11 @@
  * Takes an array of format name => type to establish type
  *
  * Private cells: private cells are used for some row internal purpose,
- * and kempt in the $_privateCells array
+ * and kept in the $_privateCells array
  *
  * Ways to make cells:
  * drop - not placed in the table
- * private - placed in the interal cell array as basic text
+ * private - placed in the internal cell array as basic text
  * plain - a basic cell
  * checkbox - a checkbox
  * radio, # - a radio set of # cells
@@ -55,7 +57,7 @@ class Row {
   protected $_output; //the output string
   
   /**
-   * Constructior
+   * Constructor
    *
    * constructs a basic row from the $array and $types vars.
    * If the array length does not equal the length of the split
@@ -100,7 +102,7 @@ class Row {
    * $output array
    *
    * @param array $cells the array of cell contents
-   * @parm array $format the array of cell format types
+   * @param array $format the array of cell format types
    *
    * @return array $output the array of cells
    */
@@ -113,10 +115,10 @@ class Row {
       if($format[$name] == 'plain'){ $output[$cell_name] = $this->makePlain($cell_name, $value);}
       
       // private (text) cell private
-      if($format[$name] == 'plain'){ $output[$cell_name] = $this->makePlain($cell_name, $value);}
+      if($format[$name] == 'private'){ $hidden[$cell_name] = $this->makePlain($cell_name, $value);}
       
       //checkbox cell
-      if($format[$name] == 'checkbox'){ $hidden[$cell_name] = $this->makeCheckbox($cell_name, $value);}
+      if($format[$name] == 'checkbox'){ $output[$cell_name] = $this->makeCheckbox($cell_name, $value);}
       
       //timestamp cell
       if(stripos($format[$name], 'time,') !== false){
@@ -146,7 +148,7 @@ class Row {
         }
       }
       
-      // droped cells
+      // dropped cells
       if($format[$name] == 'drop'){ continue; }
       
     }
@@ -218,16 +220,16 @@ class Row {
    * row with out having to access the cell array directly. Methods that need to be passed
    * args will have the row name added to the front of them (to preserve id and
    * name conventions), unless they are an array, in which case it will be passed
-   * straight though. this can also be overriden. WARNING: The array in the cell list
-   * is indexed by the name at time of inseption. It will still have to be accessed with
-   * that name unless changed elsehwere.
+   * straight though. this can also be overridden. WARNING: The array in the cell list
+   * is indexed by the name at time of inception. It will still have to be accessed with
+   * that name unless changed elsewhere.
    *
    * This method is for public cells. All hidden cells should be accessed with task
    * specific getters and setters.
    *
    * This method will not let you change the name of radio cells (but will allow ID change)
    *
-   * @param str $cell the cell name within the array (eg beer[1][type] $cell = [type])
+   * @param str $cell the cell name within the array (e.g. beer[1][type] $cell = [type])
    * @param str $method the method to be called on the target cell
    * @param mixed $input (optional) any args to be passed to the method
    * @param bool $override (optional) overrides the default behavior
@@ -240,7 +242,7 @@ class Row {
     //deal with radio cells
     if(substr($cell, -1) == "]"){$cell_name = $this->_name . '['. $cell . ']'; $radio = true;}
     
-    // handle diffrent cases, unless radio & name
+    // handle different cases, unless radio & name
     if($radio && $method="setName"){
       continue;
     } else {
@@ -255,6 +257,25 @@ class Row {
         $this->_cells[$cell_name]->$method($cell_input);
       }
     }
+  }
+  
+  /**
+   * A getter method to return the value of a cell from the private array.
+   *
+   * @param str $cell the cell name within the array (e.g. beer[1][type] $cell = [type])
+   *
+   * @return mixed $output the inner content of the cell
+   */
+  public function getHidden($cell){
+    $cell_name = $this->_name . '['. $cell . ']';
+    
+    //get the cell into a var, and explode.
+    $a_cell = explode("\n", $this->_privateCells[$cell_name]);
+    
+    // this offset is 2 not 1 because of the structure of the text in my cell
+    // classes. If further explination is required, see those classes.
+    return $a_cell[2];
+    
   }
   
   /**

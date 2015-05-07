@@ -50,11 +50,12 @@ $format = array("Thing" => "plain",
                 "Another Thing" => "plain",
                 "Checkmeout" => "checkbox",
                 "RadioGaGa" => "radio, 6",
-                "TimeandSpace" => "time, show");
+                "TimeandSpace" => "time, hide");
 
 $test4 = new Row("beer[1]", $cells, $format);
 $test4->method("Thing", "setId", "works", true);
 $test4->setId();
+echo $test4->getHidden("TimeandSpace");
 echo $test4;
 
 //$test5 = new Timestamp("TimeyWimey", time(), false);
