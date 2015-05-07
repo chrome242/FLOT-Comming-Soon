@@ -254,6 +254,30 @@ class Row {
     }
   }
   
+  public function __toString(){
+    //make the output string
+    $output = '';
+    
+    //add attributes if needed
+    $attribs = '';
+    if(isset($this->_id)){$attribs .= ' ' . $this->_id;}
+    if(isset($this->_class)){$attribs .= ' ' . $this->_class;}
+    
+    $output .= '
+              <tr' . $attribs .'>';
+    
+    foreach($this->_cells as $a_cell){
+      $output .= $a_cell; //this is a concat of the string and the object.
+      // if this fails to work, it might be worth trying to call the __toString
+      // for each cell.
+    }
+    
+    $output .= '
+              </tr>';
+              
+    return $output;
+  }
+  
 }
 
 //
