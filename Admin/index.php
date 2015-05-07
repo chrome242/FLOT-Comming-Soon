@@ -54,7 +54,8 @@ $format = array("Thing" => "plain",
 
 $test4 = new Row("beer[1]", $cells, $format);
 $test4->method("Thing", "setId", "works", true);
-$test4->test();
+$test4->setId();
+echo $test4;
 
 //$test5 = new Timestamp("TimeyWimey", time(), false);
 //echo $test5;

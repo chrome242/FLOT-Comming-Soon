@@ -20,11 +20,22 @@
  * radio, # - a radio set of # cells
  * time, x - a timestamp where x = show or private
  *
- * cells can be accessed via calling methods defined below, rather than
+ * Cells can be accessed via calling methods defined below, rather than
  * the methods on the cell class, as I would like to have the cell objects
  * protected.
  *
- * to add new cell types the switch in makeCells must be updated and
+ * notable class methods-
+ *  constructor:
+ *  public function __construct($name, $cells, $format)
+ *
+ *  Setters for HTML attribs:
+ *  public function setId() optional arg $id else $id = $name
+ *  public function setClass($class)
+ *
+ *  Member cell method accessor:
+ *  public function method($cell, $method, $input=null, $override=false)
+ * 
+ * To add new cell types the switch in makeCells must be updated and
  * a handler function for the cell type must be included.
  * 
  */
@@ -62,10 +73,14 @@ class Row {
   /**
    * setter for the row id
    *
+   * if the $id is not set for the row and the method is invoked, then the row
+   * id will be set to the row name.
+   *
    * @param str $id: the id for the HTLM output
    */
-  public function setId($id){
-    $this->_id = $id;
+  public function setId($id=null){
+    if($id != null){$this->_id = $id;}
+    else{$this->_id = $this->_name;}
   }
   
    /**
@@ -256,20 +271,18 @@ class Row {
   
   public function __toString(){
     //make the output string
-    $output = '';
     
     //add attributes if needed
     $attribs = '';
-    if(isset($this->_id)){$attribs .= ' ' . $this->_id;}
-    if(isset($this->_class)){$attribs .= ' ' . $this->_class;}
+    if(isset($this->_id)){$attribs .= ' id="' . $this->_id . '"';}
+    if(isset($this->_class)){$attribs .= ' class="' . $this->_class . '"';}
     
-    $output .= '
+    $output = '
               <tr' . $attribs .'>';
     
     foreach($this->_cells as $a_cell){
       $output .= $a_cell; //this is a concat of the string and the object.
-      // if this fails to work, it might be worth trying to call the __toString
-      // for each cell.
+
     }
     
     $output .= '
