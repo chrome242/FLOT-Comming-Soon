@@ -69,18 +69,26 @@ class Cell {
   public function __toString(){
     if ($this->_class != null && $this->_showDetails == false){
     $output = '
-                <td class="'.$this->_class.'">'. $this->_content . '</td>';
+                <td class="'.$this->_class.'">
+                '. $this->_content . '
+                </td>';
                 
     } elseif ($this->_class != null && $this->_showDetails == true) {
     $output = '
-                <td class="'.$this->_class.'" id="'.$this->_id.'" name="'.$this->_name.'">'. $this->_content . '</td>';
+                <td class="'.$this->_class.'" id="'.$this->_id.'" name="'.$this->_name.'">
+                '. $this->_content . '
+                </td>';
                 
     } elseif ($this->_class == null && $this->_showDetails == true) {
     $output = '
-                <td id="'.$this->_id.'" name="'.$this->_name.'">'. $this->_content . '</td>';    
+                <td id="'.$this->_id.'" name="'.$this->_name.'">
+                '. $this->_content . '
+                </td>';    
     } else {
     $output = '
-                <td>' . $this->_content . '</td>';
+                <td>
+                ' . $this->_content . '
+                </td>';
     }
     return $output;
   }
