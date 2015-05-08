@@ -36,6 +36,9 @@
  *
  *  Member cell method accessor:
  *  public function method($cell, $method, $input=null, $override=false)
+ *
+ *  Get the inner value of a cell from the hidden cell array
+ *  public function getHidden($cell)
  * 
  * To add new cell types the switch in makeCells must be updated and
  * a handler function for the cell type must be included.
@@ -260,7 +263,7 @@ class Row {
   }
   
   /**
-   * A getter method to return the value of a cell from the private array.
+   * A getter method to return the inner value of a cell from the private array.
    *
    * @param str $cell the cell name within the array (e.g. beer[1][type] $cell = [type])
    *
