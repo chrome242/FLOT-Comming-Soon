@@ -120,4 +120,13 @@ class Table {
     return $output;
   }
   
+  /**
+   * output test function
+   */
+  private function test(){
+    foreach($this->_rows as $arow){
+      $arow->test();
+    }
+  }
+  
 }
