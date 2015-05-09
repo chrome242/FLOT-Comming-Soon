@@ -97,6 +97,27 @@ class Table {
     return $output;
   }
   
-  private function makeRows($rows, $format){}
+  /**
+   * makes the array of rows for the cell
+   *
+   * takes an array of row data, and returns rows of the format
+   * rowname = array key cells = members
+   *
+   * @param array $rows an array of row data
+   * @param array $format an array of how to format the row cells
+   *
+   * @return array $output an array of row objects with member cell objects
+   */
+  private function makeRows($rows, $format){
+    // initalize the output array
+    $output = array();
+    
+    // loop... because loops
+    foreach($row as $rowName => $rowContent){
+      $output[$rowName] = new Row($rowName, $rowContent, $format);
+    }
+    
+    return $output;
+  }
   
 }
