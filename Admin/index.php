@@ -41,18 +41,21 @@ echo closeTable(updateButton("apple"));
 //$test3 = new Radio("Another[Test][Cell]", "1", true);
 //echo $test3;
 
-$cells = array("Thing" => "Thing 1",
+$cells = array("Id" => '3',
+               "Thing" => "Thing 1",
                "Another Thing" => "Thing 2",
                "Checkmeout" => False,
                "RadioGaGa" => 3,
                "TimeandSpace" => time());
-$format = array("Thing" => "plain",
+
+$format = array("Id" => 'id',
+                "Thing" => "plain",
                 "Another Thing" => "plain",
                 "Checkmeout" => "checkbox",
                 "RadioGaGa" => "radio, 6",
                 "TimeandSpace" => "time, hide");
 
-$test4 = new Row("beer[1]", $cells, $format);
+$test4 = new Row("beer", $cells, $format);
 $test4->method("Thing", "setId", "works", true);
 $test4->setId();
 echo $test4->getHidden("TimeandSpace");
@@ -60,5 +63,8 @@ echo $test4;
 
 //$test5 = new Timestamp("TimeyWimey", time(), false);
 //echo $test5;
+
+//TODO: make a test set of arrays as a seperate file
+//$table_test = new Table("Name", $test_headers, $test_cells);
 
 include(SCAFFOLDING_ADMIN."footer.php");

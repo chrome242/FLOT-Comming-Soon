@@ -15,6 +15,7 @@
  * and kept in the $_privateCells array
  *
  * Ways to make cells:
+ * id - plain text cell who's value is attached to the row name
  * drop - not placed in the table
  * private - placed in the internal cell array as basic text
  * plain - a basic cell
@@ -66,12 +67,12 @@ class Row {
    * If the array length does not equal the length of the split
    * string from vars, it will raise an error.
    *
-   * @param str $name the name of the row
+   * @param str $name the name of the row or partial name of the row
    * @param array mixed $array: the cells that belong to the row
    * @param array str $types: an array of cell types
    */
   public function __construct($name, $cells, $format){
-    $this->_name = $name;
+    $this->_name = $this->makeName($name, $cells, $format);
     $this->makeCells($cells, $format);
   }
   
@@ -97,6 +98,25 @@ class Row {
     $this->_class = $class;
   }
   
+  /**
+   * checks to see if any of the cells are of format id, if so it adds their
+   * value to the name passed into the class. It will only access the $cells
+   * array if the $format array has a field of format id
+   *
+   * @param str $name the name passed in (typically the table name)
+   * @param array $format the format array passed into the row
+   *  
+   * @return str $output the name for the cell
+   */
+  
+  private function makeName($name, $cells, $format){
+
+    $output = $name;
+    foreach($format as $cell_name => $type){
+      if($type == "id"){$output .= '['.$cells[$cell_name].']';}
+    }
+    return $output;
+  }
   
   /**
    * takes the $cells and the $format arrays and
@@ -114,6 +134,9 @@ class Row {
     $hidden = array();
     foreach($cells as $name => $value){
       $cell_name = $this->_name . '['. $name . ']'; // should work for non-radios
+      
+      // id cell
+      if($format[$name] == 'id'){$output[$cell_name] = $this->makePlain($cell_name, $value);}
       // text cell
       if($format[$name] == 'plain'){ $output[$cell_name] = $this->makePlain($cell_name, $value);}
       

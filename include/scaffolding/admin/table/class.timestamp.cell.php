@@ -21,7 +21,8 @@ class Timestamp extends Cell {
    *
    *  The HTML class will still apply to the td.
    *
-   *  This extension produces a 
+   *  If the timestamp is not set, it will return the unix epoc time, as it
+   *  should only read zero when an event has not occured yet.
    *  
    * @param str $name: the name & id of the Cell
    * @param int $value: the timestamp
@@ -32,8 +33,12 @@ class Timestamp extends Cell {
     $this->_name = $name;
     
     // logic for format.
-    if ($format == false) { $this->_content = $value;}
-    if ($format == true) {$this->_content = $this->formatDate($value);}
+    if (!is_null($value)){
+      if ($format == false) { $this->_content = $value;}
+      if ($format == true) {$this->_content = $this->formatDate($value);}
+    } else {
+      $this->_content = null;
+    }
   }
   
     /**
