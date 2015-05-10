@@ -2,7 +2,6 @@
 include("../include/config.php");
 include(SCAFFOLDING_ADMIN."menubars.php");
 include(SCAFFOLDING_ADMIN."table/table.php");
-
 $title = "Beer Inventory";
 $root = ADMIN;
 $section = ADMIN;
@@ -55,11 +54,17 @@ $format = array("Id" => 'id',
                 "RadioGaGa" => "radio, 6",
                 "TimeandSpace" => "time, hide");
 
-$test4 = new Row("beer", $cells, $format);
-$test4->method("Thing", "setId", "works", true);
-$test4->setId();
-echo $test4->getHidden("TimeandSpace");
-echo $test4;
+//$test4 = new Row("beer", $cells, $format);
+//$test4->method("Thing", "setId", "works", true);
+//$test4->setId();
+//echo $test4->getHidden("TimeandSpace");
+//echo $test4;
+
+//echo '<pre>';
+$test5 = new Table("Beer", $test_cells, $test_headers);
+//var_dump($test5);
+//echo '</pre>';
+$test5->test();
 
 //$test5 = new Timestamp("TimeyWimey", time(), false);
 //echo $test5;

@@ -91,7 +91,7 @@ class Table {
     
     //itterate though the raw array because of mixed types
     foreach($raw_array as $key => $value){
-      if(gettype($value) == "array"){ $output[$value[0]] = $value[1]; }
+      if(gettype($value) == "array"){ $output[array_keys($value)[0]] = array_values($value)[0]; }
     }
     
     return $output;
@@ -111,9 +111,9 @@ class Table {
   private function makeRows($rows, $format){
     // initalize the output array
     $output = array();
-    
+
     // loop... because loops
-    foreach($row as $rowName => $rowContent){
+    foreach($rows as $rowName => $rowContent){
       $output[$rowName] = new Row($rowName, $rowContent, $format);
     }
     
@@ -123,9 +123,11 @@ class Table {
   /**
    * output test function
    */
-  private function test(){
+  public function test(){
     foreach($this->_rows as $arow){
+      echo"<br><tr>";
       $arow->test();
+      echo"</tr>";
     }
   }
   

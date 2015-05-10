@@ -89,7 +89,7 @@ $test_cells = array(array("beer_id" => 1,
 $test_headers = array("Id" => array("beer_id" => 'id'),
                       "Brewery" => array("beer_brewery" => "plain"),
                       "Beer" => array("beer_name" => "plain"),
-                      "On Tap" =>  array("beer_status" => "radio, 4");
+                      "On Tap" =>  array("beer_status" => "radio, 4"),
                       "On Deck" => 2,
                       "Kicked" => 3,
                       "Off Line" => 4,
