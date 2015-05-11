@@ -123,6 +123,28 @@ class Table {
     return $output;
   }
   
+ /* openTable()
+  *
+  * Returns a string for the opening of a table wrapped in a form. This can
+  * be wrapped in other functions because it's a string each table is also
+  * wrapped in a container div.
+  *
+  * @param str $form the name of form to wrap table in.
+  * @param str $table the id of the table
+  *
+  * @return str $output the HTML for the opening of the form.
+  */
+  function openTable($form, $table){
+    $output ='
+  
+        <div class="container"><!-- Form & Table Wrapper -->
+          <form name="' . $form . '" method="post">
+            <table class="table table-hover" id="' . $table . '">';
+            
+    return $output;
+  }
+  
+  
   /**
    * output test function
    */
