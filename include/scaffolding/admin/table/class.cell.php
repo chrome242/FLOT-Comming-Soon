@@ -70,24 +70,24 @@ class Cell {
     if ($this->_class != null && $this->_showDetails == false){
     $output = '
                 <td class="'.$this->_class.'">
-                '. $this->_content . '
+                  '. $this->_content . '
                 </td>';
                 
     } elseif ($this->_class != null && $this->_showDetails == true) {
     $output = '
                 <td class="'.$this->_class.'" id="'.$this->_id.'" name="'.$this->_name.'">
-                '. $this->_content . '
+                  '. $this->_content . '
                 </td>';
                 
     } elseif ($this->_class == null && $this->_showDetails == true) {
     $output = '
                 <td id="'.$this->_id.'" name="'.$this->_name.'">
-                '. $this->_content . '
+                  '. $this->_content . '
                 </td>';    
     } else {
     $output = '
                 <td>
-                ' . $this->_content . '
+                  ' . $this->_content . '
                 </td>';
     }
     return $output;
