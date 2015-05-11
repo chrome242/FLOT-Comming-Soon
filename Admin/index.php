@@ -26,9 +26,9 @@ $ariatest = array("userGroups" => ["User Group Buttons", false],
 echo menubar($permissions, $section, $root);
 echo sortbar($options, "all");
 echo sectionbar($ariatest);
-echo openTable("apple", "pie");
-echo tableHeader(array("One", "Two", "Three"));
-echo closeTable(updateButton("apple"));
+//echo openTable("apple", "pie");
+//echo tableHeader(array("One", "Two", "Three"));
+//echo closeTable(updateButton("apple"));
 
 //$test = new Cell("AwsomeCell", "Some Content");
 //$test->setClass("Yummy Foods");
@@ -64,7 +64,7 @@ $format = array("Id" => 'id',
 $test5 = new Table("Beer", $test_cells, $test_headers);
 //var_dump($test5);
 //echo '</pre>';
-$test5->test();
+echo $test5;
 
 //$test5 = new Timestamp("TimeyWimey", time(), false);
 //echo $test5;

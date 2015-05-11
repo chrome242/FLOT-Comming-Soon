@@ -161,7 +161,7 @@ class Row {
       if(stripos($format[$name], 'time,') !== false){
         $pieces = explode(",", $format[$name]);
         $where_to = trim($pieces[1]);
-        if($where_to == "show") {
+        if($where_to != "private") {
           $output[$cell_name] = $this->makeTimestamp($cell_name, $value, true);
         }else{
           $hidden[$cell_name] = $this->makeTimestamp($cell_name, $value, false);

@@ -54,6 +54,9 @@ class Table {
   protected $_format; // takes the header array value
   protected $_rows;  // the row array
   
+  // config attributes
+  protected $_makeButton = true; //make a submit button
+  
   /**
    * Constructor
    *
@@ -69,10 +72,17 @@ class Table {
    */
   public function __construct($name, $rows, $header){
     $this->_name = $name;
-    $this->_header = array_keys($header);
+    $this->_header = $this->makeHeader($header);
     $this->_format = $this->makeFormat($header);
     $this->_rows = $this->makeRows($rows, $this->_format);
     
+  }
+  
+  /**
+   * turns off the display of a form submit button
+   */
+  public function submitOff(){
+    $this->_makeButton = false;
   }
   
   /**
@@ -115,6 +125,18 @@ class Table {
     $this->_form_class = $form_class;
   }
   
+  protected function makeHeader($raw_header){
+    $output = array();
+    foreach($raw_header as $header => $inner_array){
+      if(gettype($inner_array) != "array"){array_push($output, $header);}
+      else{
+        $temp_array = array_values($inner_array);
+        if (strpos($temp_array[0], "private") === false){array_push($output, $header);}
+      }
+    }
+    return $output;
+  }
+  
   /**
    * a method for some array foo.
    *
@@ -138,6 +160,7 @@ class Table {
     
     return $output;
   }
+   
   
   /**
    * makes the array of rows for the cell
@@ -165,7 +188,7 @@ class Table {
     return $output;
   }
   
- /* openTable()
+ /**
   *
   * Returns a string for the opening of a table wrapped in a form. This can
   * be wrapped in other functions because it's a string each table is also
@@ -198,16 +221,78 @@ class Table {
     return $output;
   }
   
+  /**
+   *
+   * Returns a string for the table header on the table
+   *
+   * @param str $names the names of each form field
+   *
+   * @return str $output the HTML for the table header
+   */
+  protected function tableHeader($names){
+    $output ='
+              <thead>
+                <tr>';
+    foreach($names as $key => $name){
+      $output .= '
+                  <th>' .$name .'</th>';
+    }
+    $output .='
+                </tr>';
+    
+    return $output;
+  }
+  
+  /* updateButton()
+   *
+   * Returns a string for the update button on the form.
+   *
+   * @param str $name the name of the form
+   *
+   * @return str $output the HTML for the update button
+   */
+  private function updateButton($name){
+    // See http://bavotasan.com/2009/processing-multiple-forms-on-one-page-with-php/
+    $name .= "-update"; // for use in processing.
+    $output ='
+            <tr><input class="btn pull-right clearfix btn-primary" name="'. $name .'"type="submit" value="Update"></tr>';
+    
+    return $output;
+  }
   
   /**
    * output test function
    */
   public function test(){
+    $output = '';
     foreach($this->_rows as $arow){
-      echo"<br><tr>";
-      $arow->test();
-      echo"</tr>";
+      $output .= $arow;
     }
+    echo $output;
+  }
+  
+    /* closeTable()
+   *
+   * Returns a string to close up a table of the form opened by the openTable()
+   * function.
+   *
+   * @param str $extra any extra text to be inserted between the close of the
+   * table and the close of the form.
+   *
+   * @return str $output the HTML for the closing of the form.
+   */
+  
+  private function closeTable($extra=null){
+    $output ='
+            </table>';
+  
+    if($extra != null) {$output .= $extra;}
+    if($this->_makeButton){$output .=$this->updateButton($this->_name);}
+    $output .='
+          </form>
+        </div><!-- Form & Table Wrapper-->';
+    
+    return $output;
   }
   
   public function __toString(){
@@ -217,6 +302,17 @@ class Table {
     $output .= $this->openTable($this->_name, $this->_form_id, $this->_form_class,
                                 $this->_table_id, $this->_table_class);
     
+    // make the header
+    $output .= $this->tableHeader($this->_header);
+    
+    // make all the rows
+    foreach($this->_rows as $row){$output .= $row;}
+    
+    //close out the table
+    $output .= $this->closeTable();
+    
+    // return the output
+    return $output;
   }
   
   /**
