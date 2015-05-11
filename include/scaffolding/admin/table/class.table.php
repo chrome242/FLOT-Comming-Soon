@@ -76,6 +76,46 @@ class Table {
   }
   
   /**
+   *
+   * Setter for the HTML id attrib on the table opening tag.
+   *
+   * @param str $table_id the id to be added to the table
+   */
+  public function setTableId($table_id){
+    $this->_table_id = $table_id;
+  }
+  
+  /**
+   *
+   * Setter for the HTML class attrib on the table opening tag.
+   *
+   * @param str $table_class the class(es) to be added to the table
+   */
+  public function setTableClass($table_class){
+    $this->_table_class = $table_class;
+  }
+  
+  /**
+   *
+   * Setter for the HTML id attrib on the form opening tag.
+   *
+   * @param str $form_id the id to be added to the form
+   */
+  public function setFormId($form_id){
+    $this->_form_id = $form_id;
+  }
+  
+  /**
+   *
+   * Setter for the HTML class attrib on the form opening tag.
+   *
+   * @param str $form_class the class to be added to the form
+   */
+  public function setFormClass($form_class){
+    $this->_form_class = $form_class;
+  }
+  
+  /**
    * a method for some array foo.
    *
    * takes an array of the form old key => either:
@@ -87,7 +127,7 @@ class Table {
    *
    * @return array $output: the new array
    */
-  private function makeFormat($raw_array){
+  protected function makeFormat($raw_array){
     // setup the return array
     $output = array();
     
@@ -139,7 +179,8 @@ class Table {
   *
   * @return str $output the HTML for the opening of the form.
   */
-  protected function openTable($name, $form_id, $form_class, $table_id, $table_class){
+  protected function openTable($name, $form_id=null, $form_class=null,
+                               $table_id=null, $table_class=null){
     $form_attribs = '';
     $table_attribs = '';
     if($form_class != null){$form_attribs .= ' class="' . $form_class . '"';}
@@ -169,6 +210,14 @@ class Table {
     }
   }
   
+  public function __toString(){
+    $output = '';
+    
+    // open the table
+    $output .= $this->openTable($this->_name, $this->_form_id, $this->_form_class,
+                                $this->_table_id, $this->_table_class);
+    
+  }
   
   /**
    * __toString() method:
