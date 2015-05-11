@@ -44,8 +44,10 @@ class Table {
   
   // class attributes
   protected $_name; // the form name.
-  protected $_id = null;
-  protected $_class = null;
+  protected $_table_id = null; // the table id
+  protected $_table_class = null; // the table class
+  protected $_form_id = null; // the form id
+  protected $_form_class = null; // the form class
   
   // member portion attributes
   protected $_header; // takes the header key
@@ -130,17 +132,27 @@ class Table {
   * wrapped in a container div.
   *
   * @param str $name the name of form to wrap table in.
-  * @param str $id the id of the table
+  * @param str $form_id the id of the form
+  * @param str $table_id the id of the table
+  * @param str $form_class the class of the form
+  * @param str $table_class the class of the table
   *
   * @return str $output the HTML for the opening of the form.
   */
-  protected function openTable($name, $table_id){
+  protected function openTable($name, $form_id, $form_class, $table_id, $table_class){
+    $form_attribs = '';
+    $table_attribs = '';
+    if($form_class != null){$form_attribs .= ' class="' . $form_class . '"';}
+    if($form_id != null){$form_attribs .= ' id="' . $form_id . '"';}
+    if($table_class != null){$table_attribs .= ' class="' . $table_class . '"';}
+    if($table_id != null){$table_attribs .= ' id="' . $table_id . '"';}
+
+    
     $output ='
   
         <div class="container"><!-- Form & Table Wrapper -->
-          <form name="' . $name . '" method="post">
-            <table class="table table-hover" id="' . $table_id . '">';
-            // todo: change the above to add ID and CLASS based on set status.
+          <form name="' . $name . '"' . $form_attribs . ' method="post">
+            <table class="table table-hover"' . $table_attribs . '>';
             
     return $output;
   }
