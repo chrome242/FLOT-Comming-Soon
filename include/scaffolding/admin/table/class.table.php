@@ -129,17 +129,18 @@ class Table {
   * be wrapped in other functions because it's a string each table is also
   * wrapped in a container div.
   *
-  * @param str $form the name of form to wrap table in.
-  * @param str $table the id of the table
+  * @param str $name the name of form to wrap table in.
+  * @param str $id the id of the table
   *
   * @return str $output the HTML for the opening of the form.
   */
-  function openTable($form, $table){
+  protected function openTable($name, $table_id){
     $output ='
   
         <div class="container"><!-- Form & Table Wrapper -->
-          <form name="' . $form . '" method="post">
-            <table class="table table-hover" id="' . $table . '">';
+          <form name="' . $name . '" method="post">
+            <table class="table table-hover" id="' . $table_id . '">';
+            // todo: change the above to add ID and CLASS based on set status.
             
     return $output;
   }
@@ -155,5 +156,15 @@ class Table {
       echo"</tr>";
     }
   }
+  
+  
+  /**
+   * __toString() method:
+   *
+   * print openTable()
+   * for each row, print it
+   * add button for update if needed
+   * close table
+   */
   
 }
