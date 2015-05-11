@@ -77,6 +77,17 @@ class Row {
   }
   
   /**
+   * getter function for the row name
+   *
+   *
+   * @return str  $output the name of the row object
+   */
+  public function getName(){
+    
+    return $this->_name;
+  }
+  
+  /**
    * setter for the row id
    *
    * if the $id is not set for the row and the method is invoked, then the row

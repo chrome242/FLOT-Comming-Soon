@@ -105,6 +105,7 @@ class Table {
    *
    * @param array $rows an array of row data
    * @param array $format an array of how to format the row cells
+   * @param str $name optional name part, for use if no id row set
    *
    * @return array $output an array of row objects with member cell objects
    */
@@ -113,8 +114,10 @@ class Table {
     $output = array();
 
     // loop... because loops
-    foreach($rows as $rowName => $rowContent){
-      $output[$rowName] = new Row($rowName, $rowContent, $format);
+    foreach($rows as $row => $rowContent){
+      $a_row = new Row($this->_name, $rowContent, $format);
+      $rowName = $a_row->getName();
+      $output[$rowName] = $a_row;
     }
     
     return $output;
