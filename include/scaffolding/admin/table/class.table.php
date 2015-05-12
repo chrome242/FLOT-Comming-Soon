@@ -257,6 +257,7 @@ class Table {
    */
   public function countColumn($decorator, $column){
     foreach($this->_rows as $row => $cells){
+      // todo: add a check active to the row
     }
   }
   
