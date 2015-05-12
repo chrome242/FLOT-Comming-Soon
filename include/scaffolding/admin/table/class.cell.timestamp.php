@@ -12,6 +12,8 @@
  */
 class Timestamp extends Cell {
   
+  // timestamps will default to showing the details
+  protected $_showDetails = true; 
   
   /**
    * Sets the $_name and $_id to the same thing on construction.
@@ -26,7 +28,7 @@ class Timestamp extends Cell {
    *  
    * @param str $name: the name & id of the Cell
    * @param int $value: the timestamp
-   * @param bool $format: if true, change content to a formated date
+   * @param bool $format: if false, then a time stamp. If true, then a date.
    */
   public function __construct($name, $value, $format=false){
     $this->_id = $name;
@@ -54,29 +56,15 @@ class Timestamp extends Cell {
   }
   
   /**
-   * Sets the details for the cell to hidden. This would really only be useful
-   * for a protected view if there's concerns that someone in the business
-   * might want to try to hack forms so some people only have access to view
-   * the forms as they stand at the moment.
+   * Hide the details on a timestamp. As a timestamp that is formated for
+   * a date, as the timestamp form of the cell is presumed to be used in
+   * hidden arrays only.
    */
   public function hideDetails(){
     $this->_showDetails = false;
-    $this->_content = $this->makeInput();
+    $this->_content = $this->formatDate($value);
   }
   
   
-  public function __toString(){
-    if ($this->_class != null){
-    $output = '
-                <td class="'.$this->_class.'">
-                  '. $this->_content . '
-                </td>'; 
-    } else {
-    $output = '
-                <td>
-                  '. $this->_content . '
-                </td>'; 
-    }
-    return $output;
-  }
+  // this class should utilize the default toString
 }
