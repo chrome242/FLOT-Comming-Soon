@@ -68,6 +68,13 @@ class Checkbox extends Cell {
   }
   
   /**
+   * a getter for the state of the cell
+   */
+  public function getState(){
+    return $this->_state;
+  }
+  
+  /**
    * Sets a cell to disabled. 
    */
   public function disabled(){

@@ -35,8 +35,12 @@
  *  public function setId() optional arg $id else $id = $name
  *  public function setClass($class)
  *
- *  Member cell method accessor:
+ *  Member cell method accessor
  *  public function method($cell, $method, $input=null, $override=false)
+ *  TODO: either test to see if the above will retun output or code:
+ *  public function checkActive
+ *  TODO:
+ *  public function getDuration
  *
  *  Get the inner value of a cell from the hidden cell array
  *  public function getHidden($cell)

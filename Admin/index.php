@@ -64,7 +64,9 @@ $format = array("Id" => 'id',
 $test5 = new Table("Beer", $test_cells, $test_headers);
 //var_dump($test5);
 //echo '</pre>';
-echo $test5;
+//echo $test5;
+
+$test5->test();
 
 //$test5 = new Timestamp("TimeyWimey", time(), false);
 //echo $test5;

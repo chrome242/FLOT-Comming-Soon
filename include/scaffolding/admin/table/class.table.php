@@ -243,7 +243,24 @@ class Table {
     return $output;
   }
   
-  /* updateButton()
+  /**
+   * Queries all member rows for a given column total checked
+   *
+   * returns a decorated string displaying the total checked
+   * the column name should be the short name of the cell, not the entire
+   * concat of the cell name with the table with the row.
+   * 
+   * @param str $decorator: the text string to include with the output.
+   * @param str $column: the name of the column to querry in each row.
+   *  
+   * @return str $output: the string with the query response.
+   */
+  public function countColumn($decorator, $column){
+    foreach($this->_rows as $row => $cells){
+    }
+  }
+  
+  /**
    *
    * Returns a string for the update button on the form.
    *
@@ -264,11 +281,8 @@ class Table {
    * output test function
    */
   public function test(){
-    $output = '';
-    foreach($this->_rows as $arow){
-      $output .= $arow;
-    }
-    echo $output;
+    echo "<pre>";
+    var_dump($this->_rows);
   }
   
     /* closeTable()
