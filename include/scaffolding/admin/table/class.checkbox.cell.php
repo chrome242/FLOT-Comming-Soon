@@ -1,5 +1,4 @@
 <?php
-// move cell includes here?
 
 /**
  * Checkbox Cell

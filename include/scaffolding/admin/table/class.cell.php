@@ -12,6 +12,7 @@
  * 
  */
 class Cell {
+  
   // all cells will have names & ids, which can be shown, and text.
   protected $_name;
   protected $_id;

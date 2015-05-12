@@ -43,7 +43,7 @@ class Timestamp extends Cell {
     }
   }
   
-    /**
+  /**
    * Applies a format to the date of Month Day, Year
    *
    * @param int $value: A timestamp
