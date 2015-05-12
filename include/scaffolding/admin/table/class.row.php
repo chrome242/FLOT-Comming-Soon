@@ -311,11 +311,12 @@ class Row {
     $cell_name = $this->_name . '['. $cell . ']';
     
     //get the cell into a var, and explode.
-    $a_cell = explode("\n", $this->_privateCells[$cell_name]);
+    $output = $this->_privateCells[$cell_name];
+    
     
     // this offset is 2 not 1 because of the structure of the text in my cell
     // classes. If further explination is required, see those classes.
-    return $a_cell[2];
+    return $output->getValue();
     
   }
   

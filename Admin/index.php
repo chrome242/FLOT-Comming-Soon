@@ -33,10 +33,10 @@ echo sectionbar($ariatest);
 //$test = new Cell("AwsomeCell", "Some Content");
 //$test->setClass("Yummy Foods");
 //echo $test;
-$test2 = new Checkbox("AnotherCell", true, "GoCart");
-$test2->disabled();
+//$test2 = new Checkbox("AnotherCell", true, "GoCart");
+//$test2->disabled();
 //$test2->hideDetails();
-echo $test2;
+//echo $test2;
 //$test3 = new Radio("Another[Test][Cell]", "1", true);
 //echo $test3;
 
@@ -52,19 +52,19 @@ $format = array("Id" => 'id',
                 "Another Thing" => "plain",
                 "Checkmeout" => "checkbox",
                 "RadioGaGa" => "radio, 6",
-                "TimeandSpace" => "time, hide");
+                "TimeandSpace" => "time, private");
 
-//$test4 = new Row("beer", $cells, $format);
+$test4 = new Row("beer", $cells, $format);
 //$test4->method("Thing", "setId", "works", true);
 //$test4->setId();
-//echo $test4->getHidden("TimeandSpace");
-//echo $test4;
+echo $test4->getHidden("TimeandSpace");
+echo $test4;
 
 //echo '<pre>';
-$test5 = new Table("Beer", $test_cells, $test_headers);
+//$test5 = new Table("Beer", $test_cells, $test_headers);
 //var_dump($test5);
 //echo '</pre>';
-echo $test5;
+//echo $test5;
 
 //$test5->test();
 
