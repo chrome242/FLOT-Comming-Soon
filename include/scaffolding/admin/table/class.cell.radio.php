@@ -1,45 +1,44 @@
 <?php
 
 /**
- * Checkbox Cell
+ * Radio Cell
  *
  * Extends cell.
- * The checkbox cell is an extension of cell that allows the cell to contain a checkbox element.
- * all checkboxes are required to have a name and a state (checked or unchecked)
- * support included for disabled checkboxes as well. 
+ * The radio cell is an extension of cell that allows the cell to contain a radio element.
+ * 
  * 
  */
-class Checkbox extends Input {
+class Radio extends Input {
   
-  // Checkbox additional properties.
-  protected $_value; // optional value property
+  // Radio additional properties.
+  protected $_value; //The value of this radio button in the radio enum set
   
-  // Checkbox uses $this->_content for the state of the cell (checked or
+  // Radio uses $this->_content for the state of the cell (checked or
   // unchecked)
-  
   /**
-   * Sets the $_name and $_id to the same thing on construction.
-   *
    *  This extension changes the default behavior of the Cell class by moving
    *  the name and id to the inner input of the cell, and not the cell itself.
+   *  Futhermore, the id field in this extension will add the value field to
+   *  the end of the name (eg name="beer[1][status]", id="beer[1][status][1]").
    *
    *  The HTML class will still apply to the td.
    *
-   *  This extension produces a checkbox class input with a checked status of
-   *  state. Can futher call methods to make it disbaled.
+   *  This extension produces a radio class input with a default state of
+   *  unselected. Optional param sets the field to checked. (Due to the
+   *  asumption that most radials will be unchecked.)
+   *  Can futher call methods to make it disbaled
    *  
-   * @param str $name: the name & id of the Cell
-   * @param bool $state: if true, the cell is checked.
-   * @param mixed $value: false or the value property of the checkbox input
+   * @param str $name: the name
+   * @param int $enum: the enum state the cell represents.
+   * @param bool $state: if the radio button is selected
    */
-  public function __construct($name, $state, $value=false){
-    $this->_id = $name;
-    $this->_name = $name;
-    $this->_type = "checkbox";
+  public function __construct($name, $enum, $state=false){
+    $this->_id = $name . '[' . $enum . ']';
+    $this->_name = $name; // must be the same for the whole set
+    $this->_type = "radio";
+    $this->_value = $enum;
     $this->_content = $state;
-    $this->_value = $value;
   }
-  
   
   /**
    * makes the cell $_input string. This used to be fire at time of cell creation,
@@ -51,7 +50,7 @@ class Checkbox extends Input {
     
     if($this->_showDetails){$details = 'id="'. $this->_id . '" name="' . $this->_name . '"';}
     
-    if($this->_value !== false){$details .= ' value="' . $this->_value . '"';}
+    $details .= ' value="' . $this->_value . '"';
     
     $content = '<input type="'. $this->_type .'"'. $details .'';
     
@@ -61,15 +60,14 @@ class Checkbox extends Input {
     $content .=">";
     return $content;
   }
-  
-  
+
   /**
    * Gets the state setting for the cell.
    */
   public function getState(){
     return $this->_content;
   }
-  
+
   
   public function __toString(){
     

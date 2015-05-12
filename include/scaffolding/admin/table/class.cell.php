@@ -99,9 +99,7 @@ class Cell {
     }
     
     $output = '
-                <td' . $attribs . '>
-                  '. $this->_content . '
-                </td>';
+                <td' . $attribs . '>'. $this->_content . '</td>';
     
 
     return $output;
