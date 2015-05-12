@@ -65,31 +65,20 @@ class Cell {
     $this->_showDetails = true;
   }
   
-  //TODO clean this up some
+
   public function __toString(){
-    if ($this->_class != null && $this->_showDetails == false){
-    $output = '
-                <td class="'.$this->_class.'">
-                  '. $this->_content . '
-                </td>';
-                
-    } elseif ($this->_class != null && $this->_showDetails == true) {
-    $output = '
-                <td class="'.$this->_class.'" id="'.$this->_id.'" name="'.$this->_name.'">
-                  '. $this->_content . '
-                </td>';
-                
-    } elseif ($this->_class == null && $this->_showDetails == true) {
-    $output = '
-                <td id="'.$this->_id.'" name="'.$this->_name.'">
-                  '. $this->_content . '
-                </td>';    
-    } else {
-    $output = '
-                <td>
-                  ' . $this->_content . '
-                </td>';
+    $attribs = '';
+    if ($this->_showDetails == true){
+      if ($this->_class != null){$attribs .= ' class="'. $this->_class . '"';}
+      if ($this->_id != null){$attribs .= ' id="' . $this->_id . '"';}
     }
+    
+    $output = '
+                <td' . $attribs . '>
+                  '. $this->_content . '
+                </td>';
+    
+
     return $output;
   }
 }
