@@ -53,11 +53,11 @@ class Input extends Cell {
    * re-write of the class methods to set ids and names and such
    */
   private function makeInput(){
-    if(!$this->_showDetails){
-      $content = '<input type="'. $this->_type .'"';
-    } else {
-      $content = '<input type="'. $this->_type .'" id="'.$this->_id.'" name="'.$this->_name.'"';
-    }
+    $details = '';
+    
+    if($this->_showDetails){$details = 'id="'. $this->_id . '" name="' . $this->_name . '"';}
+    
+    $content = '<input type="'. $this->_type .'"'. $details;
     
     if($this->_disabled) {$content .= " disabled";}
     
@@ -85,13 +85,13 @@ class Input extends Cell {
    * cell class by moving the HTML id attribs to the input while keeping
    * the class with the td, for layout purposes.
    *
-   * This method can be preserved in child elements because the class
+   * This method must be reused in child elements because the class
    * specifics are called in the makeInput() internal method.
    */
   public function __toString(){
     
     // make the cell input field:
-    $this->makeInput();
+    $this->_input = $this->makeInput();
     
     // make the string:
     if ($this->_class != null){
