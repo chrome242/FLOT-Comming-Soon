@@ -52,7 +52,7 @@ class Cell {
   /**
    * Setter for the $_class attrib
    *
-   * @param str $id: the new value for the id
+   * @param str $class: the new value for the id
    */
   public function setClass($class){
     $this->_class = $class;
@@ -64,7 +64,31 @@ class Cell {
   public function showDetails(){
     $this->_showDetails = true;
   }
+
+  /**
+   * Gets the cell name
+   *
+   * @return str the cell name
+   */
+  public function getName(){
+    return $this->_name;
+  }
   
+  /**
+   * Gets the cell id
+   *
+   * @return str the cell id
+   */
+  public function getId(){
+    return $this->_id;
+  }
+  
+  /**
+   * Gets the cell value
+   */
+  public function getValue(){
+    return $this->_content;
+  }
 
   public function __toString(){
     $attribs = '';
