@@ -60,12 +60,12 @@ $format = array("Id" => 'id',
 //echo $test4->getHidden("TimeandSpace");
 //echo $test4;
 
-//echo '<pre>';
+echo '<pre>';
 $test5 = new Table("Beer", $test_cells, $test_headers);
-//var_dump($test5);
-echo $test5->addCounter("Total on Tap:", "beer_status", "0");
-//echo '</pre>';
-echo $test5;
+var_dump($test5);
+//$test5->addCounter("Total on Tap:", "beer_status", "0");
+echo '</pre>';
+//echo $test5;
 
 //$test5->test();
 

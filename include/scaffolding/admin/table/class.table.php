@@ -2,6 +2,9 @@
 // check to see if depaancy includes should be in the highest level abstraction
 // class (eg, row should included here? with cells included there?)
 
+// DO PLEASE NOTE: THE METHOD TO ALLOW OFFTAP IS HARDCODED FOR TESTING AND LATER
+// PRESUMED SINGLE USE. PLEASE CHANGE JUST IN CASE ONCE PAST TESTING
+
 /**
  * Table
  *
@@ -57,6 +60,9 @@ class Table {
   
   // config attributes
   protected $_makeButton = true; //make a submit button
+  
+  // specific task attributes (too few to make new class)
+  protected $_offline_check = false; //for the beer display only
   
   /**
    * Constructor
@@ -260,6 +266,17 @@ class Table {
     return $counter;
   }
   
+  /**
+   * adds a counter to the end of the table to display the total of a given
+   * column. This sets an ID for JS to use, so only one copy can be used
+   * unless the method is modified. The counter is added by adding the
+   * text to the $_extra property of the table.
+   *
+   * @param str $text = the text for the button
+   * @param str $column = the name of the column selected
+   * @param str $value = the column value for radio buttons.
+   *
+   */
   public function addCounter($text, $column, $value=null){
     $output ='<span class="label label-info">';
     $output .= $text . ' ';
@@ -270,6 +287,21 @@ class Table {
     $this->_extra = $output;
   }
   
+  /**
+   * Sets the instace to run the offline check. This has a lot of task specific
+   * assumptions.
+   */
+  public function offlineCheck(){
+    $this->_offline_check = true;
+  }
+  
+  private function allowOffline($constant){
+    foreach($this->_rows as $name => $row){
+      $offtap = $row->getHidden("beer_offtap");
+      $ontap = $row->getHidden("beer_ontap");
+      
+    }
+  }
   
   /**
    *
@@ -321,6 +353,7 @@ class Table {
   }
   
   public function __toString(){
+    if($this->_offline_check){$this->allowOffline(TIME_TO_OFF_LINE);}
     $output = '';
     
     // open the table
