@@ -35,15 +35,10 @@
  *  public function setId() optional arg $id else $id = $name
  *  public function setClass($class)
  *
- *  Member cell method accessor
- *  public function method($cell, $method, $input=null, $override=false)
- *  TODO: either test to see if the above will retun output or code:
- *  public function checkActive
- *  TODO:
- *  public function getDuration
  *
- *  Get the inner value of a cell from the hidden cell array
+ *  Get the inner value of a cell from either cell array
  *  public function getHidden($cell)
+ *  public function getCell($cell)
  * 
  * To add new cell types the switch in makeCells must be updated and
  * a handler function for the cell type must be included.
@@ -151,24 +146,24 @@ class Row {
       $cell_name = $this->_name . '['. $name . ']'; // should work for non-radios
       
       // id cell
-      if($format[$name] == 'id'){$output[$cell_name] = $this->makePlain($cell_name, $value);}
+      if($format[$name] == 'id'){$output[$cell_name] = new Cell($name, $value);}
       // text cell
-      if($format[$name] == 'plain'){ $output[$cell_name] = $this->makePlain($cell_name, $value);}
+      if($format[$name] == 'plain'){ $output[$cell_name] = new Cell($name, $value);}
       
       // private (text) cell private
-      if($format[$name] == 'private'){ $hidden[$cell_name] = $this->makePlain($cell_name, $value);}
+      if($format[$name] == 'private'){ $hidden[$cell_name] = new Cell($name, $value);}
       
       //checkbox cell
-      if($format[$name] == 'checkbox'){ $output[$cell_name] = $this->makeCheckbox($cell_name, $value);}
+      if($format[$name] == 'checkbox'){ $output[$cell_name] = new Checkbox($name, $value);}
       
       //timestamp cell
       if(stripos($format[$name], 'time,') !== false){
         $pieces = explode(",", $format[$name]);
         $where_to = trim($pieces[1]);
         if($where_to != "private") {
-          $output[$cell_name] = $this->makeTimestamp($cell_name, $value, true);
+          $output[$cell_name] = new Timestamp($cell_name, $value, true);
         }else{
-          $hidden[$cell_name] = $this->makeTimestamp($cell_name, $value, false);
+          $hidden[$cell_name] = new Timestamp($cell_name, $value, false);
         }
       }
       
@@ -181,9 +176,9 @@ class Row {
           // $value above == the value where state== true
           $radio_cell_name = $cell_name . '[' . $cell_value . ']';
           if($cell_value == $value) {
-            $output[$radio_cell_name] = $this->makeRadio($cell_name, $cell_value, true);
+            $output[$radio_cell_name] = new Radio($cell_name, $cell_value, true);
           } else {
-            $output[$radio_cell_name] = $this->makeRadio($cell_name, $cell_value, false);
+            $output[$radio_cell_name] = new Radio($cell_name, $cell_value, false);
           }
           $cell_value ++;
         }
@@ -195,109 +190,24 @@ class Row {
     }
     $this->_cells = $output;
     $this->_privateCells = $hidden;
-  }
+  }  
+
   
   /**
-   * A handler function to make a text cell from input.
-   *
-   * This function is public because alternately to the intended use someone
-   * could just make a table on the fly with it, cell by cell.
-   *
-   * @param str $name the name of the cell
-   * @param str $value the text of the cell
-   * @return obj a cell of type plain
-   */
-  public function makePlain($name, $value){
-    return new Cell($name, $value);
-  }
-  
-  /**
-   * A handler function to make a checkbox cell from input
-   *
-   * This function is public because alternately to the intended use someone
-   * could just make a table on the fly with it, cell by cell.
-   *
-   * @param str $name the name of the cell
-   * @param bool $state the state of the cell
-   * @return obj a cell of type plain
-   */
-  public function makeCheckbox($name, $state){
-    return new Checkbox($name, $value);
-  }
-  
-  /**
-   * A handler function to make a radio cell from input
-   *
-   * This function is public because alternately to the intended use someone
-   * could just make a table on the fly with it, cell by cell.
-   *
-   * @param str $name the name of the cell
-   * @param int $value
-   * @param bool $state the state of the cell
-   * @return obj a cell of type plain
-   */
-  public function makeRadio($name, $value, $state){
-    return new Radio($name, $value, $state);
-  }
-  
-  /**
-   * A handler function to make a time stamp cell
-   *
-   * This function is public because alternately to the intended use someone
-   * could just make a table on the fly with it, cell by cell.
-   *
-   * @param str $name the name of the cell
-   * @param int $value the timestamp
-   * @param bool $show if the timestamp should be shown or not.
-   * @return obj a cell of type timestamp
-   */
-  public function makeTimestamp($name, $value, $show){
-    return new Timestamp($name, $value, $show);
-  }
-  
-  
-  /**
-   * A function to allow cell methods to be passed to an individual cell in the
-   * row with out having to access the cell array directly. Methods that need to be passed
-   * args will have the row name added to the front of them (to preserve id and
-   * name conventions), unless they are an array, in which case it will be passed
-   * straight though. this can also be overridden. WARNING: The array in the cell list
-   * is indexed by the name at time of inception. It will still have to be accessed with
-   * that name unless changed elsewhere.
-   *
-   * This method is for public cells. All hidden cells should be accessed with task
-   * specific getters and setters.
-   *
-   * This method will not let you change the name of radio cells (but will allow ID change)
+   * A getter method to return the inner value of a cell from the public array.
    *
    * @param str $cell the cell name within the array (e.g. beer[1][type] $cell = [type])
-   * @param str $method the method to be called on the target cell
-   * @param mixed $input (optional) any args to be passed to the method
-   * @param bool $override (optional) overrides the default behavior
+   *
+   * @return mixed $output the inner content of the cell
    */
-  public function method($cell, $method, $input=null, $override=false){
-    $radio = false;
+  public function getCell($cell){
+    $cell_name = $this->_name . '['. $cell . ']';
     
-    // deal with normal cells
-    if(substr($cell, -1) != "]"){$cell_name = $this->_name . '['. $cell . ']';}
-    //deal with radio cells
-    if(substr($cell, -1) == "]"){$cell_name = $this->_name . '['. $cell . ']'; $radio = true;}
+    //get the cell in question
+    $output = $this->_cells[$cell_name];
+
+    return $output->getValue();
     
-    // handle different cases, unless radio & name
-    if($radio && $method="setName"){
-      continue;
-    } else {
-      if($input == null && $override == false){
-        $this->_cells[$cell_name]->$method();
-      
-      } elseif(gettype($input) == "array" || $override== true) {
-        $this->_cells[$cell_name]->$method($input);
-        
-      } else {
-        $cell_input = $this->_name . '['. $input . ']';
-        $this->_cells[$cell_name]->$method($cell_input);
-      }
-    }
   }
   
   /**
@@ -310,27 +220,13 @@ class Row {
   public function getHidden($cell){
     $cell_name = $this->_name . '['. $cell . ']';
     
-    //get the cell into a var, and explode.
+    //get the cell in question
     $output = $this->_privateCells[$cell_name];
-    
-    
-    // this offset is 2 not 1 because of the structure of the text in my cell
-    // classes. If further explination is required, see those classes.
+ 
     return $output->getValue();
     
   }
   
-  /**
-   * test function
-   *
-   * @return the toString for all objects in the output_cells array
-   */
-  public function test(){
-    foreach($this->_cells  as $a_cell){
-      $a_cell->showDetails();
-      echo $a_cell;
-    }
-  }
   
   public function __toString(){
     //make the output string
@@ -356,8 +252,3 @@ class Row {
   
 }
 
-//
-//class test { function sts() { return "hey"; } }
-//$tst = new test;
-//$met = "sts";
-//echo $tst->$met();

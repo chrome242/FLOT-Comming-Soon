@@ -54,17 +54,17 @@ $format = array("Id" => 'id',
                 "RadioGaGa" => "radio, 6",
                 "TimeandSpace" => "time, private");
 
-$test4 = new Row("beer", $cells, $format);
+//$test4 = new Row("beer", $cells, $format);
 //$test4->method("Thing", "setId", "works", true);
 //$test4->setId();
-echo $test4->getHidden("TimeandSpace");
-echo $test4;
+//echo $test4->getHidden("TimeandSpace");
+//echo $test4;
 
 //echo '<pre>';
-//$test5 = new Table("Beer", $test_cells, $test_headers);
+$test5 = new Table("Beer", $test_cells, $test_headers);
 //var_dump($test5);
 //echo '</pre>';
-//echo $test5;
+echo $test5;
 
 //$test5->test();
 
