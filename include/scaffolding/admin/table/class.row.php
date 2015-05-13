@@ -39,9 +39,11 @@
  *  Get the inner value of a cell from either cell array
  *  public function getHidden($cell)
  *  public function getCell($cell)
+ *
+ *  Setters for cells:
+ *  public function setDisabled($cell, $value=null)
  * 
- * To add new cell types the switch in makeCells must be updated and
- * a handler function for the cell type must be included.
+ * To add new cell types the switch in makeCells must be updated 
  * 
  */
 class Row {
@@ -227,6 +229,22 @@ class Row {
  
     return $output->getValue();
     
+  }
+  
+  /**
+   * A setter to push down to the cell, setting it disabled, for input cells and
+   * extensions of input only.
+   *
+   * @param str $cel: the name of the cell
+   * @param str $value: the enum value if the type of the cell is radio.
+   */
+  public function setDisabled($cell, $value=null){
+    // construct name
+    if($value==null){$cell_name = $this->_name . '['. $cell . ']';}
+    else{$cell_name =  $this->_name . '['. $cell . '][' . $value . ']';}
+    
+    // do job
+    $this->_cells[$cell_name]->disabled();
   }
   
   

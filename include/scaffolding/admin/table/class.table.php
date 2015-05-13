@@ -8,39 +8,31 @@
 /**
  * Table
  *
- * The Table class should be a near top level (top/wrapped in panel)
- * abstraction of the backend of the site.
+ * The table class is a near top level abstraction for the backend of the
+ * site. It would more correctly be called TableAndForm, as it wraps in a form
+ * as well as a table, and presumes that the end user is either trusted enough
+ * to not try and break the form, or that the form will be used.
  *
- * The Table class will need the following functionality out of the gate:
+ * It constructs a table, form, and depending on extensions, other goodies that
+ * are assoicated with the said form.
  *
- * open and close a table structure
- *
- * set the class, id, name, action, et al of the table.
+ * Takes a name string, and an array of the format key => row array
+ * (see class.row), and a header array in the format of Field Text => array(
+ * cell name => cell type) or Field Text => placeholder int (for radios)
  * 
- * take an array of header names to make a header and row rules
- * the header array should be in the form of array(header => array(cell => rule))
- * this will implicitly associate the header with a cell name and a way to make
- * that cell.
- * 
- * take an array of format: row name => array(cell name => values)
- *  -use that array to generate a list of rows with cell named cells
- *  -alternate between sets of rows if need be
- *  -use a set of setters to set values for all rows of given type
- *  -use a set of getters to access cells from either the exposed or
- *   the hidden cells of a given row.
- *  -include a task specific method to set some cell values based on other
- *   cell values, applying this to all rows.
- *   
- * allow the creation of an 'update' button to post to defined page
- * set up the name of the form from the table name
- *  
- * because there's a lot of customization in this class, it will need a number
- * of private methods for the toString method.
  *
- * indivudual rows should be accessed via getters and setters, and while it
- * shouldn't be used much, it should be resonable to use a row setter to
- * push down to a cell setter from a the table level.
- * 
+ *
+ * Noteable methods:
+ *
+ * Constructor: 
+ * public function __construct($name, $rows, $header
+ *
+ * Setters:
+ * public function setTableId($table_id)
+ * public function setTableClass($table_class)
+ * public function setFormId($form_id)
+ * public function setFormClass($form_class)
+ * public function submitOff()
  * 
  */
 class Table {
@@ -250,6 +242,8 @@ class Table {
     return $output;
   }
   
+  /**** BEGIN OF BEER AND WINE INVENTORY EXTENSION METHODS ****/
+  
   /**
    * Counts the number of checks or radio selects in a given column
    * 
@@ -288,20 +282,58 @@ class Table {
   }
   
   /**
-   * Sets the instace to run the offline check. This has a lot of task specific
-   * assumptions.
+   * Setter function to activte the allowOffline function durring the toString
+   * creation, off by default
    */
   public function offlineCheck(){
     $this->_offline_check = true;
   }
   
+  /**
+   *  checks each row to see if they are eligable for going offline due to lack
+   *  of use within the bounds of the time defined by $constant.
+   *
+   *  While this method is called allowOffline it actually sets disabled where
+   *  a row would not be allowed to be offline. If the row should be set to
+   *  disable for offline, it does so, otherwise, it just passes.
+   *  @param int $constant a defined constant for how long before opening up a
+   *  drink to going off-line
+   *  
+   */
   private function allowOffline($constant){
     foreach($this->_rows as $name => $row){
       $offtap = $row->getHidden("beer_offtap");
       $ontap = $row->getHidden("beer_ontap");
       
+      // I'm using really explicit logic here so that anyone can come back to
+      // this and tinker with it as need be.
+      
+      // if offtap is null then it has never been kicked
+      // if ontap is null then it has never been on tap (deck only)
+      // in either case is not eligable to go offline
+      if($offtap == null or $ontap == null){
+        $row->setDisabled("beer_status", 3);
+        
+      // if the ontap date is more recent then the kicked date, continue
+      } elseif($ontap > $offtap) {
+        $row->setDisabled("beer_status", 3);
+      
+      // if offtap is greater then ontap
+      } else {
+        
+        // if the diffrence is less then the constant
+        if (($offtap - $ontap) < $constant) {
+          $row->setDisabled("beer_status", 3);
+       // ok, in the remaing case the value is >= the $constant
+        } else{
+          continue;
+        }
+      }
     }
   }
+  
+
+  /**** END OF BEER AND WINE INVENTORY EXTENSION METHODS ****/
   
   /**
    *
@@ -320,6 +352,7 @@ class Table {
     return $output;
   }
   
+
   /**
    * output test function
    */
