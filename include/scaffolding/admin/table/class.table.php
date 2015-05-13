@@ -244,21 +244,19 @@ class Table {
   }
   
   /**
-   * Queries all member rows for a given column total checked
-   *
-   * returns a decorated string displaying the total checked
-   * the column name should be the short name of the cell, not the entire
-   * concat of the cell name with the table with the row.
+   * Counts the number of checks or radio selects in a given column
    * 
-   * @param str $decorator: the text string to include with the output.
    * @param str $column: the name of the column to querry in each row.
+   * @param str $value: the enumn value if type radio
    *  
-   * @return str $output: the string with the query response.
+   * @return int $output: the number of tics in the column
    */
-  public function countColumn($decorator, $column){
-    foreach($this->_rows as $row => $cells){
-      // todo: add a check active to the row
+  public function countColumn($column, $value=null){
+    $counter = 0;
+    foreach($this->_rows as $name => $row){
+      if($row->getCell($column, $value)){$counter ++;}
     }
+    return $counter;
   }
   
   /**

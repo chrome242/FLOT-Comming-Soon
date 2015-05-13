@@ -197,11 +197,13 @@ class Row {
    * A getter method to return the inner value of a cell from the public array.
    *
    * @param str $cell the cell name within the array (e.g. beer[1][type] $cell = [type])
+   * @param str $value the enum value if cell type is radio
    *
    * @return mixed $output the inner content of the cell
    */
-  public function getCell($cell){
-    $cell_name = $this->_name . '['. $cell . ']';
+  public function getCell($cell, $value=null){
+    if($value==null){$cell_name = $this->_name . '['. $cell . ']';}
+    else{$cell_name =  $this->_name . '['. $cell . '][' . $value . ']';}
     
     //get the cell in question
     $output = $this->_cells[$cell_name];

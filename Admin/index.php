@@ -63,6 +63,7 @@ $format = array("Id" => 'id',
 //echo '<pre>';
 $test5 = new Table("Beer", $test_cells, $test_headers);
 //var_dump($test5);
+echo $test5->countColumn("beer_status", "1");
 //echo '</pre>';
 echo $test5;
 
