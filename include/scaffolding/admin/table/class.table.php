@@ -53,6 +53,7 @@ class Table {
   protected $_header; // takes the header key
   protected $_format; // takes the header array value
   protected $_rows;  // the row array
+  protected $_extra = null; // extra items to put at the bottom of the row
   
   // config attributes
   protected $_makeButton = true; //make a submit button
@@ -259,6 +260,17 @@ class Table {
     return $counter;
   }
   
+  public function addCounter($text, $column, $value=null){
+    $output ='<span class="label label-info">';
+    $output .= $text . ' ';
+    $output .= '<span id="counter" class="label label-success">';
+    $output .= $this->countColumn($column, $value);
+    $output .='</span></span>';
+    
+    $this->_extra = $output;
+  }
+  
+  
   /**
    *
    * Returns a string for the update button on the form.
@@ -322,7 +334,7 @@ class Table {
     foreach($this->_rows as $row){$output .= $row;}
     
     //close out the table
-    $output .= $this->closeTable();
+    $output .= $this->closeTable($this->_extra);
     
     // return the output
     return $output;
