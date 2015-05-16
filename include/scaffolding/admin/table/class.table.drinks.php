@@ -38,7 +38,7 @@
 class DrinksTable extends Table {
   
 
-  /**** BEGIN OF BEER AND WINE INVENTORY EXTENSION METHODS ****/
+   /**** BEGIN OF BEER AND WINE INVENTORY EXTENSION METHODS ****/
   
   /**
    * Counts the number of checks or radio selects in a given column
@@ -92,14 +92,30 @@ class DrinksTable extends Table {
    *  While this method is called allowOffline it actually sets disabled where
    *  a row would not be allowed to be offline. If the row should be set to
    *  disable for offline, it does so, otherwise, it just passes.
+   *  
    *  @param int $constant a defined constant for how long before opening up a
    *  drink to going off-line
+   *  @param str $off the timestamp of when off-line
+   *  @param str $on the timestamp of when on-line
+   *  @param str $target the target cell, if this is a CSV, then the format
+   *  is cellname[value] (for radio cells)
    *  
    */
-  private function allowOffline($constant){
+  protected function allowOffline($constant, $off="beer_offtap",
+                                  $on = "beer_ontap", $target="beer_status, 3"){
     foreach($this->_rows as $name => $row){
-      $offtap = $row->getHidden("beer_offtap");
-      $ontap = $row->getHidden("beer_ontap");
+      $offtap = $row->getHidden($off);
+      $ontap = $row->getHidden($on);
+      
+      // check if the $taget is for a radio cell:
+      if(strpos($target, ",")){
+        $pieces = explode(",", $target);
+        $cell_name = $pieces[0];
+        $cell_number = intval(trim($pieces[1]));
+      } else{
+        $cell_name = $target;
+        $cell_number = null;
+      }
       
       // I'm using really explicit logic here so that anyone can come back to
       // this and tinker with it as need be.
@@ -108,18 +124,18 @@ class DrinksTable extends Table {
       // if ontap is null then it has never been on tap (deck only)
       // in either case is not eligable to go offline
       if($offtap == null or $ontap == null){
-        $row->setDisabled("beer_status", 3);
+        $row->setDisabled($cell_name, $cell_number);
         
       // if the ontap date is more recent then the kicked date, continue
       } elseif($ontap > $offtap) {
-        $row->setDisabled("beer_status", 3);
+        $row->setDisabled($cell_name, $cell_number);
       
       // if offtap is greater then ontap
       } else {
         
         // if the diffrence is less then the constant
         if (($offtap - $ontap) < $constant) {
-          $row->setDisabled("beer_status", 3);
+          $row->setDisabled($cell_name, $cell_number);
        // ok, in the remaing case the value is >= the $constant
         } else{
           continue;
@@ -130,36 +146,5 @@ class DrinksTable extends Table {
   
 
   /**** END OF BEER AND WINE INVENTORY EXTENSION METHODS ****/
-
-  
-  public function __toString(){
-    if($this->_offline_check){$this->allowOffline(TIME_TO_OFF_LINE);}
-    $output = '';
-    
-    // open the table
-    $output .= $this->openTable($this->_name, $this->_form_id, $this->_form_class,
-                                $this->_table_id, $this->_table_class);
-    
-    // make the header
-    $output .= $this->tableHeader($this->_header);
-    
-    // make all the rows
-    foreach($this->_rows as $row){$output .= $row;}
-    
-    //close out the table
-    $output .= $this->closeTable($this->_extra);
-    
-    // return the output
-    return $output;
-  }
-  
-  /**
-   * __toString() method:
-   *
-   * print openTable()
-   * for each row, print it
-   * add button for update if needed
-   * close table
-   */
   
 }

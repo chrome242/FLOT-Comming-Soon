@@ -26,19 +26,7 @@ $ariatest = array("userGroups" => ["User Group Buttons", false],
 echo menubar($permissions, $section, $root);
 echo sortbar($options, "all");
 echo sectionbar($ariatest);
-//echo openTable("apple", "pie");
-//echo tableHeader(array("One", "Two", "Three"));
-//echo closeTable(updateButton("apple"));
 
-//$test = new Cell("AwsomeCell", "Some Content");
-//$test->setClass("Yummy Foods");
-//echo $test;
-//$test2 = new Checkbox("AnotherCell", true, "GoCart");
-//$test2->disabled();
-//$test2->hideDetails();
-//echo $test2;
-//$test3 = new Radio("Another[Test][Cell]", "1", true);
-//echo $test3;
 
 $cells = array("Id" => '3',
                "Thing" => "Thing 1",
@@ -54,26 +42,11 @@ $format = array("Id" => 'id',
                 "RadioGaGa" => "radio, 6",
                 "TimeandSpace" => "time, private");
 
-//$test4 = new Row("beer", $cells, $format);
-//$test4->method("Thing", "setId", "works", true);
-//$test4->setId();
-//echo $test4->getHidden("TimeandSpace");
-//echo $test4;
 
-//echo '<pre>';
 $test5 = new Table("Beer", $test_cells, $test_headers);
-//var_dump($test5);
-//$test5->addCounter("Total on Tap:", "beer_status", "0");
-//echo '</pre>';
+$test5->addCounter("Total on Tap:", "beer_status", "0");
 $test5->offlineCheck();
 echo $test5;
 
-//$test5->test();
-
-//$test5 = new Timestamp("TimeyWimey", time(), false);
-//echo $test5;
-
-//TODO: make a test set of arrays as a seperate file
-//$table_test = new Table("Name", $test_headers, $test_cells);
 
 include(SCAFFOLDING_ADMIN."footer.php");

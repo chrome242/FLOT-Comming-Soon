@@ -27,12 +27,15 @@
  * Constructor: 
  * public function __construct($name, $rows, $header
  *
- * Setters:
+ * Setters for HTML Classes and IDs:
  * public function setTableId($table_id)
  * public function setTableClass($table_class)
  * public function setFormId($form_id)
  * public function setFormClass($form_class)
+ *
+ * 
  * public function submitOff()
+ * public function addCounter()
  * 
  */
 class Table {
@@ -296,14 +299,30 @@ class Table {
    *  While this method is called allowOffline it actually sets disabled where
    *  a row would not be allowed to be offline. If the row should be set to
    *  disable for offline, it does so, otherwise, it just passes.
+   *  
    *  @param int $constant a defined constant for how long before opening up a
    *  drink to going off-line
+   *  @param str $off the timestamp of when off-line
+   *  @param str $on the timestamp of when on-line
+   *  @param str $target the target cell, if this is a CSV, then the format
+   *  is cellname[value] (for radio cells)
    *  
    */
-  private function allowOffline($constant){
+  protected function allowOffline($constant, $off="beer_offtap",
+                                  $on = "beer_ontap", $target="beer_status, 3"){
     foreach($this->_rows as $name => $row){
-      $offtap = $row->getHidden("beer_offtap");
-      $ontap = $row->getHidden("beer_ontap");
+      $offtap = $row->getHidden($off);
+      $ontap = $row->getHidden($on);
+      
+      // check if the $taget is for a radio cell:
+      if(strpos($target, ",")){
+        $pieces = explode(",", $target);
+        $cell_name = $pieces[0];
+        $cell_number = intval(trim($pieces[1]));
+      } else{
+        $cell_name = $target;
+        $cell_number = null;
+      }
       
       // I'm using really explicit logic here so that anyone can come back to
       // this and tinker with it as need be.
@@ -312,18 +331,18 @@ class Table {
       // if ontap is null then it has never been on tap (deck only)
       // in either case is not eligable to go offline
       if($offtap == null or $ontap == null){
-        $row->setDisabled("beer_status", 3);
+        $row->setDisabled($cell_name, $cell_number);
         
       // if the ontap date is more recent then the kicked date, continue
       } elseif($ontap > $offtap) {
-        $row->setDisabled("beer_status", 3);
+        $row->setDisabled($cell_name, $cell_number);
       
       // if offtap is greater then ontap
       } else {
         
         // if the diffrence is less then the constant
         if (($offtap - $ontap) < $constant) {
-          $row->setDisabled("beer_status", 3);
+          $row->setDisabled($cell_name, $cell_number);
        // ok, in the remaing case the value is >= the $constant
         } else{
           continue;
@@ -343,7 +362,7 @@ class Table {
    *
    * @return str $output the HTML for the update button
    */
-  private function updateButton($name){
+  protected function updateButton($name){
     // See http://bavotasan.com/2009/processing-multiple-forms-on-one-page-with-php/
     $name .= "-update"; // for use in processing.
     $output ='
@@ -405,14 +424,5 @@ class Table {
     // return the output
     return $output;
   }
-  
-  /**
-   * __toString() method:
-   *
-   * print openTable()
-   * for each row, print it
-   * add button for update if needed
-   * close table
-   */
   
 }
