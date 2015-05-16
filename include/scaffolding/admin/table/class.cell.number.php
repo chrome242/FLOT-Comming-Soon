@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Text Cell
+ * Number Cell
  *
  * Extends cell.
- * The Text cell is an extension of cell that allows the cell to contain a text input.
- * Text has an additional property $_placeholder for either "placeholder" or "value", with
+ * The Number cell is an extension of cell that allows the cell to contain a Number input.
+ * Number has an additional property $_placeholder for either "placeholder" or "value", with
  * the default being placeholder. It will be created with the form-control class on
  * the input unless the controlOff() method is called.
  *
@@ -13,12 +13,14 @@
  * controlOff() removes the form-control class from the input.
  * 
  */
-class Text extends Input {
+
+class Number extends Input {
   
   // text additional properties.
   protected $_format; // placeholder or value string
   protected $_form = true; // add the form-control class by default
-  
+  protected $_step = "0.001";
+  protected $_size;
   // text uses $this->_content for the text
   
   /**
@@ -34,19 +36,26 @@ class Text extends Input {
    *  This extension produces a text 
    *  
    * @param str $name: the name & id of the Cell
-   * @param str $content: The text of the cell
+   * @param str $content: The value of the cell
    * @param str $type: if a placeholder value or a real value
+   * @param float $step: the amount of the step size. 0.001 by default
+   * @param int $size: the amount of the size attrib. Not set by default.
    */
-  public function __construct($name, $content, $type="placeholder"){
+  public function __construct($name, $content, $type="placeholder",
+                              $step=null, $size=null){
     $this->_id = $name;
     $this->_name = $name;
-    $this->_type = "text";
+    $this->_type = "number";
     $this->_content = $content;
+    $this->_size = $size;
     if($type == "placeholder") {
       $this->_format = ' placeholder=';
     } else {
       $this->_format = ' value=';
     }
+    
+    if($step != null){$this->_step = $step;}
+    if($size != null){$this->_size = ' size="' . $size . '"';}
   }
   
   
@@ -56,15 +65,17 @@ class Text extends Input {
    * re-write of the class methods to set ids and names and such
    */
   private function makeInput(){
-    $details = '';
+    $details = ' step="' . $this->_step . '"';
     
-    if($this->_form){$details = ' class="form-control" ';}
+    if($this->_form){$details .= ' class="form-control" ';}
     
     if($this->_showDetails){$details .= 'id="'. $this->_id . '" name="' . $this->_name . '"';}
     
     $details .= $this->_format . '"' . $this->_content . '"';
     
     $content = '<input type="'. $this->_type .'"'. $details .'';
+    
+    if($this->_size != null){$content .= $this->_size;}
     
     if($this->_disabled){$content .= " disabled";}
     

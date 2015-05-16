@@ -19,10 +19,11 @@ include(SCAFFOLDING."head.php");
 echo menubar($permissions, $section, $root);
 
 $test1 = new Text("Test", "Some test content", $type="text");
+$test2 = new Number("Num Test", 4.00, "placeholder", 2, 5);
 //$test1->controlOff();
 //$test1->disabled();
 echo $test1;
-
+echo $test2;
 echo '
         <div class="container">
           <form name="beerManagement">
@@ -35,7 +36,8 @@ $cells = array("Id" => '3',
                "Checkmeout" => False,
                "RadioGaGa" => 3,
                "TimeandSpace" => time(),
-               "Blurb" => "Some Text");
+               "Blurb" => "Some Text",
+               "Count" => '3.26666');
 
 $format = array("Id" => 'id',
                 "Thing" => "plain",
@@ -43,10 +45,11 @@ $format = array("Id" => 'id',
                 "Checkmeout" => "checkbox",
                 "RadioGaGa" => "radio, 6",
                 "TimeandSpace" => "time, private",
-                "Blurb" => "text, placeholder");
+                "Blurb" => "text, placeholder",
+                "Count" => "number, value, 4, 8");
 
-$test2 = new Row("beer", $cells, $format);
-$test2->setCellClass("Blurb", "col-xs-2");
-echo $test2;
+$test3 = new Row("beer", $cells, $format);
+$test3->setCellClass("Blurb", "col-xs-2");
+echo $test3;
                 
 include(SCAFFOLDING_ADMIN."footer.php");

@@ -15,6 +15,7 @@ include_once("class.cell.input.php"); // the input interace for cells
 include_once("class.cell.checkbox.php"); //the checkbox cell type
 include_once("class.cell.radio.php"); // the radio cell type
 include_once("class.cell.text.php"); // the text cell type
+include_once("class.cell.number.php"); // the numer cell type
 
 // testing data
 include_once("test.data.php");

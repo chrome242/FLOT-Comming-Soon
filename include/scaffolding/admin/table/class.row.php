@@ -14,10 +14,13 @@
  * Private cells: private cells are used for some row internal purpose,
  * and kept in the $_privateCells array
  *
- * Ways to make cells:
+ * Ways to make cells (o) = option part of string:
+ *  NOTE THAT IF A STRING HAS OPTIONAL PARTS, THEY MUST BE INCLUDED IN ORDER,
+ *  AND CAN BE PASSED OVER WITH A VALUE OF 'none' (eg number, x, none, 42)
  * id - plain text cell who's value is attached to the row name
  * checkbox - a checkbox
  * drop - not placed in the table
+ * number, x, y(o), z(o), where x = number or placeholder y= step(o), z= size(o)
  * private - placed in the internal cell array as basic text
  * plain - a basic cell
  * radio, # - a radio set of # cells
@@ -176,6 +179,21 @@ class Row {
         $pieces = explode(",", $format[$name]);
         $type = trim($pieces[1]);
         $output[$cell_name] = new Text($cell_name, $value, $type);
+      }
+      
+      //number cell
+      if(stripos($format[$name], 'number,') !== false){
+        $pieces = explode(",", $format[$name]);
+        $type = trim($pieces[1]);
+        $step = null;
+        $size = null;
+        if (count($pieces) > 2){
+          if ($pieces[2] != 'none'){$step = trim($pieces[2]);}
+          if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
+        }
+        
+        $output[$cell_name] = new Number($cell_name, $value, $type, $step, $size);
+        
       }
       
       //radio cell madness
