@@ -35,7 +35,7 @@
  * public function submitOff()
  * 
  */
-class DrinksTable extends Table {
+class Drinks extends Table {
   
 
    /**** BEGIN OF BEER AND WINE INVENTORY EXTENSION METHODS ****/

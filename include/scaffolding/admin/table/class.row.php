@@ -16,11 +16,12 @@
  *
  * Ways to make cells:
  * id - plain text cell who's value is attached to the row name
+ * checkbox - a checkbox
  * drop - not placed in the table
  * private - placed in the internal cell array as basic text
  * plain - a basic cell
- * checkbox - a checkbox
  * radio, # - a radio set of # cells
+ * text, x = a text entry where x = text or placeholder
  * time, x - a timestamp where x = show or private
  *
  * Cells can be accessed via calling methods defined below, rather than
@@ -42,6 +43,7 @@
  *
  *  Setters for cells:
  *  public function setDisabled($cell, $value=null)
+ *  public function setcellClass($cell, $class)
  * 
  * To add new cell types the switch in makeCells must be updated 
  * 
@@ -169,6 +171,13 @@ class Row {
         }
       }
       
+      //text cell
+      if(stripos($format[$name], 'text,') !== false){
+        $pieces = explode(",", $format[$name]);
+        $type = trim($pieces[1]);
+        $output[$cell_name] = new Text($cell_name, $value, $type);
+      }
+      
       //radio cell madness
       if(strpos($format[$name], 'radio,') !== false){
         $pieces = explode(",", $format[$name]);
@@ -245,6 +254,20 @@ class Row {
     
     // do job
     $this->_cells[$cell_name]->disabled();
+  }
+  
+    /**
+   * A setter to push down to the cell, setting the cell class. 
+   *
+   * @param str $cel: the name of the cell
+   * @param str $class: the enum value if the type of the cell is radio.
+   */
+  public function setCellClass($cell, $class){
+    // construct name
+    $cell_name = $this->_name . '['. $cell . ']';
+    
+    // do job
+    $this->_cells[$cell_name]->setClass($class);
   }
   
   

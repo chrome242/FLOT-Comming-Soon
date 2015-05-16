@@ -33,9 +33,12 @@
  * public function setFormId($form_id)
  * public function setFormClass($form_class)
  *
- * 
+ * Methods to change functionality:
  * public function submitOff()
- * public function addCounter()
+ * public function addCounter($text, $column, $value=null)
+ *
+ * Setters to do an action to each row:
+ * public function setCellClass($cell, $class)
  * 
  */
 class Table {
@@ -245,6 +248,16 @@ class Table {
     return $output;
   }
   
+  /**
+   * Sets the class of a cell for all cells with that name in all rows.
+   *
+   * @param str $cell: the name of the cell, cell name only
+   * @param str $class: the class to be added to the cell
+   */
+  public function setCellClass($cell, $class){
+    foreach($this->_rows as $name => $row){$row->setCellClass($cell, $class);}
+  }
+  
   /**** BEGIN OF BEER AND WINE INVENTORY EXTENSION METHODS ****/
   
   /**
@@ -262,7 +275,6 @@ class Table {
     }
     return $counter;
   }
-  
   /**
    * adds a counter to the end of the table to display the total of a given
    * column. This sets an ID for JS to use, so only one copy can be used
@@ -350,8 +362,6 @@ class Table {
       }
     }
   }
-  
-
   /**** END OF BEER AND WINE INVENTORY EXTENSION METHODS ****/
   
   /**
