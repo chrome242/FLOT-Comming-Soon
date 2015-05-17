@@ -1,5 +1,4 @@
 <?php
-// move cell includes here?
 
 // todo: replace $cell_name = $this->_name . '['. $name . ']'; with a function as I do it a lot
 
@@ -8,15 +7,26 @@
  *
  * The purpose of the row class is pretty simple:
  *
+ * Takes a string of name
  * Takes an array of format name => value in order
  * Takes an array of format name => type to establish type
  *
- * Private cells: private cells are used for some row internal purpose,
- * and kept in the $_privateCells array
+ * Produces two general types of cells:
  *
- * Ways to make cells (o) = option part of string:
+ * Public cells: These are used for display and getting input. Echos out to
+ * the 
+ *
+ * Private cells: private cells are used for some row internal purpose,
+ * and kept in the $_privateCells array and not added to the _toString()
+ *
+ * Constructing cells:
+ *
+ *  (o) = optional part of string:
  *  NOTE THAT IF A STRING HAS OPTIONAL PARTS, THEY MUST BE INCLUDED IN ORDER,
  *  AND CAN BE PASSED OVER WITH A VALUE OF 'none' (eg number, x, none, 42)
+ *
+ * Cell types:
+ * 
  * id - plain text cell who's value is attached to the row name
  * checkbox - a checkbox
  * drop - not placed in the table
@@ -27,11 +37,9 @@
  * text, x = a text entry where x = text or placeholder
  * time, x - a timestamp where x = show or private
  *
- * Cells can be accessed via calling methods defined below, rather than
- * the methods on the cell class, as I would like to have the cell objects
- * protected.
  *
- * notable class methods-
+ * Notable class methods-
+ * 
  *  constructor:
  *  public function __construct($name, $cells, $format)
  *
@@ -39,16 +47,17 @@
  *  public function setId() optional arg $id else $id = $name
  *  public function setClass($class)
  *
- *
- *  Get the inner value of a cell from either cell array
+ *  Get the inner value of a cell from either cell array:
  *  public function getHidden($cell)
  *  public function getCell($cell)
  *
- *  Setters for cells:
+ *  Setters for commonly used cell methods- these push down to cell method of
+ *  the same name or purpose:
  *  public function setDisabled($cell, $value=null)
- *  public function setcellClass($cell, $class)
+ *  public function setCellClass($cell, $class)
  * 
- * To add new cell types the switch in makeCells must be updated 
+ * Expanding use of class:
+ *  To add new cell types the logic in makeCells must be updated 
  * 
  */
 class Row {
