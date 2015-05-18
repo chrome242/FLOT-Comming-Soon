@@ -3,7 +3,7 @@
 /**
  * Number Cell
  *
- * Extends cell.
+ * Extends input.
  * The Number cell is an extension of cell that allows the cell to contain a Number input.
  * Number has an additional property $_placeholder for either "placeholder" or "value", with
  * the default being placeholder. It will be created with the form-control class on
