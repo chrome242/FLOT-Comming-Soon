@@ -39,7 +39,7 @@ class Input extends Cell {
    * must be rebuilt for that cell.
    *  
    * @param str $name: the name & id of the Cell
-   * @param bool $state: if true, the cell is checked.
+   * @param str $type: the type of cell
    */
   public function __construct($name, $type){
     $this->_id = $name;

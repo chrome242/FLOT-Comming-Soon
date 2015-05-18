@@ -11,22 +11,24 @@ include_once("class.row.php");
 
 // text cells
 include_once("class.cell.php"); // basic cell class
+// TODO: extend timestamp for the day's running view. Extend row to handle it.
 include_once("class.cell.timestamp.php"); // timestamp extension for cell class
 //include_once("class.cell.button.php"); // in-row button
 
 // input cells
-include_once("class.cell.input.php"); // the input interace for cells
+include_once("class.cell.input.php"); // the input template for cells
 include_once("class.cell.checkbox.php"); //the checkbox cell type
 include_once("class.cell.radio.php"); // the radio cell type
 include_once("class.cell.text.php"); // the text cell type
 include_once("class.cell.number.php"); // the numer cell type
 
-// input like cells, use the input interface
-//include_once("class.cell.textarea.php"); //text area input
+// input like cells, use the input template
+include_once("class.cell.textarea.php"); //text area input
 //include_once("class.cell.select.php"); // select box
 
 // cells with mutiple elements
-//include_once("class.cell.extras.php");
+//include_once("class.cell.extras.php"); // cells with buttons and text
+
 
 // testing data
 include_once("test.data.php");
