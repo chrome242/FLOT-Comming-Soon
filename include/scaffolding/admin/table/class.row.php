@@ -35,6 +35,7 @@
  * plain - a basic cell
  * radio, # - a radio set of # cells
  * text, x = a text entry where x = text or placeholder
+ * textarea, x, y(o), z(o), where x = text or placeholder y= rows(o), z= colspan(o)
  * time, x - a timestamp where x = show or private
  *
  *
@@ -202,6 +203,21 @@ class Row {
         }
         
         $output[$cell_name] = new Number($cell_name, $value, $type, $step, $size);
+        
+      }
+      
+      // textarea -suprizingly identical to number... might need to functionalize
+      if(stripos($format[$name], 'textarea,') !== false){
+        $pieces = explode(",", $format[$name]);
+        $type = trim($pieces[1]);
+        $row = null;
+        $colspan = null;
+        if (count($pieces) > 2){
+          if ($pieces[2] != 'none'){$step = trim($pieces[2]);}
+          if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
+        }
+        
+        $output[$cell_name] = new Number($cell_name, $value, $type, $row, $colpan);
         
       }
       
