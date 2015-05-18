@@ -179,7 +179,10 @@ class Row {
       //checkbox cell
       if($format[$name] == 'checkbox'){
         $output[$cell_name] = new Checkbox($name, $value);
+        if($protected){
         $output[$cell_name]->disabled();
+        $output[$cell_name]->hideDetails();
+        }
       }
       
       //timestamp cell
@@ -200,7 +203,11 @@ class Row {
         $pieces = explode(",", $format[$name]);
         $type = trim($pieces[1]);
         $output[$cell_name] = new Text($cell_name, $value, $type);
+        
+        if($protected){
         $output[$cell_name]->disabled();
+        $output[$cell_name]->hideDetails();
+        }
       }
       
       //number cell
@@ -216,7 +223,11 @@ class Row {
         }
         
         $output[$cell_name] = new Number($cell_name, $value, $type, $step, $size);
+        
+        if($protected){
         $output[$cell_name]->disabled();
+        $output[$cell_name]->hideDetails();
+        }
       }
       
       // textarea -suprizingly identical to number... might need to functionalize
@@ -232,7 +243,11 @@ class Row {
         }
         
         $output[$cell_name] = new Number($cell_name, $value, $type, $row, $colpan);
+        
+        if($protected){
         $output[$cell_name]->disabled();
+        $output[$cell_name]->hideDetails();
+        }
       }
       
       //radio cell madness
@@ -248,11 +263,19 @@ class Row {
           
           if($cell_value == $value) {
             $output[$radio_cell_name] = new Radio($cell_name, $cell_value, true);
+            
+            if($protected){
             $output[$radio_cell_name]->disabled();
+            $output[$radio_cell_name]->hideDetails();
+            }
           }
           else {
             $output[$radio_cell_name] = new Radio($cell_name, $cell_value, false);
+            
+            if($protected){
             $output[$radio_cell_name]->disabled();
+            $output[$radio_cell_name]->hideDetails();
+            }
           }
           
           $cell_value ++;

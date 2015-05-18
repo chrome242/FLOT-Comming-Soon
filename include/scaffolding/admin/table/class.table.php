@@ -2,8 +2,7 @@
 // check to see if depaancy includes should be in the highest level abstraction
 // class (eg, row should included here? with cells included there?)
 
-// DO PLEASE NOTE: THE METHOD TO ALLOW OFFTAP IS HARDCODED FOR TESTING AND LATER
-// PRESUMED SINGLE USE. PLEASE CHANGE JUST IN CASE ONCE PAST TESTING
+
 
 /**
  * Table
@@ -70,12 +69,13 @@ class Table {
    * @param str $name the name of the form
    * @param mixed array $rows array of row name => (cell value array)
    * @param mixed array $header array of header name => array(cell name => format)
+   * @param bool $protected -if the view is protected, disabling any inputs
    *
-   * due to radio buttons, some of the valyes in the header array may not be
+   * due to radio buttons, some of the values in the header array may not be
    * name => array but rather name => int where the in is just a placeholder
    * for keeping track of where in the radio set the table is
    */
-  public function __construct($name, $rows, $header){
+  public function __construct($name, $rows, $header, $protected=false){
     $this->_name = $name;
     $this->_header = $this->makeHeader($header);
     $this->_format = $this->makeFormat($header);
@@ -175,17 +175,17 @@ class Table {
    *
    * @param array $rows an array of row data
    * @param array $format an array of how to format the row cells
-   * @param str $name optional name part, for use if no id row set
+   * @param bool $protected if the row is to be protected or not
    *
    * @return array $output an array of row objects with member cell objects
    */
-  private function makeRows($rows, $format){
+  private function makeRows($rows, $format, $protected){
     // initalize the output array
     $output = array();
 
     // loop... because loops
     foreach($rows as $row => $rowContent){
-      $a_row = new Row($this->_name, $rowContent, $format);
+      $a_row = new Row($this->_name, $rowContent, $format, $protected);
       $rowName = $a_row->getName();
       $output[$rowName] = $a_row;
     }
