@@ -11,6 +11,10 @@
  * Takes an array of format name => value in order
  * Takes an array of format name => type to establish type
  *
+ * Optional bool param for protected views. This is for allowing view of
+ * a table with input elements to untrusted viewers. Will remove all IDs,
+ * & names from inputs, and disable the cells.
+ *
  * Produces two general types of cells:
  *
  * Public cells: These are used for display and getting input. Echos out to
@@ -58,7 +62,8 @@
  *  public function setCellClass($cell, $class)
  * 
  * Expanding use of class:
- *  To add new cell types the logic in makeCells must be updated 
+ *  To add new cell types the logic in makeCells must be updated
+ *  Any input cells need to have a setup for $protected in their makeCell
  * 
  */
 class Row {
@@ -86,10 +91,11 @@ class Row {
    * @param str $name the name of the row or partial name of the row
    * @param array mixed $array: the cells that belong to the row
    * @param array str $types: an array of cell types
+   * @param bool $protected: a bool for if this is a protected view or not
    */
-  public function __construct($name, $cells, $format){
+  public function __construct($name, $cells, $format, $protected=false){
     $this->_name = $this->makeName($name, $cells, $format);
-    $this->makeCells($cells, $format);
+    $this->makeCells($cells, $format, $protected);
   }
   
   /**
@@ -156,7 +162,7 @@ class Row {
    *
    * @return array $output the array of cells
    */
-  private function makeCells($cells, $format){
+  private function makeCells($cells, $format, $protected){
     $output = array();
     $hidden = array();
     foreach($cells as $name => $value){
@@ -171,15 +177,20 @@ class Row {
       if($format[$name] == 'private'){ $hidden[$cell_name] = new Cell($name, $value);}
       
       //checkbox cell
-      if($format[$name] == 'checkbox'){ $output[$cell_name] = new Checkbox($name, $value);}
+      if($format[$name] == 'checkbox'){
+        $output[$cell_name] = new Checkbox($name, $value);
+        $output[$cell_name]->disabled();
+      }
       
       //timestamp cell
       if(stripos($format[$name], 'time,') !== false){
         $pieces = explode(",", $format[$name]);
         $where_to = trim($pieces[1]);
+        
         if($where_to != "private") {
           $output[$cell_name] = new Timestamp($cell_name, $value, true);
-        }else{
+        }
+        else{
           $hidden[$cell_name] = new Timestamp($cell_name, $value, false);
         }
       }
@@ -189,6 +200,7 @@ class Row {
         $pieces = explode(",", $format[$name]);
         $type = trim($pieces[1]);
         $output[$cell_name] = new Text($cell_name, $value, $type);
+        $output[$cell_name]->disabled();
       }
       
       //number cell
@@ -197,13 +209,14 @@ class Row {
         $type = trim($pieces[1]);
         $step = null;
         $size = null;
+        
         if (count($pieces) > 2){
           if ($pieces[2] != 'none'){$step = trim($pieces[2]);}
           if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
         }
         
         $output[$cell_name] = new Number($cell_name, $value, $type, $step, $size);
-        
+        $output[$cell_name]->disabled();
       }
       
       // textarea -suprizingly identical to number... might need to functionalize
@@ -212,13 +225,14 @@ class Row {
         $type = trim($pieces[1]);
         $row = null;
         $colspan = null;
+        
         if (count($pieces) > 2){
           if ($pieces[2] != 'none'){$step = trim($pieces[2]);}
           if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
         }
         
         $output[$cell_name] = new Number($cell_name, $value, $type, $row, $colpan);
-        
+        $output[$cell_name]->disabled();
       }
       
       //radio cell madness
@@ -226,14 +240,21 @@ class Row {
         $pieces = explode(",", $format[$name]);
         $cell_number = intval(trim($pieces[1]));
         $cell_value =0; // counter & id value
+        
         while ($cell_value < $cell_number){
+          
           // $value above == the value where state== true
           $radio_cell_name = $cell_name . '[' . $cell_value . ']';
+          
           if($cell_value == $value) {
             $output[$radio_cell_name] = new Radio($cell_name, $cell_value, true);
-          } else {
-            $output[$radio_cell_name] = new Radio($cell_name, $cell_value, false);
+            $output[$radio_cell_name]->disabled();
           }
+          else {
+            $output[$radio_cell_name] = new Radio($cell_name, $cell_value, false);
+            $output[$radio_cell_name]->disabled();
+          }
+          
           $cell_value ++;
         }
       }
