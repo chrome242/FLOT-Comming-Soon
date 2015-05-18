@@ -79,7 +79,8 @@ class Table {
     $this->_name = $name;
     $this->_header = $this->makeHeader($header);
     $this->_format = $this->makeFormat($header);
-    $this->_rows = $this->makeRows($rows, $this->_format);
+    if($protected){$this->submitOff();}
+    $this->_rows = $this->makeRows($rows, $this->_format, $protected);
     
   }
   

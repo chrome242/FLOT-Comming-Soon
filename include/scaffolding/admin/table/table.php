@@ -23,8 +23,7 @@ include_once("class.cell.text.php"); // the text cell type
 include_once("class.cell.number.php"); // the numer cell type
 
 // input like cells, use the input template
-//TODO: test table updates then test texarea
-//include_once("class.cell.textarea.php"); //text area input
+include_once("class.cell.textarea.php"); //text area input
 //include_once("class.cell.select.php"); // select box
 
 // cells with mutiple elements

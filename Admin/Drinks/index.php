@@ -20,10 +20,15 @@ echo menubar($permissions, $section, $root);
 
 $test1 = new Text("Test", "Some test content", $type="text");
 $test2 = new Number("Num Test", 4.00, "placeholder", 2, 5);
+
+$test_text = "The Quick Brown Fox Jumped Over the Lazy Dog.";
+$test3 = new Textarea("TestArea", $test_text, "placeholder");
+
 //$test1->controlOff();
 //$test1->disabled();
 echo $test1;
 echo $test2;
+echo $test3;
 echo '
         <div class="container">
           <form name="beerManagement">

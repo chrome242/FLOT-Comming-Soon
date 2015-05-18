@@ -53,6 +53,7 @@ class Textarea extends Input {
     $this->_type = "textarea";
     $this->_row = $rows;
     $this->_colspan = $colspan;
+    $this->_content = $content;
     if($type == "placeholder"){$this->_placeholder = true;}
     if($type != "placeholder"){$this->_placeholder = false;}
   }
