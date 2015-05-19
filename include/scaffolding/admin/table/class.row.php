@@ -38,6 +38,7 @@
  * private - placed in the internal cell array as basic text
  * plain - a basic cell
  * radio, # - a radio set of # cells
+ * select, x(o), y(o), z(o) where x = selected value(o), y = mutiple(o), z= size(o)
  * text, x = a text entry where x = text or placeholder
  * textarea, x, y(o), z(o), where x = text or placeholder y= rows(o), z= colspan(o)
  * time, x - a timestamp where x = show or private
@@ -47,6 +48,9 @@
  * 
  *  constructor:
  *  public function __construct($name, $cells, $format)
+ *
+ *  Class getters:
+ *  public function getName()
  *
  *  Setters for HTML attribs:
  *  public function setId() optional arg $id else $id = $name
@@ -142,7 +146,7 @@ class Row {
    * @return str $output the name for the cell
    */
   
-  private function makeName($name, $cells, $format){
+  protected function makeName($name, $cells, $format){
 
     $output = $name;
     foreach($format as $cell_name => $type){
@@ -162,7 +166,7 @@ class Row {
    *
    * @return array $output the array of cells
    */
-  private function makeCells($cells, $format, $protected){
+  protected function makeCells($cells, $format, $protected){
     $output = array();
     $hidden = array();
     foreach($cells as $name => $value){

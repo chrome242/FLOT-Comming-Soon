@@ -24,7 +24,7 @@ include_once("class.cell.number.php"); // the numer cell type
 
 // input like cells, use the input template
 include_once("class.cell.textarea.php"); //text area input
-//include_once("class.cell.select.php"); // select box
+include_once("class.cell.select.php"); // select box
 
 // cells with mutiple elements
 //include_once("class.cell.extras.php"); // cells with buttons and text
