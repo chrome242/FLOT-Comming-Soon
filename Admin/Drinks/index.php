@@ -7,6 +7,13 @@ $title = "Manage Drinks";
 $root = ADMIN;
 $section = ADMIN."Drinks/";
 
+$permissions = array("inventory" => "1",
+                     "drinks" =>  "1",
+                     "extras" => "1",
+                     "food" => 1,
+                     "add_user" => "1",
+                     "edit_user" => 1);
+
 $cells = array("Id" => '3',
                "Thing" => "Thing 1",
                "Another Thing" => "Thing 2",
@@ -14,7 +21,9 @@ $cells = array("Id" => '3',
                "RadioGaGa" => 3,
                "TimeandSpace" => time(),
                "Blurb" => "Some Text",
-               "Count" => '3.26666');
+               "Count" => '3.26666',
+               "TextArea" => "A house, in the hills",
+               "ASelect" => $permissions);
 
 $format = array("Id" => 'id',
                 "Thing" => "plain",
@@ -23,16 +32,12 @@ $format = array("Id" => 'id',
                 "RadioGaGa" => "radio, 6",
                 "TimeandSpace" => "time, private",
                 "Blurb" => "text, placeholder",
-                "Count" => "number, value, 4, 8");
+                "Count" => "number, value, 4, 8",
+                "TextArea" => "textarea, value",
+                "ASelect" => "select");
 
 
 
-$permissions = array("inventory" => "1",
-                     "drinks" =>  "1",
-                     "extras" => "1",
-                     "food" => 1,
-                     "add_user" => "1",
-                     "edit_user" => 1);
 
 include(SCAFFOLDING."head.php");
 

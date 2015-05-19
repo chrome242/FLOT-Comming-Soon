@@ -38,7 +38,7 @@
  * private - placed in the internal cell array as basic text
  * plain - a basic cell
  * radio, # - a radio set of # cells
- * select, x(o), y(o), z(o) where x = selected value(o), y = mutiple(o), z= size(o)
+ * select, x(o), y(o), z(o) where x = selected value(o), y= mutiple(o), z= size(o)
  * text, x = a text entry where x = text or placeholder
  * textarea, x, y(o), z(o), where x = text or placeholder y= rows(o), z= colspan(o)
  * time, x - a timestamp where x = show or private
@@ -246,7 +246,34 @@ class Row {
           if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
         }
         
-        $output[$cell_name] = new Number($cell_name, $value, $type, $row, $colpan);
+        $output[$cell_name] = new Textarea($cell_name, $value, $type, $row, $colpan);
+        
+        if($protected){
+        $output[$cell_name]->disabled();
+        $output[$cell_name]->hideDetails();
+        }
+      }
+      
+      if(stripos($format[$name], 'select') !== false){
+
+        // if it has args
+        if(stripos($format[$name], 'select,') !== false){
+          $pieces = explode(",", $format[$name]);
+          $selected = trim($pieces[1]);
+          $mutiple = null;
+          $size = null;
+          
+          if (count($pieces) > 2){
+            if ($pieces[2] != 'none'){$step = trim($pieces[2]);}
+            if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
+          }
+
+          $output[$cell_name] = new Select($cell_name, $value, $selected, $mutiple, $size);
+        }
+        // if no args
+        if(stripos($format[$name], 'select,') === false){
+          $output[$cell_name] = new Select($cell_name, $value);
+        }
         
         if($protected){
         $output[$cell_name]->disabled();
