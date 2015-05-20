@@ -173,19 +173,19 @@ class Row {
       $cell_name = $this->_name . '['. $name . ']'; // should work for non-radios
       
       // id cell
-      if($format[$name] == 'id'){$output[$cell_name] = new Cell($name, $value);}
+      if($format[$name] == 'id'){$this->_cells[$cell_name] = new Cell($name, $value);}
       // text cell
-      if($format[$name] == 'plain'){ $output[$cell_name] = new Cell($name, $value);}
+      if($format[$name] == 'plain'){ $this->_cells[$cell_name] = new Cell($name, $value);}
       
       // private (text) cell private
-      if($format[$name] == 'private'){ $hidden[$cell_name] = new Cell($name, $value);}
+      if($format[$name] == 'private'){ $this->_privateCells[$cell_name] = new Cell($name, $value);}
       
       //checkbox cell
       if($format[$name] == 'checkbox'){
-        $output[$cell_name] = new Checkbox($name, $value);
+        $this->_cells[$cell_name] = new Checkbox($name, $value);
         if($protected){
-        $output[$cell_name]->disabled();
-        $output[$cell_name]->hideDetails();
+        $this->_cells[$cell_name]->disabled();
+        $this->_cells[$cell_name]->hideDetails();
         }
       }
       
@@ -195,10 +195,10 @@ class Row {
         $where_to = trim($pieces[1]);
         
         if($where_to != "private") {
-          $output[$cell_name] = new Timestamp($cell_name, $value, true);
+          $this->_cells[$cell_name] = new Timestamp($cell_name, $value, true);
         }
         else{
-          $hidden[$cell_name] = new Timestamp($cell_name, $value, false);
+          $this->_privateCells[$cell_name] = new Timestamp($cell_name, $value, false);
         }
       }
       
@@ -206,11 +206,11 @@ class Row {
       if(stripos($format[$name], 'text,') !== false){
         $pieces = explode(",", $format[$name]);
         $type = trim($pieces[1]);
-        $output[$cell_name] = new Text($cell_name, $value, $type);
+        $this->_cells[$cell_name] = new Text($cell_name, $value, $type);
         
         if($protected){
-        $output[$cell_name]->disabled();
-        $output[$cell_name]->hideDetails();
+        $this->_cells[$cell_name]->disabled();
+        $this->_cells[$cell_name]->hideDetails();
         }
       }
       
@@ -226,11 +226,11 @@ class Row {
           if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
         }
         
-        $output[$cell_name] = new Number($cell_name, $value, $type, $step, $size);
+        $this->_cells[$cell_name] = new Number($cell_name, $value, $type, $step, $size);
         
         if($protected){
-        $output[$cell_name]->disabled();
-        $output[$cell_name]->hideDetails();
+        $this->_cells[$cell_name]->disabled();
+        $this->_cells[$cell_name]->hideDetails();
         }
       }
       
@@ -246,11 +246,11 @@ class Row {
           if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
         }
         
-        $output[$cell_name] = new Textarea($cell_name, $value, $type, $row, $colpan);
+        $this->_cells[$cell_name] = new Textarea($cell_name, $value, $type, $row, $colpan);
         
         if($protected){
-        $output[$cell_name]->disabled();
-        $output[$cell_name]->hideDetails();
+        $this->_cells[$cell_name]->disabled();
+        $this->_cells[$cell_name]->hideDetails();
         }
       }
       
@@ -268,16 +268,16 @@ class Row {
             if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
           }
 
-          $output[$cell_name] = new Select($cell_name, $value, $selected, $mutiple, $size);
+          $this->_cells[$cell_name] = new Select($cell_name, $value, $selected, $mutiple, $size);
         }
         // if no args
         if(stripos($format[$name], 'select,') === false){
-          $output[$cell_name] = new Select($cell_name, $value);
+          $this->_cells[$cell_name] = new Select($cell_name, $value);
         }
         
         if($protected){
-        $output[$cell_name]->disabled();
-        $output[$cell_name]->hideDetails();
+        $this->_cells[$cell_name]->disabled();
+        $this->_cells[$cell_name]->hideDetails();
         }
       }
       
@@ -293,19 +293,19 @@ class Row {
           $radio_cell_name = $cell_name . '[' . $cell_value . ']';
           
           if($cell_value == $value) {
-            $output[$radio_cell_name] = new Radio($cell_name, $cell_value, true);
+            $this->_cells[$radio_cell_name] = new Radio($cell_name, $cell_value, true);
             
             if($protected){
-            $output[$radio_cell_name]->disabled();
-            $output[$radio_cell_name]->hideDetails();
+            $this->_cells[$radio_cell_name]->disabled();
+            $this->_cells[$radio_cell_name]->hideDetails();
             }
           }
           else {
-            $output[$radio_cell_name] = new Radio($cell_name, $cell_value, false);
+            $this->_cells[$radio_cell_name] = new Radio($cell_name, $cell_value, false);
             
             if($protected){
-            $output[$radio_cell_name]->disabled();
-            $output[$radio_cell_name]->hideDetails();
+            $this->_cells[$radio_cell_name]->disabled();
+            $this->_cells[$radio_cell_name]->hideDetails();
             }
           }
           
@@ -317,8 +317,6 @@ class Row {
       if($format[$name] == 'drop'){ continue; }
       
     }
-    $this->_cells = $output;
-    $this->_privateCells = $hidden;
   }  
 
   
