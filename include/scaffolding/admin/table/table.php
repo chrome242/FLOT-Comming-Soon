@@ -11,7 +11,7 @@ include_once("class.row.php");
 
 // text cells
 include_once("class.cell.php"); // basic cell class
-// TODO: extend timestamp for the day's running view. Extend row to handle it.
+include_once("class.cell.duration.php"); // a lot like timestamp, but diffrent
 include_once("class.cell.timestamp.php"); // timestamp extension for cell class
 //include_once("class.cell.button.php"); // in-row button
 

@@ -244,7 +244,8 @@ class Table {
                   <th>' .$name .'</th>';
     }
     $output .='
-                </tr>';
+                </tr>
+              </thead>';
     
     return $output;
   }
@@ -377,7 +378,7 @@ class Table {
     // See http://bavotasan.com/2009/processing-multiple-forms-on-one-page-with-php/
     $name .= "-update"; // for use in processing.
     $output ='
-            <tr><input class="btn pull-right clearfix btn-primary" name="'. $name .'"type="submit" value="Update"></tr>';
+          <input class="btn pull-right clearfix btn-primary" name="'. $name .'"type="submit" value="Update">';
     
     return $output;
   }
@@ -403,6 +404,7 @@ class Table {
    */
   
   private function closeTable($extra=null){
+    if($this->_makeButton){$output .=$this->updateButton($this->_name);}
     $output ='
             </table>';
   

@@ -49,13 +49,13 @@ class Duration extends Cell {
    * @param int $first_timestamp: the timestamp
    * @param int $second_timestamp: if null then zero.
    */
-  public function __construct($name, $onTap, $offTap = 0){
+  public function __construct($name, $onTap, $offTap=0){
     $this->_id = $name;
     $this->_name = $name;
     
     // if onTap is greater then $offTap then it is onTap & current
     if($onTap > $offTap){
-      $this->setToolTip($this->makeToolTip($onTap));
+      $this->setToolTip($this->makeToolTip($onTap, time()));
       $this->_content = "Current";
     }
     
@@ -93,8 +93,9 @@ class Duration extends Cell {
    *
    * @return str $output: A string of the number of days and commentary
    */
-  public function makeToolTip($onTap, $today=time()){
-    return $this->makeDays($onTap, $today) . " days running"
+  public function makeToolTip($onTap, $today){
+    $days =  $this->makeDays($onTap, $today);
+    return $days . " days running";
   }
   
   /**

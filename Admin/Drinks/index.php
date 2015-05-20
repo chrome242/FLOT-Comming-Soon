@@ -43,24 +43,31 @@ include(SCAFFOLDING."head.php");
 
 echo menubar($permissions, $section, $root);
 
+echo '
+        <div class="container">
+          <form name="beerManagement">
+            <table class="table table-hover" id="beer">
+              <thead>';
+
+
 $test1 = new Text("Test", "Some test content", $type="text");
 $test2 = new Number("Num Test", 4.00, "placeholder", 2, 5);
 
 $test_text = "The Quick Brown Fox Jumped Over the Lazy Dog.";
 $test3 = new Textarea("TestArea", $test_text, "placeholder");
 $test4 = new Select("SelectTest", $format, "Id", true);
+$test5 = new Duration("Test", (time() - (2*24*60*60)), (time() - (24*60*60)));
+$test6 = new Text("test2333", "some text");
 
 //$test1->controlOff();
 //$test1->disabled();
 echo $test1;
 echo $test2;
 echo $test3;
-echo $test4;
-echo '
-        <div class="container">
-          <form name="beerManagement">
-            <table class="table table-hover" id="beer">
-              <thead>';
+//echo $test4;
+echo $test5;
+echo $test6;
+
 
 
 $test3 = new Row("beer", $cells, $format);
