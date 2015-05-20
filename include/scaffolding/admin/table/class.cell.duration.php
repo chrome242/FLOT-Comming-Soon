@@ -12,7 +12,7 @@
  * It may be useful to use this class with the Timestamp class, but as to not code a specific
  * case that assumes that a Timestamp was used in getting a value for the date, the value from
  * a Timestamp cell should be gotten via the timestamp's getValue() function and then passed
- * to the Duratuon cel.
+ * to the Duration cel.
  *
  * By default, the Duration cell sets the cell tooltip on and floats the ammount of time between
  * the first/only datestamp and the second datestamp/now as a tooltip if the value = a current
@@ -27,6 +27,9 @@
  * New if offtap = 0, ontap = 0
  * Amount of days ran if offtap > ontap
  * 
+ *
+ * 
+ * 
  */
 class Duration extends Cell {
   
@@ -39,37 +42,76 @@ class Duration extends Cell {
    *
    *  The HTML class will still apply to the td.
    *
-   *  If the timestamp is not set, it will return the unix epoc time, as it
+   *  If the second timestamp is not set, it will return the unix epoc time, as it
    *  should only read zero when an event has not occured yet.
    *  
    * @param str $name: the name & id of the Cell
-   * @param int $value: the timestamp
-   * @param bool $format: if false, then a time stamp. If true, then a date.
+   * @param int $first_timestamp: the timestamp
+   * @param int $second_timestamp: if null then zero.
    */
-  public function __construct($name, $value, $format=false){
+  public function __construct($name, $onTap, $offTap = 0){
     $this->_id = $name;
     $this->_name = $name;
     
-    // logic for format.
-    if (!is_null($value)){
-      if ($format == false) { $this->_content = $value;}
-      if ($format == true) {$this->_content = $this->formatDate($value);}
-    } else {
-      $this->_content = null;
+    // if onTap is greater then $offTap then it is onTap & current
+    if($onTap > $offTap){
+      $this->setToolTip($this->makeToolTip($onTap));
+      $this->_content = "Current";
     }
+    
+    // 0 or null, setting it to onDeck should set the onTap stamp to 0
+    if($onTap == 0){
+      $this->_content = "New";
+    }
+    
+    // if offTap is > then onTap, it is currently off tap and should show
+    // how long the keg lasted
+    if($offTap > $onTap){
+      $this->_content = $this->makeContent($onTap, $offTap);
+    }
+
   }
   
   /**
-   * Applies a format to the date of Month Day, Year
-   *
-   * @param int $value: A timestamp
-   *
-   * @return str $output: The date formated for human viewing
+   * Returns a string of the number of days between a timestamp and a second.
+   * presumes that there are two actual timestamps because this is designed
+   * for the time elapsed between two dates in the past.
    */
-  private function formatDate($value){
-    $output = date("F j, Y", $value);
-    return $output;
+  public function makeContent($onTap, $offTap){
+    // how many days from onTap -> offTap
+    $number = $this->makeDays($onTap, $offTap);
+    if ($number == 1){ return "1 Day";}
+    else { return $number . " Days";}
   }
+  
+  /**
+   * Returns a string of the number of days between a timestamp and a second,
+   * along with some text. This is really just a wrapper for makeDays()
+   *
+   * @param int $timestamp: A timestamp
+   * @param int $secondtimestamp: a second optional timestamp..
+   *
+   * @return str $output: A string of the number of days and commentary
+   */
+  public function makeToolTip($onTap, $today=time()){
+    return $this->makeDays($onTap, $today) . " days running"
+  }
+  
+  /**
+   *
+   * @param int $timestamp: A timestamp
+   * @param int $secondtimestamp: a second optional timestamp..
+   *
+   * @return str the number of days between the two timestamps
+   */
+  protected function makeDays($olderTime, $newerTime){
+    // second timesamp should be the newer of the two
+    $raw_time = $newerTime - $olderTime;
+    $day = (24 * 60 * 60);
+    $refined_time = intval($raw_time / $day);
+    return $refined_time;
+  }
+  
   
 
   

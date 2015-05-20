@@ -356,7 +356,7 @@ class Table {
         // if the diffrence is less then the constant
         if (($offtap - $ontap) < $constant) {
           $row->setDisabled($cell_name, $cell_number);
-       // ok, in the remaing case the value is >= the $constant
+        // ok, in the remaing case the value is >= the $constant
         } else{
           continue;
         }
