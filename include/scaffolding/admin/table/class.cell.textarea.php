@@ -118,6 +118,7 @@ class Textarea extends Input {
     if($this->_class != null){$attribs .= ' class="' . $this->_class . '"';}
     if($this->_colspan != null){$attribs .= ' colspan="' . $this->_colspan . '"';}
     
+    $attribs .= $this->_tooltip;
     
     // make the string:
     $output = '
