@@ -19,6 +19,7 @@ class Cell {
   protected $_showDetails = false; //by default it doesn't show the name and ID.
   protected $_class; // for the cell class
   protected $_content;
+  protected $_tooltip = ''; // for tool tips, which may be of use in base & extensions
   
   /**
    * Sets the $_name and $_id to the same thing on construction.
@@ -59,6 +60,24 @@ class Cell {
     $this->_class = $class;
   }
   
+  
+  /**
+   * Setter for the $_content attrib
+   */
+  public function setContent($content){
+    $this->_content = $content;
+  }
+  
+  /**
+   * Sets a bootstrap floating tooltip on the cell.
+   *
+   * @param str $tip = the tool tip for the cell
+   * @param str $placement (o) the data placement attrib
+   */
+  public function setToolTip($tip, $placement="right"){
+    $this->_tooltip = ' data-toggle="tooltip" data-placement="' . $placement . '" title="' . $tip . '"';
+  }
+  
   /**
    * Sets the cell to show the cell name and id
    */
@@ -97,6 +116,8 @@ class Cell {
       if ($this->_class != null){$attribs .= ' class="'. $this->_class . '"';}
       if ($this->_id != null){$attribs .= ' id="' . $this->_id . '"';}
     }
+    
+    $attribs .= $this->_tooltip;
     
     $output = '
                 <td' . $attribs . '>'. $this->_content . '</td>';
