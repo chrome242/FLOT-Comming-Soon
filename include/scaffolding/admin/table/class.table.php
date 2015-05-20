@@ -24,7 +24,7 @@
  * Noteable methods:
  *
  * Constructor: 
- * public function __construct($name, $rows, $header
+ * public function __construct($name, $rows, $header)
  *
  * Setters for HTML Classes and IDs:
  * public function setTableId($table_id)
