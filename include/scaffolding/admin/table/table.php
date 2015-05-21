@@ -27,7 +27,8 @@ include_once("class.cell.textarea.php"); //text area input
 include_once("class.cell.select.php"); // select box
 
 // cells with mutiple elements
-//include_once("class.cell.extras.php"); // cells with buttons and text
+//include_once("class.cell.miniview.php"); // cells with button and text
+//include_once("class,cell.miniedit.php); //cells with button and edit
 
 
 // testing data
