@@ -53,21 +53,27 @@ class Duration extends Cell {
     $this->_id = $name;
     $this->_name = $name;
     
-    // if onTap is greater then $offTap then it is onTap & current
+    // if onTap is greater then $offTap then it is onTap & current always
     if($onTap > $offTap){
       $this->setToolTip($this->makeToolTip($onTap, time()));
       $this->_content = "Current";
-    }
-    
-    // 0 or null, setting it to onDeck should set the onTap stamp to 0
-    if($onTap == 0){
+      
+    // New beer, both zero or null
+    } elseif ($onTap == 0 && $offTap == 0) {
       $this->_content = "New";
-    }
+    
+    // Beer now on deck, kicked in the past
+    } elseif ($onTap == 0 && $offTap !=0) {
+      $this->_content = "Restocked";
     
     // if offTap is > then onTap, it is currently off tap and should show
     // how long the keg lasted
-    if($offTap > $onTap){
+    } elseif($offTap > $onTap && $onTap != 0) {
       $this->_content = $this->makeContent($onTap, $offTap);
+    
+    // unexpected edge case, check input
+    } else {
+      $this->_content = "Error";
     }
 
   }
