@@ -77,6 +77,7 @@ class Row {
   protected $_name; // the name of the row.
   protected $_class = null;
   protected $_id = null;
+  protected $_rowShortName; // either the name if no ID cell, or the ID cell id
   
   // class attribs for member cell storage
   // the below is stored by cell id (not name) due to radio buttons
@@ -150,8 +151,13 @@ class Row {
   protected function makeName($name, $cells, $format){
 
     $output = $name;
+    $this->_rowShortName = $name; // if this row encapulates the entire dataset
     foreach($format as $cell_name => $type){
-      if($type == "id"){$output .= '['.$cells[$cell_name].']';}
+      if($type == "id"){
+        $output .= '['.$cells[$cell_name].']';
+        $this->_rowShortName = $cells[$cell_name]; // most the time this will be the case
+      }
+      
     }
     return $output;
   }
@@ -263,14 +269,15 @@ class Row {
       // using the same task specific names as the target class to keep things simple
       // any cells being used for the mathfoo here must, obviously, be declared first
       // and must be in the hidden array for the row.
-      if(stripos($format[$name]) == 'duration,'){
+      if(stripos($format[$name], 'duration,') !== false){
         $pieces = explode(",", $format[$name]);
-        $ontap = $pieces[1];
+        $ontap = trim($pieces[1]);
         $offtap = 0;
         
         if(count($pieces) > 2 ){
-          $offtap = $pieces[2];
+          $offtap = trim($pieces[2]);
         }
+
         
         //functionalize this if I end up using it more then these 2 times
         if(is_numeric($ontap)){

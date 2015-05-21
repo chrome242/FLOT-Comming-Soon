@@ -30,49 +30,57 @@ $test_cells = array(array("beer_id" => 1,
                           "beer_name" => "Flower Power",
                           "beer_status" => "0",
                           "beer_ontap" => (time() - $test_date_week),
-                          "beer_offtap" => 0),
+                          "beer_offtap" => 0,
+                          "test_backend" => "works"),
                     array("beer_id" => 2,
                           "beer_brewery" => "Ithaca Beer", // new beer, on deck
                           "beer_name" => "Green Tail",
                           "beer_status" => "1",
                           "beer_ontap" => 0,
-                          "beer_offtap" => 0),
+                          "beer_offtap" => 0,
+                          "test_backend" => "works"),
                     array("beer_id" => 3,
                           "beer_brewery" => "Ommeganag", // new beer, kicked not offline, not allowed
                           "beer_name" => "Hop House",
                           "beer_status" => "2",
                           "beer_ontap" => (time() - ($test_date_week * 8)),
-                          "beer_offtap" => (time() - ($test_date_week * 2))),
+                          "beer_offtap" => (time() - ($test_date_week * 2)),
+                          "test_backend" => "works"),
                     array("beer_id" => 4,
                           "beer_brewery" => "Ommeganag", // new beer, kicked, offline
                           "beer_name" => "Gnomegang",
                           "beer_status" => "3",
                           "beer_ontap" => (time() - ($test_date_week * 8)),
-                          "beer_offtap" => (time() - $test_date_week)),
+                          "beer_offtap" => (time() - $test_date_week),
+                          "test_backend" => "works"),
                     array( "beer_id" => 5,
                           "beer_brewery" => "Ommeganag", // returning beer, on tap
                           "beer_name" => "Three Philosophers",
                           "beer_status" => "0",
                           "beer_ontap" => (time() - ($test_date_week)),
-                          "beer_offtap" => (time() - $test_date_week * 3)),
+                          "beer_offtap" => (time() - $test_date_week * 3),
+                          "test_backend" => "works"),
                     array("beer_id" => 6,
                           "beer_brewery" => "Sarnac", // returning beer, on tap
                           "beer_name" => "Pale Ale",
                           "beer_status" => "1",
-                          "beer_ontap" => (time() - ($test_date_week)),
-                          "beer_offtap" => (time() - $test_date_week * 55)),
+                          "beer_ontap" => 0,
+                          "beer_offtap" => (time() - $test_date_week * 55),
+                          "test_backend" => "works"),
                     array("beer_id" => 7,
                           "beer_brewery" => "Sarnac", // returning beer, kicked not offline, allowed
                           "beer_name" => "Into The Dark",
                           "beer_status" => "2",
-                          "beer_ontap" => (time() - ($test_date_week)),
-                          "beer_offtap" => (time() - $test_date_week * 3)),
+                          "beer_ontap" => (time() - ($test_date_week * 3)),
+                          "beer_offtap" => (time() - $test_date_week * 2),
+                          "test_backend" => "works"),
                     array("beer_id" => 8,
                           "beer_brewery" => "Buddwiser", // returning beer, offline, or dead beer
                           "beer_name" => "Swill",
                           "beer_status" => "3",
                           "beer_ontap" => (time() - ($test_date_week * 11)),
-                          "beer_offtap" => (time() - $test_date_week * 3))
+                          "beer_offtap" => (time() - $test_date_week * 3),
+                          "test_backend" => time())
                     );
                                       
 /*
@@ -94,6 +102,7 @@ $test_headers = array("Id" => array("beer_id" => 'id'),
                       "Kicked" => 3,
                       "Off Line" => 4,
                       "timeontap" => array("beer_ontap" => "time, private"),
-                      "timeofftap" => array("beer_offtap" => "time, private")
+                      "timeofftap" => array("beer_offtap" => "time, private"),
+                      "Test" => array("test_backend" => "duration, beer_ontap, beer_offtap")
                       );
 

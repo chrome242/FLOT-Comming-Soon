@@ -48,5 +48,10 @@ $test5->addCounter("Total on Tap:", "beer_status", "0");
 $test5->offlineCheck();
 echo $test5;
 
+echo "<br><pre>";
+if(isset($_POST)){
+  var_dump($_POST);
+}
+echo "</pre>";
 
 include(SCAFFOLDING_ADMIN."footer.php");

@@ -75,9 +75,9 @@ class Duration extends Cell {
     } elseif($offTap > $onTap && $onTap != 0) {
       $this->_content = $this->makeContent($onTap, $offTap);
     
-    // unexpected edge case, check input
+    // On the very rare occurance it was kicked and then came back same day
     } else {
-      $this->_content = "Error";
+      $this->_content = "Today";
     }
 
   }
