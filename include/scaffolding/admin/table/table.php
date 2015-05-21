@@ -15,7 +15,7 @@ include_once("class.row.php");
 include_once("class.cell.php"); // basic cell class
 include_once("class.cell.duration.php"); // a lot like timestamp, but diffrent
 include_once("class.cell.timestamp.php"); // timestamp extension for cell class
-//include_once("class.cell.urlcell.php); // text cell with a builtin anchor
+include_once("class.cell.urlcell.php"); // text cell with a builtin anchor
 
 // input cells
 include_once("class.cell.input.php"); // the input template for cells

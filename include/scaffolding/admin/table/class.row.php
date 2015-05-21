@@ -188,8 +188,12 @@ class Row {
       
       // id cell
       if($format[$name] == 'id'){$this->_cells[$cell_name] = new Cell($name, $value);}
+      
       // text cell
       if($format[$name] == 'plain'){ $this->_cells[$cell_name] = new Cell($name, $value);}
+      
+      // url cell
+      if($format[$name] == 'url'){$this->_cells[$cell_name] = new UrlCell($name, $value);}
       
       // private (text) cell private
       if($format[$name] == 'private'){ $this->_privateCells[$cell_name] = new Cell($name, $value);}
@@ -205,7 +209,6 @@ class Row {
         $this->_cells[$cell_name]->hideDetails();
         }
       }
-      
       
       //timestamp cell
       if(stripos($format[$name], 'time,') !== false){
@@ -285,7 +288,6 @@ class Row {
           $offtap = trim($pieces[2]);
         }
 
-        
         //functionalize this if I end up using it more then these 2 times
         if(is_numeric($ontap)){
           $processed_ontap = $ontap;
