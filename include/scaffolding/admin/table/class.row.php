@@ -31,7 +31,7 @@
  *
  * Cell types:
  * 
- * button - 
+ * button - an inline button. 
  * checkbox - a checkbox
  * drop - not placed in the table
  * duration, x, y(o) where x & y are either timestamps or cell names
@@ -44,6 +44,7 @@
  * text, x = a text entry where x = text or placeholder
  * textarea, x, y(o), z(o), where x = text or placeholder y= rows(o), z= colspan(o)
  * time, x - a timestamp where x = show or private
+ * url - a url cell. much like basic text
  *
  *
  * Notable class methods-
