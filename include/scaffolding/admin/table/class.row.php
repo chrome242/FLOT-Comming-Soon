@@ -34,6 +34,7 @@
  * id - plain text cell who's value is attached to the row name
  * checkbox - a checkbox
  * drop - not placed in the table
+ * duration, x, y(o) where x & y are either timestamps or cell names
  * number, x, y(o), z(o), where x = number or placeholder y= step(o), z= size(o)
  * private - placed in the internal cell array as basic text
  * plain - a basic cell
@@ -172,6 +173,10 @@ class Row {
     foreach($cells as $name => $value){
       $cell_name = $this->_name . '['. $name . ']'; // should work for non-radios
       
+      // TODO: consider replacing simple string checking with an explosion and check for
+      // the value of position 1, so as to not restrict word use in cell names for
+      // cell types that take args which can contain words.
+      
       // id cell
       if($format[$name] == 'id'){$this->_cells[$cell_name] = new Cell($name, $value);}
       // text cell
@@ -254,6 +259,36 @@ class Row {
         }
       }
       
+      // duration cells
+      // using the same task specific names as the target class to keep things simple
+      // any cells being used for the mathfoo here must, obviously, be declared first
+      // and must be in the hidden array for the row.
+      if(stripos($format[$name]) == 'duration,'){
+        $pieces = explode(",", $format[$name]);
+        $ontap = $pieces[1];
+        $offtap = 0;
+        
+        if(count($pieces) > 2 ){
+          $offtap = $pieces[2];
+        }
+        
+        //functionalize this if I end up using it more then these 2 times
+        if(is_numeric($ontap)){
+          $processed_ontap = $ontap;
+        } else{
+          $processed_ontap = $this->getHidden($ontap);
+        }
+        
+        if(is_numeric($offtap)){
+          $processed_offtap = $offtap;
+        } else{
+          $processed_offtap = $this->getHidden($offtap);
+        }
+        
+        $this->_cells[$cell_name] = new Duration($cell_name, $processed_ontap,$processed_offtap);
+      }
+      
+      // select cells
       if(stripos($format[$name], 'select') !== false){
 
         // if it has args

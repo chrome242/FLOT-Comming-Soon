@@ -44,10 +44,14 @@ class Duration extends Cell {
    *
    *  If the second timestamp is not set, it will return the unix epoc time, as it
    *  should only read zero when an event has not occured yet.
+   *
+   *  Because there's some vodoo going on with the specifics of how these timestamps
+   *  can be handled, I've used task specific names so that there's easy follow
+   *  though for later reading
    *  
    * @param str $name: the name & id of the Cell
-   * @param int $first_timestamp: the timestamp
-   * @param int $second_timestamp: if null then zero.
+   * @param int $onTap: the timestamp
+   * @param int $offTap: if null then zero.
    */
   public function __construct($name, $onTap, $offTap=0){
     $this->_id = $name;
