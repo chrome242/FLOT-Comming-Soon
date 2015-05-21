@@ -58,7 +58,7 @@ $test3 = new Textarea("TestArea", $test_text, "placeholder");
 $test4 = new Select("SelectTest", $format, "Id", true);
 $test5 = new Duration("Test", (time() - (2*24*60*60)), (time() - (2*24*60*60)));
 $test6 = new Text("test2333", "some text");
-
+$test7 = new Button("form", "row", "submit");
 //$test1->controlOff();
 //$test1->disabled();
 echo $test1;
@@ -67,6 +67,7 @@ echo $test3;
 //echo $test4;
 echo $test5;
 echo $test6;
+echo $test7;
 
 
 

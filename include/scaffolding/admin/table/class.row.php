@@ -31,10 +31,11 @@
  *
  * Cell types:
  * 
- * id - plain text cell who's value is attached to the row name
+ * button - 
  * checkbox - a checkbox
  * drop - not placed in the table
  * duration, x, y(o) where x & y are either timestamps or cell names
+ * id - plain text cell who's value is attached to the row name
  * number, x, y(o), z(o), where x = number or placeholder y= step(o), z= size(o)
  * private - placed in the internal cell array as basic text
  * plain - a basic cell
@@ -77,6 +78,7 @@ class Row {
   protected $_name; // the name of the row.
   protected $_class = null;
   protected $_id = null;
+  protected $_tableName; // the name passed in from the table
   protected $_rowShortName; // either the name if no ID cell, or the ID cell id
   
   // class attribs for member cell storage
@@ -151,6 +153,7 @@ class Row {
   protected function makeName($name, $cells, $format){
 
     $output = $name;
+    $this->_tableName = $name;
     $this->_rowShortName = $name; // if this row encapulates the entire dataset
     foreach($format as $cell_name => $type){
       if($type == "id"){
@@ -191,6 +194,9 @@ class Row {
       // private (text) cell private
       if($format[$name] == 'private'){ $this->_privateCells[$cell_name] = new Cell($name, $value);}
       
+      // button cell
+      if($format[$name] == 'button'){ $this->_cells[$cell_name] = new Button($this->_tableName, $this->_rowShortName, $value);}
+      
       //checkbox cell
       if($format[$name] == 'checkbox'){
         $this->_cells[$cell_name] = new Checkbox($name, $value);
@@ -199,6 +205,7 @@ class Row {
         $this->_cells[$cell_name]->hideDetails();
         }
       }
+      
       
       //timestamp cell
       if(stripos($format[$name], 'time,') !== false){

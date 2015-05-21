@@ -38,7 +38,7 @@
    *
    *  @param str $form: the name of the parent form
    *  @param str $record: the record (row) name
-   *  @param str $action: a 
+   *  @param str $action: a sufix to be passed to the processor for the action.
    */
   public function __construct($form, $record, $action){
     $this->_record = $record;
@@ -76,6 +76,7 @@
     
     $content .= $this->_content . '</button>';
     
+    return $content;
   }
   
   /**
