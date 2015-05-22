@@ -29,21 +29,25 @@
  *  NOTE THAT IF A STRING HAS OPTIONAL PARTS, THEY MUST BE INCLUDED IN ORDER,
  *  AND CAN BE PASSED OVER WITH A VALUE OF 'none' (eg number, x, none, 42)
  *
+ *  ** = denotes a cell that has special effects on the header.
+ *
+ *  
  * Cell types:
  * 
  * button - an inline button. 
  * checkbox - a checkbox
- * drop - not placed in the table
+ * **drop - not placed in the table
  * duration, x, y(o) where x & y are either timestamps or cell names
  * id - plain text cell who's value is attached to the row name
+ * **newrow - a cell that produces a visual new row while allowing contued record
  * number, x, y(o), z(o), where x = number or placeholder y= step(o), z= size(o)
- * private - placed in the internal cell array as basic text
+ * **private - placed in the internal cell array as basic text
  * plain - a basic cell
  * radio, # - a radio set of # cells
  * select, x(o), y(o), z(o) where x = selected value(o), y= mutiple(o), z= size(o)
  * text, x = a text entry where x = text or placeholder
  * textarea, x, y(o), z(o), where x = text or placeholder y= rows(o), z= colspan(o)
- * time, x - a timestamp where x = show or private
+ * **time, x - a timestamp where x = show or private
  * url - a url cell. much like basic text
  *
  *
@@ -178,8 +182,7 @@ class Row {
    * @return array $output the array of cells
    */
   protected function makeCells($cells, $format, $protected){
-    $output = array();
-    $hidden = array();
+
     foreach($cells as $name => $value){
       $cell_name = $this->_name . '['. $name . ']'; // should work for non-radios
       
@@ -196,18 +199,27 @@ class Row {
       // url cell
       if($format[$name] == 'url'){$this->_cells[$cell_name] = new UrlCell($name, $value);}
       
+      // new row
+      if($format[$name] == 'newrow'){$this->_cells[$cell_name] = new NewRow();}
+      
       // private (text) cell private
       if($format[$name] == 'private'){ $this->_privateCells[$cell_name] = new Cell($name, $value);}
       
       // button cell
-      if($format[$name] == 'button'){ $this->_cells[$cell_name] = new Button($this->_tableName, $this->_rowShortName, $value);}
+      if($format[$name] == 'button'){
+        $this->_cells[$cell_name] = new Button($this->_tableName, $this->_rowShortName, $value);
+        if($protected){
+          // make an empty cell if the table is in a protected view
+          $this->_cells[$cell_name] = new Cell($name, '');
+        }
+      }
       
       //checkbox cell
       if($format[$name] == 'checkbox'){
         $this->_cells[$cell_name] = new Checkbox($name, $value);
         if($protected){
-        $this->_cells[$cell_name]->disabled();
-        $this->_cells[$cell_name]->hideDetails();
+          $this->_cells[$cell_name]->disabled();
+          $this->_cells[$cell_name]->hideDetails();
         }
       }
       
@@ -231,8 +243,8 @@ class Row {
         $this->_cells[$cell_name] = new Text($cell_name, $value, $type);
         
         if($protected){
-        $this->_cells[$cell_name]->disabled();
-        $this->_cells[$cell_name]->hideDetails();
+          $this->_cells[$cell_name]->disabled();
+          $this->_cells[$cell_name]->hideDetails();
         }
       }
       
@@ -251,8 +263,8 @@ class Row {
         $this->_cells[$cell_name] = new Number($cell_name, $value, $type, $step, $size);
         
         if($protected){
-        $this->_cells[$cell_name]->disabled();
-        $this->_cells[$cell_name]->hideDetails();
+          $this->_cells[$cell_name]->disabled();
+          $this->_cells[$cell_name]->hideDetails();
         }
       }
       
@@ -271,8 +283,8 @@ class Row {
         $this->_cells[$cell_name] = new Textarea($cell_name, $value, $type, $row, $colpan);
         
         if($protected){
-        $this->_cells[$cell_name]->disabled();
-        $this->_cells[$cell_name]->hideDetails();
+          $this->_cells[$cell_name]->disabled();
+          $this->_cells[$cell_name]->hideDetails();
         }
       }
       
@@ -328,8 +340,8 @@ class Row {
         }
         
         if($protected){
-        $this->_cells[$cell_name]->disabled();
-        $this->_cells[$cell_name]->hideDetails();
+          $this->_cells[$cell_name]->disabled();
+          $this->_cells[$cell_name]->hideDetails();
         }
       }
       
@@ -348,16 +360,16 @@ class Row {
             $this->_cells[$radio_cell_name] = new Radio($cell_name, $cell_value, true);
             
             if($protected){
-            $this->_cells[$radio_cell_name]->disabled();
-            $this->_cells[$radio_cell_name]->hideDetails();
+              $this->_cells[$radio_cell_name]->disabled();
+              $this->_cells[$radio_cell_name]->hideDetails();
             }
           }
           else {
             $this->_cells[$radio_cell_name] = new Radio($cell_name, $cell_value, false);
             
             if($protected){
-            $this->_cells[$radio_cell_name]->disabled();
-            $this->_cells[$radio_cell_name]->hideDetails();
+              $this->_cells[$radio_cell_name]->disabled();
+              $this->_cells[$radio_cell_name]->hideDetails();
             }
           }
           
@@ -412,7 +424,7 @@ class Row {
    * A setter to push down to the cell, setting it disabled, for input cells and
    * extensions of input only.
    *
-   * @param str $cel: the name of the cell
+   * @param str $cell: the name of the cell
    * @param str $value: the enum value if the type of the cell is radio.
    */
   public function setDisabled($cell, $value=null){

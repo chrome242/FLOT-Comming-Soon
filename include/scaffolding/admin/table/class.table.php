@@ -1,8 +1,4 @@
 <?php
-// check to see if depaancy includes should be in the highest level abstraction
-// class (eg, row should included here? with cells included there?)
-
-
 
 /**
  * Table
@@ -60,6 +56,14 @@ class Table {
   
   // specific task attributes (too few to make new class)
   protected $_offline_check = false; //for the beer display only
+  protected $_new_line = false; // for dropdown edits
+  
+  // the new_line var holds if a cell of class NewRow has been passed. This
+  // will supress headers for the rest of the row, and the cell will echo out
+  // as a </tr> <tr> set. Due to the nature of a row as an explicit record that
+  // is assumed it this project, this is a convient way to continue to abstract
+  // the record as a row while allowing the record to span mutiple rows, which
+  // is nomally only needed on some edit screens.
   
   /**
    * Constructor
@@ -131,13 +135,36 @@ class Table {
     $this->_form_class = $form_class;
   }
   
+  /**
+   * This function takes the header array and makes it into the
+   * front facing header. In doing so, it does a few things-
+   * ignores droped items
+   * ignores cells going to the inner array
+   * ignores all cells after a newline, as the remaining cells are
+   * 'drop down' cells for an edit mode.
+   */
   protected function makeHeader($raw_header){
     $output = array();
-    foreach($raw_header as $header => $inner_array){
-      if(gettype($inner_array) != "array"){array_push($output, $header);}
-      else{
-        $temp_array = array_values($inner_array);
-        if (strpos($temp_array[0], "private") === false){array_push($output, $header);}
+    while($this->_new_line == false){
+      foreach($raw_header as $header => $inner_array){
+        if(gettype($inner_array) != "array"){
+          array_push($output, $header);
+        }
+        else{
+          $temp_array = array_values($inner_array);
+          // omg nested conditionals
+          if (strpos($temp_array[0], "private") === false){
+            if (strpos($temp_array[0], "drop") === false){
+              if (strpos($temp_array[0], "newrow") === true){
+                // this should stop anything after and including this line from
+                // adding to the header aray
+                $this->_new_line =true;
+              } else{
+                array_push($output, $header);
+              }
+            }
+          }
+        }
       }
     }
     return $output;
