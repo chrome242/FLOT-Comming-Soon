@@ -84,14 +84,23 @@ $test_cells = array(array("beer_id" => 1,
                     );
                                       
 /*
- *  Ways to make cells:
- * id - plain text cell who's value is attached to the row name
- * drop - not placed in the table
- * private - placed in the internal cell array as basic text
- * plain - a basic cell
+ * Cell types:
+ * 
+ * button - an inline button. 
  * checkbox - a checkbox
+ * **drop - not placed in the table
+ * duration, x, y(o) where x & y are either timestamps or cell names
+ * id - plain text cell who's value is attached to the row name
+ * **newrow - a cell that produces a visual new row while allowing contued record
+ * number, x, y(o), z(o), where x = number or placeholder y= step(o), z= size(o)
+ * **private - placed in the internal cell array as basic text
+ * plain - a basic cell
  * radio, # - a radio set of # cells
- * time, x - a timestamp where x = show or private
+ * select, x(o), y(o), z(o) where x = selected value(o), y= mutiple(o), z= size(o)
+ * text, x = a text entry where x = text or placeholder
+ * textarea, x, y(o), z(o), where x = text or placeholder y= rows(o), z= colspan(o)
+ * **time, x - a timestamp where x = show or private
+ * url - a url cell. much like basic text
  */
 
 $test_headers = array("Id" => array("beer_id" => 'id'),
@@ -106,3 +115,47 @@ $test_headers = array("Id" => array("beer_id" => 'id'),
                       "Test" => array("test_backend" => "url")
                       );
 
+$text_blurb = "Gnomegang has a rich, translucent golden hue with a big, fluffy,
+               white head. Distinctive clove aromas, combined with yeasty
+               fruitiness typical of Chouffe beers. Flavors include ripe fruit,
+               clove, light caramel, non-cloying candy sweetness, smooth
+               maltiness, and well-balanced hopping. Dry, warming finish that
+               lingers gracefull";
+                      
+$test_multi = array(array("beer_id" => 1,
+                          "beer_brewery" => "Ithaca Beer", // new beer, on tap
+                          "beer_name" => "Flower Power",
+                          "beer_status" => "0",
+                          "beer_ontap" => (time() - $test_date_week),
+                          "beer_offtap" => 0,
+                          "test_backend" => "http://works.org",
+                          "pie" =>  "newrow",
+                          "spacer" => '',
+                          "beer_type" => "Belgian Pale Ale",
+                          "another_url" => "www.google.com"),
+                    array("beer_id" => 6,
+                          "beer_brewery" => "Sarnac", // returning beer, on tap
+                          "beer_name" => "Pale Ale",
+                          "beer_status" => "1",
+                          "beer_ontap" => 0,
+                          "beer_offtap" => (time() - $test_date_week * 55),
+                          "test_backend" => "submit"),
+                    );
+
+$multi_headers = array("Id" => array("beer_id" => 'id'),
+                      "Brewery" => array("beer_brewery" => "plain"),
+                      "Beer" => array("beer_name" => "plain"),
+                      "On Tap" =>  array("beer_status" => "radio, 4"),
+                      "On Deck" => 2,
+                      "Kicked" => 3,
+                      "Off Line" => 4,
+                      "timeontap" => array("beer_ontap" => "time, private"),
+                      "timeofftap" => array("beer_offtap" => "time, private"),
+                      "Test" => array("test_backend" => "url"),
+                      "newline" => array("pie" => "newrow"),
+                      "spacer" => array("spacer" => "plain"),
+                      "dontseeme" => array("beer_type" => "plain"),
+                      "alsono" => array("another_url" => "url")
+                      );
+                          
+                    

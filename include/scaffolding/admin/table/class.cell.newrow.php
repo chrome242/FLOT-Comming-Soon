@@ -9,14 +9,13 @@ class NewRow extends Cell{
   /**
    * This class is intended to be a pure text dump, however, an optional name
    * arg is allowed if needed for some reason. In this case the name is treated
-   * in the typical manner it is for cells (as id and name), however this will
-   * likely not be needed. All basic cell methods are accessable as well.
+   * as name only, and id is null, unless set.
    *
    * @param str $name: an optional name
    */
   public function __construct($name=''){
     $this->_name = $name;
-    $this->_id = $name;
+
   }
   
   public function __toString(){
@@ -26,11 +25,12 @@ class NewRow extends Cell{
     $attribs = '';
     if(isset($this->_id)){$attribs .= ' id="' . $this->_id . '"';}
     if(isset($this->_class)){$attribs .= ' class="' . $this->_class . '"';}
-    
     $output = '
-              <tr' . $attribs .'>';
-    $output .= '
               </tr>';
+    $output .= '
+              <tr' . $attribs .'>';
+
               
     return $output;
+  }
 }

@@ -102,8 +102,8 @@ class Row {
    * string from vars, it will raise an error.
    *
    * @param str $name the name of the row or partial name of the row
-   * @param array mixed $array: the cells that belong to the row
-   * @param array str $types: an array of cell types
+   * @param array mixed $cells: the cells that belong to the row
+   * @param array str $format: an array of cell types
    * @param bool $protected: a bool for if this is a protected view or not
    */
   public function __construct($name, $cells, $format, $protected=false){
@@ -280,7 +280,7 @@ class Row {
           if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
         }
         
-        $this->_cells[$cell_name] = new Textarea($cell_name, $value, $type, $row, $colpan);
+        $this->_cells[$cell_name] = new Textarea($cell_name, $value, $type, $row, $colspan);
         
         if($protected){
           $this->_cells[$cell_name]->disabled();

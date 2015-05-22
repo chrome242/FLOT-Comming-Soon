@@ -113,7 +113,7 @@ class Select extends Input{
     // set attribs on the TD
     $attribs = '';
     if($this->_class != null){$attribs .= ' class="' . $this->_class . '"';}
-    if($this->_colspan != null){$attribs .= ' colspan="' . $this->_colspan . '"';}
+    if($this->_size != null){$attribs .= ' colspan="' . $this->_size . '"';}
     
     $attribs .= $this->_tooltip;
     

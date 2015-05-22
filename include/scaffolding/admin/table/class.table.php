@@ -144,29 +144,34 @@ class Table {
    * 'drop down' cells for an edit mode.
    */
   protected function makeHeader($raw_header){
+    $newline = false;
     $output = array();
-    while($this->_new_line == false){
-      foreach($raw_header as $header => $inner_array){
-        if(gettype($inner_array) != "array"){
-          array_push($output, $header);
+
+    foreach($raw_header as $header => $inner_array){
+      if(gettype($inner_array) != "array"){
+        array_push($output, $header);
+      }
+      else{
+        $temp_array = array_values($inner_array);
+        
+        // these all need to be strict not false or lose eval in php = logic fail
+        if (strpos($temp_array[0], "private") !== false){
+          continue;
         }
-        else{
-          $temp_array = array_values($inner_array);
-          // omg nested conditionals
-          if (strpos($temp_array[0], "private") === false){
-            if (strpos($temp_array[0], "drop") === false){
-              if (strpos($temp_array[0], "newrow") === true){
-                // this should stop anything after and including this line from
-                // adding to the header aray
-                $this->_new_line =true;
-              } else{
-                array_push($output, $header);
-              }
-            }
-          }
+        elseif (strpos($temp_array[0], "drop") !== false){
+          continue;
+        }
+        elseif (strpos($temp_array[0], "newrow") !== false){
+          // this should stop anything after and including this line from
+          // adding to the header aray
+          $newline = true;
+          continue;
+        } else{
+          if ($newline == false){ array_push($output, $header);}
         }
       }
     }
+
     return $output;
   }
   
@@ -431,6 +436,7 @@ class Table {
    */
   
   private function closeTable($extra=null){
+    $output = '';
     if($this->_makeButton){$output .=$this->updateButton($this->_name);}
     $output ='
             </table>';

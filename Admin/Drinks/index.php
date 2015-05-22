@@ -55,7 +55,7 @@ $test2 = new Number("Num Test", 4.00, "placeholder", 2, 5);
 
 $test_text = "The Quick Brown Fox Jumped Over the Lazy Dog.";
 $test3 = new Textarea("TestArea", $test_text, "placeholder");
-$test4 = new Select("SelectTest", $format, "Id", true);
+$test4 = new Select("SelectTest", $format, "Id", true, 6);
 $test5 = new Duration("Test", (time() - (2*24*60*60)), (time() - (2*24*60*60)));
 $test6 = new Text("test2333", "some text");
 $test7 = new Button("form", "row", "submit");
@@ -64,11 +64,10 @@ $test7 = new Button("form", "row", "submit");
 echo $test1;
 echo $test2;
 echo $test3;
-//echo $test4;
+echo $test4;
 echo $test5;
 echo $test6;
 echo $test7;
-
 
 
 $test3 = new Row("beer", $cells, $format);

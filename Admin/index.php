@@ -43,7 +43,7 @@ $format = array("Id" => 'id',
                 "TimeandSpace" => "time, private");
 
 
-$test5 = new Table("Beer", $test_cells, $test_headers);
+$test5 = new Table("Beer", $test_multi, $multi_headers);
 $test5->addCounter("Total on Tap:", "beer_status", "0");
 $test5->offlineCheck();
 echo $test5;

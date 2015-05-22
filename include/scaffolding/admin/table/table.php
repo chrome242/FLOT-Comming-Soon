@@ -8,9 +8,6 @@ include_once("class.table.php");
 // row class
 include_once("class.row.php");
 
-// structure cells
-//include_once("class.cell.rowbreak.php"); // to allow the same record many rows
-
 // text cells
 include_once("class.cell.php"); // basic cell class
 include_once("class.cell.duration.php"); // a lot like timestamp, but diffrent
@@ -33,6 +30,8 @@ include_once("class.cell.select.php"); // select box
 //include_once("class.cell.miniview.php"); // cells with button and text
 //include_once("class.cell.miniedit.php); //cells with button and edit
 
+// structure cells
+include_once("class.cell.newrow.php"); // to allow the same record many rows
 
 // testing data
 include_once("test.data.php");
