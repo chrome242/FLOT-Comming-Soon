@@ -81,7 +81,8 @@ echo $test3;
 //echo $test8;
 echo $test5;
 echo $test6;
-echo testWrap($test4);
+$thing =  testWrap($test4);
+echo $thing;
 echo $test7;
 
 $strtest = '
