@@ -52,15 +52,7 @@ echo "<br><pre>";
 if(isset($_POST)){
   var_dump($_POST);
 }
-$array_test = array();
-if(isset($array_test[0])){
-  echo "Is set, array member!<br>";
-}
+echo"</pre>";
 
-foreach($array_test as $value){
-  echo $value;
-}
-echo "It didn't crash.";
-echo "</pre>";
 
 include(SCAFFOLDING_ADMIN."footer.php");

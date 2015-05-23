@@ -57,7 +57,7 @@ class UrlCell extends Cell {
     $attribs .= $this->_tooltip;
     
     $output = '
-                <td' . $attribs . '><a target="_blank" href="'. $this->_content . '">'.$this->_content.'</a></td>';
+                  <td' . $attribs . '><a target="_blank" href="'. $this->_content . '">'.$this->_content.'</a></td>';
     
 
     return $output;

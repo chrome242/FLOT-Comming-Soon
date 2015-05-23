@@ -37,6 +37,14 @@ $format = array("Id" => 'id',
                 "ASelect" => "select");
 
 
+function testWrap($str){
+  $array = explode("\n", $str);
+  $output = '';
+  foreach($array as $line){
+    $output .= "  " . $line ."\n";
+  }
+  return $output;
+}
 
 
 include(SCAFFOLDING."head.php");
@@ -73,11 +81,17 @@ echo $test3;
 //echo $test8;
 echo $test5;
 echo $test6;
-echo $test4;
+echo testWrap($test4);
 echo $test7;
 
+$strtest = '
+123456789
+123456789
+123456789';
 
-
+echo $strtest;
+echo $strtest;
+echo testWrap($strtest);
 
 $test3 = new Row("beer", $cells, $format);
 $test3->setCellClass("Blurb", "col-xs-2");

@@ -108,14 +108,14 @@ class Number extends Input {
     // make the string:
     if ($this->_class != null){
     $output = '
-                <td class="'.$this->_class. '"'.  $this->_tooltip .'>
-                  '. $this->_input . '
-                </td>'; 
+                  <td class="'.$this->_class. '"'.  $this->_tooltip .'>
+                    '. $this->_input . '
+                  </td>'; 
     } else {
     $output = '
-                <td ' . $this->_tooltip . '>
-                  '. $this->_input . '
-                </td>'; 
+                  <td ' . $this->_tooltip . '>
+                    '. $this->_input . '
+                  </td>'; 
     }
     return $output;
   }

@@ -277,7 +277,8 @@ class Table {
     }
     $output .='
                 </tr>
-              </thead>';
+              </thead>
+              <tbody>';
     
     return $output;
   }
@@ -321,7 +322,8 @@ class Table {
    *
    */
   public function addCounter($text, $column, $value=null){
-    $output ='<span class="label label-info">';
+    $output ='
+          <span class="label label-info">';
     $output .= $text . ' ';
     $output .= '<span id="counter" class="label label-success">';
     $output .= $this->countColumn($column, $value);
@@ -439,6 +441,7 @@ class Table {
     $output = '';
     if($this->_makeButton){$output .=$this->updateButton($this->_name);}
     $output ='
+              </tbody>
             </table>';
   
     if($extra != null) {$output .= $extra;}

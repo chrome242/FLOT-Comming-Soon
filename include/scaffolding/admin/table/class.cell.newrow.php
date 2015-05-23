@@ -26,9 +26,9 @@ class NewRow extends Cell{
     if(isset($this->_id)){$attribs .= ' id="' . $this->_id . '"';}
     if(isset($this->_class)){$attribs .= ' class="' . $this->_class . '"';}
     $output = '
-              </tr>';
+                </tr>';
     $output .= '
-              <tr' . $attribs .'>';
+                <tr' . $attribs .'>';
 
               
     return $output;

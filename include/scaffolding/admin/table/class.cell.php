@@ -149,7 +149,7 @@ class Cell {
     $attribs .= $this->_tooltip;
     
     $output = '
-                <td' . $attribs . '>'. $text . '</td>';
+                  <td' . $attribs . '>'. $text . '</td>';
     
 
     return $output;

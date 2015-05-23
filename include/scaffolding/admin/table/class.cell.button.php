@@ -99,9 +99,9 @@
     
     // make the string:
     $output = '
-                <td' . $attribs . '>
-                  '. $this->_input . '
-                </td>'; 
+                  <td' . $attribs . '>
+                    '. $this->_input . '
+                  </td>'; 
 
     return $output;
   }

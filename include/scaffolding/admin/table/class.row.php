@@ -474,7 +474,7 @@ class Row {
     if(isset($this->_class)){$attribs .= ' class="' . $this->_class . '"';}
     
     $output = '
-              <tr' . $attribs .'>';
+                <tr' . $attribs .'>';
     
     foreach($this->_cells as $a_cell){
       $output .= $a_cell; //this is a concat of the string and the object.
@@ -482,7 +482,7 @@ class Row {
     }
     
     $output .= '
-              </tr>';
+                </tr>';
               
     return $output;
   }
