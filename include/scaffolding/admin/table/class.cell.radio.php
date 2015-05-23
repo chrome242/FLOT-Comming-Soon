@@ -18,15 +18,15 @@ class Radio extends Input {
   /**
    *  This extension changes the default behavior of the Cell class by moving
    *  the name and id to the inner input of the cell, and not the cell itself.
-   *  Futhermore, the id field in this extension will add the value field to
-   *  the end of the name (eg name="beer[1][status]", id="beer[1][status][1]").
+   *  Furthermore, the id field in this extension will add the value field to
+   *  the end of the name (e.g. name="beer[1][status]", id="beer[1][status][1]").
    *
    *  The HTML class will still apply to the td.
    *
    *  This extension produces a radio class input with a default state of
    *  unselected. Optional param sets the field to checked. (Due to the
-   *  asumption that most radials will be unchecked.)
-   *  Can futher call methods to make it disbaled
+   *  assumption that most radials will be unchecked.)
+   *  Can further call methods to make it disabled
    *  
    * @param str $name: the name
    * @param int $enum: the enum state the cell represents.
@@ -42,7 +42,7 @@ class Radio extends Input {
   
   /**
    * makes the cell $_input string. This used to be fire at time of cell creation,
-   * however, it is no nessicary until a toString is fired, and would require a
+   * however, it is no necessary until a toString is fired, and would require a
    * re-write of the class methods to set ids and names and such
    */
   private function makeInput(){

@@ -26,7 +26,7 @@ class Checkbox extends Input {
    *  The HTML class will still apply to the td.
    *
    *  This extension produces a checkbox class input with a checked status of
-   *  state. Can futher call methods to make it disbaled.
+   *  state. Can further call methods to make it disabled.
    *  
    * @param str $name: the name & id of the Cell
    * @param bool $state: if true, the cell is checked.
@@ -43,7 +43,7 @@ class Checkbox extends Input {
   
   /**
    * makes the cell $_input string. This used to be fire at time of cell creation,
-   * however, it is no nessicary until a toString is fired, and would require a
+   * however, it is no necessary until a toString is fired, and would require a
    * re-write of the class methods to set ids and names and such
    */
   private function makeInput(){

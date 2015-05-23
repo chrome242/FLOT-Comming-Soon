@@ -3,13 +3,13 @@
 /**
  * Table
  *
- * The table class is a near top level abstraction for the backend of the
+ * The table class is a near top level abstraction for the back-end of the
  * site. It would more correctly be called TableAndForm, as it wraps in a form
  * as well as a table, and presumes that the end user is either trusted enough
  * to not try and break the form, or that the form will be used.
  *
  * It constructs a table, form, and depending on extensions, other goodies that
- * are assoicated with the said form.
+ * are associated with the said form.
  *
  * Takes a name string, and an array of the format key => row array
  * (see class.row), and a header array in the format of Field Text => array(
@@ -17,7 +17,7 @@
  * 
  *
  *
- * Noteable methods:
+ * Notable methods:
  *
  * Constructor: 
  * public function __construct($name, $rows, $header)
@@ -56,14 +56,14 @@ class Table {
   
   // specific task attributes (too few to make new class)
   protected $_offline_check = false; //for the beer display only
-  protected $_new_line = false; // for dropdown edits
+  protected $_new_line = false; // for drop-down edits
   
   // the new_line var holds if a cell of class NewRow has been passed. This
-  // will supress headers for the rest of the row, and the cell will echo out
+  // will suppress headers for the rest of the row, and the cell will echo out
   // as a </tr> <tr> set. Due to the nature of a row as an explicit record that
-  // is assumed it this project, this is a convient way to continue to abstract
-  // the record as a row while allowing the record to span mutiple rows, which
-  // is nomally only needed on some edit screens.
+  // is assumed it this project, this is a convenient way to continue to abstract
+  // the record as a row while allowing the record to span multiple rows, which
+  // is nominally only needed on some edit screens.
   
   /**
    * Constructor
@@ -97,7 +97,7 @@ class Table {
   
   /**
    *
-   * Setter for the HTML id attrib on the table opening tag.
+   * Setter for the HTML id attribute on the table opening tag.
    *
    * @param str $table_id the id to be added to the table
    */
@@ -107,7 +107,7 @@ class Table {
   
   /**
    *
-   * Setter for the HTML class attrib on the table opening tag.
+   * Setter for the HTML class attribute on the table opening tag.
    *
    * @param str $table_class the class(es) to be added to the table
    */
@@ -117,7 +117,7 @@ class Table {
   
   /**
    *
-   * Setter for the HTML id attrib on the form opening tag.
+   * Setter for the HTML id attribute on the form opening tag.
    *
    * @param str $form_id the id to be added to the form
    */
@@ -127,7 +127,7 @@ class Table {
   
   /**
    *
-   * Setter for the HTML class attrib on the form opening tag.
+   * Setter for the HTML class attribute on the form opening tag.
    *
    * @param str $form_class the class to be added to the form
    */
@@ -163,7 +163,7 @@ class Table {
         }
         elseif (strpos($temp_array[0], "newrow") !== false){
           // this should stop anything after and including this line from
-          // adding to the header aray
+          // adding to the header array
           $newline = true;
           continue;
         } else{
@@ -191,7 +191,7 @@ class Table {
     // setup the return array
     $output = array();
     
-    //itterate though the raw array because of mixed types
+    //iterate though the raw array because of mixed types
     foreach($raw_array as $key => $value){
       if(gettype($value) == "array"){ $output[array_keys($value)[0]] = array_values($value)[0]; }
     }
@@ -213,7 +213,7 @@ class Table {
    * @return array $output an array of row objects with member cell objects
    */
   private function makeRows($rows, $format, $protected){
-    // initalize the output array
+    // initialize the output array
     $output = array();
 
     // loop... because loops
@@ -298,7 +298,7 @@ class Table {
   /**
    * Counts the number of checks or radio selects in a given column
    * 
-   * @param str $column: the name of the column to querry in each row.
+   * @param str $column: the name of the column to query in each row.
    * @param str $value: the enumn value if type radio
    *  
    * @return int $output: the number of tics in the column
@@ -333,7 +333,7 @@ class Table {
   }
   
   /**
-   * Setter function to activte the allowOffline function durring the toString
+   * Setter function to active the allowOffline function during the toString
    * creation, off by default
    */
   public function offlineCheck(){
@@ -341,7 +341,7 @@ class Table {
   }
   
   /**
-   *  checks each row to see if they are eligable for going offline due to lack
+   *  checks each row to see if they are eligible for going offline due to lack
    *  of use within the bounds of the time defined by $constant.
    *
    *  While this method is called allowOffline it actually sets disabled where
@@ -362,7 +362,7 @@ class Table {
       $offtap = $row->getHidden($off);
       $ontap = $row->getHidden($on);
       
-      // check if the $taget is for a radio cell:
+      // check if the $target is for a radio cell:
       if(strpos($target, ",")){
         $pieces = explode(",", $target);
         $cell_name = $pieces[0];
@@ -377,7 +377,7 @@ class Table {
       
       // if offtap is null then it has never been kicked
       // if ontap is null then it has never been on tap (deck only)
-      // in either case is not eligable to go offline
+      // in either case is not eligible to go offline
       if($offtap == null or $ontap == null){
         $row->setDisabled($cell_name, $cell_number);
         
@@ -388,10 +388,10 @@ class Table {
       // if offtap is greater then ontap
       } else {
         
-        // if the diffrence is less then the constant
+        // if the difference is less then the constant
         if (($offtap - $ontap) < $constant) {
           $row->setDisabled($cell_name, $cell_number);
-        // ok, in the remaing case the value is >= the $constant
+        // OK, in the reaming case the value is >= the $constant
         } else{
           continue;
         }

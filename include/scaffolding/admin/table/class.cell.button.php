@@ -4,29 +4,29 @@
 // individual row scale.
 // to do this it will need to:
 // have a value of the current row (w/o the table name)
-// add a sufix for the action for the name (so tablename-sufix)
-// have a text value that likely matches the name if not overriden
+// add a suffix for the action for the name (so tablename-sufix)
+// have a text value that likely matches the name if not overridden
 
 /**
  * Button
  *
  * This creates a button using the button tag rather then the input submit type
  *
- * The button deviates from a normal cell constuction in the following ways:
+ * The button deviates from a normal cell construction in the following ways:
  * the $name is the name of the form not the cell
  *
  * The button will also have the classes of button and btn-primary by default
- * and be not-active (unpressed) by defult. These can be over-ridden with the
+ * and be not-active (unpressed) by default. These can be over-ridden with the
  * functions setButtonClasses() and setActive().
  * The type change be changed with the setType() method.
  *
  */
  class Button extends Input{
   
-  // overides for default Cell & Input attribs
+  // overrides for default Cell & Input attributes
   protected $_type = "submit"; // in case of eventual extensions
   
-  // class specific attribs:
+  // class specific attributes:
   protected $_button_classes = "btn btn-primary";// for bootstrap
   protected $_active = false; // if it's active or not.
   protected $_record; // the record value
@@ -38,7 +38,7 @@
    *
    *  @param str $form: the name of the parent form
    *  @param str $record: the record (row) name
-   *  @param str $action: a sufix to be passed to the processor for the action.
+   *  @param str $action: a suffix to be passed to the processor for the action.
    */
   public function __construct($form, $record, $action){
     $this->_record = $record;
@@ -81,7 +81,7 @@
   
   /**
    * The input toString overwrite replaces the default behavior of the
-   * cell class by moving the HTML id attribs to the input while keeping
+   * cell class by moving the HTML id attributes to the input while keeping
    * the class with the td, for layout purposes.
    *
    * This method must be reused in child elements because the class
@@ -92,7 +92,7 @@
     // make the cell input field:
     $this->_input = $this->makeInput();
     
-    // set attribs on the TD
+    // set attributes on the TD
     $attribs = '';
     if($this->_class != null){$attribs .= ' class="' . $this->_class . '"';}
     $attribs .= $this->_tooltip;

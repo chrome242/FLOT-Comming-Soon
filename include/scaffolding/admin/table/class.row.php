@@ -36,13 +36,13 @@
  *      
  *  (h) = denotes a cell that has special effects on the header.
  *      drop (cell not kept)
- *      newrow (halts futher headers, makes record move to new row)
- *      private (no addtion to header, cells in row go to private array)
+ *      newrow (halts further headers, makes record move to new row)
+ *      private (no addition to header, cells in row go to private array)
  *      time (can be set to private when that occurs, cell act like above)
  *      
  *  (o) = optional part of string:
  *  NOTE THAT IF A STRING HAS OPTIONAL PARTS, THEY MUST BE INCLUDED IN ORDER,
- *  AND CAN BE PASSED OVER WITH A VALUE OF 'none' (eg number, x, none, 42)
+ *  AND CAN BE PASSED OVER WITH A VALUE OF 'none' (e.g. number, x, none, 42)
  *
  *
  *  
@@ -53,16 +53,16 @@
  * drop - not placed in the table (h)
  * duration, x, y(o) where x & y are either timestamps or cell names (b)
  * id - plain text cell who's value is attached to the row name (b)
- * newrow - a cell that produces a visual new row while allowing contued record (h)
+ * newrow - a cell that produces a visual new row while allowing continued record (h)
  * number, x, y(o), z(o), where x = number or placeholder y= step(o), z= size(o)(b)
  * private - placed in the internal cell array as basic text (h) (b)
  * plain - a basic cell (b)
  * radio, # - a radio set of # cells
- * select, x(o), y(o), z(o) where x = selected value(o), y= mutiple(o), z= size(o)(b)
+ * select, x(o), y(o), z(o) where x = selected value(o), y= multiple(o), z= size(o)(b)
  * text, x = a text entry where x = text or placeholder (b)
  * textarea, x, y(o), z(o), where x = text or placeholder y= rows(o), z= colspan(o)(b)
  * time, x - a timestamp where x = show or private (h)(b)
- * url - a url cell. much like basic text
+ * url - a URL cell. much like basic text
  *
  *
  * Notable class methods-
@@ -73,7 +73,7 @@
  *  Class getters:
  *  public function getName()
  *
- *  Setters for HTML attribs:
+ *  Setters for HTML attributes:
  *  public function setId() optional arg $id else $id = $name
  *  public function setClass($class)
  *
@@ -93,19 +93,19 @@
  */
 class Row {
   
-  // class attribs for the row
+  // class attributes for the row
   protected $_name; // the name of the row.
   protected $_class = null;
   protected $_id = null;
   protected $_tableName; // the name passed in from the table
   protected $_rowShortName; // either the name if no ID cell, or the ID cell id
   
-  // class attribs for member cell storage
+  // class attributes for member cell storage
   // the below is stored by cell id (not name) due to radio buttons
   protected $_cells; //an array of cells prior to string construction.
   protected $_privateCells; //cells for internal use, such as timestamp math
   
-  // class attribs for output
+  // class attributes for output
   protected $_output; //the output string
   
   /**
@@ -173,7 +173,7 @@ class Row {
 
     $output = $name;
     $this->_tableName = $name;
-    $this->_rowShortName = $name; // if this row encapulates the entire dataset
+    $this->_rowShortName = $name; // if this row encapsulates the entire data set
     foreach($format as $cell_name => $type){
       if($type == "id"){
         $output .= '['.$cells[$cell_name].']';
@@ -210,7 +210,7 @@ class Row {
       // text cell
       if($format[$name] == 'plain'){ $this->_cells[$cell_name] = new Cell($name, $value);}
       
-      // url cell
+      // URL cell
       if($format[$name] == 'url'){$this->_cells[$cell_name] = new UrlCell($name, $value);}
       
       // new row
@@ -282,7 +282,7 @@ class Row {
         }
       }
       
-      // textarea -suprizingly identical to number... might need to functionalize
+      // textarea -surprisingly identical to number... might need to functionality
       if(stripos($format[$name], 'textarea,') !== false){
         $pieces = explode(",", $format[$name]);
         $type = trim($pieces[1]);
@@ -304,7 +304,7 @@ class Row {
       
       // duration cells
       // using the same task specific names as the target class to keep things simple
-      // any cells being used for the mathfoo here must, obviously, be declared first
+      // any cells being used for the math-foo here must, obviously, be declared first
       // and must be in the hidden array for the row.
       if(stripos($format[$name], 'duration,') !== false){
         $pieces = explode(",", $format[$name]);
@@ -453,7 +453,7 @@ class Row {
     /**
    * A setter to push down to the cell, setting the cell class. 
    *
-   * @param str $cel: the name of the cell
+   * @param str $cell: the name of the cell
    * @param str $class: the enum value if the type of the cell is radio.
    */
   public function setCellClass($cell, $class){

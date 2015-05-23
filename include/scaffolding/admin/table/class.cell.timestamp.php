@@ -1,13 +1,12 @@
 <?php
-// move cell includes here?
 
 /**
  * Timestamp Cell
  *
  * Extends cell.
  * The timestamp cell is an extension of cell that allows the cell to contain a timestamp.
- * while this is largely simular to a generic cell, it adds the method toDate() and the
- * constructior option for making the cell as a date rather than a string literal of a
+ * while this is largely similar to a generic cell, it adds the method toDate() and the
+ * constructor option for making the cell as a date rather than a string literal of a
  * timestamp.
  */
 class Timestamp extends Cell {
@@ -23,8 +22,8 @@ class Timestamp extends Cell {
    *
    *  The HTML class will still apply to the td.
    *
-   *  If the timestamp is not set, it will return the unix epoc time, as it
-   *  should only read zero when an event has not occured yet.
+   *  If the timestamp is not set, it will return the UNIX epoch time, as it
+   *  should only read zero when an event has not occurred yet.
    *  
    * @param str $name: the name & id of the Cell
    * @param int $value: the timestamp
@@ -48,7 +47,7 @@ class Timestamp extends Cell {
    *
    * @param int $value: A timestamp
    *
-   * @return str $output: The date formated for human viewing
+   * @return str $output: The date formatted for human viewing
    */
   private function formatDate($value){
     $output = date("F j, Y", $value);
@@ -56,7 +55,7 @@ class Timestamp extends Cell {
   }
   
   /**
-   * Hide the details on a timestamp. As a timestamp that is formated for
+   * Hide the details on a timestamp. As a timestamp that is formatted for
    * a date, as the timestamp form of the cell is presumed to be used in
    * hidden arrays only.
    */

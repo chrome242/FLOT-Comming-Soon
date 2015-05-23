@@ -52,7 +52,7 @@ class Text extends Input {
   
   /**
    * makes the cell $_input string. This used to be fire at time of cell creation,
-   * however, it is no nessicary until a toString is fired, and would require a
+   * however, it is no necessary until a toString is fired, and would require a
    * re-write of the class methods to set ids and names and such
    */
   private function makeInput(){

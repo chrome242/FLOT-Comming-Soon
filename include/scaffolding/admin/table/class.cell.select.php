@@ -20,15 +20,15 @@
  * $name - the cell name
  * $content - a keyed array (or the numbers will be used) for the value => text
  *
- * optionals are, in order:
- * $selected - the selected value at loadin for the input (none)
- * $mutiple - if the selector is mutiple select or not (no)
+ * optional are, in order:
+ * $selected - the selected value at load-in for the input (none)
+ * $multiple - if the selector is multiple select or not (no)
  * $size- the char size of the select (none)
  */
 class Select extends Input{
   
   // select specific variables:
-  protected $_mutiple; // no mutiple select by default (breaks boostrap)
+  protected $_multiple; // no multiple select by default (breaks Bootstrap)
   protected $_selected; // must match a value 
   protected $_size; // if null then not specified
   protected $_form = true; // add the form-control class by default
@@ -53,7 +53,7 @@ class Select extends Input{
     $this->_id = $name;
     $this->_type = "select";
     $this->_selected = $selected;
-    $this->_mutiple = $mutiple;
+    $this->_multiple = $mutiple;
     $this->_size = $size;
     $this->_option_array = $options;
     if($selected != null){$this->_content = $options[$selected];}
@@ -63,7 +63,7 @@ class Select extends Input{
 
   /**
    * makes the cell $_input string. This used to be fire at time of cell creation,
-   * however, it is no nessicary until a toString is fired, and would require a
+   * however, it is no necessary until a toString is fired, and would require a
    * re-write of the class methods to set ids and names and such
    */
   private function makeInput(){
@@ -76,7 +76,7 @@ class Select extends Input{
     
     if($this->_showDetails){$details .= ' id="'. $this->_id . '" name="' . $this->_name . '"';}
     if($this->_disabled){$details .= " disabled";}
-    if($this->_mutiple){$details .= " multiple";}
+    if($this->_multiple){$details .= " multiple";}
     $content = '<'. $this->_type .''. $details .'>';
     
     foreach($this->_option_array as $value => $text){
@@ -117,7 +117,7 @@ class Select extends Input{
     // make the cell input field:
     $this->_input = $this->makeInput();
     
-    // set attribs on the TD
+    // set attributes on the TD
     $attribs = '';
     if($this->_class != null){$attribs .= ' class="' . $this->_class . '"';}
     if($this->_size != null){$attribs .= ' colspan="' . $this->_size . '"';}

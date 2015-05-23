@@ -7,7 +7,7 @@
  *
  * The base cell class creates a cell that contains contents generated
  * elsewhere. This is intended for receiving text or low interactivity
- * content. Extension of this class will generate more complext cell
+ * content. Extension of this class will generate more complex cell
  * types to be used with forms.
  * 
  */
@@ -35,12 +35,12 @@ class Cell {
   }
   
   /**
-   *  Adds a button to the cell, for control of various items realted to
+   *  Adds a button to the cell, for control of various items related to
    *  the given text.
    *
-   *  @param str $form: the form the button is assoicated with
+   *  @param str $form: the form the button is associated with
    *  @param str $record: the specific record the inline button is for.
-   *  @param str $action: a sufix to be passed to the processor for the action.
+   *  @param str $action: a suffix to be passed to the processor for the action.
    *  @param str $display: either text or the name of a glyphicon for button
    *  @param bool $text: if the $display is a text or a glyphicon
    *  @param bool $active: if the button should be disabled.
@@ -59,7 +59,7 @@ class Cell {
   }
   
   /**
-   * Setter for the $_name attrib
+   * Setter for the $_name attribute
    *
    * @param str $name: the new value for the name
    */
@@ -68,7 +68,7 @@ class Cell {
   }
   
   /**
-   * Setter for the $_id attrib
+   * Setter for the $_id attribute
    *
    * @param str $id: the new value for the id
    */
@@ -77,7 +77,7 @@ class Cell {
   }
 
   /**
-   * Setter for the $_class attrib
+   * Setter for the $_class attribute
    *
    * @param str $class: the new value for the id
    */
@@ -87,7 +87,7 @@ class Cell {
   
   
   /**
-   * Setter for the $_content attrib
+   * Setter for the $_content attribute
    */
   public function setContent($content){
     $this->_content = $content;
@@ -97,7 +97,7 @@ class Cell {
    * Sets a bootstrap floating tooltip on the cell.
    *
    * @param str $tip = the tool tip for the cell
-   * @param str $placement (o) the data placement attrib
+   * @param str $placement (o) the data placement attribute
    */
   public function setToolTip($tip, $placement="right"){
     $this->_tooltip = ' data-toggle="tooltip" data-placement="' . $placement . '" title="' . $tip . '"';

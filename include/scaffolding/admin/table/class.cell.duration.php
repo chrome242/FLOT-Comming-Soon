@@ -5,17 +5,17 @@
  *
  * Extends cell.
  * The Duration cell is an extension of cell that processes a pair of timestamps into 
- * while this is largely simular to a generic cell in it's output, it requires a timestamp
+ * while this is largely similar to a generic cell in it's output, it requires a timestamp
  * to be passed into the cell on creation. A second cell can be passed though as well, but
- * is only nesicarry if the duration being calculated is not trucated with the current time.
+ * is only necessary if the duration being calculated is not truncated with the current time.
  *
  * It may be useful to use this class with the Timestamp class, but as to not code a specific
  * case that assumes that a Timestamp was used in getting a value for the date, the value from
  * a Timestamp cell should be gotten via the timestamp's getValue() function and then passed
- * to the Duration cel.
+ * to the Duration cell.
  *
- * By default, the Duration cell sets the cell tooltip on and floats the ammount of time between
- * the first/only datestamp and the second datestamp/now as a tooltip if the value = a current
+ * By default, the Duration cell sets the cell tool-tip on and floats the amount of time between
+ * the first/only date stamp and the second date stamp/now as a tooltip if the value = a current
  *
  * The output cell will either return a value of X Days, Current, or New.
  *
@@ -42,10 +42,10 @@ class Duration extends Cell {
    *
    *  The HTML class will still apply to the td.
    *
-   *  If the second timestamp is not set, it will return the unix epoc time, as it
-   *  should only read zero when an event has not occured yet.
+   *  If the second timestamp is not set, it will return the UNIX epoch time, as it
+   *  should only read zero when an event has not occurred yet.
    *
-   *  Because there's some vodoo going on with the specifics of how these timestamps
+   *  Because there's some voodoo going on with the specifics of how these timestamps
    *  can be handled, I've used task specific names so that there's easy follow
    *  though for later reading
    *  
@@ -75,7 +75,7 @@ class Duration extends Cell {
     } elseif($offTap > $onTap && $onTap != 0) {
       $this->_content = $this->makeContent($onTap, $offTap);
     
-    // On the very rare occurance it was kicked and then came back same day
+    // On the very rare occurrence it was kicked and then came back same day
     } else {
       $this->_content = "Today";
     }
@@ -116,7 +116,7 @@ class Duration extends Cell {
    * @return str the number of days between the two timestamps
    */
   protected function makeDays($olderTime, $newerTime){
-    // second timesamp should be the newer of the two
+    // second timestamp should be the newer of the two
     $raw_time = $newerTime - $olderTime;
     $day = (24 * 60 * 60);
     $refined_time = intval($raw_time / $day);

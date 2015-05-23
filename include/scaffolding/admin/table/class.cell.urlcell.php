@@ -3,7 +3,7 @@
 /**
  * UrlCell
  *
- * a simple extension of cell that wrapps the $_content in an anchor for output
+ * a simple extension of cell that wraps the $_content in an anchor for output
  * while leaving it as a text string for the getValue method.
  * 
  */
@@ -15,7 +15,7 @@ class UrlCell extends Cell {
    * Sets the $_name and $_id to the same thing on construction.
    *
    * @param str $name: the name & id of the Cell
-   * @param str $url: the url content of the Cell
+   * @param str $URL: the URL content of the Cell
    */
   public function __construct($name, $url){
     $this->_id = $name;
@@ -24,12 +24,12 @@ class UrlCell extends Cell {
   }
   
   /**
-   * Checks to see if the url is in the format http://.... and makes it
+   * Checks to see if the URL is in the format http://.... and makes it
    * as such if not.
    *
-   * @param str $url: a suposed url
+   * @param str $url: a supposed URL
    *
-   * @return str $output: a suposedly better url
+   * @return str $output: a supposedly better URL
    */
   private function checkFormat($url){
     if(stripos($url, 'http://') !== false){
@@ -40,7 +40,7 @@ class UrlCell extends Cell {
   }
  
   /**
-   * Setter for the $_content attrib
+   * Setter for the $_content attribute
    */
   public function setContent($content){
     $this->_content = $this->checkFormat($content);

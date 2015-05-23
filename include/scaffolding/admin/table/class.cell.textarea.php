@@ -6,10 +6,10 @@
  * Extends Input.
  *
  * Constructs a cell with a form element of type textarea. This cell will have
- * a colspan attrib unless set otherwise. This cell will also use the Bootstrap
+ * a colspan attribute unless set otherwise. This cell will also use the Bootstrap
  * form-control class on the textarea unless instructed otherwise. The class
  * uses the additional properties for how to handle all the above. The methods
- * controlOff() and colspanOff() turn off their respective html tags.
+ * controlOff() and colspanOff() turn off their respective HTML tags.
  *
  * 
  * 
@@ -22,7 +22,7 @@ class Textarea extends Input {
   protected $_placeholder; // placeholder (true) or value (false)bool
   protected $_form = true; // add the form-control class by default
   protected $_row; //default number of rows in the view for this class
-  protected $_colspan; // the colspan atrib for the td, useful for this class
+  protected $_colspan; // the colspan attribute for the td, useful for this class
   
   
   // textarea uses $this->_content for the text
@@ -44,7 +44,7 @@ class Textarea extends Input {
    * @param str $content: the cell text
    * @param str $type: placeholder or value
    * @param int $rows: the number of rows for the textbox on spawn
-   * @param int $colspan: the value of the colspan atrib on the td
+   * @param int $colspan: the value of the colspan attribute on the td
    */
   public function __construct($name, $content, $type="placeholder",
                               $rows=3, $colspan=6){
@@ -60,7 +60,7 @@ class Textarea extends Input {
   
   /**
    * makes the cell $_input string. This used to be fire at time of cell creation,
-   * however, it is no nessicary until a toString is fired, and would require a
+   * however, it is no necessary until a toString is fired, and would require a
    * re-write of the class methods to set ids and names and such
    */
   private function makeInput(){
@@ -103,7 +103,7 @@ class Textarea extends Input {
   }
   
   /**
-   * turn off the colspan attrib
+   * turn off the colspan attribute
    */
   public function colspanOff(){
     $this->_colspan = null;
@@ -111,7 +111,7 @@ class Textarea extends Input {
   
   /**
    * The input toString overwrite replaces the default behavior of the
-   * cell class by moving the HTML id attribs to the input while keeping
+   * cell class by moving the HTML id attributes to the input while keeping
    * the class with the td, for layout purposes.
    *
    * This method must be reused in child elements because the class
@@ -122,7 +122,7 @@ class Textarea extends Input {
     // make the cell input field:
     $this->_input = $this->makeInput();
     
-    // set attribs on the TD
+    // set attributes on the TD
     $attribs = '';
     if($this->_class != null){$attribs .= ' class="' . $this->_class . '"';}
     if($this->_colspan != null){$attribs .= ' colspan="' . $this->_colspan . '"';}
