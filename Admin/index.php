@@ -43,7 +43,7 @@ $format = array("Id" => 'id',
                 "TimeandSpace" => "time, private");
 
 
-$test5 = new Table("Beer", $test_multi, $multi_headers);
+$test5 = new Table("Beer", $test_cells, $test_headers);
 $test5->addCounter("Total on Tap:", "beer_status", "0");
 $test5->offlineCheck();
 echo $test5;
@@ -52,6 +52,15 @@ echo "<br><pre>";
 if(isset($_POST)){
   var_dump($_POST);
 }
+$array_test = array();
+if(isset($array_test[0])){
+  echo "Is set, array member!<br>";
+}
+
+foreach($array_test as $value){
+  echo $value;
+}
+echo "It didn't crash.";
 echo "</pre>";
 
 include(SCAFFOLDING_ADMIN."footer.php");

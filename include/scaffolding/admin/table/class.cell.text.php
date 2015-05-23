@@ -58,7 +58,10 @@ class Text extends Input {
   private function makeInput(){
     $details = '';
     
-    if($this->_form){$details = ' class="form-control" ';}
+    //class logic
+    if($this->_form && isset($this->_buttons[0])){$details .= ' class="form-control edit-field"';}
+    elseif(isset($this->_buttons[0])){$details .= ' class="edit-field"';}
+    elseif($this->_form){$details .= ' class="form-control"';}
     
     if($this->_showDetails){$details .= 'id="'. $this->_id . '" name="' . $this->_name . '"';}
     
@@ -69,6 +72,11 @@ class Text extends Input {
     if($this->_disabled){$content .= " disabled";}
     
     $content .=">";
+    
+    foreach($this->_buttons as $button){
+      $content .='
+                  '. $button .'';
+    }
     return $content;
   }
   
@@ -76,7 +84,7 @@ class Text extends Input {
   /**
    * turn off the form control class inclusion
    */
-  public function  controlOff(){
+  public function controlOff(){
     $this->_form = false;
   }
   

@@ -66,7 +66,10 @@ class Textarea extends Input {
   private function makeInput(){
     $details = '';
     
-    if($this->_form){$details = ' class="form-control" ';}
+    //class logic
+    if($this->_form && isset($this->_buttons[0])){$details .= ' class="form-control edit-field"';}
+    elseif(isset($this->_buttons[0])){$details .= ' class="edit-field"';}
+    elseif($this->_form){$details .= ' class="form-control"';}
     
     $details .= 'rows="' . $this->_row .'"';
     
@@ -83,6 +86,12 @@ class Textarea extends Input {
     if(!$this->_placeholder){$content .= $this->_content;}
     
     $content .="</textarea>";
+    
+    foreach($this->_buttons as $button){
+      $content .='
+                  '. $button .'';
+    }
+    
     return $content;
   }
 

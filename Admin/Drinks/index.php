@@ -45,7 +45,7 @@ echo menubar($permissions, $section, $root);
 
 echo '
         <div class="container">
-          <form name="beerManagement">
+          <form name="beerManagement" method="post">
             <table class="table table-hover" id="beer">
               <thead>';
 
@@ -55,23 +55,38 @@ $test2 = new Number("Num Test", 4.00, "placeholder", 2, 5);
 
 $test_text = "The Quick Brown Fox Jumped Over the Lazy Dog.";
 $test3 = new Textarea("TestArea", $test_text, "placeholder");
-$test4 = new Select("SelectTest", $format, "Id", true, 6);
+$test4 = new Select("SelectTest", $format, "Id", true, 1);
+$test0 = new NewRow();
 $test5 = new Duration("Test", (time() - (2*24*60*60)), (time() - (2*24*60*60)));
 $test6 = new Text("test2333", "some text");
-$test7 = new Button("form", "row", "submit");
+$test7 = new Button("form", "Something Good", "submit");
+$test8 = new Cell("ButtonCell", "Look");
+$test1->addButton("form", "record", "action", "btntxt", $text=true, $active=false);
+$test4->addButton("form", "record", "anotheraction", "moarbtn", $text=true, $active=false);
 //$test1->controlOff();
 //$test1->disabled();
 echo $test1;
 echo $test2;
 echo $test3;
-echo $test4;
+//echo $test4;
+//echo $test0;
+//echo $test8;
 echo $test5;
 echo $test6;
+echo $test4;
 echo $test7;
+
+
 
 
 $test3 = new Row("beer", $cells, $format);
 $test3->setCellClass("Blurb", "col-xs-2");
 echo $test3;
-                
+
+echo "<br><pre>";
+if(isset($_POST)){
+  var_dump($_POST);
+}
+echo "</pre>";
+
 include(SCAFFOLDING_ADMIN."footer.php");

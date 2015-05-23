@@ -31,7 +31,7 @@ $test_cells = array(array("beer_id" => 1,
                           "beer_status" => "0",
                           "beer_ontap" => (time() - $test_date_week),
                           "beer_offtap" => 0,
-                          "test_backend" => "http://works.org"),
+                          "test_backend" => "works"),
                     array("beer_id" => 2,
                           "beer_brewery" => "Ithaca Beer", // new beer, on deck
                           "beer_name" => "Green Tail",
@@ -80,8 +80,9 @@ $test_cells = array(array("beer_id" => 1,
                           "beer_status" => "3",
                           "beer_ontap" => (time() - ($test_date_week * 11)),
                           "beer_offtap" => (time() - $test_date_week * 3),
-                          "test_backend" => "submit.com")
+                          "test_backend" => "submit")
                     );
+                                      
                                       
 /*
  * Cell types:
@@ -112,7 +113,7 @@ $test_headers = array("Id" => array("beer_id" => 'id'),
                       "Off Line" => 4,
                       "timeontap" => array("beer_ontap" => "time, private"),
                       "timeofftap" => array("beer_offtap" => "time, private"),
-                      "Test" => array("test_backend" => "url")
+                      "Test" => array("test_backend" => "button")
                       );
 
 $text_blurb = "Gnomegang has a rich, translucent golden hue with a big, fluffy,

@@ -67,7 +67,10 @@ class Number extends Input {
   private function makeInput(){
     $details = ' step="' . $this->_step . '"';
     
-    if($this->_form){$details .= ' class="form-control" ';}
+    //class logic
+    if($this->_form && isset($this->_buttons[0])){$details .= ' class="form-control edit-field"';}
+    elseif(isset($this->_buttons[0])){$details .= ' class="edit-field"';}
+    elseif($this->_form){$details .= ' class="form-control"';}
     
     if($this->_showDetails){$details .= 'id="'. $this->_id . '" name="' . $this->_name . '"';}
     
@@ -80,6 +83,11 @@ class Number extends Input {
     if($this->_disabled){$content .= " disabled";}
     
     $content .=">";
+    
+    foreach($this->_buttons as $button){
+      $content .='
+                  '. $button .'';
+    }
     return $content;
   }
   

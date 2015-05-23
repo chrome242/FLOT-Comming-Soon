@@ -24,30 +24,44 @@
  * and kept in the $_privateCells array and not added to the _toString()
  *
  * Constructing cells:
- *
+ *  (b) = allows in field buttons:
+ *      duration
+ *      number
+ *      private
+ *      plain
+ *      select
+ *      text
+ *      textarea
+ *      time
+ *      
+ *  (h) = denotes a cell that has special effects on the header.
+ *      drop (cell not kept)
+ *      newrow (halts futher headers, makes record move to new row)
+ *      private (no addtion to header, cells in row go to private array)
+ *      time (can be set to private when that occurs, cell act like above)
+ *      
  *  (o) = optional part of string:
  *  NOTE THAT IF A STRING HAS OPTIONAL PARTS, THEY MUST BE INCLUDED IN ORDER,
  *  AND CAN BE PASSED OVER WITH A VALUE OF 'none' (eg number, x, none, 42)
  *
- *  ** = denotes a cell that has special effects on the header.
  *
  *  
- * Cell types:
+ * Short Cell Docs:
  * 
  * button - an inline button. 
  * checkbox - a checkbox
- * **drop - not placed in the table
- * duration, x, y(o) where x & y are either timestamps or cell names
- * id - plain text cell who's value is attached to the row name
- * **newrow - a cell that produces a visual new row while allowing contued record
- * number, x, y(o), z(o), where x = number or placeholder y= step(o), z= size(o)
- * **private - placed in the internal cell array as basic text
- * plain - a basic cell
+ * drop - not placed in the table (h)
+ * duration, x, y(o) where x & y are either timestamps or cell names (b)
+ * id - plain text cell who's value is attached to the row name (b)
+ * newrow - a cell that produces a visual new row while allowing contued record (h)
+ * number, x, y(o), z(o), where x = number or placeholder y= step(o), z= size(o)(b)
+ * private - placed in the internal cell array as basic text (h) (b)
+ * plain - a basic cell (b)
  * radio, # - a radio set of # cells
- * select, x(o), y(o), z(o) where x = selected value(o), y= mutiple(o), z= size(o)
- * text, x = a text entry where x = text or placeholder
- * textarea, x, y(o), z(o), where x = text or placeholder y= rows(o), z= colspan(o)
- * **time, x - a timestamp where x = show or private
+ * select, x(o), y(o), z(o) where x = selected value(o), y= mutiple(o), z= size(o)(b)
+ * text, x = a text entry where x = text or placeholder (b)
+ * textarea, x, y(o), z(o), where x = text or placeholder y= rows(o), z= colspan(o)(b)
+ * time, x - a timestamp where x = show or private (h)(b)
  * url - a url cell. much like basic text
  *
  *

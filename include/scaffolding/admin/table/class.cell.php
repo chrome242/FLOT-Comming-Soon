@@ -20,6 +20,7 @@ class Cell {
   protected $_class; // for the cell class
   protected $_content;
   protected $_tooltip = ''; // for tool tips, which may be of use in base & extensions
+  protected $_buttons = array(); // for cells extended with buttons
   
   /**
    * Sets the $_name and $_id to the same thing on construction.
@@ -31,6 +32,30 @@ class Cell {
     $this->_id = $name;
     $this->_name = $name;
     $this->_content = $text;
+  }
+  
+  /**
+   *  Adds a button to the cell, for control of various items realted to
+   *  the given text.
+   *
+   *  @param str $form: the form the button is assoicated with
+   *  @param str $record: the specific record the inline button is for.
+   *  @param str $action: a sufix to be passed to the processor for the action.
+   *  @param str $display: either text or the name of a glyphicon for button
+   *  @param bool $text: if the $display is a text or a glyphicon
+   *  @param bool $active: if the button should be disabled.
+   */
+  public function addButton($form, $record, $action, $display, $text=false, $active=false){
+    $button_text = $display;
+    $button_name = $form . '-' . $action;
+    $button_id = $form.'['.$record.']['. $button_name.']';
+    if ($text){ $button_content = ucwords($display);}
+    else {$button_content = '<span class="glyphicon '. $display . '"></span>';}
+    $output = '<button type="submit" class="btn btn-primary edit-icon btn-xs"';
+    $output.= ' id="' . $button_id .'" name="' . $button_name .'" value="';
+    $output.= $record .'">' . $button_content ."</button>";
+    $this->_buttons[] = $output;
+    
   }
   
   /**
@@ -111,6 +136,10 @@ class Cell {
   }
 
   public function __toString(){
+    $text = $this->_content;
+    foreach($this->_buttons as $button){
+      $text .= $button;
+    }
     $attribs = '';
     if ($this->_showDetails == true){
       if ($this->_class != null){$attribs .= ' class="'. $this->_class . '"';}
@@ -120,7 +149,7 @@ class Cell {
     $attribs .= $this->_tooltip;
     
     $output = '
-                <td' . $attribs . '>'. $this->_content . '</td>';
+                <td' . $attribs . '>'. $text . '</td>';
     
 
     return $output;
