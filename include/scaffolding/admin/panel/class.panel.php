@@ -36,12 +36,15 @@ class Panel {
    * @param mixed $size: a string (default, half) or a 4 number array.
    */
   public function __construct($name, $body, $size="default"){
+    // the attribs for the panel itself
     $this->_name = $name;
     $this->_id = $name;
     $this->_header = $name;
     
+    // the inner html for the panel
     $this->_inner_html = $body;
     
+    // the make a 
     $this->makeClass($size);
     
   }
@@ -138,6 +141,11 @@ class Panel {
     }
     
     $body = $this->addIndent($this->_inner_html);
+    
+    //if($this->_button){
+    //  $body .= $this->makeButton();
+    //}
+    //
     
     $closing = '
             </div>

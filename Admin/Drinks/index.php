@@ -1,6 +1,8 @@
 <?php
 include("../../include/config.php");
 include(SCAFFOLDING_ADMIN."menubars.php");
+include(SCAFFOLDING_ADMIN."list/class.listView.php");
+include(SCAFFOLDING_ADMIN."panel/class.panel.php");
 include(SCAFFOLDING_ADMIN."table/table.php");
 
 $title = "Manage Drinks";
