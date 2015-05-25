@@ -1,5 +1,10 @@
 <?php
 
+//TODO: Add a method to add an update button
+//TODO: Add a method to add a table wrapper for the table
+//TODO: Add method to pull the name off the table or list form if object
+
+
 /* The panel class is designed to encapsulate another class that produces HTML
  * output inside of a Bootstrap panel for output.
  * 
@@ -12,8 +17,13 @@ class Panel {
   protected $_id; 
   protected $_header; // the panel header.
   protected $_class = "panel panel-default";
-  protected $_inner_html; // the inner html string or class that produces html w/ tostring
   protected $_show_id = false; //no id for the panel by default
+  
+  // the inner html
+  protected $_inner_html; // the inner html string or class that produces html w/ tostring
+  
+  // additional panel bits:
+  
   
   
   /**
@@ -44,7 +54,7 @@ class Panel {
     // the inner html for the panel
     $this->_inner_html = $body;
     
-    // the make a 
+    // the make bootstrap CSS classes
     $this->makeClass($size);
     
   }
@@ -136,19 +146,16 @@ class Panel {
     if($this->_header !== false){
       $opening .= '
             <div class="panel-heading"><h4>' . $this->_header .'</h4></div>
-            <div class="table">
 ';
     }
     
+    // open table wrap here if table
+    
     $body = $this->addIndent($this->_inner_html);
     
-    //if($this->_button){
-    //  $body .= $this->makeButton();
-    //}
-    //
-    
+    // add button here if button
+    // close table wrap here if table
     $closing = '
-            </div>
           </div>';
   
     $output = $opening . $body . $closing;

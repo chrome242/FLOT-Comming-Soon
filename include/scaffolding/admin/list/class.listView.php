@@ -35,7 +35,17 @@ class ListView {
   protected $_listId = '';
   
   /**
+   * A class for creating the HTML view of a form in a list style.
+   * Makes an array of listItem class items (and decendants thereof)
+   * Makes a form from the name
    *
+   * echos out the form, any items set with the setters, and all included
+   * array items
+   *
+   * @param str $name the name of the form
+   * @param array $listitems an array of key => value arrays for the list members
+   * @param mixed $special either a bool false or an array of key => value arrays
+   * @param str $default a keyword for the default type of list items to be built.
    */
   public function __construct($name, $listitems, $special=false, $default='text'){
     //set the name
