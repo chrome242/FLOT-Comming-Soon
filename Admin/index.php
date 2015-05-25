@@ -46,13 +46,14 @@ $format = array("Id" => 'id',
 $test5 = new Table("Beer", $test_cells, $test_headers);
 $test5->addCounter("Total on Tap:", "beer_status", "0");
 $test5->offlineCheck();
-echo $test5;
+$test6 = new Panel("Test Panel", $test_form, $size="default");
+echo $test6;
 
-echo "<br><pre>";
-if(isset($_POST)){
-  var_dump($_POST);
-}
-echo"</pre>";
+//echo "<br><pre>";
+//if(isset($_POST)){
+//  var_dump($_POST);
+//}
+//echo"</pre>";
 
 
 include(SCAFFOLDING_ADMIN."footer.php");

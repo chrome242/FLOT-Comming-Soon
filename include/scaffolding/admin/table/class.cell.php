@@ -21,6 +21,7 @@ class Cell {
   protected $_content;
   protected $_tooltip = ''; // for tool tips, which may be of use in base & extensions
   protected $_buttons = array(); // for cells extended with buttons
+  protected $_colspan = 1; // for use with extensions.
   
   /**
    * Sets the $_name and $_id to the same thing on construction.
@@ -126,6 +127,13 @@ class Cell {
    */
   public function getId(){
     return $this->_id;
+  }
+  
+  /**
+   * Gets the column span value
+   */
+  public function getSpan(){
+    return $this->_colspan;
   }
   
   /**

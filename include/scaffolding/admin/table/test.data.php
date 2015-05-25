@@ -160,3 +160,186 @@ $multi_headers = array("Id" => array("beer_id" => 'id'),
                       );
                           
                     
+$test_form = <<<EOT
+              <form name="Beer" method="post">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Brewery</th>
+                      <th>Beer</th>
+                      <th>On Tap</th>
+                      <th>On Deck</th>
+                      <th>Kicked</th>
+                      <th>Off Line</th>
+                      <th>Test</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Ithaca Beer</td>
+                      <td>Flower Power</td>
+                      <td>
+                        <input type="radio"id="Beer[1][beer_status][0]" name="Beer[1][beer_status]" value="0" checked>
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[1][beer_status][1]" name="Beer[1][beer_status]" value="1">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[1][beer_status][2]" name="Beer[1][beer_status]" value="2">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[1][beer_status][3]" name="Beer[1][beer_status]" value="3" disabled>
+                      </td>
+                      <td>
+                        <button type="submit"class="btn btn-primary" id="Beer[1][Beer-works]" name="Beer-works" value="1">Works</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Ithaca Beer</td>
+                      <td>Green Tail</td>
+                      <td>
+                        <input type="radio"id="Beer[2][beer_status][0]" name="Beer[2][beer_status]" value="0">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[2][beer_status][1]" name="Beer[2][beer_status]" value="1" checked>
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[2][beer_status][2]" name="Beer[2][beer_status]" value="2">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[2][beer_status][3]" name="Beer[2][beer_status]" value="3" disabled>
+                      </td>
+                      <td>
+                        <button type="submit"class="btn btn-primary" id="Beer[2][Beer-submit]" name="Beer-submit" value="2">Submit</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Ommeganag</td>
+                      <td>Hop House</td>
+                      <td>
+                        <input type="radio"id="Beer[3][beer_status][0]" name="Beer[3][beer_status]" value="0">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[3][beer_status][1]" name="Beer[3][beer_status]" value="1">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[3][beer_status][2]" name="Beer[3][beer_status]" value="2" checked>
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[3][beer_status][3]" name="Beer[3][beer_status]" value="3">
+                      </td>
+                      <td>
+                        <button type="submit"class="btn btn-primary" id="Beer[3][Beer-submit]" name="Beer-submit" value="3">Submit</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>Ommeganag</td>
+                      <td>Gnomegang</td>
+                      <td>
+                        <input type="radio"id="Beer[4][beer_status][0]" name="Beer[4][beer_status]" value="0">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[4][beer_status][1]" name="Beer[4][beer_status]" value="1">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[4][beer_status][2]" name="Beer[4][beer_status]" value="2">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[4][beer_status][3]" name="Beer[4][beer_status]" value="3" checked>
+                      </td>
+                      <td>
+                        <button type="submit"class="btn btn-primary" id="Beer[4][Beer-submit]" name="Beer-submit" value="4">Submit</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>Ommeganag</td>
+                      <td>Three Philosophers</td>
+                      <td>
+                        <input type="radio"id="Beer[5][beer_status][0]" name="Beer[5][beer_status]" value="0" checked>
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[5][beer_status][1]" name="Beer[5][beer_status]" value="1">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[5][beer_status][2]" name="Beer[5][beer_status]" value="2">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[5][beer_status][3]" name="Beer[5][beer_status]" value="3" disabled>
+                      </td>
+                      <td>
+                        <button type="submit"class="btn btn-primary" id="Beer[5][Beer-submit]" name="Beer-submit" value="5">Submit</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td>Sarnac</td>
+                      <td>Pale Ale</td>
+                      <td>
+                        <input type="radio"id="Beer[6][beer_status][0]" name="Beer[6][beer_status]" value="0">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[6][beer_status][1]" name="Beer[6][beer_status]" value="1" checked>
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[6][beer_status][2]" name="Beer[6][beer_status]" value="2">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[6][beer_status][3]" name="Beer[6][beer_status]" value="3" disabled>
+                      </td>
+                      <td>
+                        <button type="submit"class="btn btn-primary" id="Beer[6][Beer-submit]" name="Beer-submit" value="6">Submit</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>7</td>
+                      <td>Sarnac</td>
+                      <td>Into The Dark</td>
+                      <td>
+                        <input type="radio"id="Beer[7][beer_status][0]" name="Beer[7][beer_status]" value="0">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[7][beer_status][1]" name="Beer[7][beer_status]" value="1">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[7][beer_status][2]" name="Beer[7][beer_status]" value="2" checked>
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[7][beer_status][3]" name="Beer[7][beer_status]" value="3" disabled>
+                      </td>
+                      <td>
+                        <button type="submit"class="btn btn-primary" id="Beer[7][Beer-submit]" name="Beer-submit" value="7">Submit</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>8</td>
+                      <td>Buddwiser</td>
+                      <td>Swill</td>
+                      <td>
+                        <input type="radio"id="Beer[8][beer_status][0]" name="Beer[8][beer_status]" value="0">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[8][beer_status][1]" name="Beer[8][beer_status]" value="1">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[8][beer_status][2]" name="Beer[8][beer_status]" value="2">
+                      </td>
+                      <td>
+                        <input type="radio"id="Beer[8][beer_status][3]" name="Beer[8][beer_status]" value="3" checked>
+                      </td>
+                      <td>
+                        <button type="submit"class="btn btn-primary" id="Beer[8][Beer-submit]" name="Beer-submit" value="8">Submit</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              <span class="label label-info">Total on Tap: <span id="counter" class="label label-success">2</span></span>
+              <input class="btn pull-right clearfix btn-primary" name="Beer-update"type="submit" value="Update">
+              </form>
+EOT;
+

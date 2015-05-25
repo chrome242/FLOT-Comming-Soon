@@ -8,12 +8,13 @@
 class Panel {
   
   // class attributes
-  $_name; // the panel name
-  $_id; 
-  $_header; // the panel header.
-  $_class = "panel panel-default";
-  $_inner_html; // the inner html string or class that produces html w/ tostring
-  $_show_id = false; //no id for the panel by default
+  protected $_name; // the panel name
+  protected $_id; 
+  protected $_header; // the panel header.
+  protected $_class = "panel panel-default";
+  protected $_inner_html; // the inner html string or class that produces html w/ tostring
+  protected $_show_id = false; //no id for the panel by default
+  
   
   /**
    * Constructs a panel to wrap the body arg. The body arg can be either a string
@@ -101,8 +102,8 @@ class Panel {
     
     // check to see if the $size param is a string, if so, process as such
     if(gettype($size) == "string"){
-      if($size = "default"){ continue; }
-      if($size = "half") { $class .= " col-xs-12 col-md-6"}
+      if($size == "default"){$class .='';  }
+      if($size == "half") { $class .= " col-xs-12 col-md-6";}
     }
     
     // otherwise, make sure its an array in case of zanyness.
@@ -132,7 +133,8 @@ class Panel {
     if($this->_header !== false){
       $opening .= '
             <div class="panel-heading"><h4>' . $this->_header .'</h4></div>
-            <div class="table">';
+            <div class="table">
+';
     }
     
     $body = $this->addIndent($this->_inner_html);
@@ -140,7 +142,12 @@ class Panel {
     $closing = '
             </div>
           </div>';
-    
+  
+    $output = $opening . $body . $closing;
+    return $output;
+  
   }
+  
+
   
 }

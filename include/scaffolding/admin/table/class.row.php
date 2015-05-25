@@ -392,7 +392,7 @@ class Row {
       }
       
       // dropped cells
-      if($format[$name] == 'drop'){ continue; }
+      if($format[$name] == 'drop'){ }
       
     }
   }  

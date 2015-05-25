@@ -136,6 +136,13 @@ class Table {
   }
   
   /**
+   * Getter for the form name
+   */
+  public function getName(){
+    return $this->_name;
+  }
+  
+  /**
    * This function takes the header array and makes it into the
    * front facing header. In doing so, it does a few things-
    * ignores droped items

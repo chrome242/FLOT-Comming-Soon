@@ -1,6 +1,6 @@
 <?php
 // panel class
-//include_once("class.panel.php");
+include_once("class.panel.php");
 
 // table class
 include_once("class.table.php");
