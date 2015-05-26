@@ -3,14 +3,22 @@
 /**
  * Small Table
  *
- * This is a heavy rework of the table class. It's design presumes that each cell
- * is a distinct record and that said cell will be accessed directly via an enbedded
- * button. Any whole table operations (such as a submit) will be accessed via a
- * an extern update button indicating an update in this form via the <formname>-update
- * syntax.
+ * This is a heavy rework of the table class. This class does not use row as
+ * an interface with the cell class, but rather produces cells directly. 
+ * This class presumes that a single record can be one or more then one cells,
+ * generates them all, and then hides some (later iterations of this class may
+ * do other fun things as well) and that a row only has a set column width. The
+ * row is passed a list of records in the form of record_id => (key => value,
+ * key => value) which is the basis of what the cells will contain and what they
+ * will post too. These will be used to make the cells for all keys. A second
+ * array will be in the in the form of record_id => (key => (cell type, hidden=bool))
  *
- * This class is also constructed so that a new toString will allow it be to extended
- * to a list handler rather than a table handler.
+ * Hidden cells are forced into their own row below the parent row, however, if the
+ * colspan of the hidden fields is diffent then that of their parents, it will
+ * react as such, mostly just using a modulious, so the smart way to deal with
+ * this is to make the hidden elements either full length or the size of the parents
+ * or a mutiple of the size of the parents that the width of the row is divisable by
+ * 
  *
  * 
  * 
