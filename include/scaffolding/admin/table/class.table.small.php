@@ -12,8 +12,6 @@
  * This class is also constructed so that a new toString will allow it be to extended
  * to a list handler rather than a table handler.
  *
- * This method accepts an array of cells produced by some cell generating method
- * or function
  * 
  * 
  */
@@ -39,7 +37,7 @@ class SmallTable extends Table{
    */
   public function __construct($name, $cells, $cols){
     $this->_name = $name;
-    $this->_cells = $cells;
+    $this->_cells = $tobeimplimented;
     $this->_rows = $cols;
     
   }

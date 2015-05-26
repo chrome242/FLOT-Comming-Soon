@@ -1,6 +1,5 @@
 <?php
 
-//TODO: Add a method to add an update button
 //TODO: Add a method to add a table wrapper for the table
 //TODO: Add method to pull the name off the table or list form if object
 
@@ -23,7 +22,7 @@ class Panel {
   protected $_inner_html; // the inner html string or class that produces html w/ tostring
   
   // additional panel bits:
-  
+  protected $_button = ''; 
   
   
   /**
@@ -131,6 +130,28 @@ class Panel {
     $this->_class = $class; 
   }
   
+  /**
+   * adds an update button to the form.
+   *
+   * directly effects form member attrib for button.
+   *
+   * @param mixed $name if "true" then the innerhtml is an object with a getName()
+   *                    method attached. Otherwise, $name should be a string with
+   *                    the target form name value.
+   */
+  public function addButton($name=true){
+    if(is_string($name)) {$btnname = $name;}
+    
+    // See http://bavotasan.com/2009/processing-multiple-forms-on-one-page-with-php/
+    if($name === true) {$btnname =  $this->_inner_html->getName() . "-update";}
+    $output ='
+          <div class="panel-body">
+            <input class="btn pull-right clearfix btn-primary" name="'. $btnname .'"type="submit" value="Update">
+          </div>';
+    
+    $this->_button = $output;
+  }
+  
   public function __toString(){
     
     // open the div, check for the ID setting
@@ -153,12 +174,12 @@ class Panel {
     
     $body = $this->addIndent($this->_inner_html);
     
-    // add button here if button
     // close table wrap here if table
+    // add button here if button
     $closing = '
           </div>';
   
-    $output = $opening . $body . $closing;
+    $output = $opening . $body . $this->_button . $closing;
     return $output;
   
   }
