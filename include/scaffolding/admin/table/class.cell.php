@@ -22,6 +22,7 @@ class Cell {
   protected $_tooltip = ''; // for tool tips, which may be of use in base & extensions
   protected $_buttons = array(); // for cells extended with buttons
   protected $_colspan = 1; // for use with extensions.
+  protected $_hidden= false;
   
   /**
    * Sets the $_name and $_id to the same thing on construction.
@@ -95,6 +96,13 @@ class Cell {
   }
   
   /**
+   * Sets the hidden attribute to true
+   */
+  public function setHidden(){
+    $this->_hidden = true;
+  }
+  
+  /**
    * Sets a bootstrap floating tooltip on the cell.
    *
    * @param str $tip = the tool tip for the cell
@@ -155,6 +163,8 @@ class Cell {
     }
     
     $attribs .= $this->_tooltip;
+    
+    if($this->_hidden){$attribs .= " hidden";}
     
     $output = '
                   <td' . $attribs . '>'. $text . '</td>';

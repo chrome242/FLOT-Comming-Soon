@@ -74,6 +74,8 @@ class Radio extends Input {
     // make the cell input field:
     $this->_input = $this->makeInput();
     
+    if($this->_hidden){$this->_tooltip .= " hidden";}
+    
     // make the string:
     if ($this->_class != null){
     $output = '

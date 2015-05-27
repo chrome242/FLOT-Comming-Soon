@@ -121,8 +121,10 @@ class Select extends Input{
     $attribs = '';
     if($this->_class != null){$attribs .= ' class="' . $this->_class . '"';}
     if($this->_size != null){$attribs .= ' colspan="' . $this->_size . '"';}
-    
+  
     $attribs .= $this->_tooltip;
+
+    if($this->_hidden){$attribs .= " hidden";}
     
     // make the string:
     $output = '

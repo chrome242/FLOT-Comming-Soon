@@ -25,6 +25,7 @@ class NewRow extends Cell{
     $attribs = '';
     if(isset($this->_id)){$attribs .= ' id="' . $this->_id . '"';}
     if(isset($this->_class)){$attribs .= ' class="' . $this->_class . '"';}
+    if($this->_hidden){$attribs .= " hidden";}
     $output = '
                 </tr>';
     $output .= '

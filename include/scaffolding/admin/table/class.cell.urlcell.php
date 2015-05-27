@@ -55,6 +55,8 @@ class UrlCell extends Cell {
     }
     
     $attribs .= $this->_tooltip;
+  
+    if($this->_hidden){$attribs .= " hidden";}
     
     $output = '
                   <td' . $attribs . '><a target="_blank" href="'. $this->_content . '">'.$this->_content.'</a></td>';

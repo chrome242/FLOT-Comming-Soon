@@ -96,7 +96,7 @@
     $attribs = '';
     if($this->_class != null){$attribs .= ' class="' . $this->_class . '"';}
     $attribs .= $this->_tooltip;
-    
+    if($this->_hidden){$attribs .= " hidden";}
     // make the string:
     $output = '
                   <td' . $attribs . '>
