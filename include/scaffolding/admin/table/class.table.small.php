@@ -37,7 +37,7 @@
 class SmallTable extends Table{ 
   
   // class attributes
-
+  protected $_format; // for the format array
   
   // member portion attributes
   protected $_cells;  //the array of cells
@@ -62,8 +62,8 @@ class SmallTable extends Table{
    */
   public function __construct($name, $cells, $format, $cols){
     $this->_name = $name;
-    $this->_cells = $cells;
-    $this->_header = $format;
+    $this->_cells = $this->makeCellArray($cells, $format);
+    $this->_format = $format;
     $this->_rows = $cols;
     
   }
@@ -74,10 +74,45 @@ class SmallTable extends Table{
   
   // the cells created for this table type will have ids of form[cellname]
   
-  
-  private function hiddenCheck($cell){
+  /**
+   * Returns an array of cells encapsulating the information in the $cells array.
+   * It uses the the $format array to determine how to make them.
+   *
+   * @param array $data: an array of data to make one ore more cells.
+   * @param array $format: an array to formate one or more cells.
+   *
+   * @return array: an array of cell objects.
+   */
+  protected function makeCellArray($data, $format){
+    // break down the data array to indivdual field arrays
+    
+    foreach($data as $record => $fields){
+      // get the record portion of the name
+      $recordName = key($data[$record]);
+      
+      // check each indivdual datapoint
+      foreach($fields as $key => $value){
+        
+        // get the field name
+        $fieldName = key ($fields[$key]);
+        
+        // get the cell type and the hidden state from the format array
+        list($cellType, $hidden) = $format[$recordName][$fieldName];
+        $cellName = $this->_name . $recordName . $fieldName;
+        
+        // make the indivdual cell
+        $thisCell = makeCell($cellName, $cellType, $value);
+        
+        // set hidden if hidden:
+        if($hidden){ $thisCell->setHidden();}
+        
+        // add the cell to the list
+        $this->_cells[$cellName] = $thisCell;
+      }  
+    }
     
   }
+  
   
   /**
    * output test function
