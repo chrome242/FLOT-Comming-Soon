@@ -339,7 +339,14 @@ $test_form = <<<EOT
                   </tbody>
                 </table>
               <span class="label label-info">Total on Tap: <span id="counter" class="label label-success">2</span></span>
-              <input class="btn pull-right clearfix btn-primary" name="Beer-update"type="submit" value="Update">
               </form>
 EOT;
 
+$testlist = array("1" => "Pie",
+                  "3" => "Grape",
+                  "11" => 'Mellow',
+                  "06" => "tofurkey",
+                  "2" => "Orange");
+
+$testlistspecial = array("06" => "new",
+                         "1" => 'edit');

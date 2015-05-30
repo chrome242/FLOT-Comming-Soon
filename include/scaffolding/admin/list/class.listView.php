@@ -52,10 +52,10 @@ class ListView {
     $this->_formName = $name;
     
     // process special
-    if(is_array($special) == false){$special = false;}
+    if(is_array($special) === false){$special = false;}
     
     // use list item construction function
-    $this->_listItems = makeItems($listitems, $special, $default);
+    $this->_listItems = $this->makeItems($listitems, $special, $default);
     
   }
   
@@ -80,6 +80,7 @@ class ListView {
    */
   protected function makeItems($listitems, $special, $default){
     
+    $temp_array = array();
     // loop though the list items
     foreach($listitems as $id => $value){
       
@@ -113,13 +114,15 @@ class ListView {
       
       if($item_type == 'new') {
         $list_item = new ListText('blankItem', 'Add new item', $type="placeholder");
-        $list_tiem->disabled();
+        $list_item->disabled();
         $list_item->addButton($this->_formName, $id, "edit", "glyphicon-plus",
                               $text=false, $active=true);
       }
     
-      $this->_listItems[$id] = $list_item;
+      $temp_array[$id] = $list_item;
     }
+    
+    return $temp_array;
   }
   
   
@@ -159,11 +162,11 @@ class ListView {
   }
   
   
-  public function toString(){
+  public function __toString(){
   $output ='
             <form name="'. $this->_formName .'"' . $this->_formClass . $this->_formId . ' method="post">
               <ul' . $this->_listClass . $this->_listId . '>';
-  
+
   foreach($this->_listItems as $item){
     $output .= $item;
   }
@@ -171,6 +174,8 @@ class ListView {
   $output .='
               </ul>
             </form>';
+            
+  return $output;
   }
   
   

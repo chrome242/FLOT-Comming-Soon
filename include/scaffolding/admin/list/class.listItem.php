@@ -17,7 +17,7 @@ class ListItem {
   protected $_name;
   protected $_id;
   protected $_showDetails = false; //by default it doesn't show the name and ID.
-  protected $_class; // for the li class
+  protected $_class = "list-group-item"; // for the li class
   protected $_content;
   protected $_tooltip = ''; // for tool tips, which may be of use in base & extensions
   protected $_buttons = array(); // for lis extended with buttons
@@ -141,8 +141,10 @@ class ListItem {
       $text .= $button;
     }
     $attribs = '';
+    
+    if ($this->_class != null){$attribs .= ' class="'. $this->_class . '"';}
+    
     if ($this->_showDetails == true){
-      if ($this->_class != null){$attribs .= ' class="'. $this->_class . '"';}
       if ($this->_id != null){$attribs .= ' id="' . $this->_id . '"';}
     }
     

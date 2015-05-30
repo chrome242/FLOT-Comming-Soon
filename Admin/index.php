@@ -1,8 +1,9 @@
 <?php
 include("../include/config.php");
-include(SCAFFOLDING_ADMIN."menubars.php");
-include(SCAFFOLDING_ADMIN."panel/class.panel.php");
-include(SCAFFOLDING_ADMIN."table/table.php");
+include(SCAFFOLDING_ADMIN."menubars.php"); // menubars
+include(SCAFFOLDING_ADMIN."panel/class.panel.php"); // panel wrapper
+include(SCAFFOLDING_ADMIN."table/table.php"); // table
+include(SCAFFOLDING_ADMIN."list/list.php"); // list
 $title = "Beer Inventory";
 $root = ADMIN;
 $section = ADMIN;
@@ -47,8 +48,11 @@ $format = array("Id" => 'id',
 $test5 = new Table("Beer", $test_cells, $test_headers);
 $test5->addCounter("Total on Tap:", "beer_status", "0");
 $test5->offlineCheck();
-$test6 = new Panel("Test Panel", $test_form, $size="default");
+$testList = new ListView("A list", $testlist, $testlistspecial, $default='text');
+$test6 = new Panel("Test Panel", $testList, $size="default");
+$test6->addButton();
 echo $test6;
+//echo $testList;
 
 //echo "<br><pre>";
 //if(isset($_POST)){
