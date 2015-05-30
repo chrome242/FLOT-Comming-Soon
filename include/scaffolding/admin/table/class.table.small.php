@@ -27,7 +27,7 @@
  * textarea, x, y(o), z(o), where x = text or placeholder y= rows(o), z= colspan(o)(b)
  * url - a URL cell. much like basic text
  *
- * Extensions that should work with the class, will have constructor:
+ * Extensions that should work with the class, might impliment constructor:
  * checkbox - a checkbox
  * drop - not placed in the table (h)
  * number, x, y(o), z(o), where x = number or placeholder y= step(o), z= size(o)(b)
@@ -62,9 +62,11 @@ class SmallTable extends Table{
    */
   public function __construct($name, $cells, $format, $cols){
     $this->_name = $name;
-    $this->_cells = $this->makeCellArray($cells, $format);
+ 
     $this->_format = $format;
     $this->_rows = $cols;
+    
+    $this->makeCellArray($cells, $format);
     
   }
   
@@ -88,20 +90,20 @@ class SmallTable extends Table{
     
     foreach($data as $record => $fields){
       // get the record portion of the name
-      $recordName = key($data[$record]);
+      $recordName = $record;
       
       // check each indivdual datapoint
       foreach($fields as $key => $value){
         
         // get the field name
-        $fieldName = key ($fields[$key]);
+        $fieldName = $key;
         
         // get the cell type and the hidden state from the format array
         list($cellType, $hidden) = $format[$recordName][$fieldName];
-        $cellName = $this->_name . $recordName . $fieldName;
+        $cellName = $this->_name . '[' . $recordName . ']['. $fieldName .']';
         
         // make the indivdual cell
-        $thisCell = makeCell($cellName, $cellType, $value);
+        $thisCell = $this->makeCell($cellName, $cellType, $value);
         
         // set hidden if hidden:
         if($hidden){ $thisCell->setHidden();}
@@ -114,12 +116,49 @@ class SmallTable extends Table{
   }
   
   
+  protected function makeCell($cellName, $cellType, $value){
+    // plain text cell
+    if($cellType == 'plain'){ $thisCell = new Cell($cellName, $value);}
+    
+    //button cell      
+    if($cellType == 'button'){ $thisCell = new Button($this->_tableName, $cellName, $value); }
+    
+    // URL cell
+    if($cellType == 'url'){ $thisCell = new UrlCell($cellName, $value);}
+    
+    //text cell
+    if(stripos($cellType, 'text,') !== false){
+      $pieces = explode(",",$cellType);
+      $type = trim($pieces[1]);
+      $thisCell = new Text($cellName, $value, $type);
+      
+    }
+    
+    // textarea -surprisingly identical to number... might need to functionality
+    if(stripos($cellType, 'textarea,') !== false){
+      $pieces = explode(",", $cellType);
+      $type = trim($pieces[1]);
+      $row = null;
+      $colspan = null;
+      
+      if (count($pieces) > 2){
+        if ($pieces[2] != 'none'){$row = trim($pieces[2]);}
+        if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
+      }
+      
+      $thisCell = new Textarea($cellName, $value, $type, $row, $colspan);
+  
+    }
+    return $thisCell;
+  }
+  
   /**
    * output test function
    */
   public function test(){
     echo "<pre>";
     var_dump($this->_cells);
+    echo "</pre>";
   }
   
   
