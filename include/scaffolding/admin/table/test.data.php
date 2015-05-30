@@ -350,3 +350,9 @@ $testlist = array("1" => "Pie",
 
 $testlistspecial = array("06" => "new",
                          "1" => 'edit');
+
+                         
+                         
+$smallTest = array("Record ID" => array("Key 1" => "value 1"));
+
+$smallFormat = array("Record ID" => array("Key 1" => array("plain", true)));

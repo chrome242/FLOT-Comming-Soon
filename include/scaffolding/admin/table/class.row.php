@@ -290,7 +290,7 @@ class Row {
         $colspan = null;
         
         if (count($pieces) > 2){
-          if ($pieces[2] != 'none'){$step = trim($pieces[2]);}
+          if ($pieces[2] != 'none'){$step = trim($row[2]);}
           if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
         }
         

@@ -2,7 +2,7 @@
 
 // table class
 include_once("class.table.php");
-
+include_once("class.table.small.php");
 // row class
 include_once("class.row.php");
 
