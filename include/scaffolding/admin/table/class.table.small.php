@@ -36,12 +36,14 @@
  */
 class SmallTable extends Table{ 
   
-  // class attributes
-  protected $_format; // for the format array
+  // class attribute overrides
+  protected $_table_id = false; // the table id
+  protected $_table_class = false; // the table class
+  protected $_form_id = false; // the form id
+  protected $_form_class = false; // the form class
   
   // member portion attributes
   protected $_cells;  //the array of cells
-  protected $_rows; //the number cells per row
   
   // config attributes
   protected $_makeButton = false; //make a submit button
@@ -134,7 +136,7 @@ class SmallTable extends Table{
       
     }
     
-    // textarea -surprisingly identical to number... might need to functionality
+    // textarea 
     if(stripos($cellType, 'textarea,') !== false){
       $pieces = explode(",", $cellType);
       $type = trim($pieces[1]);
@@ -159,6 +161,47 @@ class SmallTable extends Table{
     echo "<pre>";
     var_dump($this->_cells);
     echo "</pre>";
+  }
+  
+  
+  public function __toString(){
+    // make the output variable
+    $output = '';
+    
+    // open the table
+    $form_attribs = '';
+    $table_attribs = '';
+    if($form_class){$form_attribs .= ' class="' . $form_class . '"';}
+    if($form_id){$form_attribs .= ' id="' . $form_id . '"';}
+    if($table_class){$table_attribs .= ' class="' . $table_class . '"';}
+    if($table_id){$table_attribs .= ' id="' . $table_id . '"';}
+
+    $output ='
+
+          <form name="' . $name . '"' . $form_attribs . ' method="post">
+            <table class="table table-hover"' . $table_attribs . '>';
+
+  
+    // Set up the row constructor.
+    $counter = 0;
+    $cols = $this->_rows;
+    
+    
+    // open the row
+    
+    // row vital vars:
+    $thisrow = '';
+    $hiddenrow = '';
+    
+    // loop though the cells
+    foreach($this->_cells as $cell){
+      // check if the cell is hidden.
+        // if not, check if the cell size will fit in the row.
+            // if it will not, then the column is at max size, and any hidden
+            // goodies after the last not hidden should be done. So make push
+            // the current row and the current hidden rows out.
+        // if hidden, add to the hidden row
+    }
   }
   
   

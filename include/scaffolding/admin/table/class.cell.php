@@ -129,6 +129,13 @@ class Cell {
   }
   
   /**
+   * Returns the state of hidden on the cell.
+   */
+  public function getHidden(){
+    return $this->_hidden;
+  }
+  
+  /**
    * Gets the cell id
    *
    * @return str the cell id
