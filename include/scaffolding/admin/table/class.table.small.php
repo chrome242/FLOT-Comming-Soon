@@ -176,14 +176,14 @@ class SmallTable extends Table{
     // open the table
     $form_attribs = '';
     $table_attribs = '';
-    if($form_class){$form_attribs .= ' class="' . $form_class . '"';}
-    if($form_id){$form_attribs .= ' id="' . $form_id . '"';}
-    if($table_class){$table_attribs .= ' class="' . $table_class . '"';}
-    if($table_id){$table_attribs .= ' id="' . $table_id . '"';}
+    if($this->_form_class){$form_attribs .= ' class="' . $form_class . '"';}
+    if($this->_form_id){$form_attribs .= ' id="' . $form_id . '"';}
+    if($this->_table_class){$table_attribs .= ' class="' . $table_class . '"';}
+    if($this->_table_id){$table_attribs .= ' id="' . $table_id . '"';}
 
     $output .='
 
-          <form name="' . $name . '"' . $form_attribs . ' method="post">
+          <form name="' . $this->_name . '"' . $form_attribs . ' method="post">
             <table class="table table-hover"' . $table_attribs . '>
               <tbody>';
 
@@ -192,7 +192,6 @@ class SmallTable extends Table{
     $total_cols_this_row = 0;
     $total_cols_hidden_row = 0;
     $max_cols = $this->_rows;
-    
      
     // row vital vars:
     $thisrow = '';
@@ -201,11 +200,11 @@ class SmallTable extends Table{
     
     // loop though the cells
     foreach($this->_cells as $cell){
+      
       // check if the cell is hidden.
       if($cell->getHidden()){
         // if so, add it to the hidden row
         array_push($hiddenrow, $cell);
-      
       // if not, check if the cell size will fit in the row.
       } else{
         
@@ -238,7 +237,7 @@ class SmallTable extends Table{
             // following looping.
             } else {
               // concat the strings.
-              $output .= $newrow . $thisrow . $endrow;
+              $output .= $newrow . $thishidden . $endrow;
               
               // start the vars back up:
               $total_cols_hidden_row = $hiddencell->getSpan();
@@ -256,48 +255,68 @@ class SmallTable extends Table{
             }
             
             // add the lose ones to the table
-            $output .= $newrow .$thisrow .$endrow; 
+            $output .= $newrow .$thishidden .$endrow; 
           }
           
           // clear out the hidden array
           $hiddenrow = array(); 
         }
       }
-      
-      
-      // TODO: Check the indentation level here
-      // deal with remaining cells after all full rows have been constructed.
-      if($thisrow != ''){
-        $fillerCell = new Cell('Filler', '');
-        $filler_cols_need = $max_cols - $total_cols_this_row;
-        for($i=0; $i<$filler_cols_need; $i++){
-          $thisrow .= $fillerCell;
-        }
-        
-        $output .= $newrow . $thisrow . $endrow;
+    }
+    
+    // TODO: Check the indentation level here
+    // deal with remaining cells after all full rows have been constructed.
+    if($thisrow != ''){
+      $fillerCell = new Cell('Filler', '');
+      $filler_cols_need = $max_cols - $total_cols_this_row;
+      for($i=0; $i<$filler_cols_need; $i++){
+        $thisrow .= $fillerCell;
       }
       
-      // deal with any remaining hidden cells
-      if ($thishidden != ''){
-        $fillerCell = new Cell('Filler', '');
-        $fillerCell->setHidden();
-        $filler_cols_need = $max_cols - $total_cols_hidden_row;
-        for($i=0; $i<$filler_cols_need; $i++){
-          $thishidden .= $fillerCell;
-        }
+      $output .= $newrow . $thisrow . $endrow;
+    }
+    
+    if(isset($hiddenrow[0])){
+      foreach($hiddenrow as $hiddencell){
+        if($total_cols_hidden_row + $hiddencell->getSpan() <= $max_cols){
+          $total_cols_hidden_row += $hiddencell->getSpan();
+          $thishidden .= $hiddencell; // invoke the __toString()
         
-        // add the lose ones to the table
-        $output .= $newrow .$thisrow .$endrow; 
+        // if it doesn't fit, make the previous row, make any hidden rows,
+        // start new rows. This will need to be reused for remaining items
+        // following looping.
+        } else {
+          // concat the strings.
+          $output .= $newrow . $thishidden . $endrow;
+          
+          // start the vars back up:
+          $total_cols_hidden_row = $hiddencell->getSpan();
+          $thishidden = '' . $hiddencell;
+        }
+      }
+    }
+    
+    
+    // deal with any remaining hidden cells
+    if ($thishidden != ''){
+      $fillerCell = new Cell('Filler', '');
+      $fillerCell->setHidden();
+      $filler_cols_need = $max_cols - $total_cols_hidden_row;
+      for($i=0; $i<$filler_cols_need; $i++){
+        $thishidden .= $fillerCell;
       }
       
-      //Close table
-      $output .='
+      // add the lose ones to the table
+      $output .= $newrow .$thishidden .$endrow; 
+    }
+    
+    //Close table
+    $output .='
               </tbody>
             </table>
           </form>';
   
-      
-    }
+  return $output;
   }
   
   

@@ -353,6 +353,6 @@ $testlistspecial = array("06" => "new",
 
                          
                          
-$smallTest = array("Record ID" => array("Key 1" => "value 1"));
+$smallTest = array("Record ID" => array("Key 1" => "value 1", "Key 2" => "value 2"));
 
-$smallFormat = array("Record ID" => array("Key 1" => array("plain", true)));
+$smallFormat = array("Record ID" => array("Key 1" => array("plain", false), "Key 2" => array("plain", true)));

@@ -53,8 +53,9 @@ $test6 = new Panel("Test Panel", $testList, $size="default");
 $test6->addButton();
 //echo $test6;
 //echo $testList;
-$testSmall = new SmallTable("Test Name", $smallTest, $smallFormat, 11);
-$testSmall->test();
+$testSmall = new SmallTable("Test Name", $smallTest, $smallFormat, 3);
+//$testSmall->test();
+echo $testSmall;
 //echo "<br><pre>";
 //if(isset($_POST)){
 //  var_dump($_POST);
