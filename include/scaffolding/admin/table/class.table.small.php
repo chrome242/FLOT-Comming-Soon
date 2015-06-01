@@ -290,7 +290,12 @@ class SmallTable extends Table{
         $output .= $newrow .$thisrow .$endrow; 
       }
       
-      //TODO: Close table
+      //Close table
+      $output .='
+              </tbody>
+            </table>
+          </form>';
+  
       
     }
   }
