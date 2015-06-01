@@ -168,6 +168,11 @@ class SmallTable extends Table{
     // make the output variable
     $output = '';
     
+    $newrow = '
+                <tr>';
+    $endrow = '
+                </tr>';
+    
     // open the table
     $form_attribs = '';
     $table_attribs = '';
@@ -176,31 +181,117 @@ class SmallTable extends Table{
     if($table_class){$table_attribs .= ' class="' . $table_class . '"';}
     if($table_id){$table_attribs .= ' id="' . $table_id . '"';}
 
-    $output ='
+    $output .='
 
           <form name="' . $name . '"' . $form_attribs . ' method="post">
-            <table class="table table-hover"' . $table_attribs . '>';
+            <table class="table table-hover"' . $table_attribs . '>
+              <tbody>';
 
-  
-    // Set up the row constructor.
-    $counter = 0;
-    $cols = $this->_rows;
+              
+    // Set up the row production.
+    $total_cols_this_row = 0;
+    $total_cols_hidden_row = 0;
+    $max_cols = $this->_rows;
     
-    
-    // open the row
-    
+     
     // row vital vars:
     $thisrow = '';
-    $hiddenrow = '';
+    $thishidden = '';
+    $hiddenrow = array();
     
     // loop though the cells
     foreach($this->_cells as $cell){
       // check if the cell is hidden.
-        // if not, check if the cell size will fit in the row.
-            // if it will not, then the column is at max size, and any hidden
-            // goodies after the last not hidden should be done. So make push
-            // the current row and the current hidden rows out.
-        // if hidden, add to the hidden row
+      if($cell->getHidden()){
+        // if so, add it to the hidden row
+        array_push($hiddenrow, $cell);
+      
+      // if not, check if the cell size will fit in the row.
+      } else{
+        
+        // if it fits, add it to the current row.
+        if($total_cols_this_row + $cell->getSpan() <= $max_cols){
+          $total_cols_this_row += $cell->getSpan();
+          $thisrow .= $cell; // invoke the __toString()
+        
+        // if it doesn't fit, make the previous row, make any hidden rows,
+        // start new rows. This will need to be reused for remaining items
+        // following looping.
+        } else {
+          
+          // concat the strings.
+          $output .= $newrow . $thisrow . $endrow;
+          
+          // set the $total_cols_this_row to the size of the cell
+          $total_cols_this_row = $cell->getSpan();
+          // start $thisrow anew
+          $thisrow = '' . $cell;
+          
+          // deal with the hidden row(s)
+          foreach($hiddenrow as $hiddencell){
+            if($total_cols_hidden_row + $hiddencell->getSpan() <= $max_cols){
+              $total_cols_hidden_row += $hiddencell->getSpan();
+              $thishidden .= $hiddencell; // invoke the __toString()
+            
+            // if it doesn't fit, make the previous row, make any hidden rows,
+            // start new rows. This will need to be reused for remaining items
+            // following looping.
+            } else {
+              // concat the strings.
+              $output .= $newrow . $thisrow . $endrow;
+              
+              // start the vars back up:
+              $total_cols_hidden_row = $hiddencell->getSpan();
+              $thishidden = '' . $hiddencell;
+            }
+          }
+          
+          // deal with any "lose" hidden cells before starting a new row.
+          if ($thishidden != ''){
+            $fillerCell = new Cell('Filler', '');
+            $fillerCell->setHidden();
+            $filler_cols_need = $max_cols - $total_cols_hidden_row;
+            for($i=0; $i<$filler_cols_need; $i++){
+              $thishidden .= $fillerCell;
+            }
+            
+            // add the lose ones to the table
+            $output .= $newrow .$thisrow .$endrow; 
+          }
+          
+          // clear out the hidden array
+          $hiddenrow = array(); 
+        }
+      }
+      
+      
+      // TODO: Check the indentation level here
+      // deal with remaining cells after all full rows have been constructed.
+      if($thisrow != ''){
+        $fillerCell = new Cell('Filler', '');
+        $filler_cols_need = $max_cols - $total_cols_this_row;
+        for($i=0; $i<$filler_cols_need; $i++){
+          $thisrow .= $fillerCell;
+        }
+        
+        $output .= $newrow . $thisrow . $endrow;
+      }
+      
+      // deal with any remaining hidden cells
+      if ($thishidden != ''){
+        $fillerCell = new Cell('Filler', '');
+        $fillerCell->setHidden();
+        $filler_cols_need = $max_cols - $total_cols_hidden_row;
+        for($i=0; $i<$filler_cols_need; $i++){
+          $thishidden .= $fillerCell;
+        }
+        
+        // add the lose ones to the table
+        $output .= $newrow .$thisrow .$endrow; 
+      }
+      
+      //TODO: Close table
+      
     }
   }
   
