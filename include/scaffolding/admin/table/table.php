@@ -3,6 +3,7 @@
 // table class
 include_once("class.table.php");
 include_once("class.table.small.php");
+include_once("class.table.panel.php");
 // row class
 include_once("class.row.php");
 
