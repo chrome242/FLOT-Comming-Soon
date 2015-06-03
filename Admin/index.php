@@ -23,11 +23,17 @@ $options = array("inhouse" => "In House",
 $title = "Beer Inventory";
 $section = ADMIN; // This will be a concat for child pages
 
+
 // open the page
 include(SCAFFOLDING."head.php");
 
- // Menu Bar
+// Menu Bar
 echo menubar($permissions, $section, $root);
+
+// All pages in the admin section will post to themselves. Check to see if
+// Anything relevant to the page is in the $_POST() array and if so, process
+// it here. If not, then process it 
+
 
 // Sort Bar
 echo sortbar($options, "all");
