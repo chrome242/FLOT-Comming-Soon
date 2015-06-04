@@ -81,6 +81,12 @@ body {
 
 .edit-icon{
   float: right;
+  margin-left: 2.5px;
+  font-size: 12px;
+}
+
+.btn-xs{
+  padding-bottom: 3px;
 }
 
 .edit-field{

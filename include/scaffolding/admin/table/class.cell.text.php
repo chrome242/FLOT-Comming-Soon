@@ -18,7 +18,7 @@ class Text extends Input {
   // text additional properties.
   protected $_format; // placeholder or value string
   protected $_form = true; // add the form-control class by default
-  
+  protected $_edit_field_type =  "edit-field"; // type of edit field control
   // text uses $this->_content for the text
   
   /**
@@ -57,10 +57,11 @@ class Text extends Input {
    */
   private function makeInput(){
     $details = '';
+    $e_f = $this->_edit_field_type;
     
     //class logic
-    if($this->_form && isset($this->_buttons[0])){$details .= ' class="form-control edit-field"';}
-    elseif(isset($this->_buttons[0])){$details .= ' class="edit-field"';}
+    if($this->_form && isset($this->_buttons[0])){$details .= ' class="form-control '.$e_f.'"';}
+    elseif(isset($this->_buttons[0])){$details .= ' class="'.$e_f.'"';}
     elseif($this->_form){$details .= ' class="form-control"';}
     
     if($this->_showDetails){$details .= 'id="'. $this->_id . '" name="' . $this->_name . '"';}
@@ -75,7 +76,7 @@ class Text extends Input {
     
     foreach($this->_buttons as $button){
       $content .='
-                  '. $button .'';
+                    '. $button .'';
     }
     return $content;
   }
@@ -86,6 +87,13 @@ class Text extends Input {
    */
   public function controlOff(){
     $this->_form = false;
+  }
+  
+  /**
+   * turn the edit feild controler to small sized boxes.
+   */
+  public function editFieldSmall(){
+    $this->_edit_field_type = "edit-field-wine";
   }
   
   

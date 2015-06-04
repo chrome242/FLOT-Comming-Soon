@@ -90,11 +90,11 @@ class Panel {
    * by line, and returns it with more spacing. This is pretty awesome for times
    * when you want to take something and wrap it deeper in.
    */
-  private function addIndent($str){
+  private function addIndent($str, $spacer= '    '){
     $array = explode("\n", $str);
     $output = '';
     foreach($array as $line){
-      $output .= "  " . $line ."\n";
+      $output .= $spacer . $line ."\n";
     }
     return $output;
   }
@@ -144,8 +144,7 @@ class Panel {
     
     // See http://bavotasan.com/2009/processing-multiple-forms-on-one-page-with-php/
     if($name === true) {$btnname =  $this->_inner_html->getName() . "-update";}
-    $output ='
-          <div class="panel-body">
+    $output ='          <div class="panel-body">
             <input class="btn pull-right clearfix btn-primary" name="'. $btnname .'"type="submit" value="Update">
           </div>';
     
@@ -166,8 +165,7 @@ class Panel {
     // build the header if needed
     if($this->_header !== false){
       $opening .= '
-            <div class="panel-heading"><h4>' . $this->_header .'</h4></div>
-';
+            <div class="panel-heading"><h4>' . $this->_header .'</h4></div>';
     }
     
     // open table wrap here if table
@@ -177,13 +175,11 @@ class Panel {
     // close table wrap here if table
     // add button here if button
     $closing = '
-          </div>';
+        </div>';
   
     $output = $opening . $body . $this->_button . $closing;
     return $output;
   
   }
-  
-
   
 }

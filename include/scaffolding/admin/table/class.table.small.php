@@ -32,7 +32,13 @@
  * drop - not placed in the table (h)
  * number, x, y(o), z(o), where x = number or placeholder y= step(o), z= size(o)(b)
  * select, x(o), y(o), z(o) where x = selected value(o), y= multiple(o), z= size(o)(b)
- * 
+ *
+ * NEW cell interfaces for this class-
+ * editPlain - a basic cell with a buton for an edit included
+ * editText - an edit cell with a button for drop and a button for edit (active)
+ * (sets text to text)
+ * addText - an edit cell set to disabled with a add cell button
+ * (sets text to placeholder)
  */
 class SmallTable extends Table{ 
   
@@ -122,6 +128,14 @@ class SmallTable extends Table{
     // plain text cell
     if($cellType == 'plain'){ $thisCell = new Cell($cellName, $value);}
     
+    // purpose specific edit plain cell
+    if($cellType == "editPlain"){
+      $thisCell = new Cell($cellName, $value);
+      $thisCell->setId(Null);
+      $thisCell->setClass("col-xs-3");
+      $thisCell->showDetails();
+      $thisCell->addButton($this->_name, $cellName, "edit", "glyphicon-cog", false, false, true);
+    }
     //button cell      
     if($cellType == 'button'){ $thisCell = new Button($this->_tableName, $cellName, $value); }
     
@@ -134,6 +148,23 @@ class SmallTable extends Table{
       $type = trim($pieces[1]);
       $thisCell = new Text($cellName, $value, $type);
       
+    }
+    
+    // purpose specific edit text cell
+    if($cellType == 'editText'){
+      $thisCell = new Text($cellName, $value, "text");
+      $thisCell->editFieldSmall();
+      $thisCell->setClass("col-xs-3");
+      $thisCell->addButton($this->_name, $cellName, "edit", "glyphicon-cog", false, true, true);
+      $thisCell->addButton($this->_name, $cellName, "drop", "Drop", true, false, true);
+    }
+    
+    if($cellType == 'addText'){
+      $thisCell = new Text($cellName, $value, "placeholder");
+      $thisCell->editFieldSmall();
+      $thisCell->setClass("col-xs-3");
+      $thisCell->disabled();
+      $thisCell->addButton($this->_name, $cellName, "edit", "glyphicon-plus", false, false, true);      
     }
     
     // textarea 
@@ -182,9 +213,9 @@ class SmallTable extends Table{
     if($this->_table_id){$table_attribs .= ' id="' . $table_id . '"';}
 
     $output .='
-
-          <form name="' . $this->_name . '"' . $form_attribs . ' method="post">
-            <table class="table table-hover"' . $table_attribs . '>
+        <form name="' . $this->_name . '"' . $form_attribs . ' method="post">
+          <div class="table">
+            <table class="table table-bordered"' . $table_attribs . '>
               <tbody>';
 
               
@@ -314,7 +345,8 @@ class SmallTable extends Table{
     $output .='
               </tbody>
             </table>
-          </form>';
+          </div>
+        </form>';
   
   return $output;
   }

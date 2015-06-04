@@ -46,14 +46,28 @@ class Cell {
    *  @param str $display: either text or the name of a glyphicon for button
    *  @param bool $text: if the $display is a text or a glyphicon
    *  @param bool $active: if the button should be disabled.
+   *  @param bool $included: if the name already has the form included
    */
-  public function addButton($form, $record, $action, $display, $text=false, $active=false){
+  public function addButton($form, $record, $action, $display, $text=false, $active=false, $included=false){
     $button_text = $display;
     $button_name = $form . '-' . $action;
-    $button_id = $form.'['.$record.']['. $button_name.']';
+    $if_active = '';
+    
+    if($active){$if_active = " active";}
+    
+    // "included" for use in tables where the cell name is preprocessed
+    if($included == false){
+      $button_id = $form.'['.$record.']['. $button_name.']';
+    }else{
+      $button_id =  $record . '['. $button_name.']';
+    }
     if ($text){ $button_content = ucwords($display);}
     else {$button_content = '<span class="glyphicon '. $display . '"></span>';}
-    $output = '<button type="submit" class="btn btn-primary edit-icon btn-xs"';
+    if ($text){
+      $output = '<button type="submit" class="btn btn-primary edit-icon btn-xs'. $if_active.'"';
+    } else {
+      $output = '<button type="submit" class="btn btn-primary edit-icon btn-sm'. $if_active.'"';
+    }
     $output.= ' id="' . $button_id .'" name="' . $button_name .'" value="';
     $output.= $record .'">' . $button_content ."</button>";
     $this->_buttons[] = $output;
@@ -161,7 +175,8 @@ class Cell {
   public function __toString(){
     $text = $this->_content;
     foreach($this->_buttons as $button){
-      $text .= $button;
+      $text .= '
+                    '. $button;
     }
     $attribs = '';
     if ($this->_showDetails == true){
