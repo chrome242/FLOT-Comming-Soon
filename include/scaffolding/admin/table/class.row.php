@@ -342,7 +342,7 @@ class Row {
           $size = null;
           
           if (count($pieces) > 2){
-            if ($pieces[2] != 'none'){$step = trim($pieces[2]);}
+            if ($pieces[2] != 'none'){$mutiple = trim($pieces[2]);}
             if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
           }
 
