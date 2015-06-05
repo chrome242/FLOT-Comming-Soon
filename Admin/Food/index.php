@@ -1,7 +1,10 @@
 <?php
 
+//****************** Configuration & Inclusions *****************************//
 include("../../include/config.php");
 include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
+//***************************************************************************//
+
 
 // TODO: Add a test login to redirect function here
 // if(!secureCheckLogin($_COOKIE)){header:Admin Login}
@@ -14,6 +17,8 @@ include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 // $permissions = $_COOKIE["admin_permissions"];
 
 // Page variables
+
+
 
 // TEST VARIABLES //
 // Temp testing permissions //
@@ -64,57 +69,65 @@ $test_pantab_trial = array( array("food_id" => 1, // id
 
                                   ));
 
-// This should be pretty much finalized. However, it occurs to me that I have not
-// included a way to make a given table let diffrent rows be built diffrent ways.
-// I will have to address that (active array, passive array header arrays? ,
-// turn ID into an array when the row is active?)
-$dishes_activehead = array( "Id" => array("food_id" => "id"), // id
-                            "Plate"=> array("food_name" => "text, value"), // plain
-                            "Type" => array("food_type" => "select, 1"), //select
-                            "Price" => array("food_price" => "number, value, .01, 8"), // number
-                            "Edit" => array("edit" => "button, large"),  // button
-                            "newrow" => array("newrow" => "newrow"), // number
-                            "spacer" => array("spacer" => "plain"),  // plain
-                            "food_desc" =>array("food_desc" => "textarea, value, 3, 4") // text area
-                            );
-
-$dishes_pasivehead = array( "Id" => array("food_id" => "id"), // id
-                            "Plate"=> array("food_name" => "plain"), // plain
-                            "Type" => array("food_type" => "plain"), //select
-                            "Price" => array("food_price" => "plain"), // number
-                            "Edit" => array("add" => "button, large")  // button
-                            );
+$test_active = array(1);
+// End Testing files.
 
 
-// End Content Testing
+
+
+//******************* Header & Format Arrays For Dishes *********************//
+$dishes_edit = array( "Id" => array("food_id" => "id"), // id
+                      "Plate"=> array("food_name" => "text, value"), // plain
+                      "Type" => array("food_type" => "select, 1"), //select
+                      "Price" => array("food_price" =>
+                                       "number, value, .01, 8"), // number
+                      "Edit" => array("edit" => "button, large"),  // button
+                      "newrow" => array("newrow" => "newrow"), // number
+                      "spacer" => array("spacer" => "plain"),  // plain
+                      "food_desc" =>array("food_desc" =>
+                                          "textarea, value, 3, 4") // text area
+                      );
+
+$dishes_display = array("Id" => array("food_id" => "id"), // id
+                        "Plate"=> array("food_name" => "plain"), // plain
+                        "Type" => array("food_type" => "plain"), //select
+                        "Price" => array("food_price" => "plain"), // number
+                        "Edit" => array("add" => "button, large")  // button
+                        );
+//***************************************************************************//
+
+
+//******************** Open The Page & Display Menu Bar *********************//
 $title = "Manage Dishes";
 $section = ADMIN."Food/";
-
-
-// open the page
 include(SCAFFOLDING."head.php");
-
- // Menu Bar
 echo menubar($permissions, $section, $root);
+//***************************************************************************//
 
 
-// All pages in the admin section will post to themselves. Check to see if
-// Anything relevant to the page is in the $_POST() array and if so, process
-// it here. If not, then process it 
+//***************** Final Variable Processing & Cleaning *******************//
+// Fututre home of SQL & $_POST processing methods
 $processed_food_cells = $test_food_trial;
 $processed_food_settings = $test_food_setti;
+$processed_dish_cells = $test_pantab_trial;
+$processed_active_rows = $test_active;
+//***************************************************************************//
 
-// make the small table for plate types, wrap it, add a button
+
+//********************************* Content *********************************//
+// Plate Type Display and Editing Panel //
 $plates = new SmallTable("foodType", $processed_food_cells, $processed_food_settings, 4);
 $platesPanel = new Panel("Plate Types", $plates);
 $platesPanel->addButton();
 
-// echo the Panel & content.
+// Display The Panel //
 echo $platesPanel;
 
 
-// make the panel table for indivudual dishes
-$dishes = new PanelTable("food", $test_pantab_trial, $dishes_pasivehead, $dishes_activehead, array(1));
+// Dish Display and Editing Panel //
+$dishes = new PanelTable("food", $processed_dish_cells,
+                         $dishes_display, $dishes_edit,
+                         $processed_active_rows);
 $dishes->setCellClass("food_name", "col-xs-3");
 $dishes->setCellClass("food_type", "col-xs-3");
 $dishes->setCellClass("food_price", "col-xs-3");
@@ -123,12 +136,14 @@ $dishes->addCellButton("food_desc", "drop", "Drop", "large");
 $dishesPanel = new Panel("Dishes", $dishes);
 $dishesPanel->addButton();
 
-// echo the panel
+// Display The Panel //
 echo $dishesPanel;
+//***************************************************************************//
 
-// close the page
+
+//******************************** Footer ***********************************//
 include(SCAFFOLDING_ADMIN."footer.php");
-
+//***************************************************************************//
 
  
 
