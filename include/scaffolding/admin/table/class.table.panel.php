@@ -42,7 +42,6 @@ class PanelTable extends Table{
 
     
     $output ='
-  
           <form name="' . $name . '"' . $form_attribs . ' method="post">
             <table class="table table-hover"' . $table_attribs . '>';
             

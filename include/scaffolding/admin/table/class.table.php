@@ -34,7 +34,7 @@
  *
  * Setters to do an action to each row:
  * public function setCellClass($cell, $class)
- * 
+ * public function addCellButton($cell, $suffix, $content, $text)
  */
 class Table {
   
@@ -48,11 +48,14 @@ class Table {
   // member portion attributes
   protected $_header; // takes the header key
   protected $_format; // takes the header array value
+  protected $_active = false; // the format string for active rows
   protected $_rows;  // the row array
   protected $_extra = null; // extra items to put at the bottom of the row
   
   // config attributes
   protected $_makeButton = true; //make a submit button
+  protected $_active_list = false; //if set, an array of rows that use the
+  // actve format rather than the normal format.
   
   // specific task attributes (too few to make new class)
   protected $_offline_check = false; //for the beer display only
@@ -73,18 +76,22 @@ class Table {
    * @param str $name the name of the form
    * @param mixed array $rows array of row name => (cell value array)
    * @param mixed array $header array of header name => array(cell name => format)
+   * @oaram mixed array $active if set, it follows the same conventions as $header
+   * @param array $active_list if set, it is a list of rows that should use the active format
    * @param bool $protected -if the view is protected, disabling any inputs
    *
    * due to radio buttons, some of the values in the header array may not be
    * name => array but rather name => int where the in is just a placeholder
    * for keeping track of where in the radio set the table is
    */
-  public function __construct($name, $rows, $header, $protected=false){
+  public function __construct($name, $rows, $header, $active=false, $active_list=false, $protected=false){
     $this->_name = $name;
     $this->_header = $this->makeHeader($header);
     $this->_format = $this->makeFormat($header);
+    if($active){$this->_active = $this->makeFormat($active);}
+    if($active_list){$this->_active_list = $active_list;}
     if($protected){$this->submitOff();}
-    $this->_rows = $this->makeRows($rows, $this->_format, $protected);
+    $this->_rows = $this->makeRows($rows, $protected);
     
   }
   
@@ -219,14 +226,23 @@ class Table {
    *
    * @return array $output an array of row objects with member cell objects
    */
-  private function makeRows($rows, $format, $protected){
+  private function makeRows($rows, $protected){
     // initialize the output array
     $output = array();
 
     // loop... because loops
     foreach($rows as $row => $rowContent){
-      $a_row = new Row($this->_name, $rowContent, $format, $protected);
+      $a_row = new Row($this->_name, $rowContent, $this->_format, $protected);
+
+      // if active is set, time to check the generated row name against the
+      // active list
+      if($this->_active_list){
+        if(in_array($a_row->getName(true), $this->_active_list)){
+          $a_row = new Row($this->_name, $rowContent, $this->_active, $protected);
+        }
+      }
       $rowName = $a_row->getName();
+      
       $output[$rowName] = $a_row;
     }
     
@@ -298,6 +314,21 @@ class Table {
    */
   public function setCellClass($cell, $class){
     foreach($this->_rows as $name => $row){$row->setCellClass($cell, $class);}
+  }
+  
+  /**
+   * Adds a in cell button to any of the cell elements that can support it for
+   * cell of a given name of cell
+   *
+   * @param str $cell: the name of the cell
+   * @param str $suffix: the item to be appened to the cell id for the button
+   * @param str $content: the text for the cell or the name of the glyphicon
+   * @param bool $text: if the $content is a text string (t) or a glypicon (f)
+   */
+  public function addCellButton($cell, $suffix, $content, $text=true){
+    foreach($this->_rows as $name => $row){
+      $row->addCellButton($this->_name, $cell, $suffix, $content, $text);
+    }
   }
   
   /**** BEGIN OF BEER AND WINE INVENTORY EXTENSION METHODS ****/

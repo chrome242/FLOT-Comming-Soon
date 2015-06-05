@@ -63,8 +63,10 @@ class Cell {
     }
     if ($text){ $button_content = ucwords($display);}
     else {$button_content = '<span class="glyphicon '. $display . '"></span>';}
-    if ($text){
+    if ($text === true){
       $output = '<button type="submit" class="btn btn-primary edit-icon btn-xs'. $if_active.'"';
+    } elseif ($text === "large"){
+      $output = '<button type="submit" class="btn btn-primary edit-icon'. $if_active.'"';
     } else {
       $output = '<button type="submit" class="btn btn-primary edit-icon btn-sm'. $if_active.'"';
     }
@@ -179,8 +181,8 @@ class Cell {
                     '. $button;
     }
     $attribs = '';
-    if ($this->_showDetails == true){
-      if ($this->_class != null){$attribs .= ' class="'. $this->_class . '"';}
+    if ($this->_class != null){$attribs .= ' class="'. $this->_class . '"';}
+    if ($this->_showDetails == true){  
       if ($this->_id != null){$attribs .= ' id="' . $this->_id . '"';}
     }
     
@@ -190,7 +192,6 @@ class Cell {
     
     $output = '
                   <td' . $attribs . '>'. $text . '</td>';
-    
 
     return $output;
   }

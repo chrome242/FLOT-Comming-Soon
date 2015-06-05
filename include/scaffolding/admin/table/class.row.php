@@ -48,7 +48,7 @@
  *  
  * Short Cell Docs:
  * 
- * button - an inline button. 
+ * button, x(o) where x is 'right' if right justifed. - an inline button. 
  * checkbox - a checkbox
  * drop - not placed in the table (h)
  * duration, x, y(o) where x & y are either timestamps or cell names (b)
@@ -85,6 +85,7 @@
  *  the same name or purpose:
  *  public function setDisabled($cell, $value=null)
  *  public function setCellClass($cell, $class)
+ *  public function addCellButton($cell, $suffix, $content, $text)
  * 
  * Expanding use of class:
  *  To add new cell types the logic in makeCells must be updated
@@ -128,12 +129,13 @@ class Row {
   /**
    * getter function for the row name
    *
+   * @param bool $short if set then return the short name
    *
    * @return str  $output the name of the row object
    */
-  public function getName(){
-    
-    return $this->_name;
+  public function getName($short=false){
+    if($short) { return $this->_rowShortName; }
+    else { return $this->_name; }
   }
   
   /**
@@ -198,202 +200,211 @@ class Row {
   protected function makeCells($cells, $format, $protected){
 
     foreach($cells as $name => $value){
-      $cell_name = $this->_name . '['. $name . ']'; // should work for non-radios
-      
-      // TODO: consider replacing simple string checking with an explosion and check for
-      // the value of position 1, so as to not restrict word use in cell names for
-      // cell types that take args which can contain words.
-      
-      // id cell
-      if($format[$name] == 'id'){$this->_cells[$cell_name] = new Cell($name, $value);}
-      
-      // text cell
-      if($format[$name] == 'plain'){ $this->_cells[$cell_name] = new Cell($name, $value);}
-      
-      // URL cell
-      if($format[$name] == 'url'){$this->_cells[$cell_name] = new UrlCell($name, $value);}
-      
-      // new row
-      if($format[$name] == 'newrow'){$this->_cells[$cell_name] = new NewRow();}
-      
-      // private (text) cell private
-      if($format[$name] == 'private'){ $this->_privateCells[$cell_name] = new Cell($name, $value);}
-      
-      // button cell
-      if($format[$name] == 'button'){
-        $this->_cells[$cell_name] = new Button($this->_tableName, $this->_rowShortName, $value);
-        if($protected){
-          // make an empty cell if the table is in a protected view
-          $this->_cells[$cell_name] = new Cell($name, '');
-        }
-      }
-      
-      //checkbox cell
-      if($format[$name] == 'checkbox'){
-        $this->_cells[$cell_name] = new Checkbox($name, $value);
-        if($protected){
-          $this->_cells[$cell_name]->disabled();
-          $this->_cells[$cell_name]->hideDetails();
-        }
-      }
-      
-      //timestamp cell
-      if(stripos($format[$name], 'time,') !== false){
-        $pieces = explode(",", $format[$name]);
-        $where_to = trim($pieces[1]);
+      if(isset($format[$name])){
+        $cell_name = $this->_name . '['. $name . ']'; // should work for non-radios
         
-        if($where_to != "private") {
-          $this->_cells[$cell_name] = new Timestamp($cell_name, $value, true);
-        }
-        else{
-          $this->_privateCells[$cell_name] = new Timestamp($cell_name, $value, false);
-        }
-      }
-      
-      //text cell
-      if(stripos($format[$name], 'text,') !== false){
-        $pieces = explode(",", $format[$name]);
-        $type = trim($pieces[1]);
-        $this->_cells[$cell_name] = new Text($cell_name, $value, $type);
+        // TODO: consider replacing simple string checking with an explosion and check for
+        // the value of position 1, so as to not restrict word use in cell names for
+        // cell types that take args which can contain words.
         
-        if($protected){
-          $this->_cells[$cell_name]->disabled();
-          $this->_cells[$cell_name]->hideDetails();
-        }
-      }
-      
-      //number cell
-      if(stripos($format[$name], 'number,') !== false){
-        $pieces = explode(",", $format[$name]);
-        $type = trim($pieces[1]);
-        $step = null;
-        $size = null;
+        // id cell
+        if($format[$name] == 'id'){$this->_cells[$cell_name] = new Cell($name, $value);}
         
-        if (count($pieces) > 2){
-          if ($pieces[2] != 'none'){$step = trim($pieces[2]);}
-          if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
+        // text cell
+        if($format[$name] == 'plain'){ $this->_cells[$cell_name] = new Cell($name, $value);}
+        
+        // URL cell
+        if($format[$name] == 'url'){$this->_cells[$cell_name] = new UrlCell($name, $value);}
+        
+        // new row
+        if($format[$name] == 'newrow'){$this->_cells[$cell_name] = new NewRow();}
+        
+        // private (text) cell private
+        if($format[$name] == 'private'){ $this->_privateCells[$cell_name] = new Cell($name, $value);}
+        
+        // button cell
+        if(stripos($format[$name], 'button') !== false){
+          
+          $this->_cells[$cell_name] = new Button($this->_tableName, $this->_rowShortName, $value);
+          
+          // if it has args
+          if(stripos($format[$name], 'button,') !== false){
+            $this->_cells[$cell_name]->setButtonClasses("btn btn-primary edit-icon");
+          }
+          
+          if($protected){
+            // make an empty cell if the table is in a protected view
+            $this->_cells[$cell_name] = new Cell($name, '');
+          }
         }
         
-        $this->_cells[$cell_name] = new Number($cell_name, $value, $type, $step, $size);
-        
-        if($protected){
-          $this->_cells[$cell_name]->disabled();
-          $this->_cells[$cell_name]->hideDetails();
-        }
-      }
-      
-      // textarea -surprisingly identical to number... might need to functionality
-      if(stripos($format[$name], 'textarea,') !== false){
-        $pieces = explode(",", $format[$name]);
-        $type = trim($pieces[1]);
-        $row = null;
-        $colspan = null;
-        
-        if (count($pieces) > 2){
-          if ($pieces[2] != 'none'){$step = trim($row[2]);}
-          if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
+        //checkbox cell
+        if($format[$name] == 'checkbox'){
+          $this->_cells[$cell_name] = new Checkbox($name, $value);
+          if($protected){
+            $this->_cells[$cell_name]->disabled();
+            $this->_cells[$cell_name]->hideDetails();
+          }
         }
         
-        $this->_cells[$cell_name] = new Textarea($cell_name, $value, $type, $row, $colspan);
-        
-        if($protected){
-          $this->_cells[$cell_name]->disabled();
-          $this->_cells[$cell_name]->hideDetails();
-        }
-      }
-      
-      // duration cells
-      // using the same task specific names as the target class to keep things simple
-      // any cells being used for the math-foo here must, obviously, be declared first
-      // and must be in the hidden array for the row.
-      if(stripos($format[$name], 'duration,') !== false){
-        $pieces = explode(",", $format[$name]);
-        $ontap = trim($pieces[1]);
-        $offtap = 0;
-        
-        if(count($pieces) > 2 ){
-          $offtap = trim($pieces[2]);
-        }
-
-        //functionalize this if I end up using it more then these 2 times
-        if(is_numeric($ontap)){
-          $processed_ontap = $ontap;
-        } else{
-          $processed_ontap = $this->getHidden($ontap);
-        }
-        
-        if(is_numeric($offtap)){
-          $processed_offtap = $offtap;
-        } else{
-          $processed_offtap = $this->getHidden($offtap);
-        }
-        
-        $this->_cells[$cell_name] = new Duration($cell_name, $processed_ontap,$processed_offtap);
-      }
-      
-      // select cells
-      if(stripos($format[$name], 'select') !== false){
-
-        // if it has args
-        if(stripos($format[$name], 'select,') !== false){
+        //timestamp cell
+        if(stripos($format[$name], 'time,') !== false){
           $pieces = explode(",", $format[$name]);
-          $selected = trim($pieces[1]);
-          $mutiple = null;
+          $where_to = trim($pieces[1]);
+          
+          if($where_to != "private") {
+            $this->_cells[$cell_name] = new Timestamp($cell_name, $value, true);
+          }
+          else{
+            $this->_privateCells[$cell_name] = new Timestamp($cell_name, $value, false);
+          }
+        }
+        
+        //text cell
+        if(stripos($format[$name], 'text,') !== false){
+          $pieces = explode(",", $format[$name]);
+          $type = trim($pieces[1]);
+          $this->_cells[$cell_name] = new Text($cell_name, $value, $type);
+          
+          if($protected){
+            $this->_cells[$cell_name]->disabled();
+            $this->_cells[$cell_name]->hideDetails();
+          }
+        }
+        
+        //number cell
+        if(stripos($format[$name], 'number,') !== false){
+          $pieces = explode(",", $format[$name]);
+          $type = trim($pieces[1]);
+          $step = null;
           $size = null;
           
           if (count($pieces) > 2){
-            if ($pieces[2] != 'none'){$mutiple = trim($pieces[2]);}
+            if ($pieces[2] != 'none'){$step = trim($pieces[2]);}
             if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
           }
-
-          $this->_cells[$cell_name] = new Select($cell_name, $value, $selected, $mutiple, $size);
-        }
-        // if no args
-        if(stripos($format[$name], 'select,') === false){
-          $this->_cells[$cell_name] = new Select($cell_name, $value);
+          
+          $this->_cells[$cell_name] = new Number($cell_name, $value, $type, $step, $size);
+          
+          if($protected){
+            $this->_cells[$cell_name]->disabled();
+            $this->_cells[$cell_name]->hideDetails();
+          }
         }
         
-        if($protected){
-          $this->_cells[$cell_name]->disabled();
-          $this->_cells[$cell_name]->hideDetails();
+        // textarea -surprisingly identical to number... might need to functionality
+        if(stripos($format[$name], 'textarea,') !== false){
+          $pieces = explode(",", $format[$name]);
+          $type = trim($pieces[1]);
+          $row = null;
+          $colspan = null;
+          
+          if (count($pieces) > 2){
+            if ($pieces[2] != 'none'){$row = trim($pieces[2]);}
+            if ($pieces[3] != 'none'){$colspan = trim($pieces[3]);}
+          }
+          
+          $this->_cells[$cell_name] = new Textarea($cell_name, $value, $type, $row, $colspan);
+          
+          if($protected){
+            $this->_cells[$cell_name]->disabled();
+            $this->_cells[$cell_name]->hideDetails();
+          }
         }
-      }
-      
-      //radio cell madness
-      if(strpos($format[$name], 'radio,') !== false){
-        $pieces = explode(",", $format[$name]);
-        $cell_number = intval(trim($pieces[1]));
-        $cell_value =0; // counter & id value
         
-        while ($cell_value < $cell_number){
+        // duration cells
+        // using the same task specific names as the target class to keep things simple
+        // any cells being used for the math-foo here must, obviously, be declared first
+        // and must be in the hidden array for the row.
+        if(stripos($format[$name], 'duration,') !== false){
+          $pieces = explode(",", $format[$name]);
+          $ontap = trim($pieces[1]);
+          $offtap = 0;
           
-          // $value above == the value where state== true
-          $radio_cell_name = $cell_name . '[' . $cell_value . ']';
-          
-          if($cell_value == $value) {
-            $this->_cells[$radio_cell_name] = new Radio($cell_name, $cell_value, true);
-            
-            if($protected){
-              $this->_cells[$radio_cell_name]->disabled();
-              $this->_cells[$radio_cell_name]->hideDetails();
-            }
-          }
-          else {
-            $this->_cells[$radio_cell_name] = new Radio($cell_name, $cell_value, false);
-            
-            if($protected){
-              $this->_cells[$radio_cell_name]->disabled();
-              $this->_cells[$radio_cell_name]->hideDetails();
-            }
+          if(count($pieces) > 2 ){
+            $offtap = trim($pieces[2]);
           }
           
-          $cell_value ++;
+          //functionalize this if I end up using it more then these 2 times
+          if(is_numeric($ontap)){
+            $processed_ontap = $ontap;
+          } else{
+            $processed_ontap = $this->getHidden($ontap);
+          }
+          
+          if(is_numeric($offtap)){
+            $processed_offtap = $offtap;
+          } else{
+            $processed_offtap = $this->getHidden($offtap);
+          }
+          
+          $this->_cells[$cell_name] = new Duration($cell_name, $processed_ontap,$processed_offtap);
         }
+        
+        // select cells
+        if(stripos($format[$name], 'select') !== false){
+          
+          // if it has args
+          if(stripos($format[$name], 'select,') !== false){
+            $pieces = explode(",", $format[$name]);
+            $selected = trim($pieces[1]);
+            $mutiple = null;
+            $size = null;
+            
+            if (count($pieces) > 2){
+              if ($pieces[2] != 'none'){$mutiple = trim($pieces[2]);}
+              if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
+            }
+            
+            $this->_cells[$cell_name] = new Select($cell_name, $value, $selected, $mutiple, $size);
+          }
+          // if no args
+          if(stripos($format[$name], 'select,') === false){
+            $this->_cells[$cell_name] = new Select($cell_name, $value);
+          }
+          
+          if($protected){
+            $this->_cells[$cell_name]->disabled();
+            $this->_cells[$cell_name]->hideDetails();
+          }
+        }
+        
+        //radio cell madness
+        if(strpos($format[$name], 'radio,') !== false){
+          $pieces = explode(",", $format[$name]);
+          $cell_number = intval(trim($pieces[1]));
+          $cell_value =0; // counter & id value
+          
+          while ($cell_value < $cell_number){
+            
+            // $value above == the value where state== true
+            $radio_cell_name = $cell_name . '[' . $cell_value . ']';
+            
+            if($cell_value == $value) {
+              $this->_cells[$radio_cell_name] = new Radio($cell_name, $cell_value, true);
+              
+              if($protected){
+                $this->_cells[$radio_cell_name]->disabled();
+                $this->_cells[$radio_cell_name]->hideDetails();
+              }
+            }
+            else {
+              $this->_cells[$radio_cell_name] = new Radio($cell_name, $cell_value, false);
+              
+              if($protected){
+                $this->_cells[$radio_cell_name]->disabled();
+                $this->_cells[$radio_cell_name]->hideDetails();
+              }
+            }
+            
+            $cell_value ++;
+          }
+        }
+        
+        // dropped cells
+        if($format[$name] == 'drop'){ }
+        
       }
-      
-      // dropped cells
-      if($format[$name] == 'drop'){ }
-      
     }
   }  
 
@@ -450,20 +461,41 @@ class Row {
     $this->_cells[$cell_name]->disabled();
   }
   
-    /**
+  /**
    * A setter to push down to the cell, setting the cell class. 
    *
    * @param str $cell: the name of the cell
-   * @param str $class: the enum value if the type of the cell is radio.
+   * @param str $class: the class to be added to the cell
    */
   public function setCellClass($cell, $class){
     // construct name
     $cell_name = $this->_name . '['. $cell . ']';
     
     // do job
-    $this->_cells[$cell_name]->setClass($class);
+    if(isset($this->_cells[$cell_name])){
+      $this->_cells[$cell_name]->setClass($class);
+    }
   }
   
+
+  /**
+   * Adds a in cell button to any of the cell elements that can support it for
+   * cell of a given name of cell
+   *
+   * @param str $cell: the name of the cell
+   * @param str $suffix: the item to be appened to the cell id for the button
+   * @param str $content: the text for the cell or the name of the glyphicon
+   * @param bool $text: if the $content is a text string (t) or a glypicon (f)
+   */
+  public function addCellButton($form, $cell, $suffix, $content, $text){
+    // construct name
+    $cell_name = $this->_name . '['. $cell . ']';
+    
+    // do job
+    if(isset($this->_cells[$cell_name])){
+      $this->_cells[$cell_name]->addButton($form, $this->_rowShortName, $suffix, $content, $text);
+    }
+  }
   
   public function __toString(){
     //make the output string

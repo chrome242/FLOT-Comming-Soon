@@ -137,7 +137,7 @@ class SmallTable extends Table{
       $thisCell->addButton($this->_name, $cellName, "edit", "glyphicon-cog", false, false, true);
     }
     //button cell      
-    if($cellType == 'button'){ $thisCell = new Button($this->_tableName, $cellName, $value); }
+    if($cellType === 'button'){ $thisCell = new Button($this->_tableName, $cellName, $value); }
     
     // URL cell
     if($cellType == 'url'){ $thisCell = new UrlCell($cellName, $value);}
@@ -164,7 +164,7 @@ class SmallTable extends Table{
       $thisCell->editFieldSmall();
       $thisCell->setClass("col-xs-3");
       $thisCell->disabled();
-      $thisCell->addButton($this->_name, $cellName, "edit", "glyphicon-plus", false, false, true);      
+      $thisCell->addButton($this->_name, $cellName, "new", "glyphicon-plus", false, false, true);      
     }
     
     // textarea 

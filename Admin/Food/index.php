@@ -55,30 +55,35 @@ $test_pantab_trial = array( array("food_id" => 1, // id
                                   that it's so simple. Fresh asparagus with a little oil, salt, and pepper
                                   is cooked quickly over high heat on the grill. Enjoy the natural flavor
                                   of your veggies.", // text area
-                                  "drop" => "Drop" // button
+                                  ),
+                           array("food_id" => "+", // id
+                                  "food_name" => "",  //plain
+                                  "food_type" => "", //select
+                                  "food_price" => "", // number
+                                  "edit" => "Add",  // button
+
                                   ));
 
 // This should be pretty much finalized. However, it occurs to me that I have not
 // included a way to make a given table let diffrent rows be built diffrent ways.
 // I will have to address that (active array, passive array header arrays? ,
 // turn ID into an array when the row is active?)
-$dishes_activehead = array( array("food_id" => "id", // id
-                                  "food_name" => "plain", // plain
-                                  "food_type" => "select, 1", //select
-                                  "food_price" => "number, value, .01, 8", // number
-                                  "edit" => "button",  // button
-                                  "newrow" => "newrow", // number
-                                  "spacer" => "",  // plain
-                                  "food_desc" => "textarea, value, 3, 4", // text area
-                                  "drop" => "button" // button
-                                  ));
+$dishes_activehead = array( "Id" => array("food_id" => "id"), // id
+                            "Plate"=> array("food_name" => "text, value"), // plain
+                            "Type" => array("food_type" => "select, 1"), //select
+                            "Price" => array("food_price" => "number, value, .01, 8"), // number
+                            "Edit" => array("edit" => "button, large"),  // button
+                            "newrow" => array("newrow" => "newrow"), // number
+                            "spacer" => array("spacer" => "plain"),  // plain
+                            "food_desc" =>array("food_desc" => "textarea, value, 3, 4") // text area
+                            );
 
-$dishes_pasivehead = array( array("food_id" => "id", // id
-                                  "food_name" => "plain", // plain
-                                  "food_type" => "plain", //select
-                                  "food_price" => "plain", // number
-                                  "edit" => "button"  // button
-                                  ));
+$dishes_pasivehead = array( "Id" => array("food_id" => "id"), // id
+                            "Plate"=> array("food_name" => "plain"), // plain
+                            "Type" => array("food_type" => "plain"), //select
+                            "Price" => array("food_price" => "plain"), // number
+                            "Edit" => array("add" => "button, large")  // button
+                            );
 
 
 // End Content Testing
@@ -91,6 +96,7 @@ include(SCAFFOLDING."head.php");
 
  // Menu Bar
 echo menubar($permissions, $section, $root);
+
 
 // All pages in the admin section will post to themselves. Check to see if
 // Anything relevant to the page is in the $_POST() array and if so, process
@@ -108,8 +114,17 @@ echo $platesPanel;
 
 
 // make the panel table for indivudual dishes
+$dishes = new PanelTable("food", $test_pantab_trial, $dishes_pasivehead, $dishes_activehead, array(1));
+$dishes->setCellClass("food_name", "col-xs-3");
+$dishes->setCellClass("food_type", "col-xs-3");
+$dishes->setCellClass("food_price", "col-xs-3");
 
+$dishes->addCellButton("food_desc", "drop", "Drop", "large");
+$dishesPanel = new Panel("Dishes", $dishes);
+$dishesPanel->addButton();
 
+// echo the panel
+echo $dishesPanel;
 
 // close the page
 include(SCAFFOLDING_ADMIN."footer.php");
