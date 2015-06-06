@@ -1,7 +1,8 @@
 <?php
-
+//****************** Configuration & Inclusions *****************************//
 include("../include/config.php");
 include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
+//***************************************************************************//
 
 // TODO: Add a test login to redirect function here
 // if(!secureCheckLogin($_COOKIE)){header:Admin Login}
@@ -15,35 +16,68 @@ include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 
 // TODO: make these buttons work: JS & or PHP
 // Page variables
-$options = array("inhouse" => "In House",
-                 "ondeck" => "On Deck",
-                 "kicked" => "Kicked",
-                 "all" => "All");
-           
+
+//******************* Header & Format Arrays For Beer Table *****************//
+
+$sort_options = array("inhouse" => "In House", "ondeck" => "On Deck",
+                 "kicked" => "Kicked", "all" => "All");
+
+$beer_headers = array("Id" => array("beer_id" => 'id'),
+                      "Brewery" => array("beer_brewery" => "plain"),
+                      "Beer" => array("beer_name" => "plain"),
+                      "On Tap" =>  array("beer_status" => "radio, 4"),
+                      "On Deck" => 2,
+                      "Kicked" => 3,
+                      "Off Line" => 4,
+                      "timeontap" => array("beer_ontap" => "time, private"),
+                      "timeofftap" => array("beer_offtap" => "time, private"),
+                      );
+
+
+//***************************************************************************//
+
+
+//******************** Open The Page & Display Menu Bar *********************//
 $title = "Beer Inventory";
 $section = ADMIN; // This will be a concat for child pages
-
-
-// open the page
 include(SCAFFOLDING."head.php");
-
-// Menu Bar
 echo menubar($permissions, $section, $root);
-
-// All pages in the admin section will post to themselves. Check to see if
-// Anything relevant to the page is in the $_POST() array and if so, process
-// it here. If not, then process it 
+echo sortbar($sort_options, "all");
+//***************************************************************************//
 
 
-// Sort Bar
-echo sortbar($options, "all");
-
-// TODO: Get Table from Database
-// makeBeerView();
-
-
-// TODO: include Processing Files
+//***************** Final Variable Processing & Cleaning *******************//
+// Fututre home of SQL & $_POST processing methods
+$processed_beer_cells = $beer_test_cells;
+//***************************************************************************//
 
 
-// close the page
+//********************************* Content *********************************//
+// Plate Type Display and Editing Panel //
+$beerTable = new Table("Beer", $processed_beer_cells, $beer_headers);
+$beerTable->addCounter("Total on Tap:", "beer_status", "0");
+$beerTable->offlineCheck();
+
+// Display The Panel //
+echo $beerTable;
+//***************************************************************************//
+
+//********************************TEST***************************************//
+
+/* The array will have to be processed in the following way:
+ * first, check for an add. If add exist, then 
+ */
+if(isset($_POST)){
+  echo "Post contents:<br><pre>";
+  var_dump($_POST);
+  echo "</pre>";
+  
+}
+
+
+//******************************** Footer ***********************************//
 include(SCAFFOLDING_ADMIN."footer.php");
+//***************************************************************************//
+
+ 
+

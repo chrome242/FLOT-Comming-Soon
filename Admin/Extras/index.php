@@ -16,62 +16,6 @@ include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 // TODO: Process the user's permission array from the session
 // $permissions = $_COOKIE["admin_permissions"];
 
-// Page variables
-
-
-
-//********************************TEST***************************************//
-// Temp testing permissions //
-$permissions = array("inventory" => "1",
-                     "drinks" =>  "1",
-                     "extras" => "1",
-                     "food" => 1,
-                     "add_user" => "1",
-                     "edit_user" => 1);
-// End testing permissions //
-
-// Content Testing //
-// Small Table Test - the method should pull from the SQL and then it should //
-// add the last line automatically. If a post variable exist for the table //
-// then the post variable should be used rather then the SQL source //
-$test_drink_trial = array(1 => array("drink_type_name" => "Amber Ale",
-                                    "drink_type_desc" => "Amber Ale Desc."),
-                         2 => array("drink_type_name" => "Bitter",
-                                    "drink_type_desc" => "Bitter Ale Desc."),
-                         3 => array("drink_type_name" => "Blonde Ale",
-                                    "drink_type_desc" => "Blonde Ale Desc."),
-                         4 => array("drink_type_name" => "Block",
-                                    "drink_type_desc" => "Block Ale Desc."),
-                         19 => array("drink_type_name" => "")); 
-
-
-$test_drink_setti = array(1 => array("drink_type_name" => ["editPlain", false],
-                                    "drink_type_desc" => ["textArea, value, 3, 4", true]),
-                         2 => array("drink_type_name" => ["editPlain", false],
-                                    "drink_type_desc" => ["textArea, value, 3, 4", true]),
-                         3 => array("drink_type_name" => ["editPlain", false],
-                                    "drink_type_desc" => ["textArea, value, 3, 4", true]),
-                         4 => array("drink_type_name" => ["editPlain", false],
-                                    "drink_type_desc" => ["textArea, value, 3, 4", true]),
-                         19 => array("drink_type_name" => ["addText", false]));
-
-
-$test_wine_list = array(1 => "Pinor Noir", 2 => "Tokay", 3 => "Chardonnary",
-                        4 => "Riesling", 5 => "Merlot", 6 => "Tugboat Red",
-                        7 => "Tugboat White", 8 => "Bordeaux", 9 =>'');
-
-$test_wine_spec = array(4 => "edit", 9 => "new");
-
-$test_size_list = array(1=> "Sample", 2 => "12oz.", 3 => "Pint",
-                        4 => "Growler", 5 => '');
-
-$test_size_spec = array(5 => "new");
-
-//***************************************************************************//
-
-
-
-
 //******************* Header & Format Arrays For Dishes *********************//
 $dishes_edit = array( "Id" => array("food_id" => "id"), // id
                       "Plate"=> array("food_name" => "text, value"), // plain
@@ -146,7 +90,7 @@ echo '      <div class="clearfix visible-md-block"></div>';
 
 //***************************************************************************//
 
-//********************************TEST***************************************//
+//********************************Debug***************************************//
 
 /* The array will have to be processed in the following way:
  * first, check for an add. If add exist, then 

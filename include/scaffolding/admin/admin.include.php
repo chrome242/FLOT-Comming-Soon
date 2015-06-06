@@ -14,3 +14,7 @@ include_once(SCAFFOLDING_ADMIN."list/list.php"); // list
 
 // Section Settings:
 $root = ADMIN;
+
+
+// Test files
+include_once(SCAFFOLDING_ADMIN."testing/test.data.php");

@@ -28,8 +28,7 @@ include_once("class.cell.select.php"); // select box
 // structure cells
 include_once("class.cell.newrow.php"); // to allow the same record many rows
 
-// testing data
-include_once("test.data.php");
+
 
 // javaScript that needs to be done to support the above- the ones marked with
 // an <a> are ajax calls and should have supporting php (mostly above)

@@ -240,7 +240,7 @@ class Row {
         
         //checkbox cell
         if($format[$name] == 'checkbox'){
-          $this->_cells[$cell_name] = new Checkbox($name, $value);
+          $this->_cells[$cell_name] = new Checkbox($cell_name, $value);
           if($protected){
             $this->_cells[$cell_name]->disabled();
             $this->_cells[$cell_name]->hideDetails();

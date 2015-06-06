@@ -16,64 +16,6 @@ include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 // TODO: Process the user's permission array from the session
 // $permissions = $_COOKIE["admin_permissions"];
 
-// Page variables
-
-
-
-//********************************TEST***************************************//
-// Temp testing permissions //
-$permissions = array("inventory" => "1",
-                     "drinks" =>  "1",
-                     "extras" => "1",
-                     "food" => 1,
-                     "add_user" => "1",
-                     "edit_user" => 1);
-// End testing permissions //
-
-// Content Testing //
-// Small Table Test - the method should pull from the SQL and then it should //
-// add the last line automatically. If a post variable exist for the table //
-// then the post variable should be used rather then the SQL source //
-$test_food_trial = array(1 => array("food_type_name" => "Appetizer"),
-                         2 => array("food_type_name" => "Tapas"),
-                         3 => array("food_type_name" => "Full Plate"),
-                         4 => array("food_type_name" => "Dessert"),
-                         5 => array("food_type_name" => "")); 
-
-
-$test_food_setti = array(1 => array("food_type_name" => ["editPlain", false]),
-                         2 => array("food_type_name" => ["editPlain", false]),
-                         3 => array("food_type_name" => ["editText", false]),
-                         4 => array("food_type_name" => ["editPlain", false]),
-                         5 => array("food_type_name" => ["addText", false]));
-
-// Panel Table Test
-$test_pantab_trial = array( array("food_id" => 1, // id
-                                  "food_name" => "Grilled Asparagus (V)",  //plain
-                                  "food_type" => array(1 => "Appetizer", 2 => "Tapas", 3 => "Full Plate"), //select
-                                  "food_price" => "6.59", // number
-                                  "edit" => "Edit",  // button
-                                  "newrow" => "newrow", // number
-                                  "spacer" => "",  // plain
-                                  "food_desc" => "Asparagus is grilled with a little oil, salt, and pepper
-                                  for a simple summer side dish... The special thing about this recipe is
-                                  that it's so simple. Fresh asparagus with a little oil, salt, and pepper
-                                  is cooked quickly over high heat on the grill. Enjoy the natural flavor
-                                  of your veggies.", // text area
-                                  ),
-                           array("food_id" => "+", // id
-                                  "food_name" => "",  //plain
-                                  "food_type" => "", //select
-                                  "food_price" => "", // number
-                                  "edit" => "add",  // button
-
-                                  ));
-
-$test_active = array(1);
-//***************************************************************************//
-
-
-
 
 //******************* Header & Format Arrays For Dishes *********************//
 $dishes_edit = array( "Id" => array("food_id" => "id"), // id
