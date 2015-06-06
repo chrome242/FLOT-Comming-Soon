@@ -140,13 +140,24 @@ class Panel {
    *                    the target form name value.
    */
   public function addButton($name=true){
-    if(is_string($name)) {$btnname = $name;}
+    if(is_string($name)) {
+      $btnname = $name;
+      $output ='          <div class="panel-body">
+        <input class="btn pull-right clearfix btn-primary" name="'. $btnname .'"type="submit" value="Update">
+      </div>';
+    
+    }
     
     // See http://bavotasan.com/2009/processing-multiple-forms-on-one-page-with-php/
-    if($name === true) {$btnname =  $this->_inner_html->getName() . "-update";}
-    $output ='          <div class="panel-body">
-            <input class="btn pull-right clearfix btn-primary" name="'. $btnname .'"type="submit" value="Update">
+    if($name === true) {
+      $btnname =  $this->_inner_html->getName();
+      $this->_inner_html->hiddenButton();
+      $btnname .= "-update";
+      $output ='          <div class="panel-body">
+            <label class="btn pull-right clearfix btn-primary" for="'. $btnname .'">Update</label>
           </div>';
+    
+    }
     
     $this->_button = $output;
   }

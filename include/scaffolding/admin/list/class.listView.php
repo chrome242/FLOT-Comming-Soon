@@ -34,6 +34,8 @@ class ListView {
   protected $_listClass = ' class="list-group"';
   protected $_listId = '';
   
+  protected $_makeButton = false;
+  
   /**
    * A class for creating the HTML view of a form in a list style.
    * Makes an array of listItem class items (and decendants thereof)
@@ -149,7 +151,6 @@ class ListView {
     $this->_listId = ' id="' . $id . '"';
   }
   
-  
   /**
    * setter for the list class
    *
@@ -160,7 +161,38 @@ class ListView {
     if($listgroup){ $class .= ' list-group';}
     $this->_listClass = ' class="' . $class . '"';
   }
+
+  /**
+   *
+   * Returns a string for the update button on the form.
+   *
+   * @param str $name the name of the form
+   * @param bool $hidden if the button is hidden. For use with panels.
+   *
+   * @return str $output the HTML for the update button
+   * 
+   */
+  protected function updateButton($name, $show=true){
+    // See http://bavotasan.com/2009/processing-multiple-forms-on-one-page-with-php/
+    $name .= "-update"; // for use in processing.
+    if($show === true){
+      $output ='
+          <input class="btn pull-right clearfix btn-primary" name="'. $name .'"type="submit" value="Update">';
+    } else {
+      $output ='
+          <input class="hidden" id="'. $name . '" name="'. $name .'" type="submit" value="'.$name.'">';
+    }
+    return $output;
+  }
   
+  /**
+   * Sets _makeButton to something other then a bool, so that it is not false (and
+   * therefor triggered in the __toString constructor), but is not true (and 
+   * therefor causes the string to be hidden in the HTML)
+   */
+  public function hiddenButton(){
+    $this->_makeButton = "hidden";
+  }
   
   public function __toString(){
   $output ='
@@ -172,7 +204,11 @@ class ListView {
   }
   
   $output .='
-              </ul>
+              </ul>';
+              
+  if($this->_makeButton){$output .=$this->updateButton($this->_name, $this->_makeButton);}
+  
+  $output .='
             </form>';
             
   return $output;

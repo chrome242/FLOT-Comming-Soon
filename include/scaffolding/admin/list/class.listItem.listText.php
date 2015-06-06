@@ -59,7 +59,7 @@ class ListText extends ListInput {
     $details = '';
     
     //class logic
-    if($this->_form && isset($this->_buttons[0])){$details .= ' class="form-control edit-field"';}
+    if($this->_form && isset($this->_buttons[0])){$details .= ' class="form-control edit-field-wine"';}
     elseif(isset($this->_buttons[0])){$details .= ' class="edit-field"';}
     elseif($this->_form){$details .= ' class="form-control"';}
     
@@ -75,7 +75,7 @@ class ListText extends ListInput {
     
     foreach($this->_buttons as $button){
       $content .='
-                  '. $button .'';
+                    '. $button .'';
     }
     return $content;
   }

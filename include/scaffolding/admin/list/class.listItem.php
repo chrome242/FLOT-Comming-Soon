@@ -49,9 +49,15 @@ class ListItem {
     $button_text = $display;
     $button_name = $form . '-' . $action;
     $button_id = $form.'['.$record.']['. $button_name.']';
-    if ($text){ $button_content = ucwords($display);}
-    else {$button_content = '<span class="glyphicon '. $display . '"></span>';}
-    $output = '<button type="submit" class="btn btn-primary edit-icon btn-xs"';
+    if ($text){
+      $button_content = ucwords($display);
+      $output = '<button type="submit" class="btn btn-primary edit-icon btn-xs"';
+    }
+    else {
+      $button_content = '<span class="glyphicon '. $display . '"></span>';
+      $output = '<button type="submit" class="btn btn-primary edit-icon btn-sm"';
+    }
+    
     $output.= ' id="' . $button_id .'" name="' . $button_name .'" value="';
     $output.= $record .'">' . $button_content ."</button>";
     $this->_buttons[] = $output;

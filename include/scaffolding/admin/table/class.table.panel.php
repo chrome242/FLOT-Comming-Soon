@@ -76,7 +76,7 @@ class PanelTable extends Table{
             </table>';
   
     if($extra != null) {$output .= $extra;}
-    if($this->_makeButton){$output .=$this->updateButton($this->_name);}
+    if($this->_makeButton){$output .=$this->updateButton($this->_name, $this->_makeButton);}
     $output .='
           </form>';
     

@@ -176,7 +176,7 @@ class SmallTable extends Table{
       
       if (count($pieces) > 2){
         if ($pieces[2] != 'none'){$row = trim($pieces[2]);}
-        if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
+        if ($pieces[3] != 'none'){$colspan = trim($pieces[3]);}
       }
       
       $thisCell = new Textarea($cellName, $value, $type, $row, $colspan);
@@ -345,7 +345,9 @@ class SmallTable extends Table{
     $output .='
               </tbody>
             </table>
-          </div>
+          </div>';
+    if($this->_makeButton){$output .=$this->updateButton($this->_name, $this->_makeButton);}
+    $output .='  
         </form>';
   
   return $output;

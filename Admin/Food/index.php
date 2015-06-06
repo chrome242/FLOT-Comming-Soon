@@ -20,7 +20,7 @@ include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 
 
 
-// TEST VARIABLES //
+//********************************TEST***************************************//
 // Temp testing permissions //
 $permissions = array("inventory" => "1",
                      "drinks" =>  "1",
@@ -65,12 +65,12 @@ $test_pantab_trial = array( array("food_id" => 1, // id
                                   "food_name" => "",  //plain
                                   "food_type" => "", //select
                                   "food_price" => "", // number
-                                  "edit" => "Add",  // button
+                                  "edit" => "add",  // button
 
                                   ));
 
 $test_active = array(1);
-// End Testing files.
+//***************************************************************************//
 
 
 
@@ -92,7 +92,7 @@ $dishes_display = array("Id" => array("food_id" => "id"), // id
                         "Plate"=> array("food_name" => "plain"), // plain
                         "Type" => array("food_type" => "plain"), //select
                         "Price" => array("food_price" => "plain"), // number
-                        "Edit" => array("add" => "button, large")  // button
+                        "Edit" => array("edit" => "button, large")  // button
                         );
 //***************************************************************************//
 
@@ -125,7 +125,7 @@ echo $platesPanel;
 
 
 // Dish Display and Editing Panel //
-$dishes = new PanelTable("food", $processed_dish_cells,
+$dishes = new PanelTable("dishType", $processed_dish_cells,
                          $dishes_display, $dishes_edit,
                          $processed_active_rows);
 $dishes->setCellClass("food_name", "col-xs-3");
@@ -139,6 +139,18 @@ $dishesPanel->addButton();
 // Display The Panel //
 echo $dishesPanel;
 //***************************************************************************//
+
+//********************************TEST***************************************//
+
+/* The array will have to be processed in the following way:
+ * first, check for an add. If add exist, then 
+ */
+if(isset($_POST)){
+  echo "Post contents:<br><pre>";
+  var_dump($_POST);
+  echo "</pre>";
+  
+}
 
 
 //******************************** Footer ***********************************//
