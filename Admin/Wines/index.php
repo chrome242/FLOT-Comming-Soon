@@ -18,9 +18,9 @@ include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 // TODO: make these buttons work: JS & or PHP
 // Page variables
 
-//******************* Header & Format Arrays For Beer Table *****************//
+//******************* Header & Format Arrays For Wine Table *****************//
 
-$beer_headers = array("Id" => array("wine_id" => 'id'),
+$wine_headers = array("Id" => array("wine_id" => 'id'),
                       "Brewery" => array("wine_winery" => "plain"),
                       "Beer" => array("wine_name" => "plain"),
                       "On Tap" =>  array("wine_year" => "plain"),
@@ -47,12 +47,13 @@ $processed_wine_cells = $wine_test_cells;
 
 
 //********************************* Content *********************************//
-// Plate Type Display and Editing Panel //
-$wineTable = new Table("Wine", $processed_wine_cells, $beer_headers);
+// Wine Type Display and Editing Panel //
+$wineTable = new Table("Wine", $processed_wine_cells, $wine_headers);
 
-// Display The Panel //
+// Display The Tabel //
 echo $wineTable;
 //***************************************************************************//
+
 
 //********************************TEST***************************************//
 

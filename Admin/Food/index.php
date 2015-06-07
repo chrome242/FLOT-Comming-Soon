@@ -24,17 +24,29 @@ $dishes_edit = array( "Id" => array("food_id" => "id"), // id
                       "Price" => array("food_price" =>
                                        "number, value, .01, 8"), // number
                       "Edit" => array("edit" => "button, large"),  // button
-                      "newrow" => array("newrow" => "newrow"), // number
+                      "newrow" => array("newrow" => "newrow"),
                       "spacer" => array("spacer" => "plain"),  // plain
                       "food_desc" =>array("food_desc" =>
-                                          "textarea, value, 3, 4") // text area
+                                          "textarea, value, 3, 4"), // text area
+                      "addnew" => array("newrow" => "newrow"), // this and below for last record, to add new
+                      "new_id" => array("new_id" => "plain"),
+                      "s1" => array("s1" => "plain"),
+                      "s2" => array("s2" => "plain"),
+                      "s3" => array("s3" => "plain"),
+                      "add" => array("add" => "button, large")
                       );
 
 $dishes_display = array("Id" => array("food_id" => "id"), // id
                         "Plate"=> array("food_name" => "plain"), // plain
                         "Type" => array("food_type" => "plain"), //select
                         "Price" => array("food_price" => "plain"), // number
-                        "Edit" => array("edit" => "button, large")  // button
+                        "Edit" => array("edit" => "button, large"),  // button
+                        "addnew" => array("newrow" => "newrow"), // this and below for last record, to add new
+                        "new_id" => array("new_id" => "plain"),
+                        "s1" => array("s1" => "plain"),
+                        "s2" => array("s2" => "plain"),
+                        "s3" => array("s3" => "plain"),
+                        "add" => array("add" => "button, large")
                         );
 //***************************************************************************//
 

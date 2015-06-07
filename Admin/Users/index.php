@@ -1,8 +1,10 @@
 
 <?php
 
-include("../include/config.php");
+//****************** Configuration & Inclusions *****************************//
+include("../../include/config.php");
 include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
+//***************************************************************************//
 
 // TODO: Add a test login to redirect function here
 // if(!secureCheckLogin($_COOKIE)){header:Admin Login}
@@ -14,31 +16,111 @@ include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 // TODO: Process the user's permission array from the session
 // $permissions = $_COOKIE["admin_permissions"];
 
+// TODO: make these buttons work: JS & or PHP
 // Page variables
-             
-$title = "Manage Users";
-$section = ADMIN."Users/";
 
+//******************* Header & Format Arrays For Beer Table *****************//
 
 $sectionWrappers = array("userGroups" => ["User Group Definitions", false],
                          "userManagement" => ["User Management", false]);
 
-// open the page
+$groups_edit = array( "Id" => array("rights_id" => "id"), 
+                      "Role"=> array("rights_name" => "text, value"), 
+                      "Edit Inventory" => array("rights_inventory" => "checkbox"), 
+                      "Manage Drinks" => array("rights_drinks" => "checkbox"), 
+                      "Manage Extras" => array("rights_extras" => "checkbox"),
+                      "Manage Food" => array("rights_food" => "checkbox"),
+                      "Add User" => array("rights_add_user" => "checkbox"),
+                      "Edit User" => array("rights_edit_user" => "checkbox"),
+                      "Edit" => array("edit" => "button, large"), // button
+                      "newrow" => array("newrow" => "newrow"),  // here and down are for last row
+                      "new_id" => array("new_id" => "plain"),
+                      "placeholder1" => array("placeholder1" => "plain"),
+                      "placeholder2" => array("placeholder2" => "plain"),
+                      "placeholder3" => array("placeholder3" => "plain"),
+                      "placeholder4" => array("placeholder4" => "plain"),
+                      "placeholder5" => array("placeholder5" => "plain"),
+                      "placeholder6" => array("placeholder6" => "plain"),
+                      "placeholder7" => array("placeholder7" => "plain"),// call x7
+                      "add" => array("add" => "button, large")
+                      );
+
+$groups_disp = array( "Id" => array("rights_id" => "id"), 
+                      "Role"=> array("rights_name" => "plain"), 
+                      "Edit Inventory" => array("rights_inventory" => "checkbox, off"), 
+                      "Manage Drinks" => array("rights_drinks" => "checkbox"), 
+                      "Manage Extras" => array("rights_extras" => "checkbox"),
+                      "Manage Food" => array("rights_food" => "checkbox"),
+                      "Add User" => array("rights_add_user" => "checkbox"),
+                      "Edit User" => array("rights_edit_user" => "checkbox"),
+                      "Edit" => array("edit" => "button, large"), // button
+                      "newrow" => array("newrow" => "newrow"),  // here and down are for last row
+                      "new_id" => array("new_id" => "plain"),
+                      "placeholder1" => array("placeholder1" => "plain"),
+                      "placeholder2" => array("placeholder2" => "plain"),
+                      "placeholder3" => array("placeholder3" => "plain"),
+                      "placeholder4" => array("placeholder4" => "plain"),
+                      "placeholder5" => array("placeholder5" => "plain"),
+                      "placeholder6" => array("placeholder6" => "plain"),
+                      "placeholder7" => array("placeholder7" => "plain"),// call x7
+                      "add" => array("add" => "button, large")
+                      );
+
+
+//***************************************************************************//
+
+
+//******************** Open The Page & Display Menu Bar *********************//
+$title = "Manage Users";
+$section = ADMIN."Users/";
 include(SCAFFOLDING."head.php");
-
- // Menu Bar
 echo menubar($permissions, $section, $root);
+echo sectionbar($sectionWrappers);
 
-// group management wrapper
-echo '      <div class="collapse" id="UserGroups"> <!-- Group Definitions -->';
-// TODO: make handler for group table
+//***************************************************************************//
+
+
+//***************** Final Variable Processing & Cleaning *******************//
+// Fututre home of SQL & $_POST processing methods
+$processed_group_cells = $test_group_cells;
+//$processed_user_cells = $test_user_cells;
+//***************************************************************************//
+
+
+//********************************* Content *********************************//
+// User Group drop //
+$groupsTable = new Table("userGroups", $processed_group_cells, $groups_disp,
+                         $groups_edit, array(3));
+
+// echo the table
+echo '      <div class="collapse" id="userGroups"> <!-- Group Definitions -->';
+echo $groupsTable;
 echo '      </div>';
-
 
 // user management wrapper
 echo '      <div class="collapse" id="userManagement"> <!-- Users -->';
-// TODO: make handler for beer table
+echo $userTable;
 echo '      </div>';
 
-// close the page
+//***************************************************************************//
+
+
+//********************************TEST***************************************//
+
+/* The array will have to be processed in the following way:
+ * first, check for an add. If add exist, then 
+ */
+if(isset($_POST)){
+  echo "Post contents:<br><pre>";
+  var_dump($_POST);
+  echo "</pre>";
+  
+}
+
+
+//******************************** Footer ***********************************//
 include(SCAFFOLDING_ADMIN."footer.php");
+//***************************************************************************//
+
+ 
+

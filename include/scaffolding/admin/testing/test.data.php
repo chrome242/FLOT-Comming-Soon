@@ -235,18 +235,24 @@ $test_pantab_trial = array( array("food_id" => 1, // id
                                   is cooked quickly over high heat on the grill. Enjoy the natural flavor
                                   of your veggies.", // text area
                                   ),
-                           array("food_id" => "+", // id
-                                  "food_name" => "",  //plain
-                                  "food_type" => "", //select
-                                  "food_price" => "", // number
-                                  "edit" => "add",  // button
+                            array("food_id" => "2", // id
+                                  "food_name" => "Grilled Mushrooms (V)",  //plain
+                                  "food_type" => "Tapas",
+                                  "food_price" => "5.59", // number
+                                  "edit" => "edit",
+                                  "newrow" => "newrow",
+                                  "new_id" => "+",
+                                  "s1" => "",
+                                  "s2" => "",
+                                  "s3" => "",
+                                  "add" => "add"),  // button
 
-                                  ));
+                          );
 
 $test_active = array(1);
 //***************************************************************************//
 
-
+//********************************Wine***************************************//
 $wine_test_cells = array(array("wine_id" => 1,
                           "wine_winery" => "Lucas Vineyards", // new beer, on tap
                           "wine_name" => "Tugboat Red",
@@ -284,7 +290,48 @@ $wine_test_cells = array(array("wine_id" => 1,
                           "wine_instock" => true),                         
                          );
 
-
+//********************************users***************************************//
+$test_group_cells = array(array("rights_id" => 1,
+                                "rights_name" => "Owner",
+                                "rights_inventory" => true, 
+                                "rights_drinks" => true, 
+                                "rights_extras" => true,
+                                "rights_food" => true,
+                                "rights_add_user" => true,
+                                "rights_edit_user" => true,
+                                "edit" => "edit"
+                                ),
+                          array("rights_id" => 2,
+                                "rights_name" => "Manager",
+                                "rights_inventory" => true, 
+                                "rights_drinks" => true, 
+                                "rights_extras" => true,
+                                "rights_food" => true,
+                                "rights_add_user" => true,
+                                "rights_edit_user" => false,
+                                "edit" => "edit"
+                                ),
+                          array("rights_id" => 3,
+                                "rights_name" => "Bartender",
+                                "rights_inventory" => true, 
+                                "rights_drinks" => false, 
+                                "rights_extras" => false,
+                                "rights_food" => false,
+                                "rights_add_user" => false,
+                                "rights_edit_user" => false,
+                                "edit" => "edit",
+                                "newrow" => "newrow",
+                                "new_id" => "+",
+                                "placeholder1" => " ",
+                                "placeholder2" => " ",
+                                "placeholder3" => " ",
+                                "placeholder4" => " ",
+                                "placeholder5" => " ",
+                                "placeholder6" => " ",
+                                "placeholder7" => " ",
+                                "add" => "add"
+                                )
+                         );
 
 $smallTest = array("Record ID" => array("Key 1" => "value 1", "Key 2" => "value 2"));
 

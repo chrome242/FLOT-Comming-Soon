@@ -49,7 +49,7 @@
  * Short Cell Docs:
  * 
  * button, x(o) where x is 'right' if right justifed. - an inline button. 
- * checkbox - a checkbox
+ * checkbox - x(o) where x is 'off' if disabled
  * drop - not placed in the table (h)
  * duration, x, y(o) where x & y are either timestamps or cell names (b)
  * id - plain text cell who's value is attached to the row name (b)
@@ -239,11 +239,20 @@ class Row {
         }
         
         //checkbox cell
-        if($format[$name] == 'checkbox'){
-          $this->_cells[$cell_name] = new Checkbox($cell_name, $value);
-          if($protected){
+        if(stripos($format[$name], 'checkbox') !== false){
+          if(stripos($format[$name], 'checkbox,') !== false){
+            $this->_cells[$cell_name] = new Checkbox($cell_name, $value);
             $this->_cells[$cell_name]->disabled();
-            $this->_cells[$cell_name]->hideDetails();
+            if($protected){
+              $this->_cells[$cell_name]->hideDetails();
+            }
+          }
+          else {
+            $this->_cells[$cell_name] = new Checkbox($cell_name, $value);
+            if($protected){
+              $this->_cells[$cell_name]->disabled();
+              $this->_cells[$cell_name]->hideDetails();
+            }
           }
         }
         
