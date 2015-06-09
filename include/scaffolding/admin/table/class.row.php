@@ -55,6 +55,7 @@
  * id - plain text cell who's value is attached to the row name (b)
  * newrow - a cell that produces a visual new row while allowing continued record (h)
  * number, x, y(o), z(o), where x = number or placeholder y= step(o), z= size(o)(b)
+ * password, x = a password entry where x = text or placeholder (b)
  * private - placed in the internal cell array as basic text (h) (b)
  * plain - a basic cell (b)
  * radio, # - a radio set of # cells
@@ -273,7 +274,23 @@ class Row {
         if(stripos($format[$name], 'text,') !== false){
           $pieces = explode(",", $format[$name]);
           $type = trim($pieces[1]);
-          $this->_cells[$cell_name] = new Text($cell_name, $value, $type);
+          $cell_value = $value;
+          if(is_array($value)){
+            $cell_value = $value[0][$value[1]];
+          }
+          
+          $this->_cells[$cell_name] = new Text($cell_name, $cell_value, $type);
+          
+          if($protected){
+            $this->_cells[$cell_name]->disabled();
+            $this->_cells[$cell_name]->hideDetails();
+          }
+        }
+        
+        if(stripos($format[$name], "password") !== false){
+          $pieces = explode(",", $format[$name]);
+          $type = trim($pieces[1]);
+          $this->_cells[$cell_name] = new Text($cell_name, $value, $type, true);
           
           if($protected){
             $this->_cells[$cell_name]->disabled();

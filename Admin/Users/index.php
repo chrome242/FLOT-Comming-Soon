@@ -68,7 +68,35 @@ $groups_disp = array( "Id" => array("rights_id" => "id"),
 
 $users_edit = array("Id" => array("user_id" => "id"),
                     "Name" => array("user_name" => "plain"),
-                    "Group" => array("user_group" => "select")
+                    "Group" => array("user_group" => "select, 1"),
+                    "Password" => array("user_password" => "password, placeholder"),
+                    "Password Reset" => array("new_pw" => "button, large"),
+                    "Edit" => array("edit" => "button, large"),
+                    "Drop" => array("drop" => "button, large"),
+                    "newrow" => array("newrow" => "newrow"),
+                    "new_id" => array("new_id" => "plain"),
+                    "placeholder1" => array("placeholder1" => "plain"),
+                    "placeholder2" => array("placeholder2" => "plain"),
+                    "placeholder3" => array("placeholder3" => "plain"),
+                    "placeholder4" => array("placeholder4" => "plain"),
+                    "placeholder5" => array("placeholder5" => "plain"),// call x5
+                    "add" => array("add" => "button, large")
+                    );
+$users_disp = array("Id" => array("user_id" => "id"),
+                    "Name" => array("user_name" => "plain"),
+                    "Group" => array("user_group" => "plain"),
+                    "Password" => array("user_password" => "password, value"),
+                    "Password Reset" => array("new_pw" => "button, large"),
+                    "Edit" => array("edit" => "button, large"),
+                    "Drop" => array("drop" => "button, large"),
+                    "newrow" => array("newrow" => "newrow"),
+                    "new_id" => array("new_id" => "plain"),
+                    "placeholder1" => array("placeholder1" => "plain"),
+                    "placeholder2" => array("placeholder2" => "plain"),
+                    "placeholder3" => array("placeholder3" => "plain"),
+                    "placeholder4" => array("placeholder4" => "plain"),
+                    "placeholder5" => array("placeholder5" => "plain"),// call x5
+                    "add" => array("add" => "button, large")
                     );
 
 //***************************************************************************//
@@ -88,21 +116,28 @@ echo sectionbar($sectionWrappers);
 // Fututre home of SQL & $_POST processing methods
 $processed_group_cells = $test_group_cells;
 $group_special_cells = $test_group_special_cells;
-//$processed_user_cells = $test_user_cells;
+$processed_user_cells = $test_user_cells;
+$user_specal_cells = $test_
 //***************************************************************************//
 
 
 //********************************* Content *********************************//
+
 // User Group drop //
 $groupsTable = new Table("userGroups", $processed_group_cells, $groups_disp,
                          $groups_edit, $group_special_cells);
 
-// echo the table
+// Echo the wrapped table
 echo '      <div class="collapse" id="userGroups"> <!-- Group Definitions -->';
 echo $groupsTable;
 echo '      </div>';
 
-// user management wrapper
+
+// User Management drop //
+$userTable = new Table("users", $processed_user_cells, $users_disp,
+                       $users_edit, $user_special_cells);
+
+// Echo the wrapped table
 echo '      <div class="collapse" id="userManagement"> <!-- Users -->';
 echo $userTable;
 echo '      </div>';

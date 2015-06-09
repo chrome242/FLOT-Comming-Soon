@@ -334,6 +334,37 @@ $test_group_cells = array(array("rights_id" => 1,
                          );
 $test_group_special_cells = array(3);
 
+$user_group_names = array(1 => "Owner", 2=> "Manager", 3 => "Bartender", 4 => "Waitstaff");
+$user_special_cells = array(2);
+$users_test = array(array("user_id" => "1",
+                          "user_name" => "Tom",
+                          "user_group" => "Owner",
+                          "user_password" => "Password",
+                          "new_pw" => "new Password",
+                          "edit" => "edit",
+                          "drop" => "drop"
+                          ),
+                    array("user_id" => "2",
+                          "user_name" => "Moe",
+                          "user_group" => array($user_group_names, "2"),
+                          "user_password" => "Enter New Password",
+                          "edit" => "edit",
+                          "drop" => "drop"
+                          ),
+                    array("user_id" => "3",
+                          "user_name" => "Shem",
+                          "user_group" => array($user_group_names, "3"),
+                          "user_password" => "Another Password",
+                          "edit" => "edit",
+                          "newrow" => "newrow",
+                          "placeholder1" => " ",
+                          "placeholder2" => " ",
+                          "placeholder3" => " ",
+                          "placeholder4" => " ",
+                          "placeholder5" => " ",
+                          "add" => "add")
+                    );
+
 $smallTest = array("Record ID" => array("Key 1" => "value 1", "Key 2" => "value 2"));
 
 $smallFormat = array("Record ID" => array("Key 1" => array("plain", false), "Key 2" => array("plain", true)));

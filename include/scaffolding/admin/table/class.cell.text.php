@@ -9,6 +9,8 @@
  * the default being placeholder. It will be created with the form-control class on
  * the input unless the controlOff() method is called.
  *
+ * This can also be used as a password field. See constuctor notes.
+ *
  * important methods for this extension:
  * controlOff() removes the form-control class from the input.
  * 
@@ -36,12 +38,14 @@ class Text extends Input {
    * @param str $name: the name & id of the Cell
    * @param str $content: The text of the cell
    * @param str $type: if a placeholder value or a real value
+   * @param bool $password: if $password then is a password field.
    */
-  public function __construct($name, $content, $type="placeholder"){
+  public function __construct($name, $content, $type="placeholder", $password=false){
     $this->_id = $name;
     $this->_name = $name;
     $this->_type = "text";
     $this->_content = $content;
+    if($password){$this->_type = "password";}
     if($type == "placeholder") {
       $this->_format = ' placeholder=';
     } else {
@@ -90,7 +94,7 @@ class Text extends Input {
   }
   
   /**
-   * turn the edit feild controler to small sized boxes.
+   * turn the edit field controler to small sized boxes.
    */
   public function editFieldSmall(){
     $this->_edit_field_type = "edit-field-wine";
