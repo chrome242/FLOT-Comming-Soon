@@ -66,6 +66,10 @@ $groups_disp = array( "Id" => array("rights_id" => "id"),
                       "add" => array("add" => "button, large")
                       );
 
+$users_edit = array("Id" => array("user_id" => "id"),
+                    "Name" => array("user_name" => "plain"),
+                    "Group" => array("user_group" => "select")
+                    );
 
 //***************************************************************************//
 
@@ -83,6 +87,7 @@ echo sectionbar($sectionWrappers);
 //***************** Final Variable Processing & Cleaning *******************//
 // Fututre home of SQL & $_POST processing methods
 $processed_group_cells = $test_group_cells;
+$group_special_cells = $test_group_special_cells;
 //$processed_user_cells = $test_user_cells;
 //***************************************************************************//
 
@@ -90,7 +95,7 @@ $processed_group_cells = $test_group_cells;
 //********************************* Content *********************************//
 // User Group drop //
 $groupsTable = new Table("userGroups", $processed_group_cells, $groups_disp,
-                         $groups_edit, array(3));
+                         $groups_edit, $group_special_cells);
 
 // echo the table
 echo '      <div class="collapse" id="userGroups"> <!-- Group Definitions -->';

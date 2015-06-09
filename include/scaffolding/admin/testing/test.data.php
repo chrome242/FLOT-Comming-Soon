@@ -332,6 +332,7 @@ $test_group_cells = array(array("rights_id" => 1,
                                 "add" => "add"
                                 )
                          );
+$test_group_special_cells = array(3);
 
 $smallTest = array("Record ID" => array("Key 1" => "value 1", "Key 2" => "value 2"));
 

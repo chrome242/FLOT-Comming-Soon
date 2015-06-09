@@ -58,7 +58,7 @@
  * private - placed in the internal cell array as basic text (h) (b)
  * plain - a basic cell (b)
  * radio, # - a radio set of # cells
- * select, x(o), y(o), z(o) where x = selected value(o), y= multiple(o), z= size(o)(b)
+ * select, x(o), y(o), z(o) where x = default value(o), y= multiple(o), z= size(o)(b)
  * text, x = a text entry where x = text or placeholder (b)
  * textarea, x, y(o), z(o), where x = text or placeholder y= rows(o), z= colspan(o)(b)
  * time, x - a timestamp where x = show or private (h)(b)
@@ -353,10 +353,22 @@ class Row {
         // select cells
         if(stripos($format[$name], 'select') !== false){
           
+          $inner_value = $value;
+          
+          // check if the value is an 2 dimensional array, if that is the case
+          // then the first arg is array of values and the second arg is the
+          // selected value
+          if (is_array($value[0])){
+            $inner_value = $value[0];
+            $selected = $value[1];
+          }
+          
           // if it has args
           if(stripos($format[$name], 'select,') !== false){
             $pieces = explode(",", $format[$name]);
-            $selected = trim($pieces[1]);
+            if(!isset($selected) && $pieces[1] != 'none'){
+             $selected = trim($pieces[1]); //default selected value
+            }
             $mutiple = null;
             $size = null;
             
@@ -365,11 +377,17 @@ class Row {
               if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
             }
             
-            $this->_cells[$cell_name] = new Select($cell_name, $value, $selected, $mutiple, $size);
+            $this->_cells[$cell_name] = new Select($cell_name, $inner_value,
+                                                   $selected, $mutiple, $size);
           }
           // if no args
           if(stripos($format[$name], 'select,') === false){
-            $this->_cells[$cell_name] = new Select($cell_name, $value);
+            if(!isset($selected)){
+              $this->_cells[$cell_name] = new Select($cell_name, $inner_value);
+            }
+            else {
+              $this->_cells[$cell_name] = new Select($cell_name, $inner_value, $selected);
+            }
           }
           
           if($protected){
