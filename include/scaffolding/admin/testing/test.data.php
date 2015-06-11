@@ -335,7 +335,7 @@ $test_group_cells = array(array("rights_id" => 1,
 $test_group_special_cells = array(3);
 
 $user_group_names = array(1 => "Owner", 2=> "Manager", 3 => "Bartender", 4 => "Waitstaff");
-$user_special_cells = array(2);
+$user_special_cells_test = array(2);
 $users_test = array(array("user_id" => "1",
                           "user_name" => "Tom",
                           "user_group" => "Owner",

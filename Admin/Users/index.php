@@ -117,7 +117,7 @@ echo sectionbar($sectionWrappers);
 $processed_group_cells = $test_group_cells;
 $group_special_cells = $test_group_special_cells;
 $processed_user_cells = $test_user_cells;
-$user_specal_cells = $test_
+$user_specal_cells = $user_special_cells_test;
 //***************************************************************************//
 
 
