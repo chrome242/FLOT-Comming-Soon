@@ -15,6 +15,9 @@ include_once(SCAFFOLDING_ADMIN."list/list.php"); // list
 // Section Settings:
 $root = ADMIN;
 
+// definitions
+
+define(FOOD_PROCESSING, PROCESSING_ADMIN."plates.process.php");
 
 // Test files
 include_once(SCAFFOLDING_ADMIN."testing/test.data.php");
