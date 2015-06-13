@@ -60,13 +60,38 @@ function processTypes($form_name, $sql_object, $post_output){
   
   if($update){
 
-    // TODO: check to see if there's been a drop, if so, conduct the drop
+    // Deal with Drops
     if(isset($drop_cell)){
       $sql_object->query("DELETE from " . $form_name . " WHERE id=".$drop_cell);
       unset($form[$drop_cell]);
       $results = $sql_object->query("SELECT * FROM ".$form_name." ORDER BY id");    
     }
-    // TODO: update SQL record when these options are picked.
+    // Update Existing SQL records
+    foreach ($form as $record_id => $record) {
+      if(is_numeric($record_id)){
+        foreach($record as $fieldname => $value){
+          $sql = "UPDATE $form_name SET $fieldname = $value WHERE id = $record_id";
+          $sql_object->query($sql);
+        }
+      // Insert New SQL Records
+      } else {
+        $sql = "INSERT INTO $form_name";
+        $fields = "(";
+        $values = "VALUES (";
+        foreach($record as $fieldname => $value){
+          $fields .= $fieldname;
+          $values .= "'". $value . "'";
+        }
+        $fields .= ") ";
+        $values .= ")";
+        $sql .= $fields . $values;
+        $sql_object->query($sql);
+      }
+      
+      // get updated SQL
+      $results = $sql_object->query("SELECT * FROM ".$form_name." ORDER BY id");
+      
+    }   
     // TODO: reload the SQL and set the $sql_output to the new load
     
     // TODO: if the update isn't from a drop, in addition to updates, insert
