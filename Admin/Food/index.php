@@ -62,7 +62,7 @@ echo menubar($permissions, $section, $root);
 //***************** Final Variable Processing & Cleaning *******************//
 // Fututre home of SQL & $_POST processing methods
 include(FOOD_PROCESSING);
-
+testSQL($mysqli);
 $processed_food_cells = $test_food_trial;
 $processed_food_settings = $test_food_setti;
 $processed_dish_cells = $test_pantab_trial;
