@@ -18,10 +18,10 @@ include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 
 
 //******************* Header & Format Arrays For Dishes *********************//
-$dish_type_rules = array("food_type_name" =>
-                         array("active" => ["editText", false]),
-                         array("static" => ["editPlain", false]),
-                         array("new" => ["addText", false])
+$dish_type_rules = array("food_type_name" =>array(
+                         "active" => ["editText", false],
+                         "static" => ["editPlain", false],
+                         "new" => ["addText", false])
                         );
 
 $dishes_edit = array( "Id" => array("food_id" => "id"), // id
@@ -69,14 +69,16 @@ echo menubar($permissions, $section, $root);
 // Fututre home of SQL & $_POST processing methods
 include(FOOD_PROCESSING);
 //testSQL($mysqli);
-//$test = sqlToSmallTable($mysqli, 'foodType');
-//$test2 = postToSmallTable($_POST, 'foodType');
-//$test3 = mergeTableArrays($test, $test2);
-//echo "<pre>";
-//var_dump ($test);
-//var_dump ($test2);
-//var_dump ($test3);
-//echo "</pre>";
+$test = sqlToSmallTable($mysqli, 'foodType');
+$test2 = postToSmallTable($_POST, 'foodType');
+addNewRecord($test2, $dish_type_rules);
+$test5 = mergeTableArrays($test, $test2);
+$test6 = setSmallTypes($test5, $test2, $dish_type_rules, $addNew=true);
+echo "<pre>";
+var_dump ($test5);
+echo "-------------------------------------------<br>";
+var_dump ($test6);
+echo "</pre>";
 $processed_food_cells = $test_food_trial;
 $processed_food_settings = $test_food_setti;
 $processed_dish_cells = $test_pantab_trial;
