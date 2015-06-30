@@ -164,7 +164,7 @@ function updateDB($table, &$active_array, $mysqli, $id='id'){
  */
 function insertToDB($table, $item_record, $mysqli){
   
-  $statement = "INSERT INTO $table";
+  $statement = "INSERT INTO $table ";
   
   // implode the array keys
   $statement .= " (".implode(", ", array_keys($item_record)).")";
@@ -188,7 +188,31 @@ function insertToDB($table, $item_record, $mysqli){
  *
  * @return str the SQL insert statement.
  */
-function updateRecordDB($table, $item_id, $item_record, $id){}
+function updateRecordDB($table, $item_id, $item_record, $mysqli, $id){
+  
+  $first_item = true;
+  
+  // Start the statement
+  $statement = "UPDATE $table";
+  
+  // check each value
+  foreach($item_record as $field => $value){
+    // if the first item, toggle it off when done
+    if($first_item){
+      $statement .= " SET $field='$value'";
+      $first_item = false;
+    }
+    // do the remainder
+    else{
+      $statement .=" , $field='$value'";
+    }
+  }
+  
+  // close it.
+  $statement .=" WHERE $id=$item_id";
+  
+  return $statement;
+}
 
 /**
  * A function that checks the array for keys of the format n# and returns
@@ -213,6 +237,24 @@ function getNumberNew($array){
 	}
 
 	return $newcount . 'n';
+}
+
+
+/** UNTESTED
+ *  -- FOR AN EDIT --
+ *  Takes an item from the static array and copies it on to the active array.
+ *  This has the effect of, when used in combination with array merge and
+ *  set(size)Type, of setting a record to into edit mode for display. 
+ *
+ *  @param str $record_id the id of the record to edit
+ *  @param array $static_source the processed from sql array of statics
+ *  @param array $active_source the processed from $_POST array of actives
+ *
+ *  No return, all side effects
+ *  
+ */
+function passiveToActive($record_id, $static_source, &$active_source){
+  $active_source[$record_id] = $static_source[$record_id];
 }
 
 
