@@ -2,7 +2,8 @@
 // Open the Database Connection and Select the Correct DB credientals //
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
 require_once(INCLUDES."db_con.php");
-include_once(PROCESSING_ADMIN."array.helpers.php");
+include_once(PROCESSING_ADMIN."smallTable.array.helpers.php");
+include_once(PROCESSING_ADMIN."smallTable.interaction.helpers.php");
 
 function testSQL($mysqli){
   $results = $mysqli->query("SELECT * FROM foodType ORDER BY id");
