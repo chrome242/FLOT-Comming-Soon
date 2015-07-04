@@ -66,8 +66,7 @@ echo menubar($permissions, $section, $root);
 
 
 //****************** Process the plates tables and Data: ********************//
-// this file has the functions that do the bulk of the work for the processing.
-
+// include the file for processing the Dish Types
 include(FOOD_PROCESSING);
 
 // make the two arrays of contents match in format
@@ -75,23 +74,17 @@ $platesSQL = $test_food_trial;
 //$platesSQL = sqlToSmallTable($mysqli, 'foodType');
 $platesPOST = postToSmallTable($_POST, 'foodType');
 
-// do any work that needs be done to the arrays
+// processTypes will do all the new SQL and array updates.
 //echo "<pre>";
+testUpdatedSelector("foodType", $_POST);
 testSelector("foodType", $_POST, $platesSQL, $platesPOST);
+processTypes("foodType", $mysqli, $_POST, $dish_type_rules, $platesSQL, $platesPOST);
+
+// Now that any updates are tested for, do the final build of the object.
 $platesMERGE = mergeTableArrays($platesSQL, $platesPOST);
-//var_dump($platesMERGE);
 $platesTYPE = setSmallTypes($platesMERGE, $platesPOST, $dish_type_rules, $addNew=true);
 
-//echo"</pre>";
-//echo "<pre>";
-//var_dump ($platesMERGE);
-////var_dump ($test_food_trial[5]);
-//echo "-------------------------------------------<br>";
-//var_dump ($platesTYPE);
-////var_dump ($test_food_setti[5]);
-//echo "</pre>";
-//$processed_food_cells = $test_food_trial;
-//$processed_food_settings = $test_food_setti;
+
 $processed_dish_cells = $test_pantab_trial;
 $processed_active_rows = $test_active;
 //***************************************************************************//

@@ -1,14 +1,19 @@
 <?php
-// Open the Database Connection and Select the Correct DB credientals //
+
+// *** Open the Database Connection and Select the Correct DB credientals *** //
+
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
 require_once(INCLUDES."db_con.php");
 include_once(PROCESSING_ADMIN."post.array.helpers.php");
 include_once(PROCESSING_ADMIN."smallTable.array.helpers.php");
 include_once(PROCESSING_ADMIN."smallTable.interaction.helpers.php");
 
+// ************************************************************************** //
 
-// passes
-function testSQL($mysqli){
+
+// *************** Testing functions. To be moved out later. **************** //
+
+function testSQL($mysqli){ //PASSED
   $results = $mysqli->query("SELECT * FROM foodType ORDER BY id");
   echo"<pre>";
   while($row = $results->fetch_array(MYSQLI_ASSOC)){
@@ -17,29 +22,43 @@ function testSQL($mysqli){
   echo"</pre>";
 }
 
-// passes
-function testSelector($form_name, $post_output, $processedSQL, &$processed_POST){
+function testSelector($form_name, $post_output, $processedSQL, &$processed_POST){ //PASSED
   if(isset($post_output[$form_name.'-new'])){ echo"New";}
   if(isset($post_output[$form_name.'-drop'])){ echo "Drop: ".$post_output[$form_name.'-drop'];}
   if(isset($post_output[$form_name.'-update'])){echo "Update";}
   if(isset($post_output[$form_name.'-edit'])){
-    $record_id = trimRecord($post_output[$form_name.'-edit']);
+    $record_id = trimNumber($post_output[$form_name.'-edit']);
     echo "Edit: ". $record_id . "<br>";
     testEdit($record_id, $processedSQL, $processed_POST);
     }
 }
 
-// passes
-function testEdit($record_id, $processedSQL, &$processed_POST){
+function testUpdatedSelector($form_name, $post){  //PASSED
+  echo "<pre>";
+  var_dump(standardSelector($form_name, $post));
+  echo "</pre>";
+}
+
+function testEdit($record_id, $processedSQL, &$processed_POST){ // PASSED
   //var_dump($processed_POST);
   passiveToActive($record_id, $processedSQL, $processed_POST);
   //var_dump($processed_POST);
 }
+// ************************************************************************** //
 
 
-function standardSelector($form_name){}
-
- function processTypes($form_name, $sql_obj, $php_array, &$processedSQL, &$processedPOST){}
+function processTypes($form_name, $sql_obj, $post_array, $type_rules,
+                      &$processedSQL, &$processedPOST){
+  
+  // determine what type of submit button was pressed
+  $type_of_submit = standardSelector($form_name, $post_array);
+  
+  // for a new entry
+  if($type_of_submit[0] == "new"){
+    addNewRecord($processedPOST, $type_rules);
+  }
+  
+}
 /**
  * processes data from SQL and updates from $_POST and formats for an object of
  * the class small table. Returns an array processed from the two for the types
