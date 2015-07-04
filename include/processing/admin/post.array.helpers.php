@@ -25,7 +25,8 @@ function trimNumber($record){
  * Checks the $_POST super global for a clicked button that sets a return with
  * the format of [formname-job], and if is found, returns the job type, and the
  * record to do it to, if applicabale, as an array of the order [jobtype,
- * record(o)] returns an empty array otherwise.
+ * record(o)] returns an empty array otherwise. Esentally, this is a jazzed up
+ * enum with the option to pass though a variable as well.
  *
  * @param str $form_name: the name of the form to search the $_POST array for
  * @param array $post: the $_POST superglobal or a subset thereof

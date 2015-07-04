@@ -17,7 +17,7 @@ $root = ADMIN;
 
 // definitions
 
-define("FOOD_PROCESSING", PROCESSING_ADMIN."plates.process.php");
+define("PLATE_HANDLER", PROCESSING_ADMIN."plates.handler.php");
 
 // Test files
 include_once(SCAFFOLDING_ADMIN."testing/test.data.php");

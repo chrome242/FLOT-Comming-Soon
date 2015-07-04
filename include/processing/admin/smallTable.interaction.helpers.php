@@ -42,7 +42,7 @@ function passiveToActive($record_id, $static_source, &$active_source){
 
 
 
-/** UNTESTED
+/**
  * --FOR A DROP--
  * Removes a record from both the active array and the mysqli DB.
  * Checks to see if the record is established or new (has an n in the name)
@@ -73,7 +73,7 @@ function removeRecord($record_id, $table, &$static_source, &$active_array, $mysq
 
 
 
-/** UNTESTED
+/** 
  *  -- FOR AN UPDATE --
  *  updates the DB on every item in the active record. If the item has an
  *  established ID, then it updates the record otherwise, it adds a new record
@@ -100,16 +100,16 @@ function updateDB($table, &$active_array, $mysqli, $id='id'){
     }
     else{
       // call record update function if not new.
-      updateRecordDB($table, $item_id, $item_record, $id);
+      $sql = updateRecordDB($table, $item_id, $item_record, $mysqli, $id);
     }
     
     // if not null then do query
     if($sql != null){$mysqli->query($sql);}
     
   }
-  
   // clear the active array
-  unset($active_array);
+  $active_array = array();
+
 }
 
 
@@ -134,6 +134,9 @@ function insertToDB($table, $item_record, $mysqli){
    // implode values of the array
    $statement .= " VALUES ('".implode("', '", $item_record)."') ";
    
+   // check for empty values
+   foreach($item_record as $value){if($value == ""){$statement = null;}}
+   
    return $statement;
    
 }
@@ -155,6 +158,7 @@ function insertToDB($table, $item_record, $mysqli){
 function updateRecordDB($table, $item_id, $item_record, $mysqli, $id){
   
   $first_item = true;
+  $empty_value = false;
   
   // Start the statement
   $statement = "UPDATE $table";
@@ -170,11 +174,14 @@ function updateRecordDB($table, $item_id, $item_record, $mysqli, $id){
     else{
       $statement .=" , $field='$value'";
     }
+    
+    if($value == ""){$empty_value = true;}
   }
   
   // close it.
   $statement .=" WHERE $id=$item_id";
   
+  if($empty_value){return null;}
   return $statement;
 }
 

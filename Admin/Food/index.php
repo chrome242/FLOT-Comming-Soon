@@ -18,11 +18,6 @@ include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 
 
 //******************* Header & Format Arrays For Dishes *********************//
-$dish_type_rules = array("food_type_name" =>array(
-                         "active" => ["editText", false],
-                         "static" => ["editPlain", false],
-                         "new" => ["addText", false])
-                        );
 
 $dishes_edit = array( "Id" => array("food_id" => "id"), // id
                       "Plate"=> array("food_name" => "text, value"), // plain
@@ -66,32 +61,19 @@ echo menubar($permissions, $section, $root);
 
 
 //****************** Process the plates tables and Data: ********************//
-// include the file for processing the Dish Types
-include(FOOD_PROCESSING);
+// This file inclues all items need for plate model construction.
+include(PLATE_HANDLER);
 
-// make the two arrays of contents match in format
-//$platesSQL = $test_food_trial;
-$platesSQL = sqlToSmallTable($mysqli, 'foodType');
-$platesPOST = postToSmallTable($_POST, 'foodType');
+//***************************************************************************//
 
 
-// processTypes will do all the new SQL and array updates.
-//echo "<pre>";
-testUpdatedSelector("foodType", $_POST);
-testSelector("foodType", $_POST, $platesSQL, $platesPOST);
-processTypes("foodType", $mysqli, $_POST, $dish_type_rules, $platesSQL, $platesPOST);
-
-// Now that any updates are tested for, do the final build of the object.
-$platesMERGE = mergeTableArrays($platesSQL, $platesPOST);
-$platesTYPE = setSmallTypes($platesMERGE, $platesPOST, $dish_type_rules, $addNew=true);
-
-
+//****************** Process the dish tables and Data: **********************//
 $processed_dish_cells = $test_pantab_trial;
 $processed_active_rows = $test_active;
 //***************************************************************************//
 
 
-//********************************* Content *********************************//
+//**************************** View Construction ****************************//
 // Plate Type Display and Editing Panel //
 //$plates = new SmallTable("foodType", $processed_food_cells, $processed_food_settings, 4);
 $plates = new SmallTable("foodType", $platesMERGE, $platesTYPE, 4);
