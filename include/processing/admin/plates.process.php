@@ -48,7 +48,7 @@ function testEdit($record_id, $processedSQL, &$processed_POST){ // PASSED
 
 
 function processTypes($form_name, $sql_obj, $post_array, $type_rules,
-                      &$processedSQL, &$processedPOST){
+                      &$processedSQL, &$processedPOST, $pkey="id"){
   
   // determine what type of submit button was pressed
   $type_of_submit = standardSelector($form_name, $post_array);
@@ -61,6 +61,15 @@ function processTypes($form_name, $sql_obj, $post_array, $type_rules,
     passiveToActive($type_of_submit[1], $processedSQL, $processedPOST);
   }
   
+  // on a delete, the specific record gets changed, but it should not be assumed
+  // that anything else has been finalized to be altered. So a drop will either
+  // drop a new record if it has not been posted yet, or it will drop an existing
+  // record and it's references in the database. AGAIN, it will NOT update or
+  // insert to the database for other records.
+  if($type_of_submit[0] == "drop"){
+    removeRecord($type_of_submit[1], $form_name, $processedSQL,
+                 $processedPOST, $sql_obj, $pkey);
+  }
 }
 /**
  * processes data from SQL and updates from $_POST and formats for an object of

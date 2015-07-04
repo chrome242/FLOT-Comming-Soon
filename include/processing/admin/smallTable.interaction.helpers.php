@@ -51,12 +51,13 @@ function passiveToActive($record_id, $static_source, &$active_source){
  *
  * @param str $record_id the id of the record to be removed
  * @param str $table the mysql table to remove the record from.
+ * @param array $static_source the processed from sql array of statics
  * @param array $active_array the array of active records
  * @param obj $mysqli the mysqli connection object
  *
  * No return
  */
-function removeRecord($record_id, $table, &$active_array, $mysqli, $id='id'){
+function removeRecord($record_id, $table, &$static_source, &$active_array, $mysqli, $id='id'){
   // the n term will never == pos 0, so can do this with some lose casting
   if(strpos($record_id, 'n')){ $in_db = false;} else { $in_db = true;}
   
@@ -66,6 +67,7 @@ function removeRecord($record_id, $table, &$active_array, $mysqli, $id='id'){
     $mysqli->query($query);
   }
   
+  unset($static_source[$record_id]);
   unset($active_array[$record_id]);
 }
 

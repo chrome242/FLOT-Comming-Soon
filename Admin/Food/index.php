@@ -70,9 +70,10 @@ echo menubar($permissions, $section, $root);
 include(FOOD_PROCESSING);
 
 // make the two arrays of contents match in format
-$platesSQL = $test_food_trial;
-//$platesSQL = sqlToSmallTable($mysqli, 'foodType');
+//$platesSQL = $test_food_trial;
+$platesSQL = sqlToSmallTable($mysqli, 'foodType');
 $platesPOST = postToSmallTable($_POST, 'foodType');
+
 
 // processTypes will do all the new SQL and array updates.
 //echo "<pre>";
