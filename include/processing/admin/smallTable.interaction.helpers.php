@@ -23,7 +23,7 @@ function addNewRecord(&$active_array, $typeRules){
 
 
 
-/** UNTESTED
+/**
  *  -- FOR AN EDIT --
  *  Takes an item from the static array and copies it on to the active array.
  *  This has the effect of, when used in combination with array merge and

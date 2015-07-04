@@ -53,9 +53,12 @@ function processTypes($form_name, $sql_obj, $post_array, $type_rules,
   // determine what type of submit button was pressed
   $type_of_submit = standardSelector($form_name, $post_array);
   
-  // for a new entry
-  if($type_of_submit[0] == "new"){
+  // first check the options that don't include SQL access.
+  if($type_of_submit[0] == "new"){ // for a new entry
     addNewRecord($processedPOST, $type_rules);
+  }
+  if($type_of_submit[0] == "edit"){ // for an edit
+    passiveToActive($type_of_submit[1], $processedSQL, $processedPOST);
   }
   
 }
