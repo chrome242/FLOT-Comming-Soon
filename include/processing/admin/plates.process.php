@@ -2,9 +2,12 @@
 // Open the Database Connection and Select the Correct DB credientals //
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
 require_once(INCLUDES."db_con.php");
+include_once(PROCESSING_ADMIN."post.array.helpers.php");
 include_once(PROCESSING_ADMIN."smallTable.array.helpers.php");
 include_once(PROCESSING_ADMIN."smallTable.interaction.helpers.php");
 
+
+// passes
 function testSQL($mysqli){
   $results = $mysqli->query("SELECT * FROM foodType ORDER BY id");
   echo"<pre>";
@@ -14,6 +17,29 @@ function testSQL($mysqli){
   echo"</pre>";
 }
 
+// passes
+function testSelector($form_name, $post_output, $processedSQL, &$processed_POST){
+  if(isset($post_output[$form_name.'-new'])){ echo"New";}
+  if(isset($post_output[$form_name.'-drop'])){ echo "Drop: ".$post_output[$form_name.'-drop'];}
+  if(isset($post_output[$form_name.'-update'])){echo "Update";}
+  if(isset($post_output[$form_name.'-edit'])){
+    $record_id = trimRecord($post_output[$form_name.'-edit']);
+    echo "Edit: ". $record_id . "<br>";
+    testEdit($record_id, $processedSQL, $processed_POST);
+    }
+}
+
+// passes
+function testEdit($record_id, $processedSQL, &$processed_POST){
+  //var_dump($processed_POST);
+  passiveToActive($record_id, $processedSQL, $processed_POST);
+  //var_dump($processed_POST);
+}
+
+
+function standardSelector($form_name){}
+
+ function processTypes($form_name, $sql_obj, $php_array, &$processedSQL, &$processedPOST){}
 /**
  * processes data from SQL and updates from $_POST and formats for an object of
  * the class small table. Returns an array processed from the two for the types
@@ -23,7 +49,7 @@ function testSQL($mysqli){
  * @param array $sql_output an array of the form id => array(K=>V)
  * @param array $post_output the post file
  */
-function processTypes($form_name, $sql_object, $post_output){
+function processTypesOLD($form_name, $sql_object, $post_output){
   // Do the inital SQL querry and get the form, if it's set:
   $results = $sql_object->query("SELECT * FROM ".$form_name." ORDER BY id");
   if(isset($post_output[$form_name])){$form = $post_output[$form_name];}

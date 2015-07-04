@@ -211,15 +211,13 @@ $test_size_spec = array(5 => "new");
 $test_food_trial = array(1 => array("food_type_name" => "Appetizer"),
                          2 => array("food_type_name" => "Tapas"),
                          3 => array("food_type_name" => "Full Plate"),
-                         4 => array("food_type_name" => "Dessert"),
-                         5 => array("food_type_name" => "")); 
+                         4 => array("food_type_name" => "Dessert")); 
 
 
 $test_food_setti = array(1 => array("food_type_name" => ["editPlain", false]),
                          2 => array("food_type_name" => ["editPlain", false]),
                          3 => array("food_type_name" => ["editText", false]),
-                         4 => array("food_type_name" => ["editPlain", false]),
-                         5 => array("food_type_name" => ["addText", false]));
+                         4 => array("food_type_name" => ["editPlain", false]));
 
 // Panel Table Test
 $test_pantab_trial = array( array("food_id" => 1, // id

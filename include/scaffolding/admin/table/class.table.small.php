@@ -70,7 +70,7 @@ class SmallTable extends Table{
    */
   public function __construct($name, $cells, $format, $cols){
     $this->_name = $name;
- 
+  
     $this->_format = $format;
     $this->_rows = $cols;
     

@@ -65,22 +65,33 @@ echo menubar($permissions, $section, $root);
 //***************************************************************************//
 
 
-//***************** Final Variable Processing & Cleaning *******************//
-// Fututre home of SQL & $_POST processing methods
+//****************** Process the plates tables and Data: ********************//
+// this file has the functions that do the bulk of the work for the processing.
+
 include(FOOD_PROCESSING);
-//testSQL($mysqli);
-$test = sqlToSmallTable($mysqli, 'foodType');
-$test2 = postToSmallTable($_POST, 'foodType');
-addNewRecord($test2, $dish_type_rules);
-$test5 = mergeTableArrays($test, $test2);
-$test6 = setSmallTypes($test5, $test2, $dish_type_rules, $addNew=true);
-echo "<pre>";
-var_dump ($test5);
-echo "-------------------------------------------<br>";
-var_dump ($test6);
-echo "</pre>";
-$processed_food_cells = $test_food_trial;
-$processed_food_settings = $test_food_setti;
+
+// make the two arrays of contents match in format
+$platesSQL = $test_food_trial;
+//$platesSQL = sqlToSmallTable($mysqli, 'foodType');
+$platesPOST = postToSmallTable($_POST, 'foodType');
+
+// do any work that needs be done to the arrays
+//echo "<pre>";
+testSelector("foodType", $_POST, $platesSQL, $platesPOST);
+$platesMERGE = mergeTableArrays($platesSQL, $platesPOST);
+//var_dump($platesMERGE);
+$platesTYPE = setSmallTypes($platesMERGE, $platesPOST, $dish_type_rules, $addNew=true);
+
+//echo"</pre>";
+//echo "<pre>";
+//var_dump ($platesMERGE);
+////var_dump ($test_food_trial[5]);
+//echo "-------------------------------------------<br>";
+//var_dump ($platesTYPE);
+////var_dump ($test_food_setti[5]);
+//echo "</pre>";
+//$processed_food_cells = $test_food_trial;
+//$processed_food_settings = $test_food_setti;
 $processed_dish_cells = $test_pantab_trial;
 $processed_active_rows = $test_active;
 //***************************************************************************//
@@ -88,7 +99,8 @@ $processed_active_rows = $test_active;
 
 //********************************* Content *********************************//
 // Plate Type Display and Editing Panel //
-$plates = new SmallTable("foodType", $processed_food_cells, $processed_food_settings, 4);
+//$plates = new SmallTable("foodType", $processed_food_cells, $processed_food_settings, 4);
+$plates = new SmallTable("foodType", $platesMERGE, $platesTYPE, 4);
 $platesPanel = new Panel("Plate Types", $plates);
 $platesPanel->addButton();
 

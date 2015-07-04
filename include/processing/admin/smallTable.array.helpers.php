@@ -110,7 +110,7 @@ function mergeTableArrays($static_source, $active_source){
  *
  * @return array the formating array for the table.
  */
-function setSmallTypes($mergedArray, $postArray, $typeRules, $addNew=true){
+function setSmallTypes(&$mergedArray, $postArray, $typeRules, $addNew=true){
 	$type_array = array(); // for the return
 	foreach ($mergedArray as $key => $fields){
 		$type_array[$key] =array();
@@ -123,14 +123,13 @@ function setSmallTypes($mergedArray, $postArray, $typeRules, $addNew=true){
 		}
 	}
 	if($addNew){
-		$newcount = getNumberNew($mergedArray);
-		// this number will change if there is already new cells (eg n1)
-		$mergedArray[$newcount] = array();
+		if(isset($mergedArray["add"])){unset($mergedArray["add"]);}
+		$mergedArray["add"] = array();
 		foreach($typeRules as $key => $value){
 			// add new values
-			$mergedArray[$newcount][$key] = "";
+			$mergedArray["add"][$key] = "";
       if(isset($typeRules[$key]["new"])){
-        $type_array[$newcount][$key] = $typeRules[$key]["new"];
+        $type_array["add"][$key] = $typeRules[$key]["new"];
       }
 		}
 	}
