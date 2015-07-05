@@ -179,13 +179,13 @@ $test_drink_trial = array(1 => array("drink_type_name" => "Amber Ale",
 
 
 $test_drink_setti = array(1 => array("drink_type_name" => ["editPlain", false],
-                                    "drink_type_desc" => ["textArea, value, 3, 4", true]),
+                                    "drink_type_desc" => ["dropArea, value, 3, 4", true]),
                          2 => array("drink_type_name" => ["editPlain", false],
-                                    "drink_type_desc" => ["textArea, value, 3, 4", true]),
+                                    "drink_type_desc" => ["dropArea, value, 3, 4", true]),
                          3 => array("drink_type_name" => ["editPlain", false],
-                                    "drink_type_desc" => ["textArea, value, 3, 4", true]),
+                                    "drink_type_desc" => ["dropArea, value, 3, 4", true]),
                          4 => array("drink_type_name" => ["editPlain", false],
-                                    "drink_type_desc" => ["textArea, value, 3, 4", true]),
+                                    "drink_type_desc" => ["dropArea, value, 3, 4", true]),
                          19 => array("drink_type_name" => ["addText", false]));
 
 
@@ -205,19 +205,7 @@ $test_size_spec = array(5 => "new");
 //********************************Food***************************************//
 
 // Content Testing //
-// Small Table Test - the method should pull from the SQL and then it should //
-// add the last line automatically. If a post variable exist for the table //
-// then the post variable should be used rather then the SQL source //
-$test_food_trial = array(1 => array("food_type_name" => "Appetizer"),
-                         2 => array("food_type_name" => "Tapas"),
-                         3 => array("food_type_name" => "Full Plate"),
-                         4 => array("food_type_name" => "Dessert")); 
 
-
-$test_food_setti = array(1 => array("food_type_name" => ["editPlain", false]),
-                         2 => array("food_type_name" => ["editPlain", false]),
-                         3 => array("food_type_name" => ["editText", false]),
-                         4 => array("food_type_name" => ["editPlain", false]));
 
 // Panel Table Test
 $test_pantab_trial = array( array("food_id" => 1, // id

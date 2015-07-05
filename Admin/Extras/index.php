@@ -16,26 +16,7 @@ include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 // TODO: Process the user's permission array from the session
 // $permissions = $_COOKIE["admin_permissions"];
 
-//******************* Header & Format Arrays For Dishes *********************//
-$dishes_edit = array( "Id" => array("food_id" => "id"), // id
-                      "Plate"=> array("food_name" => "text, value"), // plain
-                      "Type" => array("food_type" => "select, 1"), //select
-                      "Price" => array("food_price" =>
-                                       "number, value, .01, 8"), // number
-                      "Edit" => array("edit" => "button, large"),  // button
-                      "newrow" => array("newrow" => "newrow"), // number
-                      "spacer" => array("spacer" => "plain"),  // plain
-                      "food_desc" =>array("food_desc" =>
-                                          "textarea, value, 3, 4") // text area
-                      );
 
-$dishes_display = array("Id" => array("food_id" => "id"), // id
-                        "Plate"=> array("food_name" => "plain"), // plain
-                        "Type" => array("food_type" => "plain"), //select
-                        "Price" => array("food_price" => "plain"), // number
-                        "Edit" => array("edit" => "button, large")  // button
-                        );
-//***************************************************************************//
 
 
 //******************** Open The Page & Display Menu Bar *********************//

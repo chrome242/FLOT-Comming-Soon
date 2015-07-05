@@ -39,6 +39,7 @@
  * (sets text to text)
  * addText - an edit cell set to disabled with a add cell button
  * (sets text to placeholder)
+ * dropArea - a text area with a drop button.
  */
 class SmallTable extends Table{ 
   
@@ -136,6 +137,8 @@ class SmallTable extends Table{
       $thisCell->showDetails();
       $thisCell->addButton($this->_name, $cellName, "edit", "glyphicon-cog", false, false, true);
     }
+    
+
     //button cell      
     if($cellType === 'button'){ $thisCell = new Button($this->_tableName, $cellName, $value); }
     
@@ -182,6 +185,22 @@ class SmallTable extends Table{
       $thisCell = new Textarea($cellName, $value, $type, $row, $colspan);
   
     }
+    
+        if(stripos($cellType, 'dropArea,') !== false){
+      $pieces = explode(",", $cellType);
+      $type = trim($pieces[1]);
+      $row = null;
+      $colspan = null;
+      
+      if (count($pieces) > 2){
+        if ($pieces[2] != 'none'){$row = trim($pieces[2]);}
+        if ($pieces[3] != 'none'){$colspan = trim($pieces[3]);}
+      }
+      
+      $thisCell = new Textarea($cellName, $value, $type, $row, $colspan);
+      $thisCell->addButton($this->_name, $cellName, "drop", "Drop", "large", false, true);
+    }
+    
     return $thisCell;
   }
   

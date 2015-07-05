@@ -89,7 +89,7 @@ class Textarea extends Input {
     
     foreach($this->_buttons as $button){
       $content .='
-                  '. $button .'';
+                    '. $button .'';
     }
     
     return $content;
