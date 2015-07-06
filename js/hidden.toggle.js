@@ -25,6 +25,7 @@ $("body").on("click", "table tbody tr td button", function(event){
     
     //stop it from submitting
     event.preventDefault();
+    alert(value);
     
     //remove the class & add the down arrow
     button.span.toggleClass(CLOSED_BUTTON);
@@ -35,11 +36,23 @@ $("body").on("click", "table tbody tr td button", function(event){
     button.record = button.full.replace(BUTTON_LEAD,""); // the part w/o field
     
     //swap out the text for an input
-    // BIG GIANT TODO HERE
-    // TODO
-    // TODO
-    // TODO
+    // check to see if there is text ( a note on approach: you can't just check
+    // for the ammoutn of text == 0 because it will count all the non-text in
+    // the element as text but not display that stuff) So the fix is to check
+    // how many children elements the cell has (2 for with an input, 1 for with
+    // text), and respond to that if needed.
     
+    // check email to self for some ideas
+    
+        // if so, make it a val for an input
+        // construct the input using the info off the button
+          // make the cell from the ground up -
+            // get the button off the cell using child selector?
+            // alternately, build button based off button
+            // place the new input in.
+            // append button to the end.
+      // if there's no text, focus on the input
+
     //make the button active
     button.toggleClass('active');
     
@@ -51,6 +64,9 @@ $("body").on("click", "table tbody tr td button", function(event){
     hiddens = $(button.row.siblings()).find(":hidden"); // get all hidden rows
     hiddens.target = hiddens.find('textarea[name*="'+ button.record + '"]'); // find the target
     hiddens.target.parent().show(400); // show the target
+    
+    console.log($(button.cell).children().length);
+
     
   // When it's time to hide it...
   } else if (button.span.hasClass(OPEN_BUTTON)) { // if the down arrow
@@ -75,6 +91,12 @@ $("body").on("click", "table tbody tr td button", function(event){
     
     //hide the currently open row.
     button.row.siblings().find('textarea[name*="'+ button.record + '"]').parent().hide("fast");
+    
+    // for testing only, delete later
+  } else if (button.span.hasClass("glyphicon-plus")) {
+    event.preventDefault();
+
+    console.log($(button.cell).children().length);
   }
 });
 
