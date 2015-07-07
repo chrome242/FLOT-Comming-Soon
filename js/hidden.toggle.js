@@ -18,7 +18,7 @@ $("body").on("click", "table tbody tr td button", function(event){
   button.row = button.cell.parent(); // it's parent row
   button.neighbors = button.cell.siblings(); // the rest of the row
   value = button.cell.text(); // this might need to change to some exotic if statement
-  value = value.trim();
+  value = value.trim(); // clean the random spaces it puts on the end because IDK
   
   // check the type of icon, if it's either of the edit button states, do stuff
   if (button.span.hasClass(CLOSED_BUTTON)) { // if the cog
@@ -32,7 +32,7 @@ $("body").on("click", "table tbody tr td button", function(event){
     
     //get the record & number
     button.full = button.attr("value"); // the full name
-    button.record = button.full.replace(BUTTON_LEAD,""); // the part w/o field
+    button.record = button.full.replace(BUTTON_LEAD,""); // Strip the front off.
     
     // swap out the text for an input
     // check to see if there is text ( a note on approach: you can't just check
@@ -49,19 +49,12 @@ $("body").on("click", "table tbody tr td button", function(event){
       // the name and id of the input can be gotten from the button value
       var idName = button.val();
       // construct the input using the info off the button
-      var inputElement = '<input type="text" class="form-control edit-field-wine" id="' + idName + '" name = "' + idName +  '" value="' + value + '">'
+      var inputElement = '<input type="text" class="form-control edit-field-wine" id="'
+                          + idName + '" name = "' + idName +  '" value="' + value + '">';
       // append to the cell
-      $( button ).before( inputElement );
-      // <input type="text" class="form-control edit-field-wine"id="foodType[1][food_type_name]" name="foodType[1][food_type_name]" value="Tapas">
-      // <button type="submit" class="btn btn-primary edit-icon btn-sm active" id="foodType[1][food_type_name][foodType-edit]" name="foodType-edit" value="foodType[1][food_type_name]">
-      
+      $(button).before(inputElement);      
     }
     
-        // construct the input using the info off the button
-
-            // alternately, build button based off button
-            // place the new inpput in
-
     //make the button active
     button.toggleClass('active');
     
