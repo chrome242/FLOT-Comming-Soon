@@ -18,7 +18,7 @@ $("body").on("click", "table tbody tr td button", function(event){
   button.row = button.cell.parent(); // it's parent row
   button.neighbors = button.cell.siblings(); // the rest of the row
   value = button.cell.text(); // this might need to change to some exotic if statement
-  
+  value = value.trim();
   
   // check the type of icon, if it's either of the edit button states, do stuff
   if (button.span.hasClass(CLOSED_BUTTON)) { // if the cog
@@ -51,7 +51,7 @@ $("body").on("click", "table tbody tr td button", function(event){
       // construct the input using the info off the button
       var inputElement = '<input type="text" class="form-control edit-field-wine" id="' + idName + '" name = "' + idName +  '" value="' + value + '">'
       // append to the cell
-      $( button ).before( "<p>" + inputElement + "</p>" );
+      $( button ).before( inputElement );
       // <input type="text" class="form-control edit-field-wine"id="foodType[1][food_type_name]" name="foodType[1][food_type_name]" value="Tapas">
       // <button type="submit" class="btn btn-primary edit-icon btn-sm active" id="foodType[1][food_type_name][foodType-edit]" name="foodType-edit" value="foodType[1][food_type_name]">
       
