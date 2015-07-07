@@ -25,7 +25,6 @@ $("body").on("click", "table tbody tr td button", function(event){
     
     //stop it from submitting
     event.preventDefault();
-    alert(value);
     
     //remove the class & add the down arrow
     button.span.toggleClass(CLOSED_BUTTON);
@@ -35,23 +34,33 @@ $("body").on("click", "table tbody tr td button", function(event){
     button.full = button.attr("value"); // the full name
     button.record = button.full.replace(BUTTON_LEAD,""); // the part w/o field
     
-    //swap out the text for an input
+    // swap out the text for an input
     // check to see if there is text ( a note on approach: you can't just check
     // for the ammoutn of text == 0 because it will count all the non-text in
     // the element as text but not display that stuff) So the fix is to check
     // how many children elements the cell has (2 for with an input, 1 for with
     // text), and respond to that if needed.
+    if ($(button.cell).children().length == 1) {
+      
+      //if so, remove the text
+      $(button.cell).contents().filter(function(){
+        return this.nodeType === 3;
+      }).remove();
+      // the name and id of the input can be gotten from the button value
+      var idName = button.val();
+      // construct the input using the info off the button
+      var inputElement = '<input type="text" class="form-control edit-field-wine" id="' + idName + '" name = "' + idName +  '" value="' + value + '">'
+      // append to the cell
+      $( button ).before( "<p>" + inputElement + "</p>" );
+      // <input type="text" class="form-control edit-field-wine"id="foodType[1][food_type_name]" name="foodType[1][food_type_name]" value="Tapas">
+      // <button type="submit" class="btn btn-primary edit-icon btn-sm active" id="foodType[1][food_type_name][foodType-edit]" name="foodType-edit" value="foodType[1][food_type_name]">
+      
+    }
     
-    // check email to self for some ideas
-    
-        // if so, make it a val for an input
         // construct the input using the info off the button
-          // make the cell from the ground up -
-            // get the button off the cell using child selector?
+
             // alternately, build button based off button
-            // place the new input in.
-            // append button to the end.
-      // if there's no text, focus on the input
+            // place the new inpput in
 
     //make the button active
     button.toggleClass('active');
@@ -92,11 +101,6 @@ $("body").on("click", "table tbody tr td button", function(event){
     //hide the currently open row.
     button.row.siblings().find('textarea[name*="'+ button.record + '"]').parent().hide("fast");
     
-    // for testing only, delete later
-  } else if (button.span.hasClass("glyphicon-plus")) {
-    event.preventDefault();
-
-    console.log($(button.cell).children().length);
   }
 });
 
