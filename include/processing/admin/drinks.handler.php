@@ -9,8 +9,8 @@ include_once(PROCESSING_ADMIN."smallTable.processing.php");
 // ************************************************************************** //
 
 
-// ************* Plate invokation Rules. To format the Model **************** //
-$dish_type_rules = array("food_type_name" =>array(
+// ************* Drink invokation Rules. To format the Model **************** //
+$drink_type_rule = array("food_type_name" =>array(
                          "active" => ["editText", false],
                          "static" => ["editPlain", false],
                          "new" => ["addText", false])
@@ -18,19 +18,19 @@ $dish_type_rules = array("food_type_name" =>array(
 // ************************************************************************** //
 
                         
-// ********** Generating the plate model. View invoked in index. ************ //
+// ********** Generating the drink model. View invoked in index. ************ //
 
 // make the two arrays of contents match in format
 //$platesSQL = $test_food_trial;
-$platesSQL = sqlToSmallTable($mysqli, 'foodType');
-$platesPOST = postToSmallTable($_POST, 'foodType');
+$drinksSQL = sqlToSmallTable($mysqli, 'drinkType');
+$drinksPOST = postToSmallTable($_POST, 'drinkType');
 
 // processTypes will do all the new SQL and array updates.
-$requery_sql = processInput("foodType", $mysqli, $_POST, $dish_type_rules, $platesSQL, $platesPOST);
-if($requery_sql){$platesSQL = sqlToSmallTable($mysqli, 'foodType');}
+$requery_sql = processInput("drinkType", $mysqli, $_POST, $drink_type_rule, $drinksSQL, $drinksPOST);
+if($requery_sql){$platesSQL = sqlToSmallTable($mysqli, 'drinkType');}
 
 // Now that any updates are tested for, do the final build of the object.
-$platesMERGE = mergeTableArrays($platesSQL, $platesPOST);
-$platesTYPE = setSmallTypes($platesMERGE, $platesPOST, $dish_type_rules, $addNew=true, $count=1);
+$drinksMERGE = mergeTableArrays($drinksSQL, $drinksPOST);
+$drinksTYPE = setSmallTypes($drinksMERGE, $drinksPOST, $drink_type_rule, $addNew=true, $count=2);
 // ************************************************************************** //
 

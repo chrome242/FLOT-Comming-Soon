@@ -114,7 +114,7 @@ function updateDB($table, &$active_array, $mysqli, $id='id'){
 
 
 
-/** UNTESTED
+/** 
  *  A function to create an insert statement from a portion of a form received
  *  from $_POST.
  *  
@@ -143,7 +143,7 @@ function insertToDB($table, $item_record, $mysqli){
 
 
 
-/** UNTESTED
+/** 
  *  A function to create an update statement from a portion of a form received
  *  from $_POST.
  *  

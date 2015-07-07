@@ -107,15 +107,21 @@ function mergeTableArrays($static_source, $active_source){
  *        to apply them based on their status as 'active' or 'static'.
  * @param bool $addNew a toggle for if the arrays should have new empty cells
  *        on the end.
+ * @param int $count the length of the indivudual record array that is required
+ * 				for it to be considered an active record. For example with a table
+ * 				that passes in a hidden field with data, that data will always be
+ * 				passed back, so you'd not want to make that active, and you'd want the
+ * 				count to skip that one.
  *
  * @return array the formating array for the table.
  */
-function setSmallTypes(&$mergedArray, $postArray, $typeRules, $addNew=true){
+function setSmallTypes(&$mergedArray, $postArray,$typeRules,
+											 $addNew=true, $count=1){
 	$type_array = array(); // for the return
 	foreach ($mergedArray as $key => $fields){
 		$type_array[$key] =array();
 		foreach($fields as $field => $value){
-			if(array_key_exists($key, $postArray)){
+			if(array_key_exists($key, $postArray) && count($mergedArray[$key]) >= $count){
 				$type_array[$key][$field] = $typeRules[$field]["active"];
 			} else{
 				$type_array[$key][$field] = $typeRules[$field]["static"];
