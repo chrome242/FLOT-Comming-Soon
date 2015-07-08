@@ -11,13 +11,13 @@ include_once(PROCESSING_ADMIN."smallTable.processing.php");
 
 // ************* Drink invokation Rules. To format the Model **************** //
 $drink_type_rule = array("drink_type_name" =>array(
-                          "active" => ["editText", false],
+                          "active" => ["linkedText", false],
                           "static" => ["editPlain", false],
                           "new" => ["addText", false]),
                          "drink_type_desc" => array(
-                          "active" => ["dropArea, value, 3, 4", false],
-                          "static" => ["dropArea, value, 3, 4", true],
-                          "new" => ["dropArea, value, 3, 4", true]),
+                          "active" => ["linkedArea, value, 3, 4", false],
+                          "static" => ["linkedArea, value, 3, 4", true],
+                          "new" => ["linkedArea, value, 3, 4", true]),
                         );
 // ************************************************************************** //
 

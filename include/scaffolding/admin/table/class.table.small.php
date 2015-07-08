@@ -39,7 +39,8 @@
  * (sets text to text)
  * addText - an edit cell set to disabled with a add cell button
  * (sets text to placeholder)
- * dropArea - a text area with a drop button.
+ * linkedArea - a text area with a drop button.
+ * linkedText - a text area with a cog button.
  */
 class SmallTable extends Table{ 
   
@@ -162,6 +163,14 @@ class SmallTable extends Table{
       $thisCell->addButton($this->_name, $cellName, "drop", "Drop", true, false, true);
     }
     
+    if($cellType == 'linkedText'){
+      $thisCell = new Text($cellName, $value, "text");
+      $thisCell->editFieldSmall();
+      $thisCell->setClass("col-xs-3");
+      $thisCell->addButton($this->_name, $cellName, "edit", "glyphicon-cog", false, false, true);
+    }
+    
+    
     if($cellType == 'addText'){
       $thisCell = new Text($cellName, $value, "placeholder");
       $thisCell->editFieldSmall();
@@ -186,7 +195,7 @@ class SmallTable extends Table{
   
     }
     
-        if(stripos($cellType, 'dropArea,') !== false){
+        if(stripos($cellType, 'linkedArea,') !== false){
       $pieces = explode(",", $cellType);
       $type = trim($pieces[1]);
       $row = null;
@@ -308,8 +317,9 @@ class SmallTable extends Table{
             $output .= $newrow .$thishidden .$endrow; 
           }
           
-          // clear out the hidden array
-          $hiddenrow = array(); 
+          // clear out the hidden array and the hidden
+          $hiddenrow = array();
+          $thishidden = '';
         }
       }
     }
