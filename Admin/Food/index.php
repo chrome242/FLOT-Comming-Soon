@@ -75,7 +75,6 @@ $processed_active_rows = $test_active;
 
 //**************************** View Construction ****************************//
 // Plate Type Display and Editing Panel //
-//$plates = new SmallTable("foodType", $processed_food_cells, $processed_food_settings, 4);
 $plates = new SmallTable("foodType", $platesMERGE, $platesTYPE, 4);
 $platesPanel = new Panel("Plate Types", $plates);
 $platesPanel->addButton();

@@ -19,13 +19,19 @@ include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 
 
 
-//******************** Open The Page & Display Menu Bar *********************//
+//******************** Open The Page & Display Menu Bar **********************//
 $title = "Manage Extras";
 $section = ADMIN."Extras/";
 include(SCAFFOLDING."head.php");
 echo menubar($permissions, $section, $root);
-//***************************************************************************//
+//****************************************************************************//
 
+
+//****************** Process the brews tables and Data: **********************//
+// This file inclues all items need for brew model construction.
+include(BREWS_HANDLER);
+
+//***************************************************************************//
 
 //***************** Final Variable Processing & Cleaning *******************//
 // Fututre home of SQL & $_POST processing methods
@@ -43,9 +49,15 @@ $processed_size_spec = $test_size_spec;
 
 //********************************* Content *********************************//
 // Beer Type Display and Editing Panel //
-$beers = new SmallTable("drinkTypes", $processed_beer_cells, $processed_beer_settings, 4);
+//$beers = new SmallTable("drinkTypes", $processed_beer_cells, $processed_beer_settings, 4);
+//$beerPanel = new Panel("Varieties of Beer", $beers);
+//$beerPanel->addButton();
+
+$beers = new SmallTable("drinkTypes", $drinksMERGE, $drinksTYPE, 4);
 $beerPanel = new Panel("Varieties of Beer", $beers);
 $beerPanel->addButton();
+
+
 
 // Display The Panel //
 echo $beerPanel;

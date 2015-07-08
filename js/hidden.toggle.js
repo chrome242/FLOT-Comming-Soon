@@ -6,6 +6,7 @@ var INACTIVE_COLOR = "whitesmoke";
 var BUTTON_LEAD = "[drink_type_name]";
 var CLOSED_BUTTON = "glyphicon-cog";
 var OPEN_BUTTON = "glyphicon-chevron-down";
+var ADD_BUTTON = "glyphicon-plus";
 
 // handler to check the (only) table on the page's buttons to see if they have
 // been clicked. 
@@ -95,5 +96,18 @@ $("body").on("click", "table tbody tr td button", function(event){
     button.row.siblings().find('textarea[name*="'+ button.record + '"]').parent().hide("fast");
     
   }
+//  else if (button.span.hasClass(ADD_BUTTON)) { // if the add button.
+    // check to see if there's another open item in the same row, if so, close (hide)
+    // it's text desc.
+    
+    // copy the current cell, so it can be placed elsewhere.
+    // check the last cell to see if it has a name that ends with a n, if so,
+    // get the number before that n, and add 1 to it otherwise, counter = 1
+    
+    // add hidden cell
+    
+    // check to see where the new add cell should be added, add new line if need
+    
+//  }
 });
 

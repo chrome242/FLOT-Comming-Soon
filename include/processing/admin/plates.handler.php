@@ -11,9 +11,9 @@ include_once(PROCESSING_ADMIN."smallTable.processing.php");
 
 // ************* Plate invokation Rules. To format the Model **************** //
 $dish_type_rules = array("food_type_name" =>array(
-                         "active" => ["editText", false],
-                         "static" => ["editPlain", false],
-                         "new" => ["addText", false])
+                          "active" => ["editText", false],
+                          "static" => ["editPlain", false],
+                          "new" => ["addText", false])
                         );
 // ************************************************************************** //
 

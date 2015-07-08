@@ -87,10 +87,29 @@ function postToSmallTable($post, $formname){
 function mergeTableArrays($static_source, $active_source){
 	foreach ($active_source as $key => $value){
 		$static_source[$key] = $value;
+		echo gettype($value);
 	}
 	return $static_source;
 }
 
+function mergeTwoDArrays($static_source, $active_source){
+	// check if the record exist
+	foreach ($active_source as $key => $record){
+		if(!isset($static_source[$key])){
+			// if it does not, add it.
+			$static_source[$key] = $record;
+		
+		// if it exist, check to see 
+		} else {
+			foreach($record as $field => $value){
+				if(isset($active_source[$key][$field])){
+					$static_source[$key][$field] = $active_source[$key][$field];
+				}
+			}
+		}
+	}
+	return $static_source;
+}
 
 
 /**
@@ -121,7 +140,7 @@ function setSmallTypes(&$mergedArray, $postArray,$typeRules,
 	foreach ($mergedArray as $key => $fields){
 		$type_array[$key] =array();
 		foreach($fields as $field => $value){
-			if(array_key_exists($key, $postArray) && count($mergedArray[$key]) >= $count){
+			if(array_key_exists($key, $postArray) && count($postArray[$key]) >= $count){
 				$type_array[$key][$field] = $typeRules[$field]["active"];
 			} else{
 				$type_array[$key][$field] = $typeRules[$field]["static"];

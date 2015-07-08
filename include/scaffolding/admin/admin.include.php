@@ -18,6 +18,6 @@ $root = ADMIN;
 // definitions
 
 define("PLATE_HANDLER", PROCESSING_ADMIN."plates.handler.php");
-
+define("BREWS_HANDLER", PROCESSING_ADMIN."drinks.handler.php");
 // Test files
 include_once(SCAFFOLDING_ADMIN."testing/test.data.php");
