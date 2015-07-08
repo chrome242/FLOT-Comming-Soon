@@ -8,6 +8,9 @@ var CLOSED_BUTTON = "glyphicon-cog";
 var OPEN_BUTTON = "glyphicon-chevron-down";
 var ADD_BUTTON = "glyphicon-plus";
 
+// variable for number additions:
+var cell_counter = 0;
+
 // handler to check the (only) table on the page's buttons to see if they have
 // been clicked. 
 $("body").on("click", "table tbody tr td button", function(event){
@@ -18,6 +21,7 @@ $("body").on("click", "table tbody tr td button", function(event){
   button.cell = button.parent(); // it's parent cell
   button.row = button.cell.parent(); // it's parent row
   button.neighbors = button.cell.siblings(); // the rest of the row
+  button.table = button.row.parent(); // because I need all of these
   value = button.cell.text(); // this might need to change to some exotic if statement
   value = value.trim(); // clean the random spaces it puts on the end because IDK
   
@@ -67,9 +71,7 @@ $("body").on("click", "table tbody tr td button", function(event){
     hiddens = $(button.row.siblings()).find(":hidden"); // get all hidden rows
     hiddens.target = hiddens.find('textarea[name*="'+ button.record + '"]'); // find the target
     hiddens.target.parent().show(400); // show the target
-    
-    console.log($(button.cell).children().length);
-
+  
     
   // When it's time to hide it...
   } else if (button.span.hasClass(OPEN_BUTTON)) { // if the down arrow
@@ -96,18 +98,53 @@ $("body").on("click", "table tbody tr td button", function(event){
     button.row.siblings().find('textarea[name*="'+ button.record + '"]').parent().hide("fast");
     
   }
-//  else if (button.span.hasClass(ADD_BUTTON)) { // if the add button.
-    // check to see if there's another open item in the same row, if so, close (hide)
-    // it's text desc.
+  else if (button.span.hasClass(ADD_BUTTON)) { // if the add button.
     
-    // copy the current cell, so it can be placed elsewhere.
-    // check the last cell to see if it has a name that ends with a n, if so,
-    // get the number before that n, and add 1 to it otherwise, counter = 1
+    // stop the default from occuring
+    event.preventDefault();
     
-    // add hidden cell
+    // check to see if it's the last item in the row
+    if ($(button.cell).is(":last-child")) {
+      // do the same as below and then:
+      
+      // get number of siblings
+      // add a new hidden matching row to the table
+      // add a new row to the table
+      // add a copy of the 'add' cell to that row
+      // add blank cells to said row equal to number of siblings
+    } else {
+      // make a clone of this cell.
+      newcell = button.cell.clone();
+      
+      //get the record & number
+      button.full = button.attr("value"); // the full name
+      button.record = button.full.replace(BUTTON_LEAD,""); // the part w/o field
+      
+      //find the hidden sibling with the same value as the button record
+      hiddens = $(button.row.siblings()).find(":hidden"); // get all hidden rows
+      hiddens.target = hiddens.find('textarea[name*="'+ button.record + '"]'); // find the target
+           
+      //copy this td
+      newtextarea = hiddens.target.parent().clone();
+      
+      // update all the attribs with the new name
+      newcount = '[' + cell_counter + 'n]'; // the new name
+      cell_counter += 1; // up the counter
+      //button id
+      //button name
+      //button id
+      //textarea id
+      //textarea name
+      //dropbutton id
+      //dropbutton value
+      
+      hiddens.target.parent().show(400); // show the target
+      // turn this cell into an active one
+      
+      // replace the next cell with this clone
+      $(button.cell).next().replaceWith(newcell);
+    }
     
-    // check to see where the new add cell should be added, add new line if need
-    
-//  }
+  }
 });
 
