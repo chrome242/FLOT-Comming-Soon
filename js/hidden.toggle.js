@@ -4,6 +4,7 @@
 var BASE_COLOR = "white";
 var INACTIVE_COLOR = "whitesmoke";
 var BUTTON_LEAD = "[drink_type_name]";
+var TABLE_NAME = "drinkTypes";
 var CLOSED_BUTTON = "glyphicon-cog";
 var OPEN_BUTTON = "glyphicon-chevron-down";
 var ADD_BUTTON = "glyphicon-plus";
@@ -131,6 +132,11 @@ $("body").on("click", "table tbody tr td button", function(event){
       newcount = '[' + cell_counter + 'n]'; // the new name
       cell_counter += 1; // up the counter
       //button id
+      buttonId = button.attr("id");
+      buttonId = buttonId.replace(BUTTON_LEAD,"").replace(TABLE_NAME, "");
+      //buttonId = buttonId.replace("[" + "]");
+      alert(buttonId);
+      
       //button name
       //button id
       //textarea id
