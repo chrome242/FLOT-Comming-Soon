@@ -4,13 +4,14 @@
 var BASE_COLOR = "white";
 var INACTIVE_COLOR = "whitesmoke";
 var BUTTON_LEAD = "[drink_type_name]";
+var DROPDOWN_LEAD = "[drink_type_desc]";
 var TABLE_NAME = "drinkTypes";
 var CLOSED_BUTTON = "glyphicon-cog";
 var OPEN_BUTTON = "glyphicon-chevron-down";
 var ADD_BUTTON = "glyphicon-plus";
 
 // variable for number additions:
-var cell_counter = 0;
+var cell_counter = 1;
 
 // handler to check the (only) table on the page's buttons to see if they have
 // been clicked. 
@@ -132,17 +133,29 @@ $("body").on("click", "table tbody tr td button", function(event){
       newcount = '[' + cell_counter + 'n]'; // the new name
       cell_counter += 1; // up the counter
       //button id
-      buttonId = button.attr("id");
-      buttonId = buttonId.replace(BUTTON_LEAD,"").replace(TABLE_NAME, "");
-      //buttonId = buttonId.replace("[" + "]");
-      alert(buttonId);
+      button.attr("id", button.attr("id").replace("[add]", newcount).replace("-new", "-edit"));
+      //button name -new to -edit
+      button.attr("name", button.attr("name").replace("-new", "-edit"));
+      //button value
+      button.val(button.attr("id").replace("[drinkTypes-edit]", ""));
+      //button icon
+      button.span.toggleClass(ADD_BUTTON);
+      button.span.toggleClass(OPEN_BUTTON);
       
-      //button name
-      //button id
-      //textarea id
-      //textarea name
+      //cell input
+      button.input = $(button.cell).find('input');
+      button.input.prop("disabled", false).removeAttr("placeholder");
+      button.input.attr("id", button.val()).attr("name", button.val());
+      
       //dropbutton id
+      hiddens.target.attr("id", TABLE_NAME + newcount + DROPDOWN_LEAD);
       //dropbutton value
+      hiddens.target.attr("name", TABLE_NAME + newcount + DROPDOWN_LEAD);
+      
+      hiddens.target.parent().children("button").attr("id").replace("[add]", newcount);
+      newval = hiddens.target.parent().children("button").attr("id").replace("[add]", newcount);
+      alert(newval);
+      hiddens.target.parent().children("button").val(newval);
       
       hiddens.target.parent().show(400); // show the target
       // turn this cell into an active one
