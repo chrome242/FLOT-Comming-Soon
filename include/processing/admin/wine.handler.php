@@ -4,7 +4,7 @@
 
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
 require_once(INCLUDES."db_con.php");
-include_once(PROCESSING_ADMIN."smallTable.processing.php");
+include_once(PROCESSING_ADMIN."listView.processing.php");
 
 // ************************************************************************** //
 
@@ -12,8 +12,7 @@ include_once(PROCESSING_ADMIN."smallTable.processing.php");
 // ************* Drink invokation Rules. To format the Model **************** //
 $wine_rule_type = array("active" => "edit",
                         "static" => "text",
-                        "new" => "new",
-                        );
+                        "new" => "new");
 // ************************************************************************** //
 
 // ********** Generating the drink model. View invoked in index. ************ //

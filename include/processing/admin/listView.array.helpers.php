@@ -44,7 +44,7 @@ function getNumberNew($array){
 	*
 	* @return array - an array in the form desired by SmallTable.
 	*/
-function sqlToListView($mysqli, $table, $id='id', $value=$table."_name"){
+function sqlToListView($mysqli, $table, $id='id', $value="desc"){
   $results = $mysqli->query("SELECT * FROM $table ORDER BY $id");
 	$output = array();
 	while($row = $results->fetch_array(MYSQLI_ASSOC)){
@@ -55,7 +55,7 @@ function sqlToListView($mysqli, $table, $id='id', $value=$table."_name"){
 	return $output;
 }
 
- /**
+ /** PARTIAL UNTESTED
 	* A small amount of extra overhead used to allow function swapping and some
 	* level of consistancy in API and code flow. Pretty much, this just makes
 	* an array of the portion of $post with the name $formname
@@ -65,7 +65,7 @@ function sqlToListView($mysqli, $table, $id='id', $value=$table."_name"){
 	*
 	* @return array the form's array
 	*/
-function postToSmallTable($post, $formname){
+function postToListView($post, $formname){
 	if(isset($post[$formname])){
 	return $post[$formname];
 	} else {
@@ -74,7 +74,7 @@ function postToSmallTable($post, $formname){
 }
 
 
-/**
+/** PARTIAL UNTESTED
  * A function that merges two arrays with the same format for the table classes.
  * I've used this rather then array_merge or array() + array() because the typing
  * for the array keys is less then consistant, and I want to be sure they are handled
@@ -85,7 +85,7 @@ function postToSmallTable($post, $formname){
  *
  * @return array the joined array
  */
-function mergeTableArrays($static_source, $active_source){
+function mergeListArrays($static_source, $active_source){
 	foreach ($active_source as $key => $value){
 		$static_source[$key] = $value;
 	}
@@ -93,7 +93,8 @@ function mergeTableArrays($static_source, $active_source){
 }
 
 
-/**
+
+/** UNTESTED
  * A function used to construct the type array from the merged array and the
  * parent active array and the type rules array. Also this function can be used
  * to add a entry to the end of the $mergedArray and the end of return array.
@@ -107,38 +108,27 @@ function mergeTableArrays($static_source, $active_source){
  *        to apply them based on their status as 'active' or 'static'.
  * @param bool $addNew a toggle for if the arrays should have new empty cells
  *        on the end.
- * @param int $count the length of the indivudual record array that is required
- * 				for it to be considered an active record. For example with a table
- * 				that passes in a hidden field with data, that data will always be
- * 				passed back, so you'd not want to make that active, and you'd want the
- * 				count to skip that one.
  *
  * @return array the formating array for the table.
  */
-function setSmallTypes(&$mergedArray, $postArray,$typeRules,
-											 $addNew=true, $count=1){
+function setListTypes(&$mergedArray, $postArray,$typeRules,
+											 $addNew=true1){
+	
 	$type_array = array(); // for the return
-	foreach ($mergedArray as $key => $fields){
-		$type_array[$key] =array();
-		foreach($fields as $field => $value){
-			if(array_key_exists($key, $postArray) && count($postArray[$key]) >= $count){
-				$type_array[$key][$field] = $typeRules[$field]["active"];
-			} else{
-				$type_array[$key][$field] = $typeRules[$field]["static"];
-			}
-		}
+	
+	// if it's on the post array, it's active, otherwise, it's default
+	foreach ($mergedArray as $key => $value){
+		if(array_key_exists($key, $postArray)){ $type_array[$key] = $typeRules["active"];} 
 	}
+	
+	// add a new item if needbe.
 	if($addNew){
+		
 		if(isset($mergedArray["add"])){unset($mergedArray["add"]);}
-		$mergedArray["add"] = array();
-		foreach($typeRules as $key => $value){
-			// add new values
-			$mergedArray["add"][$key] = "";
-      if(isset($typeRules[$key]["new"])){
-        $type_array["add"][$key] = $typeRules[$key]["new"];
-      }
-		}
+		$mergedArray["add"] = $typeRules["new"];
 	}
+	
+	
 	return $type_array;
 }
 
