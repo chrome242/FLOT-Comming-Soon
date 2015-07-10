@@ -9,7 +9,21 @@ var TABLE_NAME = "drinkTypes";
 var CLOSED_BUTTON = "glyphicon-cog";
 var OPEN_BUTTON = "glyphicon-chevron-down";
 var ADD_BUTTON = "glyphicon-plus";
-
+var EMPTY = '                    <tr>\
+                      <td colspan="4" hidden>\
+                        <textarea class="form-control edit-field"rows="3" id="drinkTypes[add][drink_type_desc]" name="drinkTypes[add][drink_type_desc]"></textarea>\
+                        <button type="submit" class="btn btn-primary edit-icon" id="drinkTypes[add][drink_type_desc][drinkTypes-drop]" name="drinkTypes-drop" value="drinkTypes[add][drink_type_desc]">Drop</button>\
+                      </td>\
+                    </tr>';
+var EDITSTART = '                    <tr>\
+                      <td class="col-xs-3">\
+                        <input type="text" class="form-control edit-field-wine"id="drinkTypes[add][drink_type_name]" name="drinkTypes[add][drink_type_name]" placeholder="" disabled>\
+                        <button type="submit" class="btn btn-primary edit-icon btn-sm" id="drinkTypes[add][drink_type_name][drinkTypes-new]" name="drinkTypes-new" value="drinkTypes[add][drink_type_name]"><span class="glyphicon glyphicon-plus"></span></button>\
+                      </td>\
+                      <td></td>\
+                      <td></td>\
+                      <td></td>\
+                    </tr>';
 // variable for number additions:
 var cell_counter = 1;
 
@@ -105,64 +119,66 @@ $("body").on("click", "table tbody tr td button", function(event){
     // stop the default from occuring
     event.preventDefault();
     
-    // check to see if it's the last item in the row
+    // make a clone of this cell.
+    newcell = button.cell.clone();
+    
+    //get the record & number
+    button.full = button.attr("value"); // the full name
+    button.record = button.full.replace(BUTTON_LEAD,""); // the part w/o field
+    
+    //find the hidden sibling with the same value as the button record
+    hiddens = $(button.row.siblings()).find(":hidden"); // get all hidden rows
+    hiddens.target = hiddens.find('textarea[name*="'+ button.record + '"]'); // find the target
+
+    // update all the attribs with the new name
+    newcount = '[' + cell_counter + 'n]'; // the new name
+    cell_counter += 1; // up the counter
+    //button id
+    button.attr("id", button.attr("id").replace("[add]", newcount).replace("-new", "-edit"));
+    //button name -new to -edit
+    button.attr("name", button.attr("name").replace("-new", "-edit"));
+    //button value
+    button.val(button.attr("id").replace("[drinkTypes-edit]", ""));
+    //button icon
+    button.span.toggleClass(ADD_BUTTON);
+    button.span.toggleClass(OPEN_BUTTON);
+    
+    //cell input
+    button.input = $(button.cell).find('input');
+    button.input.prop("disabled", false).removeAttr("placeholder");
+    button.input.attr("id", button.val()).attr("name", button.val());
+    
+    //dropbutton id
+    hiddens.target.attr("id", TABLE_NAME + newcount + DROPDOWN_LEAD);
+    //dropbutton value
+    hiddens.target.attr("name", TABLE_NAME + newcount + DROPDOWN_LEAD);
+    
+    parent = hiddens.target.parent();
+    parent.children("button").attr("id").replace("[add]", newcount);
+    newval = parent.children("button").attr("id").replace("[add]", newcount);
+    parent.children("button").val(newval);
+    
+    hiddens.target.parent().show(400); // show the target
+
+    //make the button active
+    button.toggleClass('active');
+    
+    //make siblings disabled
+    button.neighbors.css("background-color", INACTIVE_COLOR);
+    button.neighbors.children('button').attr('disabled', 'disabled');
+    
+    // if the cell is the last child...
     if ($(button.cell).is(":last-child")) {
-      // do the same as below and then:
-      
-      // get number of siblings
-      // add a new hidden matching row to the table
-      // add a new row to the table
-      // add a copy of the 'add' cell to that row
-      // add blank cells to said row equal to number of siblings
+      $(button.table).append(EDITSTART);
+      $(button.table).append(EMPTY)
     } else {
-      // make a clone of this cell.
-      newcell = button.cell.clone();
-      
-      //get the record & number
-      button.full = button.attr("value"); // the full name
-      button.record = button.full.replace(BUTTON_LEAD,""); // the part w/o field
-      
-      //find the hidden sibling with the same value as the button record
-      hiddens = $(button.row.siblings()).find(":hidden"); // get all hidden rows
-      hiddens.target = hiddens.find('textarea[name*="'+ button.record + '"]'); // find the target
-           
-      //copy this td
-      newtextarea = hiddens.target.parent().clone();
-      
-      // update all the attribs with the new name
-      newcount = '[' + cell_counter + 'n]'; // the new name
-      cell_counter += 1; // up the counter
-      //button id
-      button.attr("id", button.attr("id").replace("[add]", newcount).replace("-new", "-edit"));
-      //button name -new to -edit
-      button.attr("name", button.attr("name").replace("-new", "-edit"));
-      //button value
-      button.val(button.attr("id").replace("[drinkTypes-edit]", ""));
-      //button icon
-      button.span.toggleClass(ADD_BUTTON);
-      button.span.toggleClass(OPEN_BUTTON);
-      
-      //cell input
-      button.input = $(button.cell).find('input');
-      button.input.prop("disabled", false).removeAttr("placeholder");
-      button.input.attr("id", button.val()).attr("name", button.val());
-      
-      //dropbutton id
-      hiddens.target.attr("id", TABLE_NAME + newcount + DROPDOWN_LEAD);
-      //dropbutton value
-      hiddens.target.attr("name", TABLE_NAME + newcount + DROPDOWN_LEAD);
-      
-      hiddens.target.parent().children("button").attr("id").replace("[add]", newcount);
-      newval = hiddens.target.parent().children("button").attr("id").replace("[add]", newcount);
-      alert(newval);
-      hiddens.target.parent().children("button").val(newval);
-      
-      hiddens.target.parent().show(400); // show the target
-      // turn this cell into an active one
-      
-      // replace the next cell with this clone
+      // if the cell is not the last cell on the row:
       $(button.cell).next().replaceWith(newcell);
+      
+      // add the new row to the table
+      $(button.table).append(EMPTY);
     }
+    
     
   }
 });
