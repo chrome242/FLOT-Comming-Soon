@@ -206,7 +206,7 @@ class ListView {
   $output .='
               </ul>';
               
-  if($this->_makeButton){$output .=$this->updateButton($this->_name, $this->_makeButton);}
+  if($this->_makeButton){$output .=$this->updateButton($this->_formName, $this->_makeButton);}
   
   $output .='
             </form>';

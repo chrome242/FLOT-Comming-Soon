@@ -35,8 +35,6 @@ include(BREWS_HANDLER);
 
 //***************** Final Variable Processing & Cleaning *******************//
 // Fututre home of SQL & $_POST processing methods
-$processed_beer_cells = $test_drink_trial;
-$processed_beer_settings = $test_drink_setti;
 
 $processed_wines_list = $test_wine_list;
 $processed_wine_speci = $test_wine_spec;
@@ -66,13 +64,15 @@ echo $beerPanel;
 // Wine Display and Editing Panel //
 $wines = new ListView("wineTypes", $processed_wines_list, $special=$processed_wine_speci, $default='text');
 $winePanel = new Panel("Wines", $wines, $size="half");
+$winePanel->addButton();
 
 // Display The Panel
 echo $winePanel;
 
 // Drink Size Edit Panel //
-$sizes = new ListView("wineTypes", $processed_size_list, $special=$processed_size_spec, $default='text');
+$sizes = new ListView("sizeTypes", $processed_size_list, $special=$processed_size_spec, $default='text');
 $sizePanel = new Panel("Glasses, Jugs, &amp; Mugs", $sizes, $size="half");
+$sizePanel->addButton();
 
 // Display The Panel
 echo $sizePanel;
