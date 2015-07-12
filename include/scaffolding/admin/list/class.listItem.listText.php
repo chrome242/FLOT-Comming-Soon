@@ -18,7 +18,7 @@ class ListText extends ListInput {
   // text additional properties.
   protected $_format; // placeholder or value string
   protected $_form = true; // add the form-control class by default
-  
+  protected $_showDetails = true; //overides the default
   // text uses $this->_content for the text
   
   /**

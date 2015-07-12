@@ -30,47 +30,45 @@ echo menubar($permissions, $section, $root);
 //****************** Process the brews tables and Data: **********************//
 // This file inclues all items need for brew model construction.
 include(BREWS_HANDLER);
-
 //***************************************************************************//
 
-//***************** Final Variable Processing & Cleaning *******************//
-// Fututre home of SQL & $_POST processing methods
 
-$processed_wines_list = $test_wine_list;
-$processed_wine_speci = $test_wine_spec;
+//****************** Process the wine tables and Data: **********************//
+// This file inclues all items need for bwinerew model construction.
+include(WINES_HANDLER);
+//***************************************************************************//
 
-$processed_size_list = $test_size_list;
-$processed_size_spec = $test_size_spec;
 
+//****************** Process the wine tables and Data: **********************//
+// This file inclues all items need for bwinerew model construction.
+include(SIZE_HANDLER);
 //***************************************************************************//
 
 
 //********************************* Content *********************************//
-// Beer Type Display and Editing Panel //
-//$beers = new SmallTable("drinkTypes", $processed_beer_cells, $processed_beer_settings, 4);
-//$beerPanel = new Panel("Varieties of Beer", $beers);
-//$beerPanel->addButton();
 
+// Beer type & desc editing panel //
 $beers = new SmallTable("drinkTypes", $drinksMERGE, $drinksTYPE, 4);
 $beerPanel = new Panel("Varieties of Beer", $beers);
 $beerPanel->addButton();
-
-
 
 // Display The Panel //
 echo $beerPanel;
 
 
 // Wine Display and Editing Panel //
-$wines = new ListView("wineTypes", $processed_wines_list, $special=$processed_wine_speci, $default='text');
+$wines = new ListView("wineTypes", $WRAPPED_winesMERGE, $special=$WRAPPED_winesTYPE,
+                      $wine_default, $wine_desc_field);
 $winePanel = new Panel("Wines", $wines, $size="half");
 $winePanel->addButton();
 
 // Display The Panel
 echo $winePanel;
 
+
 // Drink Size Edit Panel //
-$sizes = new ListView("sizeTypes", $processed_size_list, $special=$processed_size_spec, $default='text');
+$sizes = new ListView("sizeTypes", $WRAPPED_sizesMERGE, $special=$WRAPPED_sizesTYPE,
+                      $size_default, $size_desc_field);
 $sizePanel = new Panel("Glasses, Jugs, &amp; Mugs", $sizes, $size="half");
 $sizePanel->addButton();
 
@@ -82,18 +80,6 @@ echo $sizePanel;
 echo '      <div class="clearfix visible-md-block"></div>';
 
 //***************************************************************************//
-
-//********************************Debug***************************************//
-
-/* The array will have to be processed in the following way:
- * first, check for an add. If add exist, then 
- */
-if(isset($_POST)){
-  echo "Post contents:<br><pre>";
-  var_dump($_POST);
-  echo "</pre>";
-  
-}
 
 
 //******************************** Footer ***********************************//

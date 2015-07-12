@@ -49,9 +49,13 @@ class ListView {
    * @param mixed $special either a bool false or an array of key => value arrays
    * @param str $default a keyword for the default type of list items to be built.
    */
-  public function __construct($name, $listitems, $special=false, $default='text'){
+  public function __construct($name, $listitems, $special=false,
+                              $default='text', $fieldName='field'){
     //set the name
     $this->_formName = $name;
+    
+    //set the name of the field that the list data represents
+    $this->_fieldname = $fieldName;
     
     // process special
     if(is_array($special) === false){$special = false;}
@@ -101,24 +105,25 @@ class ListView {
       // strict OOP, but that's beyond the scope of this job
       
       if($item_type == 'text'){
-        $list_item = new ListItem($id, $value);
+        $cellName = $this->_formName . '[' . $id . ']['. $this->_fieldname .']';
+        $list_item = new ListItem($cellName, $value);
         $list_item->addButton($this->_formName, $id, "edit", "glyphicon-cog",
-                              $text=false, $active=false);
+                              $text=false, $active=false, $this->_fieldname);
       }
       
       if($item_type == 'edit'){
-        $list_item = new ListText($id, $value, $type="value");
+        $cellName = $this->_formName . '[' . $id . ']['. $this->_fieldname .']';
+        $list_item = new ListText($cellName, $value, $type="value");
         $list_item->addButton($this->_formName, $id, "drop", "Drop",
-                              $text=true, $active=false);
-        $list_item->addButton($this->_formName, $id, "edit", "glyphicon-cog",
-                              $text=false, $active=true);
+                              $text=true, $active=false, $this->_fieldname);
       }
       
       if($item_type == 'new') {
+        $cellName = $this->_formName . '[' . $id . ']['. $this->_fieldname .']';
         $list_item = new ListText('blankItem', 'Add new item', $type="placeholder");
         $list_item->disabled();
-        $list_item->addButton($this->_formName, $id, "edit", "glyphicon-plus",
-                              $text=false, $active=true);
+        $list_item->addButton($this->_formName, $id, "add", "glyphicon-plus",
+                              $text=false, $active=true, $this->_fieldname);
       }
     
       $temp_array[$id] = $list_item;

@@ -44,8 +44,10 @@ class ListItem {
    *  @param str $display: either text or the name of a glyphicon for button
    *  @param bool $text: if the $display is a text or a glyphicon
    *  @param bool $active: if the button should be disabled.
+   *  @param str $field_name: the name of the field being effected in the list view
    */
-  public function addButton($form, $record, $action, $display, $text=false, $active=false){
+  public function addButton($form, $record, $action, $display,
+                            $text=false, $active=false, $field_name="name"){
     $button_text = $display;
     $button_name = $form . '-' . $action;
     $button_id = $form.'['.$record.']['. $button_name.']';
@@ -59,7 +61,7 @@ class ListItem {
     }
     
     $output.= ' id="' . $button_id .'" name="' . $button_name .'" value="';
-    $output.= $record .'">' . $button_content ."</button>";
+    $output.= $form . '[' . $record .'][' . $field_name .']">' . $button_content ."</button>";
     $this->_buttons[] = $output;
     
   }

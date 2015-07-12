@@ -10,30 +10,30 @@ include_once(PROCESSING_ADMIN."listView.processing.php");
 
 
 // ************* Wine invokation Rules. To format the Model **************** //
-$wine_rule_type = array("wine_type_name" =>array(
+$size_rule_type = array("drink_size_val" =>array(
                           "active" => "edit",
                           "static" => "text",
                           "new" => "new"));
 
-$wine_default='text';
-$wine_desc_field = "wine_type_name";
+$size_default='text';
+$size_desc_field = "drink_size_val";
 // ************************************************************************** //
 
 // ********** Generating the drink model. View invoked in index. ************ //
 
 // make the two arrays of contents match in format
-$winesSQL = sqlToSmallTable($mysqli, 'wineTypes');
-$winesPOST = postToSmallTable($_POST, 'wineTypes');
+$sizesSQL = sqlToSmallTable($mysqli, 'sizeTypes');
+$sizesPOST = postToSmallTable($_POST, 'sizeTypes');
 
 // processTypes will do all the new SQL and array updates.
-$requery_sql = processInput("wineTypes", $mysqli, $_POST, $wine_rule_type, $winesSQL, $winesPOST);
-if($requery_sql){$winesSQL = sqlToSmallTable($mysqli, 'wineTypes');}
+$requery_sql = processInput("sizeTypes", $mysqli, $_POST, $size_rule_type, $sizesSQL, $sizesPOST);
+if($requery_sql){$sizesSQL = sqlToSmallTable($mysqli, 'sizeTypes');}
 
 // Now that any updates are tested for, do the final build of the object.
-$winesMERGE = mergeTwoDArrays($winesSQL, $winesPOST);
-$winesTYPE = setSmallTypes($winesMERGE, $winesPOST, $wine_rule_type, $addNew=true, $count=0);
-$WRAPPED_winesTYPE = make_special_list($winesTYPE, $wine_desc_field, $wine_default);
-$WRAPPED_winesMERGE = elevate_field_array($winesMERGE, $wine_desc_field);
+$sizesMERGE = mergeTwoDArrays($sizesSQL, $sizesPOST);
+$sizesTYPE = setSmallTypes($sizesMERGE, $sizesPOST, $size_rule_type, $addNew=true, $count=0);
+$WRAPPED_sizesTYPE = make_special_list($sizesTYPE, $size_desc_field, $size_default);
+$WRAPPED_sizesMERGE = elevate_field_array($sizesMERGE, $size_desc_field);
 
 // ************************************************************************** //
 

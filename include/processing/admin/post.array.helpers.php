@@ -37,6 +37,7 @@ function standardSelector($form_name, $post){
   $return = array();
   // check to see if the $_POST contains either of the non-record specific options.
   if(isset($post[$form_name.'-new'])) { $return[0] = "new";}
+  if(isset($post[$form_name.'-add'])) { $return[0] = "new";}
   if(isset($post[$form_name.'-update'])) { $return[0] = "update";}
   
   // deal with record specific return options.

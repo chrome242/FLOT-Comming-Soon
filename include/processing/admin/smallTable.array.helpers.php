@@ -87,7 +87,7 @@ function postToSmallTable($post, $formname){
 function mergeTableArrays($static_source, $active_source){
 	foreach ($active_source as $key => $value){
 		$static_source[$key] = $value;
-		echo gettype($value);
+		//echo gettype($value); good debug option.
 	}
 	return $static_source;
 }
