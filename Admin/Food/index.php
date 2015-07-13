@@ -75,7 +75,10 @@ echo $dishesPanel;
 if(isset($_POST)){
   echo "Post contents:<br><pre>";
   var_dump($_POST);
-  var_dump($test);
+  echo "<br>mysql procesed<br>";
+  var_dump($dishSQL);
+  echo "<br>post procesed<br>";
+  var_dump($dishPOST);
   echo "</pre>";
   
 }

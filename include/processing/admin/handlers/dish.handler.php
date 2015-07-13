@@ -34,8 +34,8 @@ $dishes_display = array("Id" => array("food_id" => "id"), // id
                         "Price" => array("food_price" => "plain"), // number
                         "Edit" => array("edit" => "button, large"),  // button
                         "addnew" => array("newrow" => "newrow"), // this and below for last record, to add new
-                        "new_id" => array("new_id" => "plain"),
-                        "s1" => array("s1" => "plain"),
+                        "new_id" => array("new_id" => "plain"),  // all of these will only be shown if there's
+                        "s1" => array("s1" => "plain"),          // actually a placeholder value inserted.
                         "s2" => array("s2" => "plain"),
                         "s3" => array("s3" => "plain"),
                         "add" => array("add" => "button, large")
@@ -44,17 +44,16 @@ $dishes_display = array("Id" => array("food_id" => "id"), // id
 
 
 // ************************* Selector Contstruction ************************* //
-$types_info = array("foodtype", "id", "food_type_name");
-$test = make_selector($mysqli, $types_info[0], $types_info[1], $types_info[2]);
+$types_info = array("foodType", "id", "food_type_name");
+$dish_selector = make_selector($mysqli, $types_info[0], $types_info[1], $types_info[2]);
 // ************************************************************************** //
 
 
 // ********** Generating the drink model. View invoked in index. ************ //
 
-//// make the two arrays of contents match in format
-////$platesSQL = $test_food_trial;
-//$drinksSQL = sqlToSmallTable($mysqli, 'drinkTypes');
-//$drinksPOST = postToSmallTable($_POST, 'drinkTypes');
+// make the two arrays of contents match in format
+$dishSQL = sqlToSmallTable($mysqli, 'dishType');
+$dishPOST = postToSmallTable($_POST, 'dishType');
 //
 //// processTypes will do all the new SQL and array updates.
 //$requery_sql = processInput("drinkTypes", $mysqli, $_POST, $drink_type_rule, $drinksSQL, $drinksPOST);

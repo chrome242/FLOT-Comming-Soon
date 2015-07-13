@@ -222,6 +222,11 @@ $test_pantab_trial = array( array("food_id" => 1, // id
                                   of your veggies.", // text area
                                   ),
                             array("food_id" => "2", // id
+                                  "food_name" => "Grilled AwesomeTest (V)",  //plain
+                                  "food_type" => "Tapas",
+                                  "food_price" => "5.59", // number
+                                  "edit" => "edit"),
+                            array("food_id" => "3", // id
                                   "food_name" => "Grilled Mushrooms (V)",  //plain
                                   "food_type" => "Tapas",
                                   "food_price" => "5.59", // number

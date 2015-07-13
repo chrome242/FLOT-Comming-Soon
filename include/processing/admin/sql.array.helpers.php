@@ -19,3 +19,16 @@ function make_selector($mysqli, $table, $id, $display){
   
   return $return;
 }
+
+/**
+ * A simple function to return a value from an array. Really just exist so that
+ * it's more clear what's happening in the code.
+ *
+ * @param mixed $value: the key value in the array, analoge to the HTML value
+ * @param array $arry: the selector array
+ *
+ * @return the value of the array at value key.
+ */
+function selector_to_text($value, $array){
+  return $array[$value];
+}
