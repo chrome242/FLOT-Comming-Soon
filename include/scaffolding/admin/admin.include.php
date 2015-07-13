@@ -21,6 +21,7 @@ define("PLATE_HANDLER", PROCESSING_ADMIN."plates.handler.php");
 define("BREWS_HANDLER", PROCESSING_ADMIN."drinks.handler.php");
 define("WINES_HANDLER", PROCESSING_ADMIN."wine.handler.php");
 define("SIZE_HANDLER", PROCESSING_ADMIN."size.handler.php");
+define("DISH_HANDLER", PROCESSING_ADMIN."dish.handler.php");
 
 // Test files
 include_once(SCAFFOLDING_ADMIN."testing/test.data.php");

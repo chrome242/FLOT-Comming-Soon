@@ -17,41 +17,6 @@ include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 // $permissions = $_COOKIE["admin_permissions"];
 
 
-//******************* Header & Format Arrays For Dishes *********************//
-
-$dishes_edit = array( "Id" => array("food_id" => "id"), // id
-                      "Plate"=> array("food_name" => "text, value"), // plain
-                      "Type" => array("food_type" => "select, 1"), //select
-                      "Price" => array("food_price" =>
-                                       "number, value, .01, 8"), // number
-                      "Edit" => array("edit" => "button, large"),  // button
-                      "newrow" => array("newrow" => "newrow"),
-                      "spacer" => array("spacer" => "plain"),  // plain
-                      "food_desc" =>array("food_desc" =>
-                                          "textarea, value, 3, 4"), // text area
-                      "addnew" => array("newrow" => "newrow"), // this and below for last record, to add new
-                      "new_id" => array("new_id" => "plain"),
-                      "s1" => array("s1" => "plain"),
-                      "s2" => array("s2" => "plain"),
-                      "s3" => array("s3" => "plain"),
-                      "add" => array("add" => "button, large")
-                    );
-
-$dishes_display = array("Id" => array("food_id" => "id"), // id
-                        "Plate"=> array("food_name" => "plain"), // plain
-                        "Type" => array("food_type" => "plain"), //select
-                        "Price" => array("food_price" => "plain"), // number
-                        "Edit" => array("edit" => "button, large"),  // button
-                        "addnew" => array("newrow" => "newrow"), // this and below for last record, to add new
-                        "new_id" => array("new_id" => "plain"),
-                        "s1" => array("s1" => "plain"),
-                        "s2" => array("s2" => "plain"),
-                        "s3" => array("s3" => "plain"),
-                        "add" => array("add" => "button, large")
-                        );
-//***************************************************************************//
-
-
 //******************** Open The Page & Display Menu Bar *********************//
 $title = "Manage Dishes";
 $section = ADMIN."Food/";
@@ -68,6 +33,8 @@ include(PLATE_HANDLER);
 
 
 //****************** Process the dish tables and Data: **********************//
+include(DISH_HANDLER);
+
 $processed_dish_cells = $test_pantab_trial;
 $processed_active_rows = $test_active;
 //***************************************************************************//
@@ -108,6 +75,7 @@ echo $dishesPanel;
 if(isset($_POST)){
   echo "Post contents:<br><pre>";
   var_dump($_POST);
+  var_dump($test);
   echo "</pre>";
   
 }
