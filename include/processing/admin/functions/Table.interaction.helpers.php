@@ -1,6 +1,14 @@
 <?php
 // needs a re-write
 
+/* Things to think about:
+ * Let the Query get the entire thing.
+ * keep the table definers as they are.
+ * add a wrapper to trim the queries down as needed using type rules
+ * setSmallTypes will not work
+ * check passiveToActive below
+ */
+
 
 /**
  * Adds a new record to the $active_array, so that it's picked up by the
