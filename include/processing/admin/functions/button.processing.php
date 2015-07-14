@@ -48,6 +48,7 @@ function processInput($form_name, $sql_obj, $post_array, $type_rules,
   if($type_of_submit[0] == "update"){
     // first the DB should be updated.
     updateDB($form_name, $processedPOST, $sql_obj, $pkey);
+    
     return true;
   }  
 }

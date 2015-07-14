@@ -24,7 +24,7 @@ function addNewRecord(&$active_array, $typeRules){
 }
 
 
-
+//THIS NEEDS TO CHANGE
 /**
  *  -- FOR AN EDIT --
  *  Takes an item from the static array and copies it on to the active array.

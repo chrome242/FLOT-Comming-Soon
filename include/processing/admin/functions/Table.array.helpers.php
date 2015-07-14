@@ -42,8 +42,13 @@ function getNumberNew($array){
 	*
 	* @return array - an array in the form desired by SmallTable.
 	*/
-function sqlToSmallTable($mysqli, $table, $id='id'){
-  $results = $mysqli->query("SELECT * FROM $table ORDER BY $id");
+function sqlToTable($mysqli, $table, $id='id', $fields=null){
+	if($fields == null){
+		$results = $mysqli->query("SELECT * FROM $table ORDER BY $id");
+	} else {
+		$selectables = implode("', '", $fields);
+		$results = $mysqli->query("SELECT $selectables FROM $table ORDER BY $id");
+	}
 	$output = array();
 	while($row = $results->fetch_array(MYSQLI_ASSOC)){
 		$key = $row[$id];
@@ -64,7 +69,7 @@ function sqlToSmallTable($mysqli, $table, $id='id'){
 	*
 	* @return array the form's array
 	*/
-function postToSmallTable($post, $formname){
+function postToTable($post, $formname){
 	if(isset($post[$formname])){
 	return $post[$formname];
 	} else {
@@ -112,52 +117,52 @@ function mergeTwoDArrays($static_source, $active_source){
 }
 
 
-/**
- * A function used to construct the type array from the merged array and the
- * parent active array and the type rules array. Also this function can be used
- * to add a entry to the end of the $mergedArray and the end of return array.
- * This should essentally be the final method called before display of the table
- *
- * @param array $mergedArray the array include all members of the post array
- *        as well as any additional member elements in the same format.
- * @param array $postArray the array of members that the active rule is to be
- *        applied too.
- * @param array $typeRules an array of keys for the other two arrays, and how
- *        to apply them based on their status as 'active' or 'static'.
- * @param bool $addNew a toggle for if the arrays should have new empty cells
- *        on the end.
- * @param int $count the length of the indivudual record array that is required
- * 				for it to be considered an active record. For example with a table
- * 				that passes in a hidden field with data, that data will always be
- * 				passed back, so you'd not want to make that active, and you'd want the
- * 				count to skip that one.
- *
- * @return array the formating array for the table.
- */
-function setSmallTypes(&$mergedArray, $postArray,$typeRules,
-											 $addNew=true, $count=1){
-	$type_array = array(); // for the return
-	foreach ($mergedArray as $key => $fields){
-		$type_array[$key] =array();
-		foreach($fields as $field => $value){
-			if(array_key_exists($key, $postArray) && count($postArray[$key]) >= $count){
-				$type_array[$key][$field] = $typeRules[$field]["active"];
-			} else{
-				$type_array[$key][$field] = $typeRules[$field]["static"];
-			}
-		}
-	}
-	if($addNew){
-		if(isset($mergedArray["add"])){unset($mergedArray["add"]);}
-		$mergedArray["add"] = array();
-		foreach($typeRules as $key => $value){
-			// add new values
-			$mergedArray["add"][$key] = "";
-      if(isset($typeRules[$key]["new"])){
-        $type_array["add"][$key] = $typeRules[$key]["new"];
-      }
-		}
-	}
-	return $type_array;
-}
+///**
+// * A function used to construct the type array from the merged array and the
+// * parent active array and the type rules array. Also this function can be used
+// * to add a entry to the end of the $mergedArray and the end of return array.
+// * This should essentally be the final method called before display of the table
+// *
+// * @param array $mergedArray the array include all members of the post array
+// *        as well as any additional member elements in the same format.
+// * @param array $postArray the array of members that the active rule is to be
+// *        applied too.
+// * @param array $typeRules an array of keys for the other two arrays, and how
+// *        to apply them based on their status as 'active' or 'static'.
+// * @param bool $addNew a toggle for if the arrays should have new empty cells
+// *        on the end.
+// * @param int $count the length of the indivudual record array that is required
+// * 				for it to be considered an active record. For example with a table
+// * 				that passes in a hidden field with data, that data will always be
+// * 				passed back, so you'd not want to make that active, and you'd want the
+// * 				count to skip that one.
+// *
+// * @return array the formating array for the table.
+// */
+//function setSmallTypes(&$mergedArray, $postArray,$typeRules,
+//											 $addNew=true, $count=1){
+//	$type_array = array(); // for the return
+//	foreach ($mergedArray as $key => $fields){
+//		$type_array[$key] =array();
+//		foreach($fields as $field => $value){
+//			if(array_key_exists($key, $postArray) && count($postArray[$key]) >= $count){
+//				$type_array[$key][$field] = $typeRules[$field]["active"];
+//			} else{
+//				$type_array[$key][$field] = $typeRules[$field]["static"];
+//			}
+//		}
+//	}
+//	if($addNew){
+//		if(isset($mergedArray["add"])){unset($mergedArray["add"]);}
+//		$mergedArray["add"] = array();
+//		foreach($typeRules as $key => $value){
+//			// add new values
+//			$mergedArray["add"][$key] = "";
+//      if(isset($typeRules[$key]["new"])){
+//        $type_array["add"][$key] = $typeRules[$key]["new"];
+//      }
+//		}
+//	}
+//	return $type_array;
+//}
 

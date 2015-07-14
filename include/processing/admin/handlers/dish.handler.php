@@ -40,6 +40,8 @@ $dishes_display = array("Id" => array("food_id" => "id"), // id
                         "s3" => array("s3" => "plain"),
                         "add" => array("add" => "button, large")
                         );
+
+
 // ************************************************************************** //
 
 
@@ -60,7 +62,7 @@ $dishPOST = postToSmallTable($_POST, 'dishType');
 //if($requery_sql){$drinksSQL = sqlToSmallTable($mysqli, 'drinkTypes');}
 //
 //// Now that any updates are tested for, do the final build of the object.
-//$drinksMERGE = mergeTwoDArrays($drinksSQL, $drinksPOST);
+$dishMERGE = mergeTwoDArrays($dishSQL, $dishPOST);
 //$drinksTYPE = setSmallTypes($drinksMERGE, $drinksPOST, $drink_type_rule, $addNew=true, $count=2);
 // ************************************************************************** //
 
