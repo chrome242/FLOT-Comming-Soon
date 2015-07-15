@@ -78,7 +78,15 @@ if(isset($_POST)){
   echo "<br>mysql procesed<br>";
   var_dump($dishSQL);
   echo "<br>post procesed<br>";
-  var_dump($dishPOST);
+  var_dump($dishTYPE);
+  $test = array('a1' => array(1,2,3),
+                'b2' => array('a','b','c'),
+                'this' => array('this', 'has'));
+  $works = array("totally", "worked");
+  $insert = array('a1.5' => array(4,5,6),
+                  'a2.0' => array(7,8,9));
+  array_insert_before($test, 'b2', $insert);
+  var_dump(append_to_last($test, $works));
   echo "</pre>";
   
 }

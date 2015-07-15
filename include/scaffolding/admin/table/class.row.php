@@ -48,7 +48,7 @@
  *  
  * Short Cell Docs:
  * 
- * button, x(o) where x is 'right' if right justifed. - an inline button. 
+ * button, x(o) where x is 'large' if large, 'acive' if active, or both. 
  * checkbox - x(o) where x is 'off' if disabled
  * drop - not placed in the table (h)
  * duration, x, y(o) where x & y are either timestamps or cell names (b)
@@ -229,8 +229,11 @@ class Row {
           $this->_cells[$cell_name] = new Button($this->_tableName, $this->_rowShortName, $value);
           
           // if it has args
-          if(stripos($format[$name], 'button,') !== false){
+          if(stripos($format[$name], 'large') !== false){
             $this->_cells[$cell_name]->setButtonClasses("btn btn-primary edit-icon");
+          }
+          if(stripos($format[$name], 'active') !== false){
+            $this->_cells[$cell_name]->setActive();
           }
           
           if($protected){

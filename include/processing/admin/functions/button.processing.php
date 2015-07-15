@@ -25,7 +25,11 @@ function processInput($form_name, $sql_obj, $post_array, $type_rules,
   
   // first check the options that don't include SQL access.
   if($type_of_submit[0] == "new"){ // for a new entry
-    addNewRecord($processedPOST, $type_rules);
+    if(!$full){
+      addNewRecord($processedPOST, $type_rules);
+    } else{
+      
+    }
   }
   if($type_of_submit[0] == "edit"){ // for an edit
     passiveToActive($type_of_submit[1], $processedSQL, $processedPOST);

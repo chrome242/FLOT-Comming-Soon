@@ -208,7 +208,7 @@ $test_size_spec = array(5 => "new");
 
 
 // Panel Table Test
-$test_pantab_trial = array( array("food_id" => 1, // id
+$test_pantab_trial = array( array("food_id" => 55, // id
                                   "food_name" => "Grilled Asparagus (V)",  //plain
                                   "food_type" => array(1 => "Appetizer", 2 => "Tapas", 3 => "Full Plate"), //select
                                   "food_price" => "6.59", // number
@@ -231,7 +231,7 @@ $test_pantab_trial = array( array("food_id" => 1, // id
                                   "food_type" => "Tapas",
                                   "food_price" => "5.59", // number
                                   "edit" => "edit",
-                                  "newrow" => "newrow",
+                                  "addrow" => "newrow",
                                   "new_id" => "+",
                                   "s1" => "",
                                   "s2" => "",
@@ -240,7 +240,7 @@ $test_pantab_trial = array( array("food_id" => 1, // id
 
                           );
 
-$test_active = array(1);
+$test_active = array(55);
 //***************************************************************************//
 
 //********************************Wine***************************************//

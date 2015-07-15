@@ -4,9 +4,8 @@
 /* Things to think about:
  * Let the Query get the entire thing.
  * keep the table definers as they are.
- * add a wrapper to trim the queries down as needed using type rules
- * setSmallTypes will not work
- * check passiveToActive below
+ * finish format for static
+ * addNewRecord needs a rewrite
  */
 
 
@@ -32,7 +31,6 @@ function addNewRecord(&$active_array, $typeRules){
 }
 
 
-//THIS NEEDS TO CHANGE
 /**
  *  -- FOR AN EDIT --
  *  Takes an item from the static array and copies it on to the active array.

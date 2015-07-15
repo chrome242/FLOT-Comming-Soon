@@ -87,4 +87,3 @@ function setSmallTypes(&$mergedArray, $postArray,$typeRules,
 	}
 	return $type_array;
 }
-

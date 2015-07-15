@@ -69,6 +69,8 @@
   
   private function makeInput(){
     $details = 'class="' . $this->_button_classes . '"';
+    if($this->_active){$details = 'class="' . $this->_button_classes . ' active"';
+    } else {$details = 'class="' . $this->_button_classes . '"';}
     
     if($this->_showDetails){$details .= ' id="'. $this->_id . '" name="' . $this->_name . '"';}
     
