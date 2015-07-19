@@ -42,9 +42,9 @@
    */
   public function __construct($form, $record, $action){
     $this->_record = $record;
-    $this->_name = $form . '-' . strtolower($action);
+    $this->_name = $form . '-' . $action;
     $this->_id = $form.'['.$record.']['. $this->_name .']';
-    $this->_content = ucwords($action); 
+    $this->_content = ucwords($action);
   }
   
   /**

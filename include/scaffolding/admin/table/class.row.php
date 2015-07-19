@@ -378,9 +378,9 @@ class Row {
           // check if the value is an 2 dimensional array, if that is the case
           // then the first arg is array of values and the second arg is the
           // selected value
-          if (isset($value[0]) && is_array($value[0])){
-            $inner_value = $value[0];
-            $selected = $value[1];
+          if (is_array($value[1])){
+            $inner_value = $value[1];
+            $selected = $value[2];
           }
           
           // if it has args

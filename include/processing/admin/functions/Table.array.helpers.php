@@ -39,12 +39,10 @@ function getNumberNew($array){
 	* @param obj $mysqli - the mysqli connection object.
 	* @param array $sql - the SQL array
 	* @param str $id - the field that has the id of the record
-	* @param array $fields - an array of fields to limit results to
-	* @param bool $internal_id - if the ID should be shown in the results as well
 	*
 	* @return array - an array in the form desired by SmallTable.
 	*/
-function sqlToTable($mysqli, $table, $id='id', $fields=null, $internal_id=false){
+function sqlToTable($mysqli, $table, $id='id', $fields=null){
 	
 	if($fields == null){
 		$results = $mysqli->query("SELECT * FROM $table ORDER BY $id");
@@ -55,7 +53,7 @@ function sqlToTable($mysqli, $table, $id='id', $fields=null, $internal_id=false)
 	$output = array();
 	while($row = $results->fetch_array(MYSQLI_ASSOC)){
 		$key = $row[$id];
-		if(!$internal_id){unset($row[$id]);}
+		unset($row[$id]);
 		$array = $row;
 		$output[$key] = $array;
 	}
@@ -97,6 +95,7 @@ function mergeTableArrays($static_source, $active_source){
 	
 	foreach ($active_source as $key => $value){
 		$static_source[$key] = $value;
+		//echo gettype($value); good debug option.
 	}
 	return $static_source;
 }
@@ -202,79 +201,6 @@ function array_insert_before(&$array, $position, $insert){
  * replacing any values for a selector with their value from the selector
  * array(s)
  */
-function make_table_output($merged_array, $edit_array, $templates_array,
-													 $selects_array=null, $add=true, $id='id'){
+function format_for_static(&$merged_array, $edit_array, $remove_array=null, $selects_array=null){
 	
-	// break up the array
-	$edit_template = $templates_array[0];
-	$static_template = $templates_array[1];
-	$add_template = $templates_array[2];
-	
-	// the return array
-	$return_array = array();
-	
-	// the list of record id's
-	$record_list = array_keys($merged_array);
-	
-	//populate $return_array with templates based on $merged_array and $edit_array
-	foreach($record_list as $key){
-		if(in_array($key, $edit_array)){$return_array[$key] = $edit_template;}
-		else{$return_array[$key] = $static_template;}
-	}
-	
-	//copy the values from the $merged_array where there is a key for it in the
-	//return array
-	foreach($merged_array as $record_key => $record){ // open the record
-		foreach($record as $field => &$value){
-			if(isset($return_array[$record_key][$field])){
-				$return_array[$record_key][$field] = $value;
-			}
-		}
-		// check for droped $id fields on new items between updates
-		if($return_array[$record_key][$id] == ''){
-			$return_array[$record_key][$id] = $record_key;
-		}
-	}
-	
-	
-	//replace selects where they are not on the edit list, turn them into proper
-	//format for edit ones.
-	
-	//selects array is in the format of field_name => select options
-	if($selects_array !== null){
-		foreach($record_list as $key){
-			
-			foreach($selects_array as $field => $list){
-					if(in_array($key, $edit_array)){
-						
-						if(isset($return_array[$key][$field])){
-							$value = $return_array[$key][$field];
-							if(isset($list[$value])){
-								$return_array[$key][$field] = array($list, $value);
-							}
-							else{
-
-								$return_array[$key][$field] = $list;
-							}
-						}
-					}
-					
-					else{	
-						if(isset($return_array[$key][$field])){
-							$value = $return_array[$key][$field];
-							$return_array[$key][$field] = selector_to_text($value, $list);
-						}
-					}
-			}
-		
-		}
-	}
-	
-	//add the add template to the end of the table
-	if($add){
-		append_to_last($return_array, $add_template);
-	}
-	
-	
-	return $return_array;
 }

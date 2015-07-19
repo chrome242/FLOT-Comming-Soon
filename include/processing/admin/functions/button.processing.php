@@ -18,15 +18,18 @@
  */
 
 function processInput($form_name, $sql_obj, $post_array, $type_rules,
-                      &$processedSQL, &$processedPOST, $pkey="id", $full=false){
+                      &$processedSQL, &$processedPOST, $pkey="id"){
   
   // determine what type of submit button was pressed
-  $type_of_submit = standardSelector($form_name, $post_array, $full);
+  $type_of_submit = standardSelector($form_name, $post_array);
   
   // first check the options that don't include SQL access.
   if($type_of_submit[0] == "new"){ // for a new entry
-    if (!$full){addNewRecord($processedPOST, $type_rules);}
-    if ($full){newTableRecord($processedPOST, $type_rules, $pkey);}
+    if(!$full){
+      addNewRecord($processedPOST, $type_rules);
+    } else{
+      
+    }
   }
   if($type_of_submit[0] == "edit"){ // for an edit
     passiveToActive($type_of_submit[1], $processedSQL, $processedPOST);

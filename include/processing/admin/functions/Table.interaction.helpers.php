@@ -1,4 +1,13 @@
 <?php
+// needs a re-write
+
+/* Things to think about:
+ * Let the Query get the entire thing.
+ * keep the table definers as they are.
+ * finish format for static
+ * addNewRecord needs a rewrite
+ */
+
 
 /**
  * Adds a new record to the $active_array, so that it's picked up by the
@@ -20,7 +29,6 @@ function addNewRecord(&$active_array, $typeRules){
   
   $active_array[$recordNumber] = $newrecord;
 }
-
 
 
 /**
