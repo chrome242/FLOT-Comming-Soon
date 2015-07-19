@@ -12,9 +12,9 @@ include_once(PROCESSING_ADMIN."table.processing.php");
 // ************* Dish invokation Rules. To format the Model **************** //
 
 // the type definers for the active array
-$dishes_edit = array( "Id" => array("food_id" => "id"), // id
+$dishes_edit = array( "Id" => array("id" => "id"), // id
                       "Plate"=> array("food_name" => "text, value"), // plain
-                      "Type" => array("food_type" => "select, 1"), //select
+                      "Type" => array("food_type_name" => "select, 1"), //select
                       "Price" => array("food_price" =>
                                        "number, value, .01, 8"), // number
                       "Edit" => array("edit" => "button, large, active"),  // button
@@ -22,7 +22,7 @@ $dishes_edit = array( "Id" => array("food_id" => "id"), // id
                       "spacer" => array("spacer" => "plain"),  // plain
                       "food_desc" =>array("food_desc" =>
                                           "textarea, value, 3, 4"), // text area
-                      "addnew" => array("addrow" => "newrow"), // this and below for last record, to add new
+                      "addnew" => array("addrow" => "newrow"), 
                       "new_id" => array("new_id" => "plain"),
                       "s1" => array("s1" => "plain"),
                       "s2" => array("s2" => "plain"),
@@ -30,30 +30,22 @@ $dishes_edit = array( "Id" => array("food_id" => "id"), // id
                       "add" => array("add" => "button, large")
                     );
 
+                    
 // the type definers for the static array
-$dishes_display = array("Id" => array("food_id" => "id"), // id
+$dishes_display = array("Id" => array("id" => "id"), // id
                         "Plate"=> array("food_name" => "plain"), // plain
-                        "Type" => array("food_type" => "plain"), //select
+                        "Type" => array("food_type_name" => "plain"), //select
                         "Price" => array("food_price" => "plain"), // number
                         "Edit" => array("edit" => "button, large"),  // button
-                        "addnew" => array("addrow" => "newrow"), // this and below for last record, to add new
-                        "new_id" => array("new_id" => "plain"),  // all of these will only be shown if there's
-                        "s1" => array("s1" => "plain"),          // actually a placeholder value inserted.
+                        "addnew" => array("addrow" => "newrow"), 
+                        "new_id" => array("new_id" => "plain"),
+                        "s1" => array("s1" => "plain"),
                         "s2" => array("s2" => "plain"),
                         "s3" => array("s3" => "plain"),
                         "add" => array("add" => "button, large")
                         );
 
-// to be appended to the end of the last element on the table for the new row.
-$dishes_addrow  = array("addrow" => "newrow",
-                        "new_id" => "+",
-                        "s1" => "",
-                        "s2" => "",
-                        "s3" => "",
-                        "add" => "add");
 
-// to be removed from view only records:
-$edit_only_fields = array("food_desc");
 
 // ************************************************************************** //
 
@@ -61,22 +53,50 @@ $edit_only_fields = array("food_desc");
 // ************************* Selector Contstruction ************************* //
 $types_info = array("foodType", "id", "food_type_name");
 $dish_selector = make_selector($mysqli, $types_info[0], $types_info[1], $types_info[2]);
+$dish_selectors = array($types_info[2] => $dish_selector);
+// ************************************************************************** //
+
+
+// ****************************** Templates ******************************** //
+$dish_templates = array( array("id" => "",
+                               "food_name" => "",
+                               "food_type_name" =>$dish_selector,
+                               "food_price" =>"",
+                               "edit" => "Edit",
+                               "newrow" => "newrow",
+                               "spacer" => "",
+                               "food_desc" => ""),
+                         array("id" => "",
+                               "food_name" => "",
+                               "food_type_name" =>"",
+                               "food_price" =>"",
+                               "edit" => "Edit"),
+                         array("addrow" => "newrow",
+                               "new_id" => "+",
+                               "s1" => "",
+                               "s2" => "",
+                               "s3" => "",
+                               "add" => "add")  // button)
+                         );
 // ************************************************************************** //
 
 
 // ********** Generating the drink model. View invoked in index. ************ //
 
 // make the two arrays of contents match in format
-$dishSQL = sqlToSmallTable($mysqli, 'dishType');
-$dishPOST = postToSmallTable($_POST, 'dishType');
-//
-//// processTypes will do all the new SQL and array updates.
-//$requery_sql = processInput("drinkTypes", $mysqli, $_POST, $drink_type_rule, $drinksSQL, $drinksPOST);
-//if($requery_sql){$drinksSQL = sqlToSmallTable($mysqli, 'drinkTypes');}
-//
-//// Now that any updates are tested for, do the final build of the object.
+$dishSQL = sqltoTable($mysqli, 'dishType', 'id', null, true);
+$dishPOST = postToTable($_POST, 'dishType');
+
+// processTypes will do all the new SQL and array updates.
+$requery_sql = processInput("dishType", $mysqli, $_POST, $dish_templates, $dishSQL, $dishPOST, 'id', true);
+if($requery_sql){$dishSQL = sqlToTable($mysqli, 'dishType', 'id', null, true);}
+
+// Now that any updates are tested for, do the final build of the object.
 $dishMERGE = mergeTwoDArrays($dishSQL, $dishPOST);
 $dishTYPE = getActiveMembers($dishPOST);
+
+// Make the final output
+$dishPROCESSED = make_table_output($dishMERGE, $dishTYPE, $dish_templates, $dish_selectors, $add=true);
 
 // ************************************************************************** //
 

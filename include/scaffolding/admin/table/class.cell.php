@@ -190,6 +190,7 @@ class Cell {
     
     if($this->_hidden){$attribs .= " hidden";}
     
+    if(is_array($text)){echo"<pre>".var_dump($text)."</pre><br>";;}
     $output = '
                   <td' . $attribs . '>'. $text . '</td>';
 

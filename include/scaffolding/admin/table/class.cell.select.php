@@ -56,8 +56,8 @@ class Select extends Input{
     $this->_multiple = $mutiple;
     $this->_size = $size;
     $this->_option_array = $options;
-    if($selected != null){$this->_content = $options[$selected];}
-    if($selected == null){$this->_content = "";}
+    $this->_content ="";
+    if($selected != null && isset($options[$selected])){$this->_content = $options[$selected];}
     
   }
 

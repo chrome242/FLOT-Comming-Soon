@@ -1,6 +1,33 @@
 <?php
 
-/**
+
+/** FOR LARGE TABLE
+ * Adds a new record to the $active_array, so that it's picked up by the
+ * merge and made into a new edit record.
+ *
+ * @param array $active_array usally the clean post array
+ * @param array $prototype simpler then small table, just a copy
+ * @param str $pkey the primary key of the record
+ * No return.
+ */
+function newTableRecord(&$active_array, $prototype, $pkey){
+  $newrecord = $prototype[0]; // make a new entry
+  foreach($newrecord as $field => &$value){
+    if(is_array($value)){ // take care of selectors
+      if(isset($value[1])){$value = $value[1];}
+      else($value = '');
+    }
+  }
+  $recordNumber = getNumberNew($active_array); // get the key name
+  
+  $newrecord[$pkey] = $recordNumber; // set the internal key
+  
+  $active_array[$recordNumber] = $newrecord;
+
+}
+
+
+/** FOR SMALL TABLES AND LIs
  * Adds a new record to the $active_array, so that it's picked up by the
  * merge and made into a new edit record.
  *
@@ -86,7 +113,7 @@ function removeRecord($record_id, $table, &$static_source, &$active_array, $mysq
  * @param array $active_array the array of active records
  * @param obj $mysqli the mysqli connection object
  */
-function updateDB($table, &$active_array, $mysqli, $id='id'){
+function updateDB($table, &$active_array, $mysqli, $id='id', $full=false){
   
   // deal with each record in turn
   foreach($active_array as $item_id => $item_record){
@@ -96,7 +123,7 @@ function updateDB($table, &$active_array, $mysqli, $id='id'){
     
     if(strpos($item_id, 'n')){
       // call insert function if a new record
-      $sql = insertToDB($table, $item_record, $mysqli);
+      $sql = insertToDB($table, $item_record, $mysqli, $id, $full);
     }
     else{
       // call record update function if not new.
@@ -124,9 +151,11 @@ function updateDB($table, &$active_array, $mysqli, $id='id'){
  *
  * @return str the SQL insert statement.
  */
-function insertToDB($table, $item_record, $mysqli){
+function insertToDB($table, $item_record, $mysqli, $id='id', $full=false){
   
   $statement = "INSERT INTO $table ";
+  
+  if($full){unset($item_record[$id]);}
   
   // implode the array keys
   $statement .= " (".implode(", ", array_keys($item_record)).")";

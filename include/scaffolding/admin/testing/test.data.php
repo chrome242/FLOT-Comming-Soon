@@ -210,7 +210,9 @@ $test_size_spec = array(5 => "new");
 // Panel Table Test
 $test_pantab_trial = array( array("food_id" => 55, // id
                                   "food_name" => "Grilled Asparagus (V)",  //plain
-                                  "food_type" => array(1 => "Appetizer", 2 => "Tapas", 3 => "Full Plate"), //select
+                                  "food_type" => array(
+                                                       array(1 => "Appetizer", 2 => "Tapas", 3 => "Full Plate"),
+                                                       2), //select
                                   "food_price" => "6.59", // number
                                   "edit" => "Edit",  // button
                                   "newrow" => "newrow", // number
