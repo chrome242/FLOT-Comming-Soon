@@ -33,7 +33,7 @@ function trimNumber($record){
  *
  * @return array the array as described above.
  */
-function standardSelector($form_name, $post){
+function standardSelector($form_name, $post, $full=false){
   $return = array();
   // check to see if the $_POST contains either of the non-record specific options.
   if(isset($post[$form_name.'-new'])) { $return[0] = "new";}
@@ -43,11 +43,13 @@ function standardSelector($form_name, $post){
   // deal with record specific return options.
   if(isset($post[$form_name.'-drop'])) {
     $return[0] = "drop";
-    $return[1] = trimNumber($post[$form_name.'-drop']);
+    if(!$full){ $return[1] = trimNumber($post[$form_name.'-drop']);}
+    if($full){$return[1] = ($post[$form_name.'-drop']);}
   }
   if(isset($post[$form_name.'-edit'])) {
     $return[0] = "edit";
-    $return[1] = trimNumber($post[$form_name.'-edit']);
+    if(!$full){ $return[1] = trimNumber($post[$form_name.'-edit']);}
+    if($full){$return[1] = ($post[$form_name.'-edit']);}
   }
   
   // return varies based on if something was set.

@@ -35,8 +35,6 @@ include(PLATE_HANDLER);
 //****************** Process the dish tables and Data: **********************//
 include(DISH_HANDLER);
 
-$processed_dish_cells = $test_pantab_trial;
-$processed_active_rows = $test_active;
 //***************************************************************************//
 
 
@@ -51,45 +49,24 @@ echo $platesPanel;
 
 
 // Dish Display and Editing Panel //
-$dishes = new PanelTable("dishType", $processed_dish_cells,
+$dishes = new PanelTable("dishType", $dishPROCESSED,
                          $dishes_display, $dishes_edit,
-                         $processed_active_rows);
+                         $dishTYPE);
+// width formating
 $dishes->setCellClass("food_name", "col-xs-3");
-$dishes->setCellClass("food_type", "col-xs-3");
+$dishes->setCellClass("food_type_name", "col-xs-3");
 $dishes->setCellClass("food_price", "col-xs-3");
 
+//add final button
 $dishes->addCellButton("food_desc", "drop", "Drop", "large");
+
+// make the panel wrapper
 $dishesPanel = new Panel("Dishes", $dishes);
 $dishesPanel->addButton();
 
 // Display The Panel //
 echo $dishesPanel;
-//***************************************************************************//
 
-
-//********************************TEST***************************************//
-
-/* The array will have to be processed in the following way:
- * first, check for an add. If add exist, then 
- */
-if(isset($_POST)){
-  echo "Post contents:<br><pre>";
-  var_dump($dishMERGE);
-  echo "<br>mysql procesed<br>";
-  var_dump($dishSQL);
-  echo "<br>post procesed<br>";
-  var_dump($dishTYPE);
-  $test = array('a1' => array(1,2,3),
-                'b2' => array('a','b','c'),
-                'this' => array('this', 'has'));
-  $works = array("totally", "worked");
-  $insert = array('a1.5' => array(4,5,6),
-                  'a2.0' => array(7,8,9));
-  array_insert_before($test, 'b2', $insert);
-  var_dump(append_to_last($test, $works));
-  echo "</pre>";
-  
-}
 //***************************************************************************//
 
 

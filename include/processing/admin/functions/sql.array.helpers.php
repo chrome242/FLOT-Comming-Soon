@@ -30,5 +30,9 @@ function make_selector($mysqli, $table, $id, $display){
  * @return the value of the array at value key.
  */
 function selector_to_text($value, $array){
-  return $array[$value];
+  if(isset($array[$value])){
+    return $array[$value];
+  } else {
+    return "Set Value!";
+  }
 }
