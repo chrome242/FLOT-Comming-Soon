@@ -35,6 +35,7 @@ $optionsBeer = array( "inhouse" => "In House",
 $optionsWine = array( "instock" => "In Stock",
                       "outofstock" => "Out Of Stock",
                       "WineAll" => "All");
+//***************************************************************************//
 
 
 // Table Headers
@@ -130,40 +131,7 @@ $wine_edit   =  array("Id" => array("wine_id" => "id"),
                       "placeholder6" => array("placeholder6" => "plain"),
                       "add" => array("add" => "button, large")
                       );
-                       
 
-$brewery_display = array("Id" => array("brewery_id" => 'id'),
-                         "Name" => array("brewery_name" => 'plain'),
-                         "City" => array("brewery_city" => 'plain'),
-                         "State" => array("brewery_state" => 'plain'),
-                         "Website" => array("brewery_site" => 'url'),
-                         "Edit" => array("edit" => "button, large"),
-                         "newrow" => array("newrow" => "newrow"),
-                         "new_id" => array("new_id" => "plain"),
-                         "placeholder1" => array("placeholder1" => "plain"),
-                         "placeholder2" => array("placeholder2" => "plain"),
-                         "placeholder3" => array("placeholder3" => "plain"),
-                         "placeholder4" => array("placeholder4" => "plain"),
-                         "add" => array("add" => "button, large")
-                   );
-
-$brewery_edit  = array( "Id" => array("brewery_id" => 'id'),
-                        "Name" => array("brewery_name" => 'text, value'),
-                        "City" => array("brewery_city" => 'text, value'),
-                        "State" => array("brewery_state" => 'text, value'),
-                        "Website" => array("brewery_site" => 'text, value'),
-                        "Edit" => array("edit" => "button, large"),
-                        "contine" => array("continue" => "newrow"),
-                        "brewery_desc" => array("brewery_desc" => "textarea, value, 3, 4"),
-                        "drop" => array("drop" => "button, large"),
-                        "newrow" => array("newrow" => "newrow"),
-                        "new_id" => array("new_id" => "plain"),
-                        "placeholder1" => array("placeholder1" => "plain"),
-                        "placeholder2" => array("placeholder2" => "plain"),
-                        "placeholder3" => array("placeholder3" => "plain"),
-                        "placeholder4" => array("placeholder4" => "plain"),
-                        "add" => array("add" => "button, large")
-                   );
 
 $winery_display = array("Id" => array("winery_id" => 'id'),
                          "Name" => array("winery_name" => 'plain'),
@@ -197,7 +165,7 @@ $winery_edit  = array( "Id" => array("winery_id" => 'id'),
                         "placeholder4" => array("placeholder4" => "plain"),
                         "add" => array("add" => "button, large")
                    );
-                      
+
 //***************************************************************************//
 
 
@@ -211,8 +179,8 @@ echo sectionbar($sectionWrappers);
 //***************************************************************************//
 
 
-//***************** Final Variable Processing & Cleaning *******************//
-// Fututre home of SQL & $_POST processing methods
+//***************** Process the brewery tables and Data: ********************//
+include(BREWERY_HANDLER);
 
 //***************************************************************************//
 
@@ -234,7 +202,14 @@ echo '      </div>';
 
 // Brewery Management Drop
 echo '      <div class="collapse" id="breweryManagement"> <!-- Breweries -->';
-// TODO: make handler for brewery table
+$brewery = new Table("breweries", $breweryPROCESSED,
+                         $brewery_display, $brewery_edit,
+                         $breweryTYPE);
+$brewery->setCellClass("brewery_name", "col-xs-3");
+$brewery->setCellClass("brewery_city", "col-xs-3");
+$brewery->setCellClass("state_name", "col-xs-2");
+$brewery->setCellClass("brewery_url", "col-xs-3");
+echo $brewery;
 echo '      </div>';
 
 // Winery Managment Drop

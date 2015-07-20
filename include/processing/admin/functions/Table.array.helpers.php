@@ -243,22 +243,25 @@ function make_table_output($merged_array, $edit_array, $templates_array,
 	//selects array is in the format of field_name => select options
 	if($selects_array !== null){
 		foreach($record_list as $key){
-			
+
 			foreach($selects_array as $field => $list){
-					if(in_array($key, $edit_array)){
-						
+					if(in_array($key, $edit_array, true)){ // check to see if it's in the edit array
+
 						if(isset($return_array[$key][$field])){
 							$value = $return_array[$key][$field];
+							
+							// return with a selection if there is one to be had.
 							if(isset($list[$value])){
 								$return_array[$key][$field] = array($list, $value);
-							}
-							else{
-
+							
+							// return with out a selection
+							}else{
 								$return_array[$key][$field] = $list;
 							}
 						}
 					}
 					
+					// to make into text
 					else{	
 						if(isset($return_array[$key][$field])){
 							$value = $return_array[$key][$field];

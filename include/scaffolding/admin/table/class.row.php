@@ -218,7 +218,7 @@ class Row {
         if($format[$name] == 'url'){$this->_cells[$cell_name] = new UrlCell($name, $value);}
         
         // new row
-        if($format[$name] == 'newrow'){$this->_cells[$cell_name] = new NewRow();}
+        if($format[$name] == 'newrow'){$this->_cells[$cell_name] = new NewRow($cell_name);}
         
         // private (text) cell private
         if($format[$name] == 'private'){ $this->_privateCells[$cell_name] = new Cell($name, $value);}
