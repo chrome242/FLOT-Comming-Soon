@@ -133,39 +133,6 @@ $wine_edit   =  array("Id" => array("wine_id" => "id"),
                       );
 
 
-$winery_display = array("Id" => array("winery_id" => 'id'),
-                         "Name" => array("winery_name" => 'plain'),
-                         "Region" => array("winery_region" => 'plain'),
-                         "State" => array("winery_state" => 'plain'),
-                         "Website" => array("winery_site" => 'url'),
-                         "Edit" => array("edit" => "button, large"),
-                         "newrow" => array("newrow" => "newrow"),
-                         "new_id" => array("new_id" => "plain"),
-                         "placeholder1" => array("placeholder1" => "plain"),
-                         "placeholder2" => array("placeholder2" => "plain"),
-                         "placeholder3" => array("placeholder3" => "plain"),
-                         "placeholder4" => array("placeholder4" => "plain"),
-                         "add" => array("add" => "button, large")
-                   );
-
-$winery_edit  = array( "Id" => array("winery_id" => 'id'),
-                        "Name" => array("winery_name" => 'text, value'),
-                        "Region" => array("winery_region" => 'text, value'),
-                        "State" => array("winery_state" => 'text, value'),
-                        "Website" => array("winery_site" => 'text, value'),
-                        "Edit" => array("edit" => "button, large"),
-                        "contine" => array("continue" => "newrow"),
-                        "winery_desc" => array("winery_desc" => "textarea, value, 3, 4"),
-                        "drop" => array("drop" => "button, large"),
-                        "newrow" => array("newrow" => "newrow"),
-                        "new_id" => array("new_id" => "plain"),
-                        "placeholder1" => array("placeholder1" => "plain"),
-                        "placeholder2" => array("placeholder2" => "plain"),
-                        "placeholder3" => array("placeholder3" => "plain"),
-                        "placeholder4" => array("placeholder4" => "plain"),
-                        "add" => array("add" => "button, large")
-                   );
-
 //***************************************************************************//
 
 
