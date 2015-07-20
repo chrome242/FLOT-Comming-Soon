@@ -90,47 +90,7 @@ $beer_edit = array( "beer_offtap" => array("beer_offtap" => "time, private"),
                     "add" => array("add" => "button, large")
                      );         
 
-$wine_display =  array( "Id" => array("wine_id" => "id"),
-                        "Winery" => array("wine_winery" => 'plain'),
-                        "Wine" => array('wine_name' => 'plain'),
-                        "Year" => array('wine_year' => 'plain'),
-                        "Price" => array('wine_price' => 'plain'),
-                        "Bottle Price" => array('wine_bottle' => 'plain'),
-                        "In Stock" => array("wine_instock" => 'checkbox, off'),
-                        "Edit" => array("edit" => 'button, large'),
-                        "newrow" => array("newrow" => "newrow"),
-                        "new_id" => array("new_id" => "plain"),
-                        "placeholder1" => array("placeholder1" => "plain"),
-                        "placeholder2" => array("placeholder2" => "plain"),
-                        "placeholder3" => array("placeholder3" => "plain"),
-                        "placeholder4" => array("placeholder4" => "plain"),
-                        "placeholder5" => array("placeholder5" => "plain"),
-                        "placeholder6" => array("placeholder6" => "plain"),
-                        "add" => array("add" => "button, large")
-                      );
 
-$wine_edit   =  array("Id" => array("wine_id" => "id"),
-                      "Winery" => array("wine_winery" => 'select'),
-                      "Wine" => array('wine_name' => 'select'),
-                      "Year" => array('wine_year' => 'number, value, 1'),
-                      "Price" => array('wine_price' => 'number, value, .01'),
-                      "Bottle Price" => array('wine_bottle' => 'number, value, .01'),
-                      "In Stock" => array("wine_instock" => 'checkbox'),
-                      "Edit" => array("edit" => 'button, large'),
-                      "nextrow" => array("newrow" => "newrow"),
-                      "wine_type" => array("wine_type"=> "select"),
-                      "wine_desc" => array("wine_desc" => "textarea, value, 3, 5"),
-                      "drop" => array("drop" => "buton, large"),
-                      "newrow" => array("newrow" => "newrow"),
-                      "new_id" => array("new_id" => "plain"),
-                      "placeholder1" => array("placeholder1" => "plain"),
-                      "placeholder2" => array("placeholder2" => "plain"),
-                      "placeholder3" => array("placeholder3" => "plain"),
-                      "placeholder4" => array("placeholder4" => "plain"),
-                      "placeholder5" => array("placeholder5" => "plain"),
-                      "placeholder6" => array("placeholder6" => "plain"),
-                      "add" => array("add" => "button, large")
-                      );
 
 
 //***************************************************************************//
@@ -146,10 +106,17 @@ echo sectionbar($sectionWrappers);
 //***************************************************************************//
 
 
+//****************** Process the wine tables and Data: **********************//
+include(WINE_HANDLER);
+
+//***************************************************************************//
+
+
 //***************** Process the brewery tables and Data: ********************//
 include(BREWERY_HANDLER);
 
 //***************************************************************************//
+
 
 //**************** Process the wineries tables and Data: ********************//
 include(WINERY_HANDLER);
@@ -169,7 +136,10 @@ echo '      </div>';
 // Wine Management Drop
 echo '      <div class="collapse" id="wineManagement"> <!-- Wines -->';
 echo sortbar($optionsWine, 'WineAll');
-// TODO: make handler for wine table
+$wines = new Table("wines", $winesPROCESSED,
+                         $wines_display, $wines_edit,
+                         $winesTYPE);
+echo $wines;
 echo '      </div>';
 
 // Brewery Management Drop

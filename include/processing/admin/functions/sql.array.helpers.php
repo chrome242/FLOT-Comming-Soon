@@ -11,6 +11,7 @@ function make_selector($mysqli, $table, $id, $display){
   $results = $mysqli->query("SELECT $id, $display FROM $table ORDER BY $id");
   $return = array(); // return array
   
+  
   while($row = $results->fetch_array(MYSQLI_ASSOC)){
     $key = $row[$id];
     $value = $row[$display];
