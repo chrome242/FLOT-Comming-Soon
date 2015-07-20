@@ -23,6 +23,7 @@ define("WINES_HANDLER", PROCESSING_ADMIN."handlers/wine.handler.php");
 define("SIZE_HANDLER", PROCESSING_ADMIN."handlers/size.handler.php");
 define("DISH_HANDLER", PROCESSING_ADMIN."handlers/dish.handler.php");
 define("BREWERY_HANDLER", PROCESSING_ADMIN."handlers/brewery.handler.php");
+define("WINERY_HANDLER", PROCESSING_ADMIN."handlers/winery.handler.php");
 
 // Test files
 include_once(SCAFFOLDING_ADMIN."testing/test.data.php");

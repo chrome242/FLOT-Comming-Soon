@@ -184,6 +184,11 @@ include(BREWERY_HANDLER);
 
 //***************************************************************************//
 
+//**************** Process the wineries tables and Data: ********************//
+include(WINERY_HANDLER);
+
+//***************************************************************************//
+
 
 //********************************* Content *********************************//
 
@@ -205,16 +210,17 @@ echo '      <div class="collapse" id="breweryManagement"> <!-- Breweries -->';
 $brewery = new Table("breweries", $breweryPROCESSED,
                          $brewery_display, $brewery_edit,
                          $breweryTYPE);
-$brewery->setCellClass("brewery_name", "col-xs-3");
-$brewery->setCellClass("brewery_city", "col-xs-3");
-$brewery->setCellClass("state_name", "col-xs-2");
-$brewery->setCellClass("brewery_url", "col-xs-3");
+
 echo $brewery;
 echo '      </div>';
 
 // Winery Managment Drop
-echo '      <div class="collapse" id="wineryManagement"> <!-- Breweries -->';
-// TODO: make handler for brewery table
+echo '      <div class="collapse" id="wineryManagement"> <!-- Wineries -->';
+$winery = new Table("wineries", $wineryPROCESSED,
+                         $winery_display, $winery_edit,
+                         $wineryTYPE);
+
+echo $winery;
 echo '      </div>';
 //***************************************************************************//
 
