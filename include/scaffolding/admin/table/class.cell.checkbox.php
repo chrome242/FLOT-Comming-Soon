@@ -48,18 +48,25 @@ class Checkbox extends Input {
    */
   private function makeInput(){
     $details = '';
+    $hidden = ''; // use this if there isn't a custom value
     
     if($this->_showDetails){$details = 'id="'. $this->_id . '" name="' . $this->_name . '"';}
     
-    if($this->_value !== false){$details .= ' value="' . $this->_value . '"';}
-    
+    if($this->_value !== false){
+      $details .= ' value="' . $this->_value . '"';
+    } else {
+      $details .= ' value="1"';
+      $hidden = '<input type="hidden" value="0" name="'. $this->_name . '"';
+      if($this->_disabled){ $hidden .= " disabled";}
+      $hidden .= '> ';
+    }
     $content = '<input type="'. $this->_type .'"'. $details .'';
     
-    if($this->_content){$content .= " checked";} 
+    if($this->_content){$content .= ' checked="1"';} 
     if($this->_disabled){$content .= " disabled";}
     
     $content .=">";
-    return $content;
+    return $hidden . $content;
   }
   
   

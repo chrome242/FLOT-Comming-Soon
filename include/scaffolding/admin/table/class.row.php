@@ -310,7 +310,7 @@ class Row {
           
           if (count($pieces) > 2){
             if ($pieces[2] != 'none'){$step = trim($pieces[2]);}
-            if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
+            if (isset($pieces[3]) && $pieces[3] != 'none'){$size = trim($pieces[3]);}
           }
           
           $this->_cells[$cell_name] = new Number($cell_name, $value, $type, $step, $size);
@@ -330,7 +330,7 @@ class Row {
           
           if (count($pieces) > 2){
             if ($pieces[2] != 'none'){$row = trim($pieces[2]);}
-            if ($pieces[3] != 'none'){$colspan = trim($pieces[3]);}
+            if (isset($pieces[3]) && $pieces[3] != 'none'){$colspan = trim($pieces[3]);}
           }
           
           $this->_cells[$cell_name] = new Textarea($cell_name, $value, $type, $row, $colspan);
@@ -394,7 +394,7 @@ class Row {
             
             if (count($pieces) > 2){
               if ($pieces[2] != 'none'){$mutiple = trim($pieces[2]);}
-              if ($pieces[3] != 'none'){$size = trim($pieces[3]);}
+              if (isset($pieces[3]) && $pieces[3] != 'none'){$size = trim($pieces[3]);}
             }
             
             $this->_cells[$cell_name] = new Select($cell_name, $inner_value,

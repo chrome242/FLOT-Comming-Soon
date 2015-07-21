@@ -139,6 +139,12 @@ echo sortbar($optionsWine, 'WineAll');
 $wines = new Table("wines", $winesPROCESSED,
                          $wines_display, $wines_edit,
                          $winesTYPE);
+$wines->setCellClass("winery_name", "col-xs-2");
+$wines->setCellClass("wine_name", "col-xs-2");
+$wines->setCellClass("wine_yeae", "col-xs-2");
+
+//add final button
+$wines->addCellButton("wine_desc", "drop", "Drop", "large");
 echo $wines;
 echo '      </div>';
 
