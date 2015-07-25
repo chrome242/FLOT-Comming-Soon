@@ -128,42 +128,47 @@ include(WINERY_HANDLER);
 
 // Beer Management Drop
 echo '      <div class="collapse" id="beerManagement"> <!-- Beers -->';
-echo sortbar($optionsBeer, 'all');
+echo sortbar($optionsBeer, 'all'); // Beer Sort Bar
 // TODO: make handler for beer table
 echo '      </div>';
 
 
 // Wine Management Drop
 echo '      <div class="collapse" id="wineManagement"> <!-- Wines -->';
-echo sortbar($optionsWine, 'WineAll');
+echo sortbar($optionsWine, 'WineAll');  // Wines Sort Bar
+
+// Make the table, echo it out
 $wines = new Table("wines", $winesPROCESSED,
                          $wines_display, $wines_edit,
                          $winesTYPE);
 $wines->setCellClass("winery_name", "col-xs-2");
 $wines->setCellClass("wine_name", "col-xs-2");
-$wines->setCellClass("wine_yeae", "col-xs-2");
-
-//add final button
-$wines->addCellButton("wine_desc", "drop", "Drop", "large");
+$wines->setCellClass("wine_year", "col-xs-2");
+$wines->addCellButton("wine_desc", "drop", "Drop", "large");//add final button
 echo $wines;
+
 echo '      </div>';
 
 // Brewery Management Drop
 echo '      <div class="collapse" id="breweryManagement"> <!-- Breweries -->';
+
+// Make the table, echo it out
 $brewery = new Table("breweries", $breweryPROCESSED,
                          $brewery_display, $brewery_edit,
                          $breweryTYPE);
-
 echo $brewery;
+
 echo '      </div>';
 
 // Winery Managment Drop
 echo '      <div class="collapse" id="wineryManagement"> <!-- Wineries -->';
+
+// Make the table, echo it out
 $winery = new Table("wineries", $wineryPROCESSED,
                          $winery_display, $winery_edit,
                          $wineryTYPE);
-
 echo $winery;
+
 echo '      </div>';
 //***************************************************************************//
 
