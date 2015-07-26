@@ -151,3 +151,42 @@ function sectionbar($options){
       </div><!-- /Subsection Nav -->';
   return $output;
 }
+
+/** getActivePanels()
+ *
+ * A function to return what the source of the $_POST was from a page with a
+ * number of posting tables, and return the name of the correct table. Assumes
+ * that the tables are posting in the form $tablename-$action
+ *
+ * @param array $post the $_POST array
+ *
+ * @return str the name of the posting form
+ */
+function getActivePanels($post){
+  foreach (array_keys($post) as $key){
+    $chunk = strstr($key, "-", true);
+    if($chunk){return $chunk;}
+  }
+}
+
+/** activatePanels()
+ * Checks to see if the active array is set, if so, it finds the member of the
+ * section array with the matching key => value[2] and changes value [1] to true.
+ *
+ * @param array &$sectionArray the section array to be mutated.
+ * @param mixed $active either false or a value to be found in the $sectionArray
+ *
+ * @return array the modified $sectionArray
+ */
+function activatePanel(&$sectionArray, $active){
+  if($active){
+    echo "$active";
+    foreach($sectionArray as $key => $value){
+      if($value[2] == $active){
+        echo " match";
+        $value[1] = true;}
+    }
+  }
+  
+  return $sectionArray;
+}
