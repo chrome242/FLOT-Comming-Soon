@@ -7,6 +7,39 @@
 
  
 /**
+ * Takes two values from 1 to 4, which represent on tap, on deck, kicked and
+ * off line. returns an array of timestamps based on what the old status was
+ * and what the new status is. This is pretty much a site specific function.
+ *
+ * @param int $select_value the new value
+ * @param int $old_value the old value
+ *
+ * @return an array of numbers/nulls where the first item is the onTap value
+ * 				 and the second is the offTap value.
+ */
+function tapLogic($select_value, $old_value){
+	
+	// assign the numbers to vars just for ease of seeing what's going on.
+	$onTap = 1;	$onDeck = 2;	$kicked = 3;	$offLine = 4;
+	
+	// onTap to anything else - set offtap to today
+	if($old_value == $onTap && $select_value != $onTap){return array(null, time());}
+
+	// anything to onTap - set on tap to today
+	if($old_value != $onTap && $select_value == $onTap){return array(time(), null);}
+	
+	// onDeck to kicked or offline - set on tap to yesterday, off to today (1d)
+	if($old_value == $onDeck && ($select_value == $kicked || $select_value == $offLine)){
+		return array((time() - (24 * 60 * 60)), time());
+	}
+	
+	// kicked to onDeck or offline - no change
+	// no change
+	// offline to onDeck, kicked or offline - no change
+	return array(null, null);
+}
+ 
+/**
  * A function that checks the array for keys of the format n# and returns
  * a string of the format n# where the new #n is 1 greater then the last
  * one found.
