@@ -18,16 +18,16 @@ $beer_edit = array( "beer_offtap" => array("beer_offtap" => "time, private"),
                     "Id" => array("id" => "id"),
                     "Brewery" => array("brewery_name" => "select"), //selector x
                     "Beer" => array("beer_name" => "text, value"),
-                    "Status" => array("beer_status" => "select"), //selector
+                    "Status" => array("beer_status" => "select, 2"), //selector x
                     "ABV" => array("beer_abv" => "number, value, .001"),
-                    "Size" => array("drink_size_val" => "select"), //selector
+                    "Size" => array("drink_size_val" => "select"), //selector x
                     "Price" => array("beer_price" => "number, value, .01"),
-                    "Time on Tap" => array("process_time", "timestamp, beer_offtap, beer_ontap"),
+                    "Time on Tap" => array("process_time" => "duration, beer_ontap, beer_offtap"),
                     "Edit" => array("edit" => "button, large"),
-                    "nextrow" => array('nextrow' => "newrow"),
-                    "beer_type" => array("drink_type_name"=> "select"), //selector
-                    "beer_desc" => array("beer_desc" => "textarea, value, 3, 6"),
-                    "drop" => array("drop" => "button, large"),
+                    "newrow" => array('newrow' => "newrow"),
+                    "spacer" => array("spacer" => "plain"),
+                    "beer_type" => array("drink_type_name"=> "select"), //selector x
+                    "beer_desc" => array("beer_desc" => "textarea, value, 3, 7"),
                     "addrow" => array("addrow" => "newrow"),
                     "new_id" => array("new_id" => "plain"),
                     "s1" => array("s1" => "plain"),
@@ -36,6 +36,7 @@ $beer_edit = array( "beer_offtap" => array("beer_offtap" => "time, private"),
                     "s4" => array("s4" => "plain"),
                     "s5" => array("s5" => "plain"),
                     "s6" => array("s6" => "plain"),
+                    "s7" => array("s7" => "plain"),
                     "add" => array("add" => "button, large")
                      );     
                    
@@ -49,7 +50,7 @@ $beer_display = array("beer_offtap" => array("beer_offtap" => "time, private"),
                       "ABV" => array("beer_abv" => "plain"),
                       "Size" => array("drink_size_val" => "plain"),
                       "Price" => array("beer_price" => "plain"),
-                      "Time on Tap" => array("process_time", "timestamp, beer_offtap, beer_ontap"),
+                      "Time on Tap" => array("process_time" => "duration, beer_ontap, beer_offtap"),
                       "Edit" => array("edit" => "button, large"),
                       "addrow" => array("addrow" => "newrow"),
                       "new_id" => array("new_id" => "plain"),
@@ -59,6 +60,7 @@ $beer_display = array("beer_offtap" => array("beer_offtap" => "time, private"),
                       "s4" => array("s4" => "plain"),
                       "s5" => array("s5" => "plain"),
                       "s6" => array("s6" => "plain"),
+                     "s7" => array("s7" => "plain"),
                       "add" => array("add" => "button, large")
                      );
 
@@ -67,38 +69,53 @@ $beer_display = array("beer_offtap" => array("beer_offtap" => "time, private"),
 
 // ************************* Selector Contstruction ************************* //
 $brewery_info = array("breweries", "id", "brewery_name");
-$brewery_selector = make_selector($mysqli, $brewery_info[0],
-                                $brewery_info[1], $brewery_info[2]);
-$wine_type_info = array("wineTypes", "id", "wine_type_name");
-$wine_type_selector = make_selector($mysqli, $wine_type_info[0],
-                                $wine_type_info[1], $wine_type_info[2]);
-$wines_selectors = array($winery_info[2] => $winery_selector,
-                          $wine_type_info[2] => $wine_type_selector);
+$brewery_selector = make_selector($mysqli, $brewery_info);
+
+$status_column = "beer_status";
+$status_selector = array(1 => "On Tap", 2 => "On Deck",
+                         3 => "Kicked", 4 => "Off Line");
+
+$size_info = array("sizeTypes", "id", "drink_size_val");
+$size_selector = make_selector($mysqli, $size_info);
+
+$type_info = array("drinkTypes", "id", "drink_type_name");
+$type_selector = make_selector($mysqli, $type_info);
+
+$beers_selectors = array($brewery_info[2] => $brewery_selector,
+                          $status_column => $status_selector,
+                          $size_info[2] => $size_selector,
+                          $type_info[2] => $type_selector);
 // ************************************************************************** //
 
 
 // ****************************** Templates ******************************** //
 // edit disp add
-$wines_templates = array( array( "id" => "",
-                                "winery_name" => $winery_selector,
-                                "wine_name" => "",
-                                "wine_year" => "",
-                                "wine_glass_price" => "",
-                                "wine_bottle_price" => "",
-                                "wine_stock" => true,
+$beers_templates = array( array( "id" => "",
+                                "beer_ontap" => "1",
+                                "beer_offtap" => "1",
+                                "brewery_name" => $brewery_selector,
+                                "beer_name" => "",
+                                "beer_status" => $status_selector,
+                                "beer_abv" => "",
+                                "drink_size_val" => $size_selector,
+                                "beer_price" => "",
+                                "process_time" => "0",
                                 "edit" => "Edit",
                                 "newrow" => "newrow",
                                 "spacer" => "",
-                                "wine_type_name" => $wine_type_selector,
-                                "wine_desc" => ""),
+                                "drink_type_name" => $type_selector,
+                                "beer_desc" => ""),
                           array("id" => "",
-                                "winery_name" => $winery_selector,
-                                "wine_name" => "",
-                                "wine_year" => "",
-                                "wine_glass_price" => "",
-                                "wine_bottle_price" => "",
-                                "wine_stock" => true,
-                                "edit" => "Edit"),
+                                "beer_ontap" => "1",
+                                "beer_offtap" => "1",
+                                "brewery_name" => $brewery_selector,
+                                "beer_name" => "",
+                                "beer_status" => $status_selector,
+                                "beer_abv" => "",
+                                "drink_size_val" => $size_selector,
+                                "beer_price" => "",
+                                "process_time" => "0",
+                                "edit" => "Edit",),
                           array("addrow" => "newrow",
                                 "new_id" => "+",
                                 "s1" => "",
@@ -107,6 +124,7 @@ $wines_templates = array( array( "id" => "",
                                 "s4" => "",
                                 "s5" => "",
                                 "s6" => "",
+                                "s7" => "",
                                 "add" => "add")  // button)
                        );
 // ************************************************************************** //
@@ -115,25 +133,25 @@ $wines_templates = array( array( "id" => "",
 // ********** Generating the winery model. View invoked in index. ********** //
 
 // make the two arrays of contents match in format
-$winesSQL = sqltoTable($mysqli, 'wines', 'id', null, true);
-$winesPOST = postToTable($_POST, 'wines');
+$beersSQL = sqltoTable($mysqli, 'beers', 'id', null, true);
+$beersPOST = postToTable($_POST, 'beers');
 
 // for beers- special processing to deal with the tap updates:
-
+timeUpdate($beersPOST, $beersSQL, $same_day=true, $restock=true);
 
 // processTypes will do all the new SQL and array updates.
-$requery_sql = processInput("wines", $mysqli, $_POST, $wines_templates,
-                            $winesSQL, $winesPOST, 'id', true);
-if($requery_sql){$winesSQL = sqlToTable($mysqli, 'wines',
+$requery_sql = processInput("beers", $mysqli, $_POST, $beers_templates,
+                            $beersSQL, $beersPOST, 'id', true);
+if($requery_sql){$beersSQL = sqlToTable($mysqli, 'beers',
                                           'id', null, true);}
 
 // Now that any updates are tested for, do the final build of the object.
-$winesMERGE = mergeTwoDArrays($winesSQL, $winesPOST);
-$winesTYPE = getActiveMembers($winesPOST);
+$beersMERGE = mergeTwoDArrays($beersSQL, $beersPOST);
+$beersTYPE = getActiveMembers($beersPOST);
 
 // Make the final output
-$winesPROCESSED = make_table_output($winesMERGE, $winesTYPE,
-                                      $wines_templates, $wines_selectors,
+$beersPROCESSED = make_table_output($beersMERGE, $beersTYPE,
+                                      $beers_templates, $beers_selectors,
                                       $add=true);
 
 // ************************************************************************** //

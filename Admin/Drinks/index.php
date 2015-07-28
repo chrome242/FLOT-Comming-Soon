@@ -85,7 +85,16 @@ include(WINERY_HANDLER);
 // Beer Management Drop
 echo '      <div class="collapse'.$inBeers.'" id="beerManagement"> <!-- Beers -->';
 echo sortbar($optionsBeer, 'all'); // Beer Sort Bar
-// TODO: make handler for beer table
+// make the table, echo it out
+$beers = new Table("beers", $beersPROCESSED,
+                         $beer_display, $beer_edit,
+                         $beersTYPE);
+$beers->setCellClass("brewery_name", "col-xs-2");
+$beers->setCellClass("beer_name", "col-xs-2");
+$beers->setCellClass("beer_abv", "col-xs-1");
+$beers->setCellClass("beer_price", "col-xs-1");
+$beers->addCellButton("beer_desc", "drop", "Drop", "large");//add final button
+echo $beers;
 echo '      </div>';
 
 
@@ -127,19 +136,6 @@ echo $winery;
 
 echo '      </div>';
 //***************************************************************************//
-
-
-//********************************TEST***************************************//
-
-/* The array will have to be processed in the following way:
- * first, check for an add. If add exist, then 
- */
-if(isset($_POST)){
-  echo "Post contents:<br><pre>";
-  var_dump($_POST);
-  echo "</pre>";
-  
-}
 
 
 //******************************** Footer ***********************************//

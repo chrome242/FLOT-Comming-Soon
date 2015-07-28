@@ -60,11 +60,9 @@ $wines_display =  array( "Id" => array("id" => "id"),
 
 // ************************* Selector Contstruction ************************* //
 $winery_info = array("wineries", "id", "winery_name");
-$winery_selector = make_selector($mysqli, $winery_info[0],
-                                $winery_info[1], $winery_info[2]);
+$winery_selector = make_selector($mysqli, $winery_info);
 $wine_type_info = array("wineTypes", "id", "wine_type_name");
-$wine_type_selector = make_selector($mysqli, $wine_type_info[0],
-                                $wine_type_info[1], $wine_type_info[2]);
+$wine_type_selector = make_selector($mysqli, $wine_type_info);
 $wines_selectors = array($winery_info[2] => $winery_selector,
                           $wine_type_info[2] => $wine_type_selector);
 // ************************************************************************** //

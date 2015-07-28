@@ -63,16 +63,16 @@ class Duration extends Cell {
       $this->_content = "Current";
       
     // New beer, both zero or null
-    } elseif ($onTap == 0 && $offTap == 0) {
+    } elseif ($onTap == 1 && $offTap == 1) {
       $this->_content = "New";
     
     // Beer now on deck, kicked in the past
-    } elseif ($onTap == 0 && $offTap !=0) {
+    } elseif ($onTap == 1 && $offTap !=1) {
       $this->_content = "Restocked";
     
     // if offTap is > then onTap, it is currently off tap and should show
     // how long the keg lasted
-    } elseif($offTap > $onTap && $onTap != 0) {
+    } elseif($offTap > $onTap && $onTap != 1) {
       $this->_content = $this->makeContent($onTap, $offTap);
     
     // On the very rare occurrence it was kicked and then came back same day

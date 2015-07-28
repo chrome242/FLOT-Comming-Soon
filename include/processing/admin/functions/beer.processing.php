@@ -15,11 +15,13 @@
  * @param int $old_value the old value
  * @param bool $same_day if true assigns a 1 day period to something that has
  *        gone from on ondeck to kicked or offline in a single action.
+ * @param bool $restock to change the values so that restock is shown when
+ * 				changing from kicked or offline to onDeck
  *
  * @return an array of numbers/nulls where the first item is the onTap value
  * 				 and the second is the offTap value.
  */
-function tapLogic($select_value, $old_value, $same_day=true){
+function tapLogic($select_value, $old_value, $same_day=true, $restock=true){
 	
 	// assign the numbers to vars just for ease of seeing what's going on.
 	$onTap = 1;	$onDeck = 2;	$kicked = 3;	$offLine = 4;
@@ -33,6 +35,12 @@ function tapLogic($select_value, $old_value, $same_day=true){
 	// onDeck to kicked or offline - set on tap to yesterday, off to today (1d)
 	if($old_value == $onDeck && ($select_value == $kicked || $select_value == $offLine)){
 		if($same_day){return array((time() - (24 * 60 * 60)), time());}
+	}
+	
+	// if restock is true, then if the beer moves from kicedk or offline to onDeck
+	// set the onTap to 0, setting the display cell to display restock
+	if($restock){
+		if(($old_value == 3 || $old_value == 4) &  $select_value == 2){return array(1, null);}
 	}
 	
 	// kicked to onDeck or offline - no change
@@ -51,27 +59,27 @@ function tapLogic($select_value, $old_value, $same_day=true){
  * @param array $post_array the array to carry the updates
  * @param array $mysql_array the array to serve as the old value
  * @param bool $same_day to pass though to tapLogic, the value for the param
+ * @param bool $restock to pass though to tapLogic for it's param
  *
  * @return no return, modifies $post_array as a side-effect
  */
-function timeUpdate(&$post_array, $mysql_array, $same_day=true){
-	
+function timeUpdate(&$post_array, $mysql_array, $same_day=true, $restock=true){
+
 	// itterate across post, as it should typically be smaller then the DB
 	foreach($post_array as $key => $value){
-		
 		// checks for an old value
 		$select_value = $value["beer_status"];
+		
 		if(isset($mysql_array[$key])){
 			$old_value = $mysql_array[$key]["beer_status"];
-		
 		// no old value, is a new entry. .: started off as new arival (onDeck)
 		} else {
 			$old_value = 2;
 		}
 	
 		// values are now set. plug them into tapLogic and get results
-		$newTimes = tapLogic($select_value, $old_value, $same_day);
-		if(!is_null($newTime[0])){$post_array[$key]["beer_ontap"] = $newTime[0];}
+		$newTime = tapLogic($select_value, $old_value, $same_day);
+		if(!is_null($newTime[0])){$post_array[$key]["beer_ontap"] = $newTime[0]; echo ($newTime[0]);}
 		if(!is_null($newTime[1])){$post_array[$key]["beer_offtap"] = $newTime[1];}
 	}
 }

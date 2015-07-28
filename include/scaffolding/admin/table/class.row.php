@@ -203,7 +203,6 @@ class Row {
     foreach($cells as $name => $value){
       if(isset($format[$name])){
         $cell_name = $this->_name . '['. $name . ']'; // should work for non-radios
-        
         // TODO: consider replacing simple string checking with an explosion and check for
         // the value of position 1, so as to not restrict word use in cell names for
         // cell types that take args which can contain words.
@@ -349,7 +348,6 @@ class Row {
           $pieces = explode(",", $format[$name]);
           $ontap = trim($pieces[1]);
           $offtap = 0;
-          
           if(count($pieces) > 2 ){
             $offtap = trim($pieces[2]);
           }
