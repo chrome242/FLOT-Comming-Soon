@@ -5,6 +5,7 @@
  * php format desired by display models
  */
 
+
  
 /**
  * Takes two values from 1 to 4, which represent on tap, on deck, kicked and
@@ -13,11 +14,13 @@
  *
  * @param int $select_value the new value
  * @param int $old_value the old value
+ * @param bool $same_day if true assigns a 1 day period to something that has
+ *        gone from on ondeck to kicked or offline in a single action.
  *
  * @return an array of numbers/nulls where the first item is the onTap value
  * 				 and the second is the offTap value.
  */
-function tapLogic($select_value, $old_value){
+function tapLogic($select_value, $old_value, $same_day=true){
 	
 	// assign the numbers to vars just for ease of seeing what's going on.
 	$onTap = 1;	$onDeck = 2;	$kicked = 3;	$offLine = 4;
@@ -30,7 +33,7 @@ function tapLogic($select_value, $old_value){
 	
 	// onDeck to kicked or offline - set on tap to yesterday, off to today (1d)
 	if($old_value == $onDeck && ($select_value == $kicked || $select_value == $offLine)){
-		return array((time() - (24 * 60 * 60)), time());
+		if($same_day){return array((time() - (24 * 60 * 60)), time());}
 	}
 	
 	// kicked to onDeck or offline - no change
