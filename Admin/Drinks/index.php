@@ -16,8 +16,6 @@ include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 // TODO: Process the user's permission array from the session
 // $permissions = $_COOKIE["admin_permissions"];
 
-// TODO: make these buttons work: JS & or PHP
-// Page variables
 
 //******************* Header & Format Arrays For Beer Table *****************//
 
@@ -35,6 +33,7 @@ $sectionWrappers = array("beerManagement" => ["Beer Management", false, "beers"]
                          "wineryManagement" => ["Winery Management", false, "wineries"]);
 $sectionWrappers = activatePanel($sectionWrappers, $active);
 
+// TODO: make these buttons work: JS because we don't want to lose data.
 // jQuery hooks
 $optionsBeer = array( "inhouse" => "In House",
                       "ondeck" => "On Deck",

@@ -180,10 +180,8 @@ function getActivePanels($post){
  */
 function activatePanel(&$sectionArray, $active){
   if($active){
-    echo "$active";
     foreach($sectionArray as $key => $value){
       if($value[2] == $active){
-        echo " match";
         $value[1] = true;}
     }
   }

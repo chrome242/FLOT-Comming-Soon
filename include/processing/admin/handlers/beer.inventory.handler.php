@@ -3,6 +3,7 @@
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
+$BEER_TABLE_CALL = true; // needed for all beer tables to include time handler fnxs
 require_once(INCLUDES."db_con.php");
 include_once(PROCESSING_ADMIN."table.processing.php");
 
@@ -15,16 +16,16 @@ include_once(PROCESSING_ADMIN."table.processing.php");
 $beer_edit = array( "beer_offtap" => array("beer_offtap" => "time, private"),
                     "beer_ontap" => array("beer_ontap" => "time, private"),
                     "Id" => array("id" => "id"),
-                    "Brewery" => array("brewery_name" => "select"),
+                    "Brewery" => array("brewery_name" => "select"), //selector x
                     "Beer" => array("beer_name" => "text, value"),
-                    "Status" => array("beer_status" => "select"),
+                    "Status" => array("beer_status" => "select"), //selector
                     "ABV" => array("beer_abv" => "number, value, .001"),
-                    "Size" => array("drink_size_val" => "select"),
+                    "Size" => array("drink_size_val" => "select"), //selector
                     "Price" => array("beer_price" => "number, value, .01"),
                     "Time on Tap" => array("process_time", "timestamp, beer_offtap, beer_ontap"),
                     "Edit" => array("edit" => "button, large"),
                     "nextrow" => array('nextrow' => "newrow"),
-                    "beer_type" => array("drink_type_name"=> "select"),
+                    "beer_type" => array("drink_type_name"=> "select"), //selector
                     "beer_desc" => array("beer_desc" => "textarea, value, 3, 6"),
                     "drop" => array("drop" => "button, large"),
                     "addrow" => array("addrow" => "newrow"),
@@ -65,9 +66,9 @@ $beer_display = array("beer_offtap" => array("beer_offtap" => "time, private"),
 
 
 // ************************* Selector Contstruction ************************* //
-$winery_info = array("wineries", "id", "winery_name");
-$winery_selector = make_selector($mysqli, $winery_info[0],
-                                $winery_info[1], $winery_info[2]);
+$brewery_info = array("breweries", "id", "brewery_name");
+$brewery_selector = make_selector($mysqli, $brewery_info[0],
+                                $brewery_info[1], $brewery_info[2]);
 $wine_type_info = array("wineTypes", "id", "wine_type_name");
 $wine_type_selector = make_selector($mysqli, $wine_type_info[0],
                                 $wine_type_info[1], $wine_type_info[2]);
@@ -116,6 +117,9 @@ $wines_templates = array( array( "id" => "",
 // make the two arrays of contents match in format
 $winesSQL = sqltoTable($mysqli, 'wines', 'id', null, true);
 $winesPOST = postToTable($_POST, 'wines');
+
+// for beers- special processing to deal with the tap updates:
+
 
 // processTypes will do all the new SQL and array updates.
 $requery_sql = processInput("wines", $mysqli, $_POST, $wines_templates,

@@ -33,6 +33,9 @@ foreach($_REQUEST as $value){
   }
 }
 
+// varable assigment before use:
+if(!isset($header_injection)){$header_injection = false;}
+
 //process the submission
 if($_SERVER["REQUEST_METHOD"] != "POST") { //check for correct method
   $showform = true; // not a post, ignore
@@ -72,7 +75,6 @@ if($_SERVER["REQUEST_METHOD"] != "POST") { //check for correct method
       if($stmt->num_rows == 1) { //already in the database
         $error = "<p>Thanks, but you're already on the mailing list!</p>";
         $showform = true;
-        $stmt->close(); //close the query
       }
       
       $stmt->close(); //close the query
@@ -111,6 +113,9 @@ if($_SERVER["REQUEST_METHOD"] != "POST") { //check for correct method
   }
 }
 
+// variable assigment before use
+if(!isset($newuser)){$newuser = false;}
+
 // display the thank you message, check to see if email should be sent, send email
 // TODO: pull email out to a separate fnx.
 if($newuser){ 
@@ -125,6 +130,9 @@ if($newuser){
       $error ="<p>Please enter a valid Email address!</p>";
       $showform = true;
     }
+    
+    // variable assugment before use
+    if(!isset($showform)){$showform = false;}
     
     if(!$showform){
       // this will be replaced with a responsive message

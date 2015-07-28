@@ -8,3 +8,4 @@ include_once(PROCESSING_ADMIN."functions/Table.array.helpers.php"); // deal with
 include_once(PROCESSING_ADMIN."functions/smallTable.interaction.helpers.php"); // deal with output
 include_once(PROCESSING_ADMIN."functions/button.processing.php"); //processInput is the centeral function
 include_once(PROCESSING_ADMIN."functions/sql.array.helpers.php"); //for making things like selects.
+if(isset($BEER_TABLE_CALL)){include_once(PROCESSING_ADMIN."functions/beer.processing.php");} // if a beer table
