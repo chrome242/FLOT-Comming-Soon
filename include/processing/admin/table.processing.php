@@ -3,9 +3,9 @@
 // This file contains all of the includes needed for processing the Table class
 // data from users and DB
 
-include_once(PROCESSING_ADMIN."functions/post.array.helpers.php");  // for more generic array handling
-include_once(PROCESSING_ADMIN."functions/Table.array.helpers.php"); // deal with input
-include_once(PROCESSING_ADMIN."functions/smallTable.interaction.helpers.php"); // deal with output
-include_once(PROCESSING_ADMIN."functions/button.processing.php"); //processInput is the centeral function
-include_once(PROCESSING_ADMIN."functions/sql.array.helpers.php"); //for making things like selects.
-if(isset($BEER_TABLE_CALL)){include_once(PROCESSING_ADMIN."functions/beer.processing.php");} // if a beer table
+include_once(PROCESSING_FUNCTIONS."post.array.helpers.php");  // for more generic array handling
+include_once(PROCESSING_FUNCTIONS."Table.array.helpers.php"); // deal with input
+include_once(PROCESSING_FUNCTIONS."smallTable.interaction.helpers.php"); // deal with output
+include_once(PROCESSING_FUNCTIONS."button.processing.php"); //processInput is the centeral function
+include_once(PROCESSING_FUNCTIONS."sql.array.helpers.php"); //for making things like selects.
+if(isset($BEER_TABLE_CALL)){include_once(PROCESSING_FUNCTIONS."beer.processing.php");} // if a beer table
