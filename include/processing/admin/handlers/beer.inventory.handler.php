@@ -60,7 +60,7 @@ $beer_display = array("beer_offtap" => array("beer_offtap" => "time, private"),
                       "s4" => array("s4" => "plain"),
                       "s5" => array("s5" => "plain"),
                       "s6" => array("s6" => "plain"),
-                     "s7" => array("s7" => "plain"),
+                      "s7" => array("s7" => "plain"),
                       "add" => array("add" => "button, large")
                      );
 

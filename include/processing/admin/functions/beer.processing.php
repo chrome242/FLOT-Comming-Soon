@@ -79,7 +79,7 @@ function timeUpdate(&$post_array, $mysql_array, $same_day=true, $restock=true){
 	
 		// values are now set. plug them into tapLogic and get results
 		$newTime = tapLogic($select_value, $old_value, $same_day);
-		if(!is_null($newTime[0])){$post_array[$key]["beer_ontap"] = $newTime[0]; echo ($newTime[0]);}
+		if(!is_null($newTime[0])){$post_array[$key]["beer_ontap"] = $newTime[0];}
 		if(!is_null($newTime[1])){$post_array[$key]["beer_offtap"] = $newTime[1];}
 	}
 }

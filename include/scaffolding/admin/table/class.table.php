@@ -395,7 +395,7 @@ class Table {
    *  
    */
   protected function allowOffline($constant, $off="beer_offtap",
-                                  $on = "beer_ontap", $target="beer_status, 3"){
+                                  $on = "beer_ontap", $target="beer_status, 4"){
     foreach($this->_rows as $name => $row){
       $offtap = $row->getHidden($off);
       $ontap = $row->getHidden($on);

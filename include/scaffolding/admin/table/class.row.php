@@ -418,9 +418,9 @@ class Row {
         if(strpos($format[$name], 'radio,') !== false){
           $pieces = explode(",", $format[$name]);
           $cell_number = intval(trim($pieces[1]));
-          $cell_value =0; // counter & id value
+          $cell_value =1; // counter & id value
           
-          while ($cell_value < $cell_number){
+          while ($cell_value <= $cell_number){
             
             // $value above == the value where state== true
             $radio_cell_name = $cell_name . '[' . $cell_value . ']';
