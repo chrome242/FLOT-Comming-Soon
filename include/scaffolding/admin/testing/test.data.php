@@ -9,3 +9,17 @@ $permissions = array("inventory" => "1",
                      "add_user" => "1",
                      "edit_user" => 1);
 // End testing permissions //
+
+// array dump string for atpending to file should I need it:
+////********************************TEST***************************************//
+//
+///* The array will have to be processed in the following way:
+// * first, check for an add. If add exist, then 
+// */
+//if(isset($_POST)){
+//  echo "Post contents:<br><pre>";
+//  var_dump($_POST);
+//  echo "</pre>";
+//  
+//}
+

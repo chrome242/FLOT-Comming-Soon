@@ -51,21 +51,7 @@ include(BEER_BAR);
 //***************************************************************************//
 
 
-//***************** Final Variable Processing & Cleaning *******************//
-// Fututre home of SQL & $_POST processing methods
-$processed_beer_cells = $beer_test_cells;
-//***************************************************************************//
-
-
 //********************************* Content *********************************//
-// Plate Type Display and Editing Panel //
-$beerTable = new Table("Beer", $processed_beer_cells, $beer_headers);
-$beerTable->addCounter("Total on Tap:", "beer_status", "1");
-$beerTable->offlineCheck();
-
-// Display The Panel //
-echo $beerTable;
-
 $beers = new Table("beers", $beersPROCESSED,
                          $beer_display, $beer_display,
                          $beersTYPE);
