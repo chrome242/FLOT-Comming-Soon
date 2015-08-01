@@ -26,6 +26,7 @@ define("BREWERY_HANDLER", PROCESSING_ADMIN."handlers/brewery.handler.php"); // B
 define("WINERY_HANDLER", PROCESSING_ADMIN."handlers/winery.handler.php"); // Winery List
 define("WINE_HANDLER", PROCESSING_ADMIN."handlers/wine.inventory.handler.php"); // Wine Glasses
 define("BEER_HANDLER", PROCESSING_ADMIN."handlers/beer.inventory.handler.php"); // Beer Glasses
+define("WINE_BAR", PROCESSING_ADMIN."handlers/wine.bar.handler.php"); // The Bar view of wines
 
 // Test files
 include_once(SCAFFOLDING_ADMIN."testing/test.data.php");

@@ -18,16 +18,6 @@ include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 // TODO: make these buttons work: JS & or PHP
 // Page variables
 
-//******************* Header & Format Arrays For Wine Table *****************//
-
-$wine_headers = array("Id" => array("wine_id" => 'id'),
-                      "Brewery" => array("wine_winery" => "plain"),
-                      "Beer" => array("wine_name" => "plain"),
-                      "On Tap" =>  array("wine_year" => "plain"),
-                      "In Stock" => array("wine_instock" => "checkbox")
-                      );
-
-
 //***************************************************************************//
 
 
@@ -40,32 +30,19 @@ echo menubar($permissions, $section, $root);
 //***************************************************************************//
 
 
-//***************** Final Variable Processing & Cleaning *******************//
-// Fututre home of SQL & $_POST processing methods
-$processed_wine_cells = $wine_test_cells;
+//****************** Process the wine tables and Data: **********************//
+include(WINE_BAR);
+
 //***************************************************************************//
 
 
 //********************************* Content *********************************//
-// Wine Type Display and Editing Panel //
-$wineTable = new Table("Wine", $processed_wine_cells, $wine_headers);
-
-// Display The Tabel //
-echo $wineTable;
+// Make the table, echo it out
+$wines = new Table("wines", $winesPROCESSED,
+                         $wines_view, $wines_view,
+                         $winesTYPE);
+echo $wines;
 //***************************************************************************//
-
-
-//********************************TEST***************************************//
-
-/* The array will have to be processed in the following way:
- * first, check for an add. If add exist, then 
- */
-if(isset($_POST)){
-  echo "Post contents:<br><pre>";
-  var_dump($_POST);
-  echo "</pre>";
-  
-}
 
 
 //******************************** Footer ***********************************//

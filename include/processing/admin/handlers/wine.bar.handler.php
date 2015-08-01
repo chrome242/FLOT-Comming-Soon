@@ -9,16 +9,23 @@ include_once(PROCESSING_ADMIN."table.processing.php");
 // ************************************************************************** //
 
 
-// *********** Wine Glass invokation Rules. To format the Model ************ //
+// ********** Wine inventory invokation Rules. To format the Model ********** //
 
 // the type definers for the active array
 $wines_view   =  array("Id" => array("id" => "id"),
-                      "Winery" => array("winery_name" => 'select'),
-                      "Wine" => array('wine_name' => 'text, value'),
-                      "Year" => array('wine_year' => 'number, value, 1, none'),
+                      "Winery" => array("winery_name" => 'plain'),
+                      "Wine" => array('wine_name' => 'plain'),
+                      "Year" => array('wine_year' => 'plain'),
                       "Stocked" => array("wine_stock" => 'checkbox')
                       );
 
+// ************************************************************************** //
+
+
+// ************************* Selector Contstruction ************************* //
+$winery_info = array("wineries", "id", "winery_name");
+$winery_selector = make_selector($mysqli, $winery_info);
+$wines_selectors = array($winery_info[2] => $winery_selector);
 // ************************************************************************** //
 
 
@@ -42,7 +49,7 @@ $wines_templates = array( array( "id" => "",
 // ************************************************************************** //
 
 
-// ********** Generating the winery model. View invoked in index. ********** //
+// ********** Generating the Wines model. View invoked in index. ************ //
 
 // make the two arrays of contents match in format
 $winesSQL = sqltoTable($mysqli, 'wines', 'id', null, true);
@@ -60,7 +67,7 @@ $winesTYPE = getActiveMembers($winesPOST);
 
 // Make the final output
 $winesPROCESSED = make_table_output($winesMERGE, $winesTYPE,
-                                      $wines_templates, null,
+                                      $wines_templates, $wines_selectors,
                                       $add=false);
 
 // ************************************************************************** //
