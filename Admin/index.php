@@ -60,18 +60,6 @@ $beers->offlineCheck();
 echo $beers;
 //***************************************************************************//
 
-//********************************TEST***************************************//
-
-/* The array will have to be processed in the following way:
- * first, check for an add. If add exist, then 
- */
-if(isset($_POST)){
-  echo "Post contents:<br><pre>";
-  var_dump($_POST);
-  echo "</pre>";
-  
-}
-
 
 //******************************** Footer ***********************************//
 include(SCAFFOLDING_ADMIN."footer.php");
