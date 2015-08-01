@@ -33,4 +33,6 @@ define("WINE_BAR", PROCESSING_HANDLERS."wine.bar.handler.php"); // The Bar view 
 define("BEER_BAR", PROCESSING_HANDLERS."beer.bar.handler.php");
 
 // Test files
-include_once(SCAFFOLDING_ADMIN."testing/test.data.php");
+if (!ON_LINE){
+  include_once(SCAFFOLDING_ADMIN."testing/test.data.php");
+}
