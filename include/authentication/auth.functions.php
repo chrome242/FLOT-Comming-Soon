@@ -2,7 +2,6 @@
 $sec_cred = unserialize(LOGIN_SCRIPT_CREDENTIALS);
 require_once(AUTHENTICATION."auth.db_con.php");
 
-
 /**
  * A function to start a secure PHP session. This is pulled off the wikiHow article
  * on the topic. Has no args, no return.
@@ -14,7 +13,7 @@ function sec_session_start() {
     $httponly = true;
     // Forces sessions to only use cookies.
     if (ini_set('session.use_only_cookies', 1) === FALSE) {
-        header("Location: ../error.php?err=Could not initiate a safe session (ini_set)");
+        header("Location: /Login/error.php?err=Could not initiate a safe session (ini_set)");
         exit();
     }
     // Gets current cookies params.

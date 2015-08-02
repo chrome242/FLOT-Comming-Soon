@@ -2,9 +2,19 @@
 <?php
 
 //****************** Configuration & Inclusions *****************************//
+$pageJavaScript = 'logout';
 include("../../include/config.php");
 include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 //***************************************************************************//
+
+
+//********************* Check for logout redirection prompt *****************//
+if (isset($_GET['Logout'])){
+  session_logout($_SESSION);
+  header('Location: /Login/?logout=true');
+}
+//***************************************************************************//
+
 
 // TODO: Add a test login to redirect function here
 // if(!secureCheckLogin($_COOKIE)){header:Admin Login}
@@ -107,7 +117,7 @@ $title = "Manage Users";
 $section = ADMIN."Users/";
 include(SCAFFOLDING."head.php");
 echo menubar($permissions, $section, $root);
-echo sectionbar($sectionWrappers);
+echo sectionbar($sectionWrappers, "Logout");
 
 //***************************************************************************//
 
@@ -153,6 +163,7 @@ echo '      </div>';
 if(isset($_POST)){
   echo "Post contents:<br><pre>";
   var_dump($_POST);
+  var_dump($_GET);
   echo "</pre>";
   
 }

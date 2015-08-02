@@ -7,9 +7,11 @@ $root = ADMIN;
 $sec_cred = unserialize(LOGIN_SCRIPT_CREDENTIALS);
 require_once(AUTHENTICATION."auth.db_con.php");
 require_once(AUTHENTICATION.'auth.functions.php');
+require_once(AUTHENTICATION.'auth.process.logout.php');
 sec_session_start();
-if(login_check($mysqli_sec) !== true){
-  header('Location: '.'/Login/?error=session_timeout');
+if((login_check($mysqli_sec) !== true) && !isset($login)){
+  session_logout($_SESSION);
+  header('Location: /Login/?error=session_timeout');
 }
 
 // General Page Componets

@@ -2,17 +2,18 @@
 
 //****************** Configuration & Inclusions *****************************//
 include("../include/config.php");
-$sec_cred = unserialize(LOGIN_SCRIPT_CREDENTIALS);
-require_once(AUTHENTICATION."auth.db_con.php");
+$login = true; // to kill loops
 include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
-include_once(AUTHENTICATION.'auth.functions.php');
 include_once(AUTHENTICATION.'auth.process.login.php');
 //***************************************************************************//
 
 
 //******************** Basic logged-in to redirect check ********************//
+if (isset($_GET['logout'])){
+    $error =  '
+        <p class="error">Logged Out!</p>';
+}
 
-sec_session_start();
 // check for a login
 if (count($_POST) > 0){
   process_login($_POST, $mysqli_sec);
@@ -26,7 +27,8 @@ if (login_check($mysqli_sec) == true) {
 if (isset($_GET['error'])) {
   $error =  '
         <p class="error">Error Logging In!</p>';
-} else {
+}
+if (!isset($error)){
   $error = '<br>';
 }
 //***************************************************************************//

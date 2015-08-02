@@ -126,10 +126,13 @@ function sortbar($options, $default) {
  * to do anything.
  *
  * @param array array $options an array of: button id =>[text, starts expanded]
+ * @param mixed $dummy if not false, adds a button to the bar with no associated
+ *                     data target at the end of the series with an id & text of
+ *                     the $dummy value.
  *
  * @return str: the HTML for the menu.
  */
-function sectionbar($options){
+function sectionbar($options, $dummy=false){
   // open the div
   $output = '
   
@@ -142,6 +145,13 @@ function sectionbar($options){
     $output .='
           <button class="btn btn-primary top-button" type="button" data-toggle="collapse" data-target="#' .$ariacontrols. '" aria-expanded="'.$expanded.'" aria-controls="'.$ariacontrols.'">
             '. $text .'
+          </button>';
+  }
+  
+  if($dummy !== false){
+    $output .='
+          <button class="btn btn-primary top-button" type="button" id="'.$dummy.'">
+            '. $dummy .'
           </button>';
   }
   
