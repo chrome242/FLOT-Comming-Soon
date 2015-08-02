@@ -23,6 +23,8 @@
     <!-- Custom JS for the site -->
     <script type="text/javascript" src="/<?php echo JAVASCRIPT; ?>javascript.js"></script>
 <?php if(isset($root) && ($root == ADMIN)){echo'    <script type="text/javascript" src="/'.JAVASCRIPT .'admin.js"></script>'. PHP_EOL;}?>
+<?php if(isset($root) && ($root == ADMIN)){echo'    <script type="text/JavaScript" src="/'.JAVASCRIPT. 'sha512.js"></script>'. PHP_EOL;}?>
+<?php if(isset($root) && ($root == ADMIN)){echo'    <script type="text/JavaScript" src="/'.JAVASCRIPT. 'forms.js"></script>'. PHP_EOL;}?>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/<?php echo JAVASCRIPT; ?>ie10-viewport-bug-workaround.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->

@@ -1,4 +1,6 @@
 <?php
+include_once("../config.php");
+
 $db_cred = unserialize(LOGIN_SCRIPT_CREDENTIALS);
 require_once(INCLUDES."db_con.php");
 
