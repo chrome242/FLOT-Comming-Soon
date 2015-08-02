@@ -2,8 +2,8 @@
 
 //****************** Configuration & Inclusions *****************************//
 include("../include/config.php");
-$db_cred = unserialize(LOGIN_SCRIPT_CREDENTIALS);
-require_once(INCLUDES."db_con.php");
+$sec_cred = unserialize(LOGIN_SCRIPT_CREDENTIALS);
+require_once(AUTHENTICATION."auth.db_con.php");
 include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 include_once(AUTHENTICATION.'auth.functions.php');
 include_once(AUTHENTICATION.'auth.process.login.php');
@@ -11,14 +11,14 @@ include_once(AUTHENTICATION.'auth.process.login.php');
 
 
 //******************** Basic logged-in to redirect check ********************//
-sec_session_start();
 
+sec_session_start();
 // check for a login
 if (count($_POST) > 0){
-  process_login($_POST, $mysqli);
+  process_login($_POST, $mysqli_sec);
 }
 // check for redirect
-if (login_check($mysqli) == true) {
+if (login_check($mysqli_sec) == true) {
     header('Location: '.ADMIN);
 }
 

@@ -1,19 +1,22 @@
 <?php
 
-// The general files to be included for the Admin Section of the site //
+// Section Settings:
+$root = ADMIN;
+
+// Basic Security
+$sec_cred = unserialize(LOGIN_SCRIPT_CREDENTIALS);
+require_once(AUTHENTICATION."auth.db_con.php");
+require_once(AUTHENTICATION.'auth.functions.php');
+sec_session_start();
+if(login_check($mysqli_sec) !== true){
+  header('Location: '.'/Login/?error=session_timeout');
+}
+
 // General Page Componets
 include_once(SCAFFOLDING_ADMIN."menubars.php"); // menubars
 include_once(SCAFFOLDING_ADMIN."panel/class.panel.php"); // panel wrapper
 include_once(SCAFFOLDING_ADMIN."table/table.php"); // table
 include_once(SCAFFOLDING_ADMIN."list/list.php"); // list
-
-// Database interfaces
-
-// Security
-
-
-// Section Settings:
-$root = ADMIN;
 
 // definitions
 
