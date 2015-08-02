@@ -1,22 +1,23 @@
 <?php
-include_once("../config.php");
 
-include_once 'auth.functions.php';
- 
-sec_session_start(); // Our custom secure way of starting a PHP session.
- 
-if (isset($_POST['email'], $_POST['p'])) {
-    $email = $_POST['email'];
-    $password = $_POST['p']; // The hashed password.
- 
-    if (login($email, $password, $mysqli) == true) {
-        // Login success 
-        header('Location: '.ADMIN);
-    } else {
-        // Login failed 
-        header('Location: '.ADMIN.'/Login/?error=login_failed');
-    }
-} else {
-    // The correct POST variables were not sent to this page. 
-    echo 'Invalid Request';
+/**
+ * A function to check the login credentials against the mysql db, and report an
+ * error based on what sort of fail happens if a fail occurs.
+ */
+function process_login($post, $mysqli){
+  if (isset($post['email'], $post['p'])) {
+      $email = $post['email'];
+      $password = $post['p']; // The hashed password.
+   
+      if (login($email, $password, $mysqli) == true) {
+          // Login success 
+          header('Location: '.ADMIN);
+      } else {
+          // Login failed 
+          header('Location: '.'/Login/?error=login_failed');
+      }
+  }  else {
+    // incorrect post.
+     header('Location: '.'/Login/?error=submit_error');
+  }
 }

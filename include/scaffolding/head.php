@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<?php if(isset($root) && ($root == ADMIN)){echo'    <meta name="robots" content="noindex">'. PHP_EOL;}?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="The website for Finger Lakes On Tap">
     <meta name="keywords" content="tavern, pub, bar, microbrew, microbrewery, finger lakes, flot, alehouse, beer">
@@ -20,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="/<?php
     if(isset($root) && ($root == ADMIN))
     {echo CSS."admin.css";} else {echo CSS."style.css";};?>">
+<?php if(isset($title) && ($title == "Login")){echo'    <link href="http://fonts.googleapis.com/css?family=Work+Sans:600" rel="stylesheet" type="text/css">'. PHP_EOL;}?>
     <!-- Custom JS for the site -->
     <script type="text/javascript" src="/<?php echo JAVASCRIPT; ?>javascript.js"></script>
 <?php if(isset($root) && ($root == ADMIN)){echo'    <script type="text/javascript" src="/'.JAVASCRIPT .'admin.js"></script>'. PHP_EOL;}?>

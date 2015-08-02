@@ -1,6 +1,4 @@
 <?php
-include_once("../config.php");
-
 include_once 'auth.functions.php';
  
 $error_msg = "";

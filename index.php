@@ -1,5 +1,4 @@
 <?php
-
 // section setup
 require_once("include/config.php");
 $section = HOME;

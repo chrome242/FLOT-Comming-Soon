@@ -9,6 +9,4 @@
 <?php if(isset($pageJavaScript)){echo PHP_EOL.'    <!-- Additional JS for the Page. -->'. PHP_EOL;}?>
 <?php if(isset($pageJavaScript)){echo'    <script type="text/javascript" src="/'.JAVASCRIPT . $pageJavaScript .'.js"></script>'. PHP_EOL;}?>
   </body>
-}
-
 </html>

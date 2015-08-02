@@ -2,10 +2,21 @@
 body {
   padding-top: 20px;
 }
+
+.logo {
+  max-width: 60%;
+}
+
+.logo-wrapper {
+  font-family: 'Work Sans', sans-serif;
+  font-size: larger;
+  margin-bottom: 30px;
+}
 .footer {
+  text-align: center;
   border-top: 1px solid #eee;
   margin-top: 40px;
-  padding-top: 40px;
+  padding-top: 10px;
   padding-bottom: 40px;
 }
 /* Main marketing message and sign up button */

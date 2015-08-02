@@ -1,11 +1,15 @@
 <?php
 //****************** Configuration & Inclusions *****************************//
-include("../include/config.php");
+include("../../include/config.php");
 include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 //***************************************************************************//
 include_once  AUTHENTICATION.'auth.functions.php';
 include_once  AUTHENTICATION.'auth.process.newuser.php';
 
+
+$title = "New User";
+$section = ADMIN."Users/";
+include(SCAFFOLDING."head.php");
 ?>
 
  
