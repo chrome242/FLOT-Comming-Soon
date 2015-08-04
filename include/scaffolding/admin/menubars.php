@@ -26,9 +26,9 @@ function menubar($permissions, $section, $root){
   // either is true and will add section if either is true and unset the
   // individual values.
   if($permissions["add_user"] || $permissions["edit_user"]){
-    $permissions["users"] = 1;
+    $permissions["users"] = 2;
   } else {
-    $permissions["users"] = 0;
+    $permissions["users"] = 1;
   }
   
   // inventory is also not needed as the check is for editing not view
@@ -38,15 +38,15 @@ function menubar($permissions, $section, $root){
   
   // make the button list
   // these two will always be present
-  $buttons = array($root => ["Beers", 0],
-                   $root."Wines/" => ["Wines", 0]);
+  $buttons = array($root => ["Beers", 1],
+                   $root."Wines/" => ["Wines", 1]);
   // the procedural portion
   foreach($permissions as $label => $state){
-    if ($state == true){
+    if ($state == 2){
       $text = ucfirst($label);
       $url = $root. $text . "/";
       $button_label = "Manage " . $text;
-      $buttons[$url] = [$button_label, 1];
+      $buttons[$url] = [$button_label, 2];
     }  
   }
   

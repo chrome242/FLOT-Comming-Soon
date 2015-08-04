@@ -53,7 +53,7 @@ echo'
         <form method="post" name="login_form" class="form-inline">
           <div class="form-group">
             <label class="sr-only" for="email">Email:</label>
-            <input type="text" class="form-control" id="email" name="email" placeholder="email">
+            <input type="email" class="form-control" id="email" name="email" placeholder="email">
           </div>
           <div class="form-group">
             <label class="sr-only" for="password">Password:</label>
