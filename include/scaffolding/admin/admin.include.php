@@ -22,7 +22,6 @@ include_once(SCAFFOLDING_ADMIN."list/list.php"); // list
 
 // definitions
 
-  
 define("PROCESSING_HANDLERS", PROCESSING_ADMIN."handlers/"); // for the handlers
 define("PROCESSING_FUNCTIONS", PROCESSING_ADMIN."functions/"); // functions
 define("PLATE_HANDLER", PROCESSING_HANDLERS."plates.handler.php"); // Plate Sizes
@@ -35,7 +34,8 @@ define("WINERY_HANDLER", PROCESSING_HANDLERS."winery.handler.php"); // Winery Li
 define("WINE_HANDLER", PROCESSING_HANDLERS."wine.inventory.handler.php"); // Wine Glasses
 define("BEER_HANDLER", PROCESSING_HANDLERS."beer.inventory.handler.php"); // Beer Glasses
 define("WINE_BAR", PROCESSING_HANDLERS."wine.bar.handler.php"); // The Bar view of wines
-define("BEER_BAR", PROCESSING_HANDLERS."beer.bar.handler.php");
+define("BEER_BAR", PROCESSING_HANDLERS."beer.bar.handler.php"); // The Bar view of Beers
+define("GROUP_HANDLER", PROCESSING_HANDLERS."group.handler.php"); // User Group View
 
 // Test files
 if (!ON_LINE){
