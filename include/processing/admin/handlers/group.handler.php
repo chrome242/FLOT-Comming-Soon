@@ -1,4 +1,6 @@
 <?php
+/* The user group view
+ */
 
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
@@ -20,7 +22,7 @@ $groups_edit = array( "Id" => array("id" => "id"),
                       "Manage Food" => array("food" => "checkbox"),
                       "Add User" => array("add_user" => "checkbox"),
                       "Edit User" => array("edit_user" => "checkbox"),
-                      "Edit" => array("edit" => "button, large"), // button
+                      "Edit" => array("edit" => "button, large, active, disabled"), // button
                       "newrow" => array("addrow" => "newrow"),  // here and down are for last row
                       "new_id" => array("new_id" => "plain"),
                       "s1" => array("s1" => "plain"),

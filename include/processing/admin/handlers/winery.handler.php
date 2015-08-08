@@ -1,5 +1,8 @@
 <?php
+/* The Winery edit view
+ */
 
+ 
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
@@ -17,7 +20,7 @@ $winery_edit  = array( "Id" => array("id" => 'id'),
                         "Region" => array("winery_city" => 'text, value'),
                         "State" => array("state_name" => "select, 1"),
                         "Website" => array("winery_url" => 'text, value'),
-                        "Edit" => array("edit" => "button, large"),
+                        "Edit" => array("edit" => "button, large, active, disabled"),
                         "newrow" => array("newrow" => "newrow"),
                         "spacer" => array("spacer" => "plain"),  // plain
                         "winery_desc" => array("winery_desc" => "textarea, value, 3, 4"),
@@ -38,7 +41,7 @@ $winery_display = array("Id" => array("id" => 'id'),
                          "Region" => array("winery_city" => 'plain'),
                          "State" => array("state_name" => 'plain'),
                          "Website" => array("winery_url" => 'url'),
-                         "Edit" => array("edit" => "button, large, active"),
+                         "Edit" => array("edit" => "button, large"),
                          "addrow" => array("addrow" => "newrow"),
                          "new_id" => array("new_id" => "plain"),
                          "s1" => array("s1" => "plain"),

@@ -1,5 +1,6 @@
 <?php
-
+/*The plate type menu division view.
+ */
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);

@@ -1,5 +1,8 @@
 <?php
+/* The wines view for the management tab
+ */
 
+ 
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
@@ -19,7 +22,7 @@ $wines_edit   =  array("Id" => array("id" => "id"),
                       "Price" => array('wine_glass_price' => 'number, value, .01'),
                       "Bottle Price" => array('wine_bottle_price' => 'number, value, .01'),
                       "Stocked" => array("wine_stock" => 'checkbox'),
-                      "Edit" => array("edit" => 'button, large'),
+                      "Edit" => array("edit" => 'button, large, active, disabled'),
                       "newrow" => array("newrow" => "newrow"),
                       "spacer" => array("spacer" => "plain"),  // plain
                       "wine_type_name" => array("wine_type_name"=> "select"),

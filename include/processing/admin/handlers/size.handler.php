@@ -1,4 +1,6 @@
 <?php
+/* The drink size menu sort view.
+ */
 
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 

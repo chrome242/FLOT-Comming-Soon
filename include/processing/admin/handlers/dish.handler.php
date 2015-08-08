@@ -1,4 +1,7 @@
 <?php
+/* The handler for the dish menu on the food management screen
+ */
+
 
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
@@ -17,7 +20,7 @@ $dishes_edit = array( "Id" => array("id" => "id"), // id
                       "Type" => array("food_type_name" => "select, 1"), //select
                       "Price" => array("food_price" =>
                                        "number, value, .01, 8"), // number
-                      "Edit" => array("edit" => "button, large, active"),  // button
+                      "Edit" => array("edit" => "button, large, active, disabled"),  // button
                       "newrow" => array("newrow" => "newrow"),
                       "spacer" => array("spacer" => "plain"),  // plain
                       "food_desc" =>array("food_desc" =>

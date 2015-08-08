@@ -1,4 +1,5 @@
 <?php
+/* the view for the wine menu division tab */
 
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 

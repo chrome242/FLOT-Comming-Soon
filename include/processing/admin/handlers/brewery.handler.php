@@ -1,4 +1,7 @@
 <?php
+/* For the bewery view for the Brewery management tab of the manage drinks
+ * section.
+ */
 
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
@@ -17,7 +20,7 @@ $brewery_edit  = array( "Id" => array("id" => 'id'),
                         "City" => array("brewery_city" => 'text, value'),
                         "State" => array("state_name" => "select, 1"),
                         "Website" => array("brewery_url" => 'text, value'),
-                        "Edit" => array("edit" => "button, large"),
+                        "Edit" => array("edit" => "button, large, active, disabled"),
                         "newrow" => array("newrow" => "newrow"),
                         "spacer" => array("spacer" => "plain"),  // plain
                         "brewery_desc" => array("brewery_desc" => "textarea, value, 3, 4"),

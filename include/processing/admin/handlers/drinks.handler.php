@@ -1,5 +1,6 @@
 <?php
-
+/* This is the type of beer view.
+ */
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
@@ -24,7 +25,6 @@ $drink_type_rule = array("drink_type_name" =>array(
 // ********** Generating the drink model. View invoked in index. ************ //
 
 // make the two arrays of contents match in format
-//$platesSQL = $test_food_trial;
 $drinksSQL = sqlToSmallTable($mysqli, 'drinkTypes');
 $drinksPOST = postToSmallTable($_POST, 'drinkTypes');
 
