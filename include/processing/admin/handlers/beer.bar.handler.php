@@ -1,5 +1,9 @@
 <?php
+/* This is for the checkbox inventory display on the Beers Tab
+ * There is no edit mode, only radio button for updates.
+ */
 
+ 
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
@@ -13,7 +17,6 @@ include_once(PROCESSING_ADMIN."table.processing.php");
 // ********* Beer inventory invokation Rules. To format the Model *********** //
 
 // the type definers for the active array
-
 $beer_display = array("Id" => array("id" => "id"),
                       "Brewery" => array("brewery_name" => "plain"),
                       "Beer" => array("beer_name" => "plain"),
@@ -52,16 +55,7 @@ $beers_templates = array( array( "id" => "",
                                 "beer_ontap" => "1",
                                 "beer_offtap" => "1",
                                 ),
-                          array("addrow" => "newrow",
-                                "new_id" => "+",
-                                "s1" => "",
-                                "s2" => "",
-                                "s3" => "",
-                                "s4" => "",
-                                "s5" => "",
-                                "s6" => "",
-                                "s7" => "",
-                                "add" => "add")  // button)
+                          array()  // no additional rows defined.
                        );
 // ************************************************************************** //
 

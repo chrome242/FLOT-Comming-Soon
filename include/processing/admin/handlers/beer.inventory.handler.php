@@ -1,4 +1,7 @@
 <?php
+/* This is full inventory and details editing screen for the beers on the
+ * drink management tab. 
+ */
 
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
@@ -23,7 +26,7 @@ $beer_edit = array( "beer_offtap" => array("beer_offtap" => "time, private"),
                     "Size" => array("drink_size_val" => "select"), //selector x
                     "Price" => array("beer_price" => "number, value, .01"),
                     "Time on Tap" => array("process_time" => "duration, beer_ontap, beer_offtap"),
-                    "Edit" => array("edit" => "button, large"),
+                    "Edit" => array("edit" => "button, large, active, disabled"),
                     "newrow" => array('newrow' => "newrow"),
                     "spacer" => array("spacer" => "plain"),
                     "beer_type" => array("drink_type_name"=> "select"), //selector x

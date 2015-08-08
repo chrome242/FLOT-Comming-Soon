@@ -122,3 +122,11 @@ $groups = new Table("user_groups", $user_groupsPROCESSED,
                          $groups_disp, $groups_edit,
                          $user_groupsTYPE);
 echo $groups;
+
+echo"<br>";
+echo "before the pre";
+echo "<pre>";
+var_dump($_POST);
+echo "</pre>";
+
+echo "after the pre<br>";

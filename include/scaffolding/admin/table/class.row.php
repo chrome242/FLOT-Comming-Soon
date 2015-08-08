@@ -235,6 +235,10 @@ class Row {
             $this->_cells[$cell_name]->setActive();
           }
           
+          if(stripos($format[$name], 'disabled') !== false){
+            $this->_cells[$cell_name]->setDisabled();
+          }
+          
           if($protected){
             // make an empty cell if the table is in a protected view
             $this->_cells[$cell_name] = new Cell($name, '');

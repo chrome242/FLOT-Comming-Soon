@@ -68,14 +68,18 @@
   }
   
   private function makeInput(){
-    $details = 'class="' . $this->_button_classes . '"';
-    if($this->_active){$details = 'class="' . $this->_button_classes . ' active"';
-    } else {$details = 'class="' . $this->_button_classes . '"';}
+
+    if($this->_active) {
+      $details = 'class="' . $this->_button_classes . ' active"';
+    } else {
+      $details = 'class="' . $this->_button_classes . '"';
+    }
+    
+    if($this->_disabled){$details .= ' disabled="disabled"' ;}
     
     if($this->_showDetails){$details .= ' id="'. $this->_id . '" name="' . $this->_name . '"';}
     
     $content = '<button type="' . $this->_type . '"' . $details . ' value="' .$this->_record .'">';
-    
     $content .= $this->_content . '</button>';
     
     return $content;

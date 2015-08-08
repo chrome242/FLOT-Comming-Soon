@@ -76,7 +76,10 @@ class Input extends Cell {
   /**
    * Sets a cell to disabled. 
    */
-  public function disabled(){
+  public function disabled(){  //legacy came
+    $this->_disabled = true;
+  }
+  public function setDisabled(){
     $this->_disabled = true;
   }
   
