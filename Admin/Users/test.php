@@ -148,7 +148,7 @@ echo"
   var modal = $(this)
   modal.find('.modal-title').text('New message to ' + recipient)
   modal.find('.modal-body input').val(recipient)
-})
+});
   
 $(function(){
   $('form button').on('click', function(e){
@@ -162,6 +162,7 @@ $(function(){
       data: data_save,
       success: function(foo){
            $('#userGroups').html(foo);
+           alert('success!');
       }
     });
   });
