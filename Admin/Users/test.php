@@ -149,9 +149,13 @@ echo"
   modal.find('.modal-title').text('New message to ' + recipient)
   modal.find('.modal-body input').val(recipient)
 });
-  
+
 $(function(){
-  $('form button').on('click', function(e){
+  
+});
+
+$(function(){
+  $('div#userGroups button, div#userGroups input[type=\"submit\"]').on('click', function(e){
     var data_save = $(this).parents('form').serializeArray();
     data_save.push ({ name: $(this).attr('name'), value: $(this).val()})
     e.preventDefault();

@@ -13,13 +13,15 @@
  * @param array $processedSQL the SQL already processed into a better form
  * @param array $processedPOST the POST subitems needed for the table
  * @param str $pkey the primary key of the SQL table
- * @parm bool $full if true, is a full table and not a small table.
+ * @param bool $full if true, is a full table and not a small table.
+ * @param bool $edit if true, then it is an edit table and it should appened an
+ *  edit row to an empty array
  *
  * @return null/bool  true if SQL DB needs to be repolled
  */
 
-function processInput($form_name, $sql_obj, $post_array, $type_rules,
-                      &$processedSQL, &$processedPOST, $pkey="id", $full=false){
+function processInput($form_name, $sql_obj, $post_array, $type_rules, &$processedSQL,
+                      &$processedPOST, $pkey="id", $full=false, $edit=true){
   
   // determine what type of submit button was pressed
   $type_of_submit = standardSelector($form_name, $post_array, $full);
@@ -27,7 +29,7 @@ function processInput($form_name, $sql_obj, $post_array, $type_rules,
 
   // for a new entry or for an empty table:
   if($type_of_submit[0] == "new" ||
-     (empty($processedPOST) && empty($processedSQL))){ 
+     (empty($processedPOST) && empty($processedSQL) && $edit)){ 
     if (!$full){addNewRecord($processedPOST, $type_rules);}
     if ($full){newTableRecord($processedPOST, $type_rules, $pkey);}
   }

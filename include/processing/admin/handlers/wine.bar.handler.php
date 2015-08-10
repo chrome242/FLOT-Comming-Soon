@@ -58,7 +58,7 @@ $winesPOST = postToTable($_POST, 'wines');
 
 // processTypes will do all the new SQL and array updates.
 $requery_sql = processInput("wines", $mysqli, $_POST, $wines_templates,
-                            $winesSQL, $winesPOST, 'id', true);
+                            $winesSQL, $winesPOST, 'id', true, false);
 if($requery_sql){$winesSQL = sqlToTable($mysqli, 'wines',
                                           'id', null, true);}
 

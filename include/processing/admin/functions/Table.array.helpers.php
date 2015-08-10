@@ -203,7 +203,7 @@ function array_insert_before(&$array, $position, $insert){
  * array(s)
  */
 function make_table_output($merged_array, $edit_array, $templates_array,
-													 $selects_array=null, $add=true, $id='id'){
+													 $selects_array=null, $add=true, $id='id', $edit=true){
 	
 	// break up the array
 	$edit_template = $templates_array[0];

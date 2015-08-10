@@ -71,9 +71,9 @@ timeUpdate($beersPOST, $beersSQL, $same_day=true, $restock=true);
 
 // processTypes will do all the new SQL and array updates.
 $requery_sql = processInput("beers", $mysqli, $_POST, $beers_templates,
-                            $beersSQL, $beersPOST, 'id', true);
+                            $beersSQL, $beersPOST, 'id', true, false);
 if($requery_sql){$beersSQL = sqlToTable($mysqli, 'beers',
-                                          'id', null, true);}
+                                        'id', null, true);}
 
 // Now that any updates are tested for, do the final build of the object.
 $beersMERGE = mergeTwoDArrays($beersSQL, $beersPOST);
