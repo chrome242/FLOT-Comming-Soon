@@ -3,8 +3,10 @@
  */
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
+include_once("../../include/config.php");
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
 require_once(INCLUDES."db_con.php");
+include_once(SCAFFOLDING_ADMIN."admin.include.php");
 include_once(PROCESSING_ADMIN."smallTable.processing.php");
 
 // ************************************************************************** //
@@ -37,3 +39,11 @@ $drinksMERGE = mergeTwoDArrays($drinksSQL, $drinksPOST);
 $drinksTYPE = setSmallTypes($drinksMERGE, $drinksPOST, $drink_type_rule, $addNew=true, $count=2);
 // ************************************************************************** //
 
+// ********** Generating the beer types view and invoking it here. ********** //
+$beers = new SmallTable("drinkTypes", $drinksMERGE, $drinksTYPE, 4);
+$beerPanel = new Panel("Varieties of Beer", $beers);
+$beerPanel->addButton();
+
+// Display The Panel //
+echo $beerPanel;
+// ************************************************************************** //
