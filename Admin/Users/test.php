@@ -150,26 +150,7 @@ echo"
   modal.find('.modal-body input').val(recipient)
 });
 
-$(function(){
-  
-});
 
-var formAjax = function (event, div, fileName){
-  $('div#'+div+' button, div#'+div+ ' input[type=\"submit\"]').on('click', function(event){
-    event.preventDefault();
-    var data_save = $(this).parents('form').serializeArray();
-    data_save.push ({ name: $(this).attr('name'), value: $(this).val()})
-    $.ajax({
-      type: 'POST',
-      url: fileName+'.php',
-      data: data_save,
-      success: function(foo){
-           $('#'+div+'').html(foo);
-           alert('success!');
-      }
-    });
-  });
-}
 
 $(function(){
   $(document.body).ready(formAjax(event, 'userGroups', 'testpost'));
