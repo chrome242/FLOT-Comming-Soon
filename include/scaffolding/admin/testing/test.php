@@ -75,11 +75,6 @@ echo sectionbar($sectionWrappers, "Zonks"); // With Logout Dummy for JS
 
 //***************************************************************************//
 
-//****************** Process the beer tables and Data: **********************//
-include(GROUP_HANDLER);
-
-//***************************************************************************//
-
 
 //***************** Final Variable Processing & Cleaning *******************//
 // Fututre home of SQL & $_POST processing methods
@@ -97,11 +92,8 @@ include(GROUP_HANDLER);
 //                         $groups_edit, $group_special_cells);
 
 // Echo the wrapped table
-echo '      <div class="collapse'.$inGroups.'" id="userGroups"> <!-- Group Definitions -->';
-$groups = new Table("user_groups", $user_groupsPROCESSED,
-                         $groups_disp, $groups_edit,
-                         $user_groupsTYPE);
-echo $groups;
+echo '      <div class="collapse'.$inGroups.'" id="userGroups" token="'.rand(1000, 9999).'"> <!-- Group Definitions -->';
+include(GROUP_HANDLER);
 echo '      </div>';
 
 
@@ -137,7 +129,7 @@ include(SCAFFOLDING_ADMIN."footer.php");
 
  
 
-
+$GROUP_HANDLER_SUB = "/include/processing/handlers/group.handler.php";
 echo"
 <script>
   $('#exampleModal').on('show.bs.modal', function (event) {
@@ -153,7 +145,7 @@ echo"
 
 
 $(function(){
-  $(document.body).ready(formAjax(event, 'userGroups', 'testpost'));
+  $(document.body).ready(formAjax(event, 'userGroups', 'testpost.php'));
 });
 
 //$(function(){

@@ -5,6 +5,8 @@
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
 // Will be usings the login script db con
+include_once("../../include/config.php");
+include_once(SCAFFOLDING_ADMIN."admin.include.php");
 include_once(PROCESSING_ADMIN."table.processing.php");
 
 
@@ -93,7 +95,7 @@ $group_templates = array( array( "id" => "",
 // ************************************************************************** //
 
 
-// ********** Generating the winery model. View invoked in index. ********** //
+// ********* Generating the usergroup model. View invoked in index. ********* //
 
 
 // make the two arrays of contents match in format
@@ -118,3 +120,12 @@ $user_groupsPROCESSED = make_table_output($user_groupsMERGE, $user_groupsTYPE,
 
 // ************************************************************************** //
 
+
+
+// ********** Generating the usergroup view and invoking it here. *********** //
+
+$groups = new Table("user_groups", $user_groupsPROCESSED,
+                         $groups_disp, $groups_edit,
+                         $user_groupsTYPE);
+echo $groups;
+// ************************************************************************** //

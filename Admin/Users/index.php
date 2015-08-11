@@ -3,8 +3,8 @@
 
 //****************** Configuration & Inclusions *****************************//
 $pageJavaScript = 'logout';
-include("../../include/config.php");
-include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
+include_once("../../include/config.php");
+include_once(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 //***************************************************************************//
 
 
@@ -23,8 +23,6 @@ $active = getActivePanels($_POST); // see if any panels are open.
 // check to set the panel classes
 if($active == "user_groups"){$inGroups = " in";} else {$inGroups = '';}
 //if($active == "user_groups"){$inGroups = " in";} else {$inGroups = '';}
-
-
 
 $sectionWrappers = array("userGroups" => ["User Group Definitions", false, 'user_groups'],
                          "userManagement" => ["User Management", false]);
@@ -69,14 +67,9 @@ $users_disp = array("Id" => array("user_id" => "id"),
 //******************** Open The Page & Display Menu Bar *********************//
 $title = "Manage Users";
 $section = ADMIN."Users/";
-include(SCAFFOLDING."head.php");
+include_once(SCAFFOLDING."head.php");
 echo menubar($permissions, $section, $root);
 echo sectionbar($sectionWrappers, "Logout"); // With Logout Dummy for JS
-
-//***************************************************************************//
-
-//****************** Process the beer tables and Data: **********************//
-include(GROUP_HANDLER);
 
 //***************************************************************************//
 
@@ -93,15 +86,10 @@ include(GROUP_HANDLER);
 //********************************* Content *********************************//
 
 // User Group drop //
-//$groupsTable = new Table("userGroups", $processed_group_cells, $groups_disp,
-//                         $groups_edit, $group_special_cells);
-
 // Echo the wrapped table
-echo '      <div class="collapse'.$inGroups.'" id="userGroups"> <!-- Group Definitions -->';
-$groups = new Table("user_groups", $user_groupsPROCESSED,
-                         $groups_disp, $groups_edit,
-                         $user_groupsTYPE);
-echo $groups;
+echo '
+        <div class="collapse'.$inGroups.'" id="userGroups" token="'.rand(1000, 9999).'"> <!-- Group Definitions -->';
+include(GROUP_HANDLER);
 echo '      </div>';
 
 
@@ -132,7 +120,7 @@ if(isset($_POST)){
 
 
 //******************************** Footer ***********************************//
-include(SCAFFOLDING_ADMIN."footer.php");
+include_once(SCAFFOLDING_ADMIN."footer.php");
 //***************************************************************************//
 
  

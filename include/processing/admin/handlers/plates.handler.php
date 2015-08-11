@@ -4,7 +4,9 @@
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
+include_once("../../include/config.php");
 require_once(INCLUDES."db_con.php");
+include_once(SCAFFOLDING_ADMIN."admin.include.php");
 include_once(PROCESSING_ADMIN."smallTable.processing.php");
 
 // ************************************************************************** //
@@ -35,3 +37,13 @@ $platesMERGE = mergeTableArrays($platesSQL, $platesPOST);
 $platesTYPE = setSmallTypes($platesMERGE, $platesPOST, $dish_type_rules, $addNew=true, $count=1);
 // ************************************************************************** //
 
+// ************ Generating the plate view and invoking it here. ************* //
+
+$plates = new SmallTable("foodType", $platesMERGE, $platesTYPE, 4);
+$platesPanel = new Panel("Plate Types", $plates);
+$platesPanel->addButton();
+
+// Display The Panel //
+echo $platesPanel;
+
+// ************************************************************************** //

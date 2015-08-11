@@ -13,17 +13,18 @@ var formAjax = function (event, div, fileName){
     
     // get the parent form
     var data_save = $(this).parents('form').serializeArray();
-    
-    // add the value of this button name to the post
-    data_save.push ({ name: $(this).attr('name'), value: $(this).val()})
+    // add the token and the button name
+    data_save.push ({ name: ($(this).parents('form').attr('name') +'-token'), value: $('#'+div).attr('token') });
+    data_save.push ({ name: $(this).attr('name'), value: $(this).val()});
     $.ajax({
       type: 'POST',
-      url: fileName+'.php',
+      url: fileName +'',
       data: data_save,
       success: function(foo){  // put the foo on the screen
            $('#'+div+'').html(foo);
            // set up a new copy of the function on the div.
            formAjax(event, div, fileName);
+           alert("Works!");
       }
     });
   });

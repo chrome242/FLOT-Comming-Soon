@@ -1,12 +1,12 @@
 <?php
 /* The handler for the dish menu on the food management screen
  */
-
-
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
+include_once("../../include/config.php");
 require_once(INCLUDES."db_con.php");
+include_once(SCAFFOLDING_ADMIN."admin.include.php");
 include_once(PROCESSING_ADMIN."table.processing.php");
 
 // ************************************************************************** //
@@ -103,3 +103,25 @@ $dishPROCESSED = make_table_output($dishMERGE, $dishTYPE, $dish_templates, $dish
 
 // ************************************************************************** //
 
+// ************ Generating the dish view and invoking it here. ************** //
+
+// Dish Display and Editing Panel //
+$dishes = new PanelTable("dishType", $dishPROCESSED,
+                         $dishes_display, $dishes_edit,
+                         $dishTYPE);
+// width formating
+$dishes->setCellClass("food_name", "col-xs-3");
+$dishes->setCellClass("food_type_name", "col-xs-3");
+$dishes->setCellClass("food_price", "col-xs-3");
+
+//add final button
+$dishes->addCellButton("food_desc", "drop", "Drop", "large");
+
+// make the panel wrapper
+$dishesPanel = new Panel("Dishes", $dishes);
+$dishesPanel->addButton();
+
+// Display The Panel //
+echo $dishesPanel;
+
+// ************************************************************************** //
