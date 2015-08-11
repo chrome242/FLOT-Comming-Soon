@@ -3,8 +3,10 @@
 
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
+include_once("../../include/config.php");
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
 require_once(INCLUDES."db_con.php");
+include_once(SCAFFOLDING_ADMIN."admin.include.php");
 include_once(PROCESSING_ADMIN."listView.processing.php");
 
 // ************************************************************************** //
@@ -38,3 +40,13 @@ $WRAPPED_winesMERGE = elevate_field_array($winesMERGE, $wine_desc_field);
 
 // ************************************************************************** //
 
+// ********** Generating the wine types view and invoking it here. ********** //
+$wines = new ListView("wineTypes", $WRAPPED_winesMERGE, $special=$WRAPPED_winesTYPE,
+                      $wine_default, $wine_desc_field);
+$winePanel = new Panel("Wines", $wines, $size="half");
+$winePanel->addButton();
+
+// Display The Panel
+echo $winePanel;
+
+// ************************************************************************** //

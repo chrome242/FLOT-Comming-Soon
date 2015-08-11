@@ -29,12 +29,12 @@ echo menubar($permissions, $section, $root);
 //**************************** View Construction ****************************//
 
 echo '
-        <div id="plateView" token="'.rand(1000, 9999).'"> <!-- Group Definitions -->';
+        <div id="plateView" token="'.rand(1000, 9999).'"> <!-- Plate Definitions -->';
 include(PLATE_HANDLER);
 echo '      </div>';
 
 echo '
-        <div id="dishView" token="'.rand(1000, 9999).'"> <!-- Group Definitions -->';
+        <div id="dishView" token="'.rand(1000, 9999).'"> <!-- Dish Definitions -->';
 include(DISH_HANDLER);
 echo '      </div>';
 //***************************************************************************//

@@ -17,7 +17,7 @@ class Panel {
   protected $_header; // the panel header.
   protected $_class = "panel panel-default";
   protected $_show_id = false; //no id for the panel by default
-  
+  protected $_token = ''; // if a token attrib is to be passed to it
   // the inner html
   protected $_inner_html; // the inner html string or class that produces html w/ tostring
   
@@ -84,6 +84,16 @@ class Panel {
   public function setHeader($header=false){
     $this->_header = $header;
   }
+  
+  /**
+   * Setter for the token attrib
+   *
+   * @param str $token a token for origin pointing
+   */
+  public function setToken($token){
+    $this->_token = ' token="' .$token. '"';
+  }
+  
   
   /**
    * I like well formated HTML. This function takes an input, explodes it line
@@ -167,10 +177,10 @@ class Panel {
     // open the div, check for the ID setting
     if($this->_show_id == false){
       $opening = '
-          <div class="' . $this->_class . '">';
+          <div class="' . $this->_class . '"' . $this->_token .'>';
     } else {
       $opening = '
-          <div class="' . $this->_class . '" id="' . $this->_id . '">';
+          <div class="' . $this->_class . '" id="' . $this->_id . '"' . $this->_token .'>';
     }
     
     // build the header if needed

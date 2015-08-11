@@ -4,6 +4,7 @@
  * @param obj event the event object
  * @param str div the div to be targeted by the call
  * @param str fileName the name of the file to post to.
+ * @param bool hidden if the function has to load the hiddenToggle function.
  * 
  */
 var formAjax = function (event, div, fileName){
@@ -20,6 +21,7 @@ var formAjax = function (event, div, fileName){
       type: 'POST',
       url: fileName +'',
       data: data_save,
+      async: true,
       success: function(foo){  // put the foo on the screen
            $('#'+div+'').html(foo);
            // set up a new copy of the function on the div.

@@ -4,8 +4,10 @@
 
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
+include_once("../../include/config.php");
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
 require_once(INCLUDES."db_con.php");
+include_once(SCAFFOLDING_ADMIN."admin.include.php");
 include_once(PROCESSING_ADMIN."listView.processing.php");
 
 // ************************************************************************** //
@@ -39,3 +41,14 @@ $WRAPPED_sizesMERGE = elevate_field_array($sizesMERGE, $size_desc_field);
 
 // ************************************************************************** //
 
+
+// ********** Generating the drink size view and invoking it here. ********** //
+$sizes = new ListView("sizeTypes", $WRAPPED_sizesMERGE, $special=$WRAPPED_sizesTYPE,
+                      $size_default, $size_desc_field);
+$sizePanel = new Panel("Glasses, Jugs, &amp; Mugs", $sizes, $size="half");
+$sizePanel->addButton();
+
+// Display The Panel
+echo $sizePanel;
+
+// ************************************************************************** //

@@ -1,8 +1,9 @@
 <?php
 
 //****************** Configuration & Inclusions *****************************//
-include("../../include/config.php");
-include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
+$pageJavaScript = 'extras';
+include_once("../../include/config.php");
+include_once(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 //***************************************************************************//
 
 
@@ -17,8 +18,6 @@ include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 // $permissions = $_COOKIE["admin_permissions"];
 
 
-
-
 //******************** Open The Page & Display Menu Bar **********************//
 $title = "Manage Extras";
 $section = ADMIN."Extras/";
@@ -27,53 +26,34 @@ echo menubar($permissions, $section, $root);
 //****************************************************************************//
 
 
-//****************** Process the brews tables and Data: **********************//
-// This file inclues all items need for brew model construction.
-include(BREWS_HANDLER);
-//***************************************************************************//
-
-
-//****************** Process the wine tables and Data: **********************//
-// This file inclues all items need for bwinerew model construction.
-include(WINES_HANDLER);
-//***************************************************************************//
-
-
-//****************** Process the wine tables and Data: **********************//
-// This file inclues all items need for bwinerew model construction.
-include(SIZE_HANDLER);
-//***************************************************************************//
-
-
 //********************************* Content *********************************//
 
 // Beer type & desc editing panel //
-$beers = new SmallTable("drinkTypes", $drinksMERGE, $drinksTYPE, 4);
-$beerPanel = new Panel("Varieties of Beer", $beers);
-$beerPanel->addButton();
+echo '
+        <div id="brewsView" token="'.rand(1000, 9999).'"> <!-- Beer Type Definitions -->';
+        
+include(BREWS_HANDLER);
 
-// Display The Panel //
-echo $beerPanel;
-
+echo '
+        </div>';
 
 // Wine Display and Editing Panel //
-$wines = new ListView("wineTypes", $WRAPPED_winesMERGE, $special=$WRAPPED_winesTYPE,
-                      $wine_default, $wine_desc_field);
-$winePanel = new Panel("Wines", $wines, $size="half");
-$winePanel->addButton();
+echo '
+        <div id="wineView" token="'.rand(1000, 9999).'"> <!-- Wine Type Definitions -->';
 
-// Display The Panel
-echo $winePanel;
-
+include(WINES_HANDLER);
+        
+echo '
+        </div>';
 
 // Drink Size Edit Panel //
-$sizes = new ListView("sizeTypes", $WRAPPED_sizesMERGE, $special=$WRAPPED_sizesTYPE,
-                      $size_default, $size_desc_field);
-$sizePanel = new Panel("Glasses, Jugs, &amp; Mugs", $sizes, $size="half");
-$sizePanel->addButton();
+echo '
+        <div id="sizeView" token="'.rand(1000, 9999).'"> <!-- Size Type Definitions -->';
+        
+include(SIZE_HANDLER);
 
-// Display The Panel
-echo $sizePanel;
+echo '
+        </div>';
 
 
 // clearfix for right panel
