@@ -154,22 +154,44 @@ $(function(){
   
 });
 
-$(function(){
-  $('div#userGroups button, div#userGroups input[type=\"submit\"]').on('click', function(e){
+var formAjax = function (event, div, fileName){
+  $('div#'+div+' button, div#'+div+ ' input[type=\"submit\"]').on('click', function(event){
+    event.preventDefault();
     var data_save = $(this).parents('form').serializeArray();
     data_save.push ({ name: $(this).attr('name'), value: $(this).val()})
-    e.preventDefault();
-    alert('Name =' + $(this).attr('name') +'/nValue= ' + $(this).val());
     $.ajax({
-      type: 'POST', //or POST
-      url: 'testpost.php',
+      type: 'POST',
+      url: fileName+'.php',
       data: data_save,
       success: function(foo){
-           $('#userGroups').html(foo);
+           $('#'+div+'').html(foo);
            alert('success!');
       }
     });
   });
+}
+
+$(function(){
+  $(document.body).ready(formAjax(event, 'userGroups', 'testpost'));
 });
+
+//$(function(){
+//  $(document.body).on('click', 'div#userGroups button, div#userGroups input[type=\"submit\"]', function(e){
+//    var data_save = $(this).parents('form').serializeArray();
+//    data_save.push ({ name: $(this).attr('name'), value: $(this).val()})
+//    event.preventDefault();
+//    alert('Name =' + $(this).attr('name') +'/nValue= ' + $(this).val());
+//    $.ajax({
+//      type: 'POST', //or POST
+//      url: 'testpost.php',
+//      data: data_save,
+//      success: function(foo){
+//           $('#userGroups').html(foo);
+//           alert('success!');
+//      }
+//    });
+//  });
+//});
+
 </script>
 ";
