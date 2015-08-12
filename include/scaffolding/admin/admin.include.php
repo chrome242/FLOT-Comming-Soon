@@ -7,10 +7,11 @@ require_once(AUTHENTICATION."auth.db_con.php");
 require_once(AUTHENTICATION.'auth.functions.php');
 require_once(AUTHENTICATION.'auth.process.logout.php');
 sec_session_start();
+echo login_check($mysqli_sec);
 if((login_check($mysqli_sec) !== true) && !isset($login)){
+  echo login_check($mysqli_sec) == true;
   session_logout($_SESSION);
-  $isLogin = isset($login);
-  header('Location: /Login/?error=session_timeout?Login='.ADMIN);
+  header('Location: /Login/?error=session_timeout?');
 }
 
 if(($permissions = permissions_check($mysqli_sec)) && !isset($login)){

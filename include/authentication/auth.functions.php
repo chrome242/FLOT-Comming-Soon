@@ -187,6 +187,7 @@ function login_check($mysqli_sec) {
         // Not logged in 
         return false;
     }
+  return false;
 }
 
 /**
