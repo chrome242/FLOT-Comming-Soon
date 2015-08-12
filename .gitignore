@@ -3,6 +3,8 @@
 config.php
 **/include/config.php
 /include/config.php
+**/auth.db_con.php
+auth.db_con.php
 
 #tracking file
 **/tracking.txt
@@ -51,3 +53,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+include/authentication/auth.db_con.php
+include/authentication/auth.db_con.php

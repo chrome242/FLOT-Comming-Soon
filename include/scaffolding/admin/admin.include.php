@@ -1,8 +1,6 @@
 <?php
-
 // Section Settings:
 $root = ADMIN;
-
 // Basic Security
 $sec_cred = unserialize(LOGIN_SCRIPT_CREDENTIALS);
 require_once(AUTHENTICATION."auth.db_con.php");
@@ -11,15 +9,17 @@ require_once(AUTHENTICATION.'auth.process.logout.php');
 sec_session_start();
 if((login_check($mysqli_sec) !== true) && !isset($login)){
   session_logout($_SESSION);
-  header('Location: /Login/?error=session_timeout');
+  $isLogin = isset($login);
+  header('Location: /Login/?error=session_timeout?Login='.ADMIN);
 }
 
-if($permissions = permissions_check($mysqli_sec)){
+if(($permissions = permissions_check($mysqli_sec)) && !isset($login)){
   // will add a local check here.
   ;
 } else {
-  session_logout($_SESSION);
-  header('Location: /Login/?error=permissions_failure');
+  //session_logout($_SESSION);
+  //header('Location: /Login/?error=permissions_failure');
+  ;
 }
 
 // General Page Componets
