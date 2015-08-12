@@ -26,9 +26,9 @@ function menubar($permissions, $section, $root){
   // either is true and will add section if either is true and unset the
   // individual values.
   if($permissions["add_user"] || $permissions["edit_user"]){
-    $permissions["users"] = 2;
-  } else {
     $permissions["users"] = 1;
+  } else {
+    $permissions["users"] = 0;
   }
   
   // inventory is also not needed as the check is for editing not view
@@ -42,11 +42,11 @@ function menubar($permissions, $section, $root){
                    $root."Wines/" => ["Wines", 1]);
   // the procedural portion
   foreach($permissions as $label => $state){
-    if ($state == 2){
+    if ($state == 1){
       $text = ucfirst($label);
       $url = $root. $text . "/";
       $button_label = "Manage " . $text;
-      $buttons[$url] = [$button_label, 2];
+      $buttons[$url] = [$button_label, 1];
     }  
   }
   

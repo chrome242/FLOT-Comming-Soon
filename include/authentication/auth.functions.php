@@ -133,6 +133,7 @@ function checkbrute($user_id, $mysqli_sec) {
     }
 }
 
+
 /**
  * Checks that the minimal login params are set. This doesn't check for page rights,
  * only login status correctness. Helps to prevent xss
@@ -144,9 +145,8 @@ function checkbrute($user_id, $mysqli_sec) {
 function login_check($mysqli_sec) {
     // Check if all session variables are set 
     if (isset($_SESSION['user_id'], 
-                        $_SESSION['username'], 
-                        $_SESSION['login_string'])) {
- 
+              $_SESSION['username'], 
+              $_SESSION['login_string'])) {
         $user_id = $_SESSION['user_id'];
         $login_string = $_SESSION['login_string'];
         $username = $_SESSION['username'];
@@ -188,6 +188,59 @@ function login_check($mysqli_sec) {
         return false;
     }
 }
+
+/**
+ * Checks that permission params are set. Returns the params if set, otherwise
+ * returns false
+ *
+ * @param obj $mysqli_sec the mysql object
+ *
+ * @return mixed array if logged in, false otherwise.
+ */
+function permissions_check($mysqli_sec){
+  if (isset($_SESSION['user_id'], $_SESSION['login_string'])){
+    $user_id = $_SESSION['user_id'];
+    if ($stmt = $mysqli_sec->prepare("SELECT user_group FROM members 
+                                      WHERE id = ? LIMIT 1")) {
+      $stmt->bind_param('i', $user_id);
+      $stmt->execute();   // Execute the prepared query.
+      $stmt->store_result();
+      
+      if ($stmt->num_rows == 1){
+       $stmt->bind_result($group);
+       $stmt->fetch();
+       
+       if ($stmt = $mysqli_sec->prepare("SELECT inventory, drinks, extras, food,
+                                        add_user, edit_user FROM user_groups 
+                                         WHERE id = ? LIMIT 1")) {
+        $stmt->bind_param('i', $group);
+        $stmt->execute();   // Execute the prepared query.
+        $permissions = array();
+        $stmt->bind_result($permissions['inventory'], $permissions['drinks'],
+                            $permissions['extras'], $permissions['food'],
+                            $permissions['add_user'], $permissions['edit_user']);
+        $stmt->fetch();
+          
+        return $permissions;
+
+       } else{
+          // session issue / not logged in
+          return false;
+       }
+      } else {
+        // session issue / not logged in
+        return false;
+      }
+    } else {
+      // session issue / not logged in
+      return false;
+    }
+  } else {
+    // session issue / not logged in
+    return false;
+  }
+}
+
 
 /**
  * A helper function to sanatize the url 

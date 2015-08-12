@@ -14,6 +14,14 @@ if((login_check($mysqli_sec) !== true) && !isset($login)){
   header('Location: /Login/?error=session_timeout');
 }
 
+if($permissions = permissions_check($mysqli_sec)){
+  // will add a local check here.
+  ;
+} else {
+  session_logout($_SESSION);
+  header('Location: /Login/?error=permissions_failure');
+}
+
 // General Page Componets
 include_once(SCAFFOLDING_ADMIN."menubars.php"); // menubars
 include_once(SCAFFOLDING_ADMIN."panel/class.panel.php"); // panel wrapper
