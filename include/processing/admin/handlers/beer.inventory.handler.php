@@ -4,9 +4,9 @@
  */
 
 // *** Open the Database Connection and Select the Correct DB credientals *** //
-
+include_once("../../include/config.php");
+include_once(SCAFFOLDING_ADMIN."admin.include.php");
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
-$BEER_TABLE_CALL = true; // needed for all beer tables to include time handler fnxs
 require_once(INCLUDES."db_con.php");
 include_once(PROCESSING_ADMIN."table.processing.php");
 
@@ -157,5 +157,15 @@ $beersPROCESSED = make_table_output($beersMERGE, $beersTYPE,
                                       $beers_templates, $beers_selectors,
                                       $add=true);
 
+// make the table, echo it out
+$beers = new Table("beers", $beersPROCESSED,
+                         $beer_display, $beer_edit,
+                         $beersTYPE);
+$beers->setCellClass("brewery_name", "col-xs-2");
+$beers->setCellClass("beer_name", "col-xs-2");
+$beers->setCellClass("beer_abv", "col-xs-1");
+$beers->setCellClass("beer_price", "col-xs-1");
+$beers->addCellButton("beer_desc", "drop", "Drop", "large");//add final button
+echo $beers;
 // ************************************************************************** //
 

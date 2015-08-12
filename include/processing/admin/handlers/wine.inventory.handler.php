@@ -4,7 +4,8 @@
 
  
 // *** Open the Database Connection and Select the Correct DB credientals *** //
-
+include_once("../../include/config.php");
+include_once(SCAFFOLDING_ADMIN."admin.include.php");
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
 require_once(INCLUDES."db_con.php");
 include_once(PROCESSING_ADMIN."table.processing.php");
@@ -126,6 +127,16 @@ $winesTYPE = getActiveMembers($winesPOST);
 $winesPROCESSED = make_table_output($winesMERGE, $winesTYPE,
                                       $wines_templates, $wines_selectors,
                                       $add=true);
+
+// Make the table, echo it out
+$wines = new Table("wines", $winesPROCESSED,
+                         $wines_display, $wines_edit,
+                         $winesTYPE);
+$wines->setCellClass("winery_name", "col-xs-2");
+$wines->setCellClass("wine_name", "col-xs-2");
+$wines->setCellClass("wine_year", "col-xs-2");
+$wines->addCellButton("wine_desc", "drop", "Drop", "large");//add final button
+echo $wines;
 
 // ************************************************************************** //
 

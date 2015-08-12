@@ -4,7 +4,8 @@
  */
 
 // *** Open the Database Connection and Select the Correct DB credientals *** //
-
+include_once("../../include/config.php");
+include_once(SCAFFOLDING_ADMIN."admin.include.php");
 $db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
 require_once(INCLUDES."db_con.php");
 include_once(PROCESSING_ADMIN."table.processing.php");
@@ -112,5 +113,10 @@ $breweryPROCESSED = make_table_output($breweryMERGE, $breweryTYPE,
                                       $brewery_templates, $brewery_selectors,
                                       $add=true);
 
+// Make the table, echo it out
+$brewery = new Table("breweries", $breweryPROCESSED,
+                         $brewery_display, $brewery_edit,
+                         $breweryTYPE);
+echo $brewery;
 // ************************************************************************** //
 

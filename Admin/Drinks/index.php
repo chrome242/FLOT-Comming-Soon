@@ -2,8 +2,9 @@
 <?php
 
 //****************** Configuration & Inclusions *****************************//
-include("../../include/config.php");
-include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
+$pageJavaScript = 'drinks';
+include_once("../../include/config.php");
+include_once(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 //***************************************************************************//
 
 // TODO: Add a test login to redirect function here
@@ -56,83 +57,36 @@ echo sectionbar($sectionWrappers);
 //***************************************************************************//
 
 
-//****************** Process the beer tables and Data: **********************//
-include(BEER_HANDLER);
-
-//***************************************************************************//
-
-
-//****************** Process the wine tables and Data: **********************//
-include(WINE_HANDLER);
-
-//***************************************************************************//
-
-
-//***************** Process the brewery tables and Data: ********************//
-include(BREWERY_HANDLER);
-
-//***************************************************************************//
-
-
-//**************** Process the wineries tables and Data: ********************//
-include(WINERY_HANDLER);
-
-//***************************************************************************//
-
-
 //********************************* Content *********************************//
 
 // Beer Management Drop
-echo '      <div class="collapse'.$inBeers.'" id="beerManagement"> <!-- Beers -->';
+echo '      <div class="collapse'.$inBeers.'" id="beerManagement"  token="'.rand(1000, 9999).'"> <!-- Beers -->';
 echo sortbar($optionsBeer, 'all'); // Beer Sort Bar
-// make the table, echo it out
-$beers = new Table("beers", $beersPROCESSED,
-                         $beer_display, $beer_edit,
-                         $beersTYPE);
-$beers->setCellClass("brewery_name", "col-xs-2");
-$beers->setCellClass("beer_name", "col-xs-2");
-$beers->setCellClass("beer_abv", "col-xs-1");
-$beers->setCellClass("beer_price", "col-xs-1");
-$beers->addCellButton("beer_desc", "drop", "Drop", "large");//add final button
-echo $beers;
+
+include(BEER_HANDLER);
+
 echo '      </div>';
 
 
 // Wine Management Drop
-echo '      <div class="collapse'.$inWines.'" id="wineManagement"> <!-- Wines -->';
+echo '      <div class="collapse'.$inWines.'" id="wineManagement"  token="'.rand(1000, 9999).'"> <!-- Wines -->';
 echo sortbar($optionsWine, 'WineAll');  // Wines Sort Bar
 
-// Make the table, echo it out
-$wines = new Table("wines", $winesPROCESSED,
-                         $wines_display, $wines_edit,
-                         $winesTYPE);
-$wines->setCellClass("winery_name", "col-xs-2");
-$wines->setCellClass("wine_name", "col-xs-2");
-$wines->setCellClass("wine_year", "col-xs-2");
-$wines->addCellButton("wine_desc", "drop", "Drop", "large");//add final button
-echo $wines;
+include(WINE_HANDLER);
 
 echo '      </div>';
 
 // Brewery Management Drop
-echo '      <div class="collapse'.$inBreweries.'" id="breweryManagement"> <!-- Breweries -->';
+echo '      <div class="collapse'.$inBreweries.'" id="breweryManagement"  token="'.rand(1000, 9999).'"> <!-- Breweries -->';
 
-// Make the table, echo it out
-$brewery = new Table("breweries", $breweryPROCESSED,
-                         $brewery_display, $brewery_edit,
-                         $breweryTYPE);
-echo $brewery;
+include(BREWERY_HANDLER);
 
 echo '      </div>';
 
 // Winery Managment Drop
-echo '      <div class="collapse'.$inWineries.'" id="wineryManagement"> <!-- Wineries -->';
+echo '      <div class="collapse'.$inWineries.'" id="wineryManagement"  token="'.rand(1000, 9999).'"> <!-- Wineries -->';
 
-// Make the table, echo it out
-$winery = new Table("wineries", $wineryPROCESSED,
-                         $winery_display, $winery_edit,
-                         $wineryTYPE);
-echo $winery;
+include(WINERY_HANDLER);
 
 echo '      </div>';
 //***************************************************************************//
