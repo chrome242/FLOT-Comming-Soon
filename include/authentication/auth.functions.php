@@ -96,6 +96,9 @@ function login($email, $password, $mysqli_sec) {
             return false;
         }
     }
+    else {
+      return false;  
+    }
 }
 
 /**

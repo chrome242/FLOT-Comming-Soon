@@ -3,8 +3,8 @@
 include("../../include/config.php");
 include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 //***************************************************************************//
-include_once  AUTHENTICATION.'auth.functions.php';
-include_once  AUTHENTICATION.'auth.process.newuser.php';
+include_once(AUTHENTICATION.'auth.functions.php');
+include_once(AUTHENTICATION.'auth.process.newuser.php');
 
 
 $title = "New User";

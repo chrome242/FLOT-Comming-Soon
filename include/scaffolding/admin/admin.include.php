@@ -7,7 +7,7 @@ require_once(AUTHENTICATION."auth.db_con.php");
 require_once(AUTHENTICATION.'auth.functions.php');
 require_once(AUTHENTICATION.'auth.process.logout.php');
 sec_session_start();
-echo login_check($mysqli_sec);
+echo login_check($mysqli_sec) == true;;
 if((login_check($mysqli_sec) !== true) && !isset($login)){
   echo login_check($mysqli_sec) == true;
   session_logout($_SESSION);

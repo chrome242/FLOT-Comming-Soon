@@ -1,10 +1,10 @@
 <?php
 
-include("../../include/config.php");
+require_once("../../include/config.php");
 $login = true; // to kill loops
-$sec_cred = unserialize(LOGIN_SCRIPT_CREDENTIALS);
+$sec_cred = $LOGIN_SCRIPT_CREDENTIALS;
 require_once(AUTHENTICATION.'auth.functions.php');
-include_once(AUTHENTICATION.'auth.process.login.php');
+require_once(AUTHENTICATION.'auth.process.login.php');
 
 if (login_check($mysqli_sec) == true) {
   header('Location: '.ADMIN);
