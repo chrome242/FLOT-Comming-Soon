@@ -143,19 +143,15 @@ function checkbrute($user_id, $mysqli_sec) {
  */
 function login_check($mysqli_sec) {
     // Check if all session variables are set 
-    if (isset($_SESSION['user_id'], 
-              $_SESSION['username'], 
-              $_SESSION['login_string'])) {
+    if (isset($_SESSION['user_id'], $_SESSION['username'], $_SESSION['login_string'])) {
+        
         $user_id = $_SESSION['user_id'];
         $login_string = $_SESSION['login_string'];
         $username = $_SESSION['username'];
- 
         // Get the user-agent string of the user.
         $user_browser = $_SERVER['HTTP_USER_AGENT'];
  
-        if ($stmt = $mysqli_sec->prepare("SELECT password 
-                                      FROM members 
-                                      WHERE id = ? LIMIT 1")) {
+        if ($stmt = $mysqli_sec->prepare("SELECT password FROM members WHERE id = ? LIMIT 1")) {
             // Bind "$user_id" to parameter. 
             $stmt->bind_param('i', $user_id);
             $stmt->execute();   // Execute the prepared query.
@@ -168,14 +164,14 @@ function login_check($mysqli_sec) {
                 $login_check = hash('sha512', $password . $user_browser);
  
                 if ($login_check == $login_string) {
-                    // Logged In!!!! 
+                    // Logged In!!!!
                     return true;
                 } else {
-                    // Not logged in 
+                    // Not logged in
                     return false;
                 }
             } else {
-                // Not logged in 
+                // Not logged in
                 return false;
             }
         } else {
@@ -183,9 +179,10 @@ function login_check($mysqli_sec) {
             return false;
         }
     } else {
-        // Not logged in 
-        return false;
+      // Not logged in
+      return false;
     }
+ 
   return false;
 }
 

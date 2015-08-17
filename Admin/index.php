@@ -1,5 +1,6 @@
 <?php
 //****************** Configuration & Inclusions *****************************//
+$thispage = "Admin";
 include("../include/config.php");
 include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 //***************************************************************************//

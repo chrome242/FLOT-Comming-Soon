@@ -6,10 +6,16 @@ require_once(AUTHENTICATION."auth.db_con.php");
 require_once(AUTHENTICATION.'auth.functions.php');
 require_once(AUTHENTICATION.'auth.process.logout.php');
 sec_session_start();
-if((login_check($mysqli_sec) !== true) && !isset($login)){
-  echo login_check($mysqli_sec) == true;
-  session_logout($_SESSION);
-  header('Location: /Login/?error=session_timeout?');
+if(!isset($login)){
+  if(login_check($mysqli_sec) != true){
+    if(!isset($thispage)){
+      $error = '';
+    } else {
+      $error = '_on_'.$thispage;
+    }
+    session_logout($_SESSION);
+    header('Location: /Login/?error=session_timeout' . $error);
+  }
 }
 
 if(($permissions = permissions_check($mysqli_sec)) && !isset($login)){

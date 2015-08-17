@@ -2,6 +2,7 @@
 
 //****************** Configuration & Inclusions *****************************//
 include("../include/config.php");
+$thispage = "Login";
 $login = true; // to kill loops
 include(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
 include_once(AUTHENTICATION.'auth.process.login.php');
