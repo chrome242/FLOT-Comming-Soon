@@ -1,7 +1,7 @@
 <?php
-// make a connection to the mysql db
 try {
-	$mysqli = new mysqli($db_cred[0], $db_cred[3], $db_cred[4], $db_cred[1]);	
+	$mysqli = new mysqli($host=$db_cred["host"], $username=$db_cred["username"],
+                           $passwd=$db_cred["passwd"], $dbname=$db_cred["dbname"]);	
 } catch(Exception $e) {
   echo "Unable to Complete Request.";
   exit;

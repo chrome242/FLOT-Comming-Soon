@@ -6,7 +6,7 @@
  
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
-$db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
+$db_cred = $MENU_CREDS;
 $BEER_TABLE_CALL = true; // needed for all beer tables to include time handler fnxs
 require_once(INCLUDES."db_con.php");
 include_once(PROCESSING_ADMIN."table.processing.php");

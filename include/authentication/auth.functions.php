@@ -1,5 +1,4 @@
 <?php
-$sec_cred = unserialize(LOGIN_SCRIPT_CREDENTIALS);
 require_once(AUTHENTICATION."auth.db_con.php");
 
 /**

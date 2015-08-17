@@ -3,7 +3,7 @@
  */
 // *** Open the Database Connection and Select the Correct DB credientals *** //
 
-$db_cred = unserialize(MENU_ADMIN_CREDENTIALS);
+$db_cred = $MENU_CREDS;
 require_once(INCLUDES."db_con.php");
 include_once(PROCESSING_ADMIN."table.processing.php");
 

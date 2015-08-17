@@ -4,7 +4,7 @@ require_once("include/config.php");
 $section = HOME;
 
 // database requirements
-$db_cred= unserialize(MAIL_CREDENTIALS);
+$db_cred= $MAIL_CREDS;
 include_once(INCLUDES."db_con.php");
 
 // page scaffolding:
