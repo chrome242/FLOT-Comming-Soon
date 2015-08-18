@@ -8,6 +8,7 @@ require_once(AUTHENTICATION."auth.db_con.php");
 function sec_session_start() {
     $session_name = 'sec_session_id';   // Set a custom session name
     $secure = SECURE;
+
     // This stops JavaScript being able to access the session id.
     $httponly = true;
     // Forces sessions to only use cookies.
@@ -150,7 +151,7 @@ function login_check($mysqli_sec) {
         $username = $_SESSION['username'];
         // Get the user-agent string of the user.
         $user_browser = $_SERVER['HTTP_USER_AGENT'];
- 
+        
         if ($stmt = $mysqli_sec->prepare("SELECT password FROM members WHERE id = ? LIMIT 1")) {
             // Bind "$user_id" to parameter. 
             $stmt->bind_param('i', $user_id);

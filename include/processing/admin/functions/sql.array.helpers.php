@@ -29,13 +29,13 @@ function make_selector($mysqli, $table, $id=null, $display=null){
   $results = $mysqli->query("SELECT $id, $display FROM $use_table ORDER BY $id");
   $return = array(); // return array
   
-  
-  while($row = $results->fetch_array(MYSQLI_ASSOC)){
-    $key = $row[$id];
-    $value = $row[$display];
-    $return[$key] = $value;
+  if($results){
+    while($row = $results->fetch_array(MYSQLI_ASSOC)){
+      $key = $row[$id];
+      $value = $row[$display];
+      $return[$key] = $value;
+    }
   }
-  
   return $return;
 }
 

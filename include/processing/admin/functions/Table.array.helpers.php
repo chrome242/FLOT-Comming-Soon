@@ -53,11 +53,13 @@ function sqlToTable($mysqli, $table, $id='id', $fields=null, $internal_id=false)
 		$results = $mysqli->query("SELECT $selectables FROM $table ORDER BY $id");
 	}
 	$output = array();
-	while($row = $results->fetch_array(MYSQLI_ASSOC)){
-		$key = $row[$id];
-		if(!$internal_id){unset($row[$id]);}
-		$array = $row;
-		$output[$key] = $array;
+	if($results){
+		while($row = $results->fetch_array(MYSQLI_ASSOC)){
+			$key = $row[$id];
+			if(!$internal_id){unset($row[$id]);}
+			$array = $row;
+			$output[$key] = $array;
+		}
 	}
 	return $output;
 }

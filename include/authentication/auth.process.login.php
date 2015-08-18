@@ -10,7 +10,7 @@ function process_login($post, $mysqli){
       $password = $post['p']; // The hashed password.
    
       if (login($email, $password, $mysqli) == true) {
-          // Login success 
+          // Login success
           header('Location: '.ADMIN);
       } else {
           // Login failed 

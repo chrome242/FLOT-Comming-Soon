@@ -26,7 +26,7 @@ var formAjax = function (event, div, fileName){
            $('#'+div+'').html(foo);
            // set up a new copy of the function on the div.
            formAjax(event, div, fileName);
-           alert("Works!");
+           //alert("Works!");
       }
     });
   });

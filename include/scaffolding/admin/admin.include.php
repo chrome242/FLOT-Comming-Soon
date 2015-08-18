@@ -7,7 +7,7 @@ require_once(AUTHENTICATION.'auth.functions.php');
 require_once(AUTHENTICATION.'auth.process.logout.php');
 sec_session_start();
 if(!isset($login)){
-  if(login_check($mysqli_sec) != true){
+  if(login_check($mysqli_sec) != true ){
     if(!isset($thispage)){
       $error = '';
     } else {

@@ -21,7 +21,7 @@ if (count($_POST) > 0){
 }
 // check for redirect
 if (login_check($mysqli_sec) == true) {
-    header('Location: '.ADMIN);
+  header('Location: '.ADMIN);
 }
 
 // check for an error
