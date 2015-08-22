@@ -253,7 +253,7 @@ function make_table_output($merged_array, $edit_array, $templates_array,
 							$value = $return_array[$key][$field];
 							
 							// return with a selection if there is one to be had.
-							if(isset($list[$value])){
+							if(is_array($list) && isset($list[$value])){
 								$return_array[$key][$field] = array($list, $value);
 							
 							// return with out a selection
