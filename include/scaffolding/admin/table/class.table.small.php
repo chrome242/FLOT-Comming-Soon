@@ -159,7 +159,7 @@ class SmallTable extends Table{
       $thisCell = new Text($cellName, $value, "text");
       $thisCell->editFieldSmall();
       $thisCell->setClass("col-xs-3");
-      $thisCell->addButton($this->_name, $cellName, "edit", "glyphicon-cog", false, true, true);
+      $thisCell->addButton($form=$this->_name, $record=$cellName, $action="edit", $display="glyphicon-cog", $text=false, $active=true, $included=true);
       $thisCell->addButton($this->_name, $cellName, "drop", "Drop", true, false, true);
     }
     

@@ -52,8 +52,12 @@ class Cell {
     $button_text = $display;
     $button_name = $form . '-' . $action;
     $if_active = '';
+    $disabled = '';
     
-    if($active){$if_active = " active";}
+    if($active){
+      $if_active = " active";
+      $disabled = ' disabled="disabled"';
+      }
     
     // "included" for use in tables where the cell name is preprocessed
     if($included == false){
@@ -71,7 +75,7 @@ class Cell {
       $output = '<button type="submit" class="btn btn-primary edit-icon btn-sm'. $if_active.'"';
     }
     $output.= ' id="' . $button_id .'" name="' . $button_name .'" value="';
-    $output.= $record .'">' . $button_content ."</button>";
+    $output.= $record .'"'. $disabled . '>' . $button_content ."</button>";
     $this->_buttons[] = $output;
     
   }
