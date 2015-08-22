@@ -10,7 +10,7 @@ $process = $_POST;
 //if(isset($process["drinktypes-token"]) && strlen($process["drinktypes-token"]) === 4 ){
 //  include(BREWS_HANDLER); // pull the new table
 //} else
-if (isset($process["wineT=types-token"]) && strlen($process["winetypes-token"]) === 4) {
+if (isset($process["winetypes-token"]) && strlen($process["winetypes-token"]) === 4) {
   include(WINES_HANDLER); //pull the new table
 } else if (isset($process["sizetypes-token"]) && strlen($process["sizetypes-token"]) === 4) {
   include(SIZE_HANDLER); //pull the new table
