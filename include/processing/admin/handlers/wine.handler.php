@@ -25,12 +25,12 @@ $wine_desc_field = "wine_type_name";
 // ********** Generating the drink model. View invoked in index. ************ //
 
 // make the two arrays of contents match in format
-$winesSQL = sqlToSmallTable($mysqli, 'wineTypes');
-$winesPOST = postToSmallTable($_POST, 'wineTypes');
+$winesSQL = sqlToSmallTable($mysqli, 'winetypes');
+$winesPOST = postToSmallTable($_POST, 'winetypes');
 
 // processTypes will do all the new SQL and array updates.
-$requery_sql = processInput("wineTypes", $mysqli, $_POST, $wine_rule_type, $winesSQL, $winesPOST);
-if($requery_sql){$winesSQL = sqlToSmallTable($mysqli, 'wineTypes');}
+$requery_sql = processInput("winetypes", $mysqli, $_POST, $wine_rule_type, $winesSQL, $winesPOST);
+if($requery_sql){$winesSQL = sqlToSmallTable($mysqli, 'winetypes');}
 
 // Now that any updates are tested for, do the final build of the object.
 $winesMERGE = mergeTwoDArrays($winesSQL, $winesPOST);
@@ -41,7 +41,7 @@ $WRAPPED_winesMERGE = elevate_field_array($winesMERGE, $wine_desc_field);
 // ************************************************************************** //
 
 // ********** Generating the wine types view and invoking it here. ********** //
-$wines = new ListView("wineTypes", $WRAPPED_winesMERGE, $special=$WRAPPED_winesTYPE,
+$wines = new ListView("winetypes", $WRAPPED_winesMERGE, $special=$WRAPPED_winesTYPE,
                       $wine_default, $wine_desc_field);
 $winePanel = new Panel("Wines", $wines, $size="half");
 $winePanel->addButton();

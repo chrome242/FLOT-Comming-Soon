@@ -19,7 +19,7 @@ include_once(PROCESSING_ADMIN."table.processing.php");
 $brewery_edit  = array( "Id" => array("id" => 'id'),
                         "Name" => array("brewery_name" => 'text, value'),
                         "City" => array("brewery_city" => 'text, value'),
-                        "State" => array("state_name" => "select, 1"),
+                        "State" => array("state_name" => "select, 32"),
                         "Website" => array("brewery_url" => 'text, value'),
                         "Edit" => array("edit" => "button, large, active, disabled"),
                         "newrow" => array("newrow" => "newrow"),

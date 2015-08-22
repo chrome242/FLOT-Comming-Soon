@@ -26,12 +26,12 @@ $size_desc_field = "drink_size_val";
 // ********** Generating the drink model. View invoked in index. ************ //
 
 // make the two arrays of contents match in format
-$sizesSQL = sqlToSmallTable($mysqli, 'sizeTypes');
-$sizesPOST = postToSmallTable($_POST, 'sizeTypes');
+$sizesSQL = sqlToSmallTable($mysqli, 'sizetypes');
+$sizesPOST = postToSmallTable($_POST, 'sizetypes');
 
 // processTypes will do all the new SQL and array updates.
-$requery_sql = processInput("sizeTypes", $mysqli, $_POST, $size_rule_type, $sizesSQL, $sizesPOST);
-if($requery_sql){$sizesSQL = sqlToSmallTable($mysqli, 'sizeTypes');}
+$requery_sql = processInput("sizetypes", $mysqli, $_POST, $size_rule_type, $sizesSQL, $sizesPOST);
+if($requery_sql){$sizesSQL = sqlToSmallTable($mysqli, 'sizetypes');}
 
 // Now that any updates are tested for, do the final build of the object.
 $sizesMERGE = mergeTwoDArrays($sizesSQL, $sizesPOST);
@@ -43,7 +43,7 @@ $WRAPPED_sizesMERGE = elevate_field_array($sizesMERGE, $size_desc_field);
 
 
 // ********** Generating the drink size view and invoking it here. ********** //
-$sizes = new ListView("sizeTypes", $WRAPPED_sizesMERGE, $special=$WRAPPED_sizesTYPE,
+$sizes = new ListView("sizetypes", $WRAPPED_sizesMERGE, $special=$WRAPPED_sizesTYPE,
                       $size_default, $size_desc_field);
 $sizePanel = new Panel("Glasses, Jugs, &amp; Mugs", $sizes, $size="half");
 $sizePanel->addButton();

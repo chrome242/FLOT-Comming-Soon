@@ -7,9 +7,9 @@ include_once(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin inclu
 
 //***************** Check for Correct Orign Point ***************************//
 $process = $_POST;
-if(isset($process["foodType-token"]) && strlen($process["foodType-token"]) === 4 ){
+if(isset($process["foodtype-token"]) && strlen($process["foodtype-token"]) === 4 ){
   include(PLATE_HANDLER); // pull the new table
-} else if (isset($process["dishType-token"]) && strlen($process["dishType-token"]) === 4) {
+} else if (isset($process["dishtype-token"]) && strlen($process["dishtype-token"]) === 4) {
   include(DISH_HANDLER); //pull the new table
 } else {
   header('Location: '.ADMIN); // redirect

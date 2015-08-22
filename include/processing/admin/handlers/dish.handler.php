@@ -87,12 +87,12 @@ $dish_templates = array( array("id" => "",
 // ********** Generating the drink model. View invoked in index. ************ //
 
 // make the two arrays of contents match in format
-$dishSQL = sqltoTable($mysqli, 'dishType', 'id', null, true);
-$dishPOST = postToTable($_POST, 'dishType');
+$dishSQL = sqltoTable($mysqli, 'dishtype', 'id', null, true);
+$dishPOST = postToTable($_POST, 'dishtype');
 
 // processTypes will do all the new SQL and array updates.
-$requery_sql = processInput("dishType", $mysqli, $_POST, $dish_templates, $dishSQL, $dishPOST, 'id', true);
-if($requery_sql){$dishSQL = sqlToTable($mysqli, 'dishType', 'id', null, true);}
+$requery_sql = processInput("dishtype", $mysqli, $_POST, $dish_templates, $dishSQL, $dishPOST, 'id', true);
+if($requery_sql){$dishSQL = sqlToTable($mysqli, 'dishtype', 'id', null, true);}
 
 // Now that any updates are tested for, do the final build of the object.
 $dishMERGE = mergeTwoDArrays($dishSQL, $dishPOST);
@@ -106,7 +106,7 @@ $dishPROCESSED = make_table_output($dishMERGE, $dishTYPE, $dish_templates, $dish
 // ************ Generating the dish view and invoking it here. ************** //
 
 // Dish Display and Editing Panel //
-$dishes = new PanelTable("dishType", $dishPROCESSED,
+$dishes = new PanelTable("dishtype", $dishPROCESSED,
                          $dishes_display, $dishes_edit,
                          $dishTYPE);
 // width formating

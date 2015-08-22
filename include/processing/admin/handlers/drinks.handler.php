@@ -27,12 +27,12 @@ $drink_type_rule = array("drink_type_name" =>array(
 // ********** Generating the drink model. View invoked in index. ************ //
 
 // make the two arrays of contents match in format
-$drinksSQL = sqlToSmallTable($mysqli, 'drinkTypes');
-$drinksPOST = postToSmallTable($_POST, 'drinkTypes');
+$drinksSQL = sqlToSmallTable($mysqli, 'drinktypes');
+$drinksPOST = postToSmallTable($_POST, 'drinktypes');
 
 // processTypes will do all the new SQL and array updates.
-$requery_sql = processInput("drinkTypes", $mysqli, $_POST, $drink_type_rule, $drinksSQL, $drinksPOST);
-if($requery_sql){$drinksSQL = sqlToSmallTable($mysqli, 'drinkTypes');}
+$requery_sql = processInput("drinktypes", $mysqli, $_POST, $drink_type_rule, $drinksSQL, $drinksPOST);
+if($requery_sql){$drinksSQL = sqlToSmallTable($mysqli, 'drinktypes');}
 
 // Now that any updates are tested for, do the final build of the object.
 $drinksMERGE = mergeTwoDArrays($drinksSQL, $drinksPOST);
@@ -40,7 +40,7 @@ $drinksTYPE = setSmallTypes($drinksMERGE, $drinksPOST, $drink_type_rule, $addNew
 // ************************************************************************** //
 
 // ********** Generating the beer types view and invoking it here. ********** //
-$beers = new SmallTable("drinkTypes", $drinksMERGE, $drinksTYPE, 4);
+$beers = new SmallTable("drinktypes", $drinksMERGE, $drinksTYPE, 4);
 $beerPanel = new Panel("Varieties of Beer", $beers);
 $beerPanel->addButton();
 

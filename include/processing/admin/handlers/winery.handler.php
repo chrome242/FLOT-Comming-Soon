@@ -19,7 +19,7 @@ include_once(PROCESSING_ADMIN."table.processing.php");
 $winery_edit  = array( "Id" => array("id" => 'id'),
                         "Name" => array("winery_name" => 'text, value'),
                         "Region" => array("winery_city" => 'text, value'),
-                        "State" => array("state_name" => "select, 1"),
+                        "State" => array("state_name" => "select, 32"),
                         "Website" => array("winery_url" => 'text, value'),
                         "Edit" => array("edit" => "button, large, active, disabled"),
                         "newrow" => array("newrow" => "newrow"),
