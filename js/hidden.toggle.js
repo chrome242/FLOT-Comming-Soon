@@ -5,20 +5,20 @@ var BASE_COLOR = "white";
 var INACTIVE_COLOR = "whitesmoke";
 var BUTTON_LEAD = "[drink_type_name]";
 var DROPDOWN_LEAD = "[drink_type_desc]";
-var TABLE_NAME = "drinkTypes";
+var TABLE_NAME = "drinktypes";
 var CLOSED_BUTTON = "glyphicon-cog";
 var OPEN_BUTTON = "glyphicon-chevron-down";
 var ADD_BUTTON = "glyphicon-plus";
 var EMPTY = '                    <tr>\
                       <td colspan="4" hidden>\
-                        <textarea class="form-control edit-field"rows="3" id="drinkTypes[add][drink_type_desc]" name="drinkTypes[add][drink_type_desc]"></textarea>\
-                        <button type="submit" class="btn btn-primary edit-icon" id="drinkTypes[add][drink_type_desc][drinkTypes-drop]" name="drinkTypes-drop" value="drinkTypes[add][drink_type_desc]">Drop</button>\
+                        <textarea class="form-control edit-field"rows="3" id="drinktypes[add][drink_type_desc]" name="drinktypes[add][drink_type_desc]"></textarea>\
+                        <button type="submit" class="btn btn-primary edit-icon" id="drinktypes[add][drink_type_desc][drinktypes-drop]" name="drinktypes-drop" value="drinktypes[add][drink_type_desc]">Drop</button>\
                       </td>\
                     </tr>';
 var EDITSTART = '                    <tr>\
                       <td class="col-xs-3">\
-                        <input type="text" class="form-control edit-field-wine"id="drinkTypes[add][drink_type_name]" name="drinkTypes[add][drink_type_name]" placeholder="" disabled>\
-                        <button type="submit" class="btn btn-primary edit-icon btn-sm" id="drinkTypes[add][drink_type_name][drinkTypes-new]" name="drinkTypes-new" value="drinkTypes[add][drink_type_name]"><span class="glyphicon glyphicon-plus"></span></button>\
+                        <input type="text" class="form-control edit-field-wine"id="drinktypes[add][drink_type_name]" name="drinktypes[add][drink_type_name]" placeholder="" disabled>\
+                        <button type="submit" class="btn btn-primary edit-icon btn-sm" id="drinktypes[add][drink_type_name][drinktypes-new]" name="drinktypes-new" value="drinktypes[add][drink_type_name]"><span class="glyphicon glyphicon-plus"></span></button>\
                       </td>\
                       <td></td>\
                       <td></td>\
@@ -138,7 +138,7 @@ $("body").on("click", "table tbody tr td button", function(event){
     //button name -new to -edit
     button.attr("name", button.attr("name").replace("-new", "-edit"));
     //button value
-    button.val(button.attr("id").replace("[drinkTypes-edit]", ""));
+    button.val(button.attr("id").replace("[drinktypes-edit]", ""));
     //button icon
     button.span.toggleClass(ADD_BUTTON);
     button.span.toggleClass(OPEN_BUTTON);
