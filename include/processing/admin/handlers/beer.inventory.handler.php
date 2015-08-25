@@ -78,10 +78,10 @@ $status_column = "beer_status";
 $status_selector = array(1 => "On Tap", 2 => "On Deck",
                          3 => "Kicked", 4 => "Off Line");
 
-$size_info = array("sizeTypes", "id", "drink_size_val");
+$size_info = array("sizetypes", "id", "drink_size_val");
 $size_selector = make_selector($mysqli, $size_info);
 
-$type_info = array("drinkTypes", "id", "drink_type_name");
+$type_info = array("drinktypes", "id", "drink_type_name");
 $type_selector = make_selector($mysqli, $type_info);
 
 $beers_selectors = array($brewery_info[2] => $brewery_selector,
