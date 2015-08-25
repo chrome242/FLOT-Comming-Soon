@@ -166,9 +166,10 @@ function last_member($associative_array){
  * @return the new array
  */
 function append_to_last(&$associative_array, $new_elements){
-	
 	$last = last_member($associative_array);
+	if(isset($associative_array[$last])){
 	$associative_array[$last] = array_merge($associative_array[$last], $new_elements);
+	} 
 	return $associative_array;
 }
 
