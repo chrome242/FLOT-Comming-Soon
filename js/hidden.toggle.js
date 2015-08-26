@@ -27,10 +27,9 @@ var EDITSTART = '                    <tr>\
 // variable for number additions:
 var cell_counter = 1;
 
-// handler to check the (only) table on the page's buttons to see if they have
-// been clicked. 
-$("body").on("click", "table tbody tr td button", function(event){
-  
+
+function startHandler(event){
+
   // put the pats of the DOM that we will need to use a lot into variables.
   button = $(this); // the button
   button.span = button.children('span'); //it's glyph
@@ -181,5 +180,10 @@ $("body").on("click", "table tbody tr td button", function(event){
     
     
   }
-});
+}
 
+
+
+// handler to check the (only) table on the page's buttons to see if they have
+// been clicked. 
+$("body").on("click", "table tbody tr td button", startHandler);
