@@ -186,4 +186,16 @@ function startHandler(event){
 
 // handler to check the (only) table on the page's buttons to see if they have
 // been clicked. 
-$("body").on("click", "table tbody tr td button", startHandler);
+$("#brewsView").on("click", "table tbody tr td button", startHandler);
+
+
+// off handler layout
+
+// on click of drop or update button
+  // select for update button
+  // select for drops
+  // turn off startHandler
+  // do update
+    
+    // if not drop, then an update has occured, if an update has occured, then reset counter
+    
