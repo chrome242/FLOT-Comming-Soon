@@ -30,6 +30,7 @@
   protected $_button_classes = "btn btn-primary";// for bootstrap
   protected $_active = false; // if it's active or not.
   protected $_record; // the record value
+  protected $_modal = false; // false or value array
   
   /**
    *  This cell is specialized. It doesn't use the same conventions as other
@@ -63,9 +64,35 @@
     $this->_active = true;
   }
   
+  /**
+   * Sets the type of button.
+   */
   public function setType($type){
     $this->_type = $type;
   }
+  
+  /**
+   *  Turns this button into a a Modal targeting button, with the target of
+   *  $target. Sets a dat-toggle attrib, as well as a data-target attib, and a
+   *  data-info attrib, which is what will pass off to the modal any ref materal
+   *  by default, the data-info is the value of $this->_record, but can be set
+   *  to "content", "id", or "name" as well. Turns the button type to "button"
+   *
+   *  @param str $target the modal
+   *  @param str $info the value to make the data-info
+   */
+  public function setStandardModal($target, $info="record"){
+    $value_array = array();
+    $value_array['target'] = $target;
+    if($info == "content"){$value_array['info'] = $this->_content;}
+    if($info == "record"){$value_array['info'] = $this->_record;}
+    if($info == "id"){$value_array['info'] = $this->_id;}
+    if($info == "name"){$value_array['info'] = $this->_name;}
+    
+    $this->_type = "button";
+    $this->_modal = $value_array;
+  }
+  
   
   private function makeInput(){
 
