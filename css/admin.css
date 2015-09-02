@@ -109,6 +109,10 @@ body {
   width:65%
 }
 
+.user-modal{
+  background-color: #f5f5f5;
+}
+
 /* End Admin Panel Stuff */
 
 @media(min-width: 768px) {

@@ -48,11 +48,12 @@
  *  
  * Short Cell Docs:
  * 
- * button, x(o) where x is 'large' if large, 'acive' if active, or both. 
+ * button, x(o) where x is 'large' if large, 'active' if active, or both. 
  * checkbox - x(o) where x is 'off' if disabled
  * drop - not placed in the table (h)
  * duration, x, y(o) where x & y are either timestamps or cell names (b)
  * id - plain text cell who's value is attached to the row name (b)
+ * modal, x(o) where x is 'large' if large, 'active' if active, or both. 
  * newrow - a cell that produces a visual new row while allowing continued record (h)
  * number, x, y(o), z(o), where x = number or placeholder y= step(o), z= size(o)(b)
  * password, x = a password entry where x = text or placeholder (b)
@@ -64,7 +65,7 @@
  * textarea, x, y(o), z(o), where x = text or placeholder y= rows(o), z= colspan(o)(b)
  * time, x - a timestamp where x = show or private (h)(b)
  * url - a URL cell. much like basic text
- *
+ * 
  *
  * Notable class methods-
  * 
@@ -227,6 +228,29 @@ class Row {
           
           $this->_cells[$cell_name] = new Button($this->_tableName, $this->_rowShortName, $value);
           
+          // if it has args
+          if(stripos($format[$name], 'large') !== false){
+            $this->_cells[$cell_name]->setButtonClasses("btn btn-primary edit-icon");
+          }
+          if(stripos($format[$name], 'active') !== false){
+            $this->_cells[$cell_name]->setActive();
+          }
+          
+          if(stripos($format[$name], 'disabled') !== false){
+            $this->_cells[$cell_name]->setDisabled();
+          }
+          
+          if($protected){
+            // make an empty cell if the table is in a protected view
+            $this->_cells[$cell_name] = new Cell($name, '');
+          }
+        }
+        
+        // modal cell
+        if(stripos($format[$name], 'modal') !== false){
+          
+          $this->_cells[$cell_name] = new Button($this->_tableName, $this->_rowShortName, $value[0]);
+          $this->_cells[$cell_name]->setStandardModal($value[1], $info="record");
           // if it has args
           if(stripos($format[$name], 'large') !== false){
             $this->_cells[$cell_name]->setButtonClasses("btn btn-primary edit-icon");

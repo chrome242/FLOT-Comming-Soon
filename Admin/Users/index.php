@@ -27,12 +27,13 @@ $sectionWrappers = array("userGroups" => ["User Group Definitions", false, 'user
                          "userManagement" => ["User Management", false]);
 
 
+include(SCAFFOLDING_ADMIN.'testing/test.data.old.php');
 $users_edit = array("Id" => array("user_id" => "id"),
                     "Name" => array("user_name" => "plain"),
                     "Group" => array("user_group" => "select, 1"),
                     "Password" => array("user_password" => "password, placeholder"),
                     "Password Reset" => array("new_pw" => "button, large"),
-                    "Edit" => array("edit" => "button, large"),
+                    "Edit" => array("edit" => "modal, large"),
                     "Drop" => array("drop" => "button, large"),
                     "newrow" => array("newrow" => "newrow"),
                     "new_id" => array("new_id" => "plain"),
@@ -48,7 +49,7 @@ $users_disp = array("Id" => array("user_id" => "id"),
                     "Group" => array("user_group" => "plain"),
                     "Password" => array("user_password" => "password, value"),
                     "Password Reset" => array("new_pw" => "button, large"),
-                    "Edit" => array("edit" => "button, large"),
+                    "Edit" => array("edit" => "modal, large"),
                     "Drop" => array("drop" => "button, large"),
                     "newrow" => array("newrow" => "newrow"),
                     "new_id" => array("new_id" => "plain"),
@@ -77,8 +78,8 @@ echo sectionbar($sectionWrappers, "Logout"); // With Logout Dummy for JS
 // Fututre home of SQL & $_POST processing methods
 //$processed_group_cells = $test_group_cells;
 //$group_special_cells = $test_group_special_cells;
-//$processed_user_cells = $test_user_cells;
-//$user_specal_cells = $user_special_cells_test;
+$processed_user_cells = $users_test;
+$user_specal_cells = $user_special_cells_test;
 //***************************************************************************//
 
 
@@ -92,13 +93,55 @@ include(GROUP_HANDLER);
 echo '      </div>';
 
 
-// User Management drop //
-//$userTable = new Table("users", $processed_user_cells, $users_disp,
-//                       $users_edit, $user_special_cells);
+// User Management drop  Testing//
+$userTable = new Table("users", $processed_user_cells, $users_disp,
+                       $users_edit, $user_specal_cells);
 
 // Echo the wrapped table
 echo '      <div class="collapse" id="userManagement"> <!-- Users -->';
-//echo $userTable;
+echo $userTable;
+// testing below
+echo'
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>';
+echo"
+<script>
+  $('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('info') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('New message to ' + recipient)
+  modal.find('.modal-body input').val(recipient)
+
+})
+</script>
+";
 echo '      </div>';
 
 //***************************************************************************//

@@ -102,6 +102,12 @@
       $details = 'class="' . $this->_button_classes . '"';
     }
     
+    if($this->_modal) {
+      $modal = ' data-toggle="modal" data-target="#' . $this->_modal['target'] . '"';
+      $modal.= ' data-info="' . $this->_modal['info'] .'"';
+      $details .= $modal;
+    }
+    
     if($this->_disabled){$details .= ' disabled="disabled"' ;}
     
     if($this->_showDetails){$details .= ' id="'. $this->_id . '" name="' . $this->_name . '"';}
