@@ -1,4 +1,10 @@
 <?php
+
+//****************** Configuration & Inclusions *****************************//
+include_once("../../include/config.php");
+include_once(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin includes
+//***************************************************************************//
+
 // needs to display the inside of the unedit modal and the SQL querry driven modal.
 if(isset($_POST["user_edit_id"])){ // then the user should be in the DB.
   $user_info = querryUser($_POST["user_edit_id"]); //TODO get username, email, and if group has admin priv
@@ -12,8 +18,14 @@ if(isset($_POST["user_edit_id"])){ // then the user should be in the DB.
 
 if($user_info["admin"]){ // don't allow changes unless is super user
   
-} else { // allow changes by any admin
+  $update_button =''; // don't allow edit
+  // allow edit.
+  if(in_array($_SESSION['user_email'], $SUPER_USERS, true){
+    $update_button = '        <button type="button" class="btn btn-primary" id="submit-editModal">Update</button>';
+  }
   
+} else { // allow changes by any admin
+  $update_button = '        <button type="button" class="btn btn-primary" id="submit-editModal">Update</button>';
 }
 
 echo'
@@ -42,6 +54,6 @@ echo'
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="submit-editModal">Update</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'.
+$update_button .'
       </div>';

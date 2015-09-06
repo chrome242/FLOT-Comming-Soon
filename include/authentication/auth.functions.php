@@ -73,6 +73,7 @@ function login($email, $password, $mysqli_sec) {
                     // XSS protection as we might print this value
                     $user_id = preg_replace("/[^0-9]+/", "", $user_id);
                     $_SESSION['user_id'] = $user_id;
+                    $_SESSION['user_email'] = $email;
                     // XSS protection as we might print this value
                     $username = preg_replace("/[^a-zA-Z0-9_\-]+/", 
                                                                 "", 
