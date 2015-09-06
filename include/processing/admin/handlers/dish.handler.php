@@ -54,7 +54,7 @@ $dishes_display = array("Id" => array("id" => "id"), // id
 
 
 // ************************* Selector Contstruction ************************* //
-$types_info = array("foodType", "id", "food_type_name");
+$types_info = array("foodtype", "id", "food_type_name");
 $dish_selector = make_selector($mysqli, $types_info[0], $types_info[1], $types_info[2]);
 $dish_selectors = array($types_info[2] => $dish_selector);
 // ************************************************************************** //
