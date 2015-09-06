@@ -7,8 +7,16 @@ include_once(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin inclu
 
 // needs to display the inside of the unedit modal and the SQL querry driven modal.
 if(isset($_POST["user_edit_id"])){ // then the user should be in the DB.
-  $user_info = querryUser($_POST["user_edit_id"]); //TODO get username, email, and if group has admin priv
+  $user_info = querryUser($_POST["user_edit_id"], $mysqli_sec); //TODO get username, email, and if group has admin priv
   $user_info["new_user"] = false;
+  if(!$user_info){
+    echo"<script>alert('no such user');</script>";
+    $user_info = array("username" => "New User",
+                   "email" => "Enter Email",
+                   "admin" => false,  // from the user group
+                   "new_user" => true);
+  
+  }
 } else{
   $user_info = array("username" => "New User",
                      "email" => "Enter Email",

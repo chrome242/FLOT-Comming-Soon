@@ -274,3 +274,56 @@ function esc_url($url) {
         return $url;
     }
 }
+
+
+/**
+ * A function to check the params of a user account in the DB
+ *
+ * @param int $id the user's id
+ * @param obj $mysqli_sec the $mysqli_sec connection object.
+ *
+ * @return array of user name, email, and group.
+ */
+function querryUser($id, $mysqli_sec) {
+  // Using prepared statements means that SQL injection is not possible. 
+  if ($stmt = $mysqli_sec->prepare("SELECT username, email, user_group
+    FROM members WHERE id = ? LIMIT 1")){
+    $stmt->bind_param('i', $id);  // Bind "$email" to parameter.
+    $stmt->execute();    // Execute the prepared query.
+    $stmt->store_result();
+
+    // get variables from result.
+    $stmt->bind_result($username, $email, $group);
+    $stmt->fetch();
+
+    if ($stmt->num_rows == 1) {
+      $return_array = array("username" => $username,
+                            "email" => $emal,
+                            "new_user" => false);
+      if ($stmt = $mysqli_sec->prepare("SELECT edit_user FROM user_groups 
+                                       WHERE id = ? LIMIT 1")) {
+        $stmt->bind_param('i', $group);
+        $stmt->execute();   
+        $permissions = array();
+        $stmt->bind_result($permissions);
+        $stmt->fetch();
+        if ($stmt->num_rows == 1){
+          if($permissions != 1){$return_array["admin"] = false;}
+          if($permissions > 0){$return_array["admin"] = true;}
+          
+          // everything checks
+          return $return_array;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  } else{
+    return false;
+  }
+  return false;
+}
