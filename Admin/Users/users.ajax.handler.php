@@ -11,6 +11,8 @@ if(isset($process["user_groups-token"]) && strlen($process["user_groups-token"])
   include(GROUP_HANDLER); // pull the new table
 } else if (isset($process["members-token"]) && strlen($process["members-token"]) === 4){
   echo"PLEASE SET THE USER HANDLER";
+} else if (isset($process["targetModal-token"]) && strlen($process["targetModal-token"]) === 4) {
+  include(USER_MODAL_HANDLER); // a file much like this one for parsing out the user moduals
 } else {
   header('Location: '.ADMIN); // redirect
 }

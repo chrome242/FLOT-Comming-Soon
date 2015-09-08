@@ -77,17 +77,26 @@
    *  data-info attrib, which is what will pass off to the modal any ref materal
    *  by default, the data-info is the value of $this->_record, but can be set
    *  to "content", "id", or "name" as well. Turns the button type to "button"
+   *  if $type is set, it will target a modal with a data-info of, for example
+   *  of $type = add and $info = 1 then data-info = 'add-1'
    *
    *  @param str $target the modal
    *  @param str $info the value to make the data-info
+   *  @param mixed $type false or a type denotation for the target
    */
-  public function setStandardModal($target, $info="record"){
+  public function setStandardModal($target, $info="record", $type=false){
+    // makes a value array for the $this->_modal for toString
     $value_array = array();
     $value_array['target'] = $target;
+    
+    // check the source of the passable record
     if($info == "content"){$value_array['info'] = $this->_content;}
     if($info == "record"){$value_array['info'] = $this->_record;}
     if($info == "id"){$value_array['info'] = $this->_id;}
     if($info == "name"){$value_array['info'] = $this->_name;}
+    
+    // if $type != false then it should be a string
+    if($type){$value_array['info'] = $type . '-' . $value_array['info'];}
     
     $this->_type = "button";
     $this->_modal = $value_array;

@@ -250,7 +250,11 @@ class Row {
         if(stripos($format[$name], 'modal') !== false){
           
           $this->_cells[$cell_name] = new Button($this->_tableName, $this->_rowShortName, $value[0]);
-          $this->_cells[$cell_name]->setStandardModal($value[1], $info="record");
+          
+          // check to see if 2 or 3 values are set.
+          if(count($value) == 2){$this->_cells[$cell_name]->setStandardModal($target=$value[1], $info="record");}
+          if(count($value) == 3){$this->_cells[$cell_name]->setStandardModal($target=$value[1], $info="record", $type=$value[2]);}
+          
           // if it has args
           if(stripos($format[$name], 'large') !== false){
             $this->_cells[$cell_name]->setButtonClasses("btn btn-primary edit-icon");

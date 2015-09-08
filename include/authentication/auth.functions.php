@@ -297,24 +297,24 @@ function querryUser($id, $mysqli_sec) {
     $stmt->fetch();
 
     if ($stmt->num_rows == 1) {
+
       $return_array = array("username" => $username,
-                            "email" => $emal,
+                            "email" => $email,
                             "new_user" => false);
       if ($stmt = $mysqli_sec->prepare("SELECT edit_user FROM user_groups 
                                        WHERE id = ? LIMIT 1")) {
         $stmt->bind_param('i', $group);
         $stmt->execute();   
-        $permissions = array();
-        $stmt->bind_result($permissions);
+        $stmt->bind_result($intr);
         $stmt->fetch();
-        if ($stmt->num_rows == 1){
-          if($permissions != 1){$return_array["admin"] = false;}
-          if($permissions > 0){$return_array["admin"] = true;}
+        if (isset($intr)){
+          if($intr != 1){$return_array["admin"] = "bangers";}
+          if($intr > 0){$return_array["admin"] = "mash";}
           
           // everything checks
           return $return_array;
         } else {
-          return false;
+          return $stmt->num_rows;
         }
       } else {
         return false;

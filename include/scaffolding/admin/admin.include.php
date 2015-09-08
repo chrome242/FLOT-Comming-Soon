@@ -9,7 +9,7 @@ sec_session_start();
 if(!isset($login)){
   if(login_check($mysqli_sec) != true ){
     if(!isset($thispage)){
-      $error = '';
+      $error = '_101';
     } else {
       $error = '_on_'.$thispage;
     }
@@ -22,8 +22,8 @@ if(($permissions = permissions_check($mysqli_sec)) && !isset($login)){
   // will add a local check here.
   ;
 } else {
-  //session_logout($_SESSION);
-  //header('Location: /Login/?error=permissions_failure');
+  session_logout($_SESSION);
+  header('Location: /Login/?error=permissions_failure');
   ;
 }
 
@@ -32,11 +32,13 @@ include_once(SCAFFOLDING_ADMIN."menubars.php"); // menubars
 include_once(SCAFFOLDING_ADMIN."panel/class.panel.php"); // panel wrapper
 include_once(SCAFFOLDING_ADMIN."table/table.php"); // table
 include_once(SCAFFOLDING_ADMIN."list/list.php"); // list
+include_once(SCAFFOLDING_ADMIN."modals/modals.php"); // modals
 
 // definitions
 
 define("PROCESSING_HANDLERS", PROCESSING_ADMIN."handlers/"); // for the handlers
 define("PROCESSING_FUNCTIONS", PROCESSING_ADMIN."functions/"); // functions
+define("PROCESSING_MODALS", PROCESSING_ADMIN."modals/"); // Modals
 define("PLATE_HANDLER", PROCESSING_HANDLERS."plates.handler.php"); // Plate Sizes
 define("BREWS_HANDLER", PROCESSING_HANDLERS."drinks.handler.php"); // Beer Types
 define("WINES_HANDLER", PROCESSING_HANDLERS."wine.handler.php"); // Wine Types
@@ -49,6 +51,7 @@ define("BEER_HANDLER", PROCESSING_HANDLERS."beer.inventory.handler.php"); // Bee
 define("WINE_BAR", PROCESSING_HANDLERS."wine.bar.handler.php"); // The Bar view of wines
 define("BEER_BAR", PROCESSING_HANDLERS."beer.bar.handler.php"); // The Bar view of Beers
 define("GROUP_HANDLER", PROCESSING_HANDLERS."group.handler.php"); // User Group View
+define("USER_MODAL_HANDLER", PROCESSING_MODALS."user.modals.php"); // User page modals
 
 // Test files
 if (!ON_LINE){

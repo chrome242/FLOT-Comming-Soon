@@ -6,11 +6,10 @@ include_once(SCAFFOLDING_ADMIN."admin.include.php"); // centeralized admin inclu
 //***************************************************************************//
 
 // needs to display the inside of the unedit modal and the SQL querry driven modal.
-if(isset($_POST["user_edit_id"])){ // then the user should be in the DB.
-  $user_info = querryUser($_POST["user_edit_id"], $mysqli_sec); //TODO get username, email, and if group has admin priv
-  $user_info["new_user"] = false;
+if(isset($_POST["action"])){ // then the user should be in the DB.
+  $user_info = querryUser($_POST["user_edit_id"], $mysqli_sec); //returns an array or false
   if(!$user_info){
-    echo"<script>alert('no such user');</script>";
+    echo"<script>console.log('no such user or DB error');</script>"; //TODO remove debug code
     $user_info = array("username" => "New User",
                    "email" => "Enter Email",
                    "admin" => false,  // from the user group
@@ -28,7 +27,7 @@ if($user_info["admin"]){ // don't allow changes unless is super user
   
   $update_button =''; // don't allow edit
   // allow edit.
-  if(in_array($_SESSION['user_email'], $SUPER_USERS, true){
+  if(in_array($_SESSION['user_email']), $SUPER_USERS, true){
     $update_button = '        <button type="button" class="btn btn-primary" id="submit-editModal">Update</button>';
   }
   
