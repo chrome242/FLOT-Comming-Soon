@@ -1,4 +1,5 @@
 <?php
+include_once(PROCESSING_FUNCTIONS."sql.array.helpers.php"); //for making things like selects.
 /**
  * Functions to help process modals used in the admin section of the app.
  */
@@ -25,7 +26,8 @@ function querryUser($id, $mysqli_sec) {
 
     if ($stmt->num_rows == 1) {
 
-      $return_array = array("username" => $username,
+      $return_array = array("id" => $id,
+                            "username" => $username,
                             "email" => $email,
                             "new_user" => false,
                             "group" => $group);
@@ -56,6 +58,8 @@ function querryUser($id, $mysqli_sec) {
   return false;
 }
 
+
+
 /**
  * a function to check if the user has the rights to edit an admin account.
  *
@@ -63,4 +67,27 @@ function querryUser($id, $mysqli_sec) {
  */
 function checkEditAdmin($admin_access){
   return in_array($_SESSION['user_email'], $admin_access, true);
+}
+
+/**
+ * a function for making the user selector for selecting user groups. The function
+ * does not allow for placing users into the admin group or the new group unless
+ * the user is on the $admin_access array.
+ *
+ * @param obj $mysqli_sec the mysqli object
+ * @param array $table an array of table name, id field, display field
+ * @param array $locked an array of records not to be accessed.
+ *
+ * @return an array sanatized of the options from $locked
+ *
+ */
+function limitedSelector($table, $mysqli_sec, $locked){
+  $full_selector = make_selector($mysqli_sec, $table);
+  
+  foreach($locked as $remove){
+    echo $remove;
+    unset($full_selector[$remove]);
+  }
+  
+  return $full_selector;
 }

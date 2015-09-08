@@ -20,7 +20,7 @@ if($process['action'] == "edit") {
     $process['action'] = "view";
     
   } else { // looks good, do the work
-    userEditModal($user_info, $SUPER_USERS); //todo
+    userEditModal($user_info, $SUPER_USERS, $mysqli_sec, $LOCKED_RECORDS); //todo
   }
 
 } elseif($process['action'] == "add") {

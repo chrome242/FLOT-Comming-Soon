@@ -1,6 +1,5 @@
 <?php
 
-// all todo
 //include_once("modal.add.user.php"); //add users
 include_once("modal.edit.user.php"); //edit users
 //include_once("modal.view.user.php"); //view users
