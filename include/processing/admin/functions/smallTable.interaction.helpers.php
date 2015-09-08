@@ -155,6 +155,11 @@ function insertToDB($table, $item_record, $mysqli, $id='id', $full=false){
   
   $statement = "INSERT INTO $table ";
   
+  // mysqli escape the array content
+  foreach($item_record as &$value){
+    $value = $mysqli->real_escape_string($value);
+  }
+  
   if($full){unset($item_record[$id]);}
   
   // implode the array keys
