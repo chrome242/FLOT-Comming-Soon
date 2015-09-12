@@ -22,7 +22,7 @@ if(($permissions = permissions_check($mysqli_sec)) && !isset($login)){
   // will add a local check here.
   ;
 } else {
-  if(!isset($login)){
+  if(!isset($login)){ // prevents redirect loops
   session_logout($_SESSION);
   header('Location: /Login/?error=permissions_failure');
   }

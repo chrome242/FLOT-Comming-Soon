@@ -74,14 +74,14 @@ function checkEditAdmin($admin_access){
  * does not allow for placing users into the admin group or the new group unless
  * the user is on the $admin_access array.
  *
- * @param obj $mysqli_sec the mysqli object
  * @param array $table an array of table name, id field, display field
  * @param array $locked an array of records not to be accessed.
+ * @param obj $mysqli_sec the mysqli object
  *
  * @return an array sanatized of the options from $locked
  *
  */
-function limitedSelector($table, $mysqli_sec, $locked){
+function limitedSelector($mysqli_sec, $table, $locked){
   $full_selector = make_selector($mysqli_sec, $table);
   
   foreach($locked as $remove){
@@ -90,3 +90,39 @@ function limitedSelector($table, $mysqli_sec, $locked){
   
   return $full_selector;
 }
+
+
+/**
+ * builds a selectior for use in a modal
+ *
+ * @param str $name the name to be used for the selector
+ * @param array $options the list of options to chose from
+ * @param mixed $selected the selected option (optional)
+ * @param str $id the FULL STRING WITH LEADING SPACE
+ * 
+ */
+function modalSelector($name, $options, $selected=null, $id=''){
+  $return_string = '          <select class="form-control"'.$id.' name="'.$name.'">';
+  
+  // make the options
+  foreach($options as $value => $text){
+    if($value == $selected){$sel = ' selected';} else {$sel = '';}  // check for selected
+    $option = '  <option value="'.$value.'">'.$text.'</option>'; // make the option
+    
+    //add to the string
+    $return_string .= '
+  '. $option .'';
+  }
+  
+  //close the string
+  $return_string .='
+          </select>';
+          
+  return $return_string;
+}
+
+
+
+
+
+
