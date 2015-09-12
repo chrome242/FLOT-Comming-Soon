@@ -85,7 +85,6 @@ function limitedSelector($table, $mysqli_sec, $locked){
   $full_selector = make_selector($mysqli_sec, $table);
   
   foreach($locked as $remove){
-    echo $remove;
     unset($full_selector[$remove]);
   }
   
