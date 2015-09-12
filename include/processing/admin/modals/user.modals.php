@@ -22,14 +22,21 @@ if($process['action'] == "edit") {
   } else { // looks good, do the work
     echo userEditModal($user_info, $SUPER_USERS, $LOCKED_RECORDS, $mysqli_sec); //todo
   }
-
-} elseif($process['action'] == "add") {
   
 } elseif($process['action'] == "view") {
+  $user_info = querryUser($process["record"], $mysqli_sec); //returns an array or false
   
+  if(!$user_info){ // if the user somehow does not exist, then make into an add
+    $process['action'] = "add";
+    
+  } else { // looks good, do the work
+    echo userViewModal($user_info);
+  }
 } elseif($process['action'] == "password") {
   
 } elseif($process['action'] == "drop") {
+
+} elseif($process['action'] == "add") {
 
 } else {
   header('Location: '. ADMIN); // Shouldn't be here, redirect.

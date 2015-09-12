@@ -31,12 +31,13 @@ function querryUser($id, $mysqli_sec) {
                             "email" => $email,
                             "new_user" => false,
                             "group" => $group);
-      if ($stmt = $mysqli_sec->prepare("SELECT edit_user FROM user_groups 
+      if ($stmt = $mysqli_sec->prepare("SELECT group_name, edit_user FROM user_groups 
                                        WHERE id = ? LIMIT 1")) {
         $stmt->bind_param('i', $group);
         $stmt->execute();   
-        $stmt->bind_result($intr);
+        $stmt->bind_result($group_name, $intr);
         $stmt->fetch();
+        $return_array["group_name"] = $group_name;
         if (isset($intr)){
           if($intr != 1){$return_array["admin"] = false;}
           if($intr > 0){$return_array["admin"] = true;}
@@ -44,7 +45,7 @@ function querryUser($id, $mysqli_sec) {
           // everything checks
           return $return_array;
         } else {
-          return $stmt->num_rows;
+          return false;
         }
       } else {
         return false;
