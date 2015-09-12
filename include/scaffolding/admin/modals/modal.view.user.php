@@ -1,13 +1,9 @@
 <?php
 
 /**
- * A function to display the user edit modal.
+ * A function to display the user view modal.
  *
  * @param array $user_info the array of user info to display
- * @param array $admin_access the array of people with admin edit access
- * @param obj $mysqli_sec the mysqli object
- * @param array $locked the recors that should be locked to those without
- *              admin access
  * 
  * @return str the modal
  */
@@ -23,15 +19,15 @@ function userViewModal($user_info){
         <form name="members" method="post">
           <div class="form-group">
             <label for="name" class="control-label">User Name:</label>
-            <p>'.$username.'</p>
+            <p id="name">'.$username.'</p>
           </div>
           <div class="form-group">
             <label for="email" class="control-label">User Email:</label>
-            <p>'.$email.'</p>
+            <p id="email">'.$email.'</p>
           </div>
           <div class="form-group">
             <label for="group" class="control-label">User Group:</label>'.
-              '<p>'.$group_name.'</p>
+              '<p id="group">'.$group_name.'</p>
           </div>
         </form>
       </div>

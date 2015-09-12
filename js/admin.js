@@ -58,8 +58,6 @@ var modalAjax = function (event, div, fileName){
       async: true,
       success: function(foo){  // put the foo on the screen
            $('#'+div+' div.modal-content').html(foo);
-           // set up a new copy of the function on the div.
-           formAjax(event, div, fileName);
            //alert("Works!");
       }
     });
