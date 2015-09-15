@@ -50,16 +50,3 @@ function userPasswordModal($user_info){
   
   return $modal;
 }
-
-
-
-// testing code
-//function userEditModal($user_info, $admin_access, $locked, $mysqli_sec){
-//  $table = array("user_groups", "id", "group_name");
-//  echo"check admin: " . var_dump(checkEditAdmin($admin_access)) . "<br>";
-//  echo"user_info:<br><pre>";
-//  var_dump($user_info);
-//  echo"<br>limitedSelector:";
-//  var_dump(limitedSelector($table, $mysqli_sec, $locked));
-//  echo"</pre>";
-//}

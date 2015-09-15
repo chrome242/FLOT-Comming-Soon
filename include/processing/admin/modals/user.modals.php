@@ -47,7 +47,8 @@ if($process['action'] == "edit") {
   } else { // looks good, do the work
     echo userPasswordModal($user_info);
   }
-  
+
+// request to drop a user
 } elseif($process['action'] == "drop") {
   $user_info = querryUser($process["record"], $mysqli_sec); //returns an array or false
   
@@ -61,7 +62,9 @@ if($process['action'] == "edit") {
     echo userDropModal($user_info);
   }
 
+// request 
 } elseif($process['action'] == "add") {
+  
 
 } elseif($process['action'] == "fail"){
   echo failModal();
