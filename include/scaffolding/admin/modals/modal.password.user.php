@@ -22,7 +22,7 @@ function userPasswordModal($user_info){
         <h5><b>Please note the following:</b></h5>
         <ul>
           <li>Passwords must be at least 6 characters long</li>
-          <li>Passwords must contain
+          <li>Passwords must contain-
             <ul>
               <li>At least one uppercase letter (A..Z)</li>
               <li>At least one lowercase letter (a..z)</li>
@@ -30,6 +30,7 @@ function userPasswordModal($user_info){
             </ul>
           </li>
           <li>Passwords can not be recovered if forgoten, only reset.</li>
+          <li>Your password and confirmation must match exactly</li>
         </ul>
         <form name="members" method="post">
           <div class="form-group">

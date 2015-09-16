@@ -13,7 +13,7 @@ function userViewModal($user_info){
 
   $modal = '<div class="modal-header user-modal">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="viewModalLabel">View User: '. $username . ' (ID: '. $id .')</h4>
+        <h4 class="modal-title" id="viewModalLabel">View User: '. $username . ' (ID: <span id="userID">'. $id .'</span>)</h4>
       </div>
       <div class="modal-body">
         <form name="members" method="post">

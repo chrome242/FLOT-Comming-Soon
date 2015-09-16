@@ -366,7 +366,7 @@ $users_test = array(array("user_id" => "1",
                           "placeholder4" => " ",
                           "placeholder5" => " ",
                           "placeholder5" => " ",
-                          "add" => "add")
+                          "add" => ["add", "targetModal", "add"])
                     );
 
 $smallTest = array("Record ID" => array("Key 1" => "value 1", "Key 2" => "value 2"));

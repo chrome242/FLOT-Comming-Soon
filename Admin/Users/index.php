@@ -42,7 +42,7 @@ $users_edit = array("Id" => array("user_id" => "id"),
                     "placeholder3" => array("placeholder3" => "plain"),
                     "placeholder4" => array("placeholder4" => "plain"),
                     "placeholder5" => array("placeholder5" => "plain"),// call x5
-                    "add" => array("add" => "button, large")
+                    "add" => array("add" => "modal, large")
                     );
 $users_disp = array("Id" => array("user_id" => "id"),
                     "Name" => array("user_name" => "plain"),
@@ -58,7 +58,7 @@ $users_disp = array("Id" => array("user_id" => "id"),
                     "placeholder3" => array("placeholder3" => "plain"),
                     "placeholder4" => array("placeholder4" => "plain"),
                     "placeholder5" => array("placeholder5" => "plain"),// call x5
-                    "add" => array("add" => "button, large")
+                    "add" => array("add" => "modal, large")
                     );
 
 //***************************************************************************//
