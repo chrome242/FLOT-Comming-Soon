@@ -21,18 +21,24 @@ function userPasswordModal($user_info){
       <div class="modal-body">
         <h5><b>Please note the following:</b></h5>
         <ul>
-          <li>Passwords must be at least 6 characters long</li>
+          <li><span id="len">Passwords must be at least 6 characters long</span></li>
           <li>Passwords must contain-
             <ul>
-              <li>At least one uppercase letter (A..Z)</li>
-              <li>At least one lowercase letter (a..z)</li>
-              <li>At least one number (0..9)</li>
+              <li><span id="ucase">At least one uppercase letter (A..Z)</span></li>
+              <li><span id="lcase">At least one lowercase letter (a..z)</span></li>
+              <li><span id="num">At least one number (0..9)</span></li>
             </ul>
           </li>
           <li>Passwords can not be recovered if forgoten, only reset.</li>
           <li>Your password and confirmation must match exactly</li>
         </ul>
         <form name="members" method="post">
+          <div id="warning" hidden>
+            <p class="bg-danger text-center"><strong>Passwords do not match!</strong></p>
+          </div>
+          <div id="nowarning">
+            <p><br></p>
+          </div>
           <div class="form-group">
             <label for="password" class="control-label">Enter Password:</label>
             <input type="password" id="password" class="form-control" '. $prefix.'password'.$sufix . ' placeholder="Enter Password">
@@ -45,7 +51,7 @@ function userPasswordModal($user_info){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="submit-passwordModal" disabled>Update</button>
+        <button type="button" class="btn btn-primary dis-btn-jqtg" id="submit-passwordModal" disabled>Update</button>
       </div>
           ';
   

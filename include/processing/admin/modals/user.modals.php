@@ -16,7 +16,7 @@ if($process['action'] == "edit") {
   if(!$user_info){ // if the user somehow does not exist, then make into an add
     $process['action'] = "add";
     
-  } elseif($user_info['admin'] && !checkEditAdmin()){ // if the user is an admin and the editor does not have permissions to edit admin
+  } elseif($user_info['admin'] && !checkEditAdmin($SUPER_USERS)){ // if the user is an admin and the editor does not have permissions to edit admin
     echo failModal();
     
   } else { // looks good, do the work
@@ -41,7 +41,7 @@ if($process['action'] == "edit") {
   if(!$user_info){ // if the user somehow does not exist, then fail
     echo failModal();
     
-  } elseif($user_info['admin'] && !checkEditAdmin()){ // if the user is an admin and the editor does not have permissions to edit admin
+  } elseif($user_info['admin'] && !checkEditAdmin($SUPER_USERS)){ // if the user is an admin and the editor does not have permissions to edit admin
    echo failModal();
     
   } else { // looks good, do the work
@@ -55,7 +55,7 @@ if($process['action'] == "edit") {
   if(!$user_info){
     echo failModal();
     
-  } elseif($user_info['admin'] && !checkEditAdmin()){ // if the user is an admin and the editor does not have permissions to edit admin
+  } elseif($user_info['admin'] && !checkEditAdmin($SUPER_USERS)){ // if the user is an admin and the editor does not have permissions to edit admin
     echo failModal();
     
   } else { // looks good, do the work

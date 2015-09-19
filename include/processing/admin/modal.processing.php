@@ -108,7 +108,7 @@ function modalSelector($name, $options, $selected=null, $id=''){
   // make the options
   foreach($options as $value => $text){
     if($value == $selected){$sel = ' selected';} else {$sel = '';}  // check for selected
-    $option = '  <option value="'.$value.'">'.$text.'</option>'; // make the option
+    $option = '  <option value="' . $value . '"' . $sel . '>' . $text . '</option>'; // make the option
     
     //add to the string
     $return_string .= '

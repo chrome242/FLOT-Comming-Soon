@@ -31,21 +31,27 @@ function userAddModal(){
         <h4 class="modal-title" id="addModalLabel">Add User (ID: <span id="userID">'. $id .'</span>)</h4>
       </div>
       <div class="modal-body">
-        <form name="members" method="post">
         <ul>
           <li>Usernames may contain only digits, upper and lowercase letters and underscores</li>
           <li>Emails must have a valid email format</li>
-          <li>Passwords must be at least 6 characters long</li>
+          <li><span id="len">Passwords must be at least 6 characters long</span></li>
           <li>Passwords must contain-
             <ul>
-              <li>At least one uppercase letter (A..Z)</li>
-              <li>At least one lowercase letter (a..z)</li>
-              <li>At least one number (0..9)</li>
+              <li><span id="ucase">At least one uppercase letter (A..Z)</span></li>
+              <li><span id="lcase">At least one lowercase letter (a..z)</span></li>
+              <li><span id="num">At least one number (0..9)</span></li>
             </ul>
           </li>
-        </ul>
           <li>Passwords can not be recovered if forgoten, only reset.</li>
           <li>Your password and confirmation must match exactly</li>
+        </ul>
+        <form name="members" method="post">
+          <div id="warning" hidden>
+            <p class="bg-danger text-center"><strong>Passwords do not match!</strong></p>
+          </div>
+          <div id="nowarning">
+            <p><br></p>
+          </div>
           <div class="form-group">
             <label for="name" class="control-label">User Name:</label>
             <input type="text" id="name" class="form-control" '. $prefix.'username'.$sufix . ' placeholder="Enter Name">
@@ -66,11 +72,14 @@ function userAddModal(){
             <label for="verify" class="control-label">Verify Password:</label>
             <input type="password" id="verify" class="form-control" '. $prefix.'verify'.$sufix . ' placeholder="Enter Password Again">
           </div>
+          <div id="warning" hidden>
+            <p class="bg-danger text-center">Passwords do not match!</p>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="submit-addModal" disabled>Update</button>
+        <button type="button" class="btn btn-primary dis-btn-jqtg" id="submit-addModal" disabled>Update</button>
       </div>
           ';
   

@@ -117,6 +117,14 @@ body {
   background-color: #f0ad4e;
 }
 
+/* for inputs */
+.success-input{
+  background-color: #80E680;
+}
+
+.fail-input{
+  background-color: #FF4D4D;
+}
 /* End Admin Panel Stuff */
 
 @media(min-width: 768px) {
