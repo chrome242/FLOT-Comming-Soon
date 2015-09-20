@@ -23,12 +23,52 @@ $("#targetModal").on("blur", "#password, #verify", function(){
     
     // if they both match:
     if (ver === pass) {
+      
       // test if the rest of the critera are met:
       var num = /(?=.*\d)/;
       var low = /(?=.*[a-z])/;
       var upp = /(?=.*[A-Z])/;
       var minlen = 6;
       var pass_all = true; // will flip false if any of the above are true
+      
+      // for if it's the user form -name
+      if ($("#name").length) { // checks to see if name field exist
+        var nam = /^\w+$/; 
+        if ($("#name").val()) {
+          name = $("#name").val();
+          if (!nam.test(name)) {
+            pass_all = false;
+            $("#nam").addClass("fail-modal");
+            $("#name").addClass("fail-input").removeClass("success-input");
+          } else {
+            $("#nam").removeClass("fail-modal");
+            $("#name").addClass("success-input").removeClass("fail-input");
+          }
+        } else { // no name. Fail
+          pass_all = false;
+          $("#name").addClass("fail-input").removeClass("success-input");
+          
+        }
+      }
+      // for the user form -email
+      if ($("#email")) { // check to see if element exist
+        var etst = /^(([^<>()[]\.,;:s@"]+(.[^<>()[]\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
+        if ($("#email").val()) {
+          email = $("#emal").val();
+          if (!etst.test(email)) {
+            pass_all = false;
+            $("#mal").addClass("fail-modal");
+            $("#email").addClass("fail-input").removeClass("success-input");
+          } else {
+            $("#mal").removeClass("fail-modal");
+            $("#email").addClass("success-input").removeClass("fail-input");
+          }
+        } else { // no name. Fail
+          pass_all = false;
+          $("#email").addClass("fail-input").removeClass("success-input");
+          
+        }
+      }
       
       // fails having a number
       if (!num.test(pass)) {

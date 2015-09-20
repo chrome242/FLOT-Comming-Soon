@@ -32,8 +32,8 @@ function userAddModal(){
       </div>
       <div class="modal-body">
         <ul>
-          <li>Usernames may contain only digits, upper and lowercase letters and underscores</li>
-          <li>Emails must have a valid email format</li>
+          <li><span id="nam">Usernames may contain only digits, upper and lowercase letters and underscores</span></li>
+          <li><span id="mal">Emails must have a valid email format</span></li>
           <li><span id="len">Passwords must be at least 6 characters long</span></li>
           <li>Passwords must contain-
             <ul>
