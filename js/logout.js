@@ -1,3 +1,6 @@
+
+
+
 // for the ajax for the groups table
 $(function(){
   $(document.body).ready(formAjax(event, 'userGroups', 'users.ajax.handler.php'));
@@ -5,13 +8,17 @@ $(function(){
   $('#targetModal').on('show.bs.modal', modalAjax(event, "targetModal", "users.ajax.handler.php"));
 });
 
+
+
 // for the dummy button
 $("#Logout").click(function(){
   var oldLoc = location;
   location = oldLoc + "?Logout=true";
 });
 
-// for password matching
+
+
+// for password & new user
 $("#targetModal").on("blur", "#password, #verify", function(){
   
   // one of the two has been selected, get both values.
@@ -134,4 +141,17 @@ $("#targetModal").on("blur", "#password, #verify", function(){
       $(".dis-btn-jqtg").prop("disabled", true);
     }
   }
+});
+
+
+
+// For the drop modal.Click on confirm, then delete.
+$("#targetModal").on("click", "#confirm", function(){
+  $(this).addClass("active").prop("disabled", true);
+  $(".dis-btn-jqtg").prop("disabled", false);
+});
+
+
+$("#targetModal").on("click", "#submit-dropModal", function(){
+  alert("clicked");
 });
