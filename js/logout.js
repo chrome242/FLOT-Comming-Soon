@@ -30,7 +30,6 @@ $("#targetModal").on("blur", "#password, #verify", function(){
     
     // if they both match:
     if (ver === pass) {
-      
       // test if the rest of the critera are met:
       var num = /(?=.*\d)/;
       var low = /(?=.*[a-z])/;
@@ -58,10 +57,10 @@ $("#targetModal").on("blur", "#password, #verify", function(){
         }
       }
       // for the user form -email
-      if ($("#email")) { // check to see if element exist
-        var etst = /^(([^<>()[]\.,;:s@"]+(.[^<>()[]\.,;:s@"]+)*)|(".+"))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
+      if ($("#email").length) { // check to see if element exist
+        var etst = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
         if ($("#email").val()) {
-          email = $("#emal").val();
+          email = $("#email").val();
           if (!etst.test(email)) {
             pass_all = false;
             $("#mal").addClass("fail-modal");
