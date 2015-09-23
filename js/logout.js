@@ -150,7 +150,7 @@ $("#targetModal").on("click", "#confirm", function(){
   $(".dis-btn-jqtg").prop("disabled", false);
 });
 
-
-$("#targetModal").on("click", "#submit-dropModal", function(){
+// to submit the modal to the ajax handler
+$("#targetModal").on("click", ":button[name='submit']", function(){
   alert("clicked");
 });
