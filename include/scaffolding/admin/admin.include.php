@@ -18,13 +18,24 @@ if(!isset($login)){
   }
 }
 
-if(($permissions = permissions_check($mysqli_sec)) && !isset($login)){
+echo"This is the top var Dump";
+echo"<pre>";
+var_dump($_SESSION);
+echo"</pre>";
+if(($permissions = permissions_check($_SESSION, $mysqli_sec)) && !isset($login)){
   // will add a local check here.
-  ;
+  echo "permissions:<pre>";
+  var_dump($permissions);
+  echo "<br>Session<br>";
+  var_dump($_SESSION);
+  echo"</pre>";
 } else {
   if(!isset($login)){ // prevents redirect loops
-  session_logout($_SESSION);
-  header('Location: /Login/?error=permissions_failure');
+  echo "<pre>Session<br>";
+  var_dump($_SESSION);
+  echo"</pre>";
+  //session_logout($_SESSION);
+  //header('Location: /Login/?error=permissions_failure');
   }
 }
 

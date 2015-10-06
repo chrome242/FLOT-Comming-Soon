@@ -192,18 +192,39 @@ function login_check($mysqli_sec) {
  * Checks that permission params are set. Returns the params if set, otherwise
  * returns false
  *
+ * @session the array to check
  * @param obj $mysqli_sec the mysql object
  *
  * @return mixed array if logged in, false otherwise.
  */
-function permissions_check($mysqli_sec){
-  if (isset($_SESSION['user_id'], $_SESSION['login_string'])){
-    $user_id = $_SESSION['user_id'];
-    if ($stmt = $mysqli_sec->prepare("SELECT user_group FROM members 
+function permissions_check($session, $mysqli_sec){
+  
+  // NUKE //
+  echo"This is the internal session check<pre>";
+  var_dump($session);
+  echo("User id:" . isset($session['user_id']));
+  echo("LoginString:" .isset($session['login_string']));
+  echo"</pre>";
+  // END NUKE //
+  
+  if (isset($session['user_id'], $session['login_string'])){
+    $user_id = $session['user_id'];
+    
+    // NUKE //
+    echo "inside of permssions check if 1";
+    // END NUKE
+    
+    if ($stmt = $mysqli_sec->prepare("SELECT user_groups FROM members 
                                       WHERE id = ? LIMIT 1")) {
+      
+        // NUKE //
+      echo " inside of permssions check if 2";
+      // END NUKE
+      
       $stmt->bind_param('i', $user_id);
       $stmt->execute();   // Execute the prepared query.
       $stmt->store_result();
+      
       
       if ($stmt->num_rows == 1){
        $stmt->bind_result($group);
@@ -219,7 +240,7 @@ function permissions_check($mysqli_sec){
                             $permissions['extras'], $permissions['food'],
                             $permissions['add_user'], $permissions['edit_user']);
         $stmt->fetch();
-          
+        echo "Have permissions";
         return $permissions;
 
        } else{
