@@ -55,7 +55,7 @@ function userEditModal($user_info, $admin_access, $locked, $mysqli_sec){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="submit-editModal" name="submit" data-dismiss="modal">Update</button>
+        <button type="button" class="btn btn-primary" id="submit-editModal" name="submit">Update</button>
       </div>
           ';
   

@@ -31,7 +31,7 @@ function userDropModal($user_info){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary dis-btn-jqtg" id="submit-dropModal" name="submit" data-dismiss="modal" disabled>Drop</button>
+        <button type="button" class="btn btn-primary dis-btn-jqtg" id="submit-dropModal" name="submit" disabled>Drop</button>
       </div>
           ';
   
