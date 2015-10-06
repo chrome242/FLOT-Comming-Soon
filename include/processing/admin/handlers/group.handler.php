@@ -56,7 +56,7 @@ $groups_disp = array( "Id" => array("id" => "id"),
                       "s6" => array("s6" => "plain"),
                       "s7" => array("s7" => "plain"),// call x7
                       "add" => array("add" => "button, large")
-                      );;
+                      );
 
 // ************************************************************************** //
 

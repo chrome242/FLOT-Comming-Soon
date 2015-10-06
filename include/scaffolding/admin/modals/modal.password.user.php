@@ -51,7 +51,7 @@ function userPasswordModal($user_info){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary dis-btn-jqtg" id="submit-passwordModal" name="submit" disabled>Update</button>
+        <button type="button" class="btn btn-primary dis-btn-jqtg" id="submit-passwordModal" name="submit" data-dismiss="modal" disabled>Update</button>
       </div>
           ';
   

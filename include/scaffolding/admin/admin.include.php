@@ -52,7 +52,8 @@ define("BEER_HANDLER", PROCESSING_HANDLERS."beer.inventory.handler.php"); // Bee
 define("WINE_BAR", PROCESSING_HANDLERS."wine.bar.handler.php"); // The Bar view of wines
 define("BEER_BAR", PROCESSING_HANDLERS."beer.bar.handler.php"); // The Bar view of Beers
 define("GROUP_HANDLER", PROCESSING_HANDLERS."group.handler.php"); // User Group View
-define("USER_MODAL_HANDLER", PROCESSING_MODALS."user.modals.php"); // User page modals
+define("USER_MODAL_INVOKER", PROCESSING_MODALS."user.modals.php"); // User page modals
+define("USER_HANDLER", PROCESSING_HANDLERS."user.handler.php");
 
 // Test files
 if (!ON_LINE){
